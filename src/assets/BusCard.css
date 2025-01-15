@@ -9,10 +9,10 @@
   justify-content: space-evenly;
   gap:10px;
 }
-img
+/* img
 {
   visibility: hidden;
-}
+} */
 .image
 {
   background-color: black;
