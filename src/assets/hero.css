@@ -152,15 +152,14 @@ background: linear-gradient(97deg, rgba(19,53,90,1) 0%, rgba(10,28,56,1) 52%, rg
       margin-left:60px;
       color:#f5f5f5;
     }
-    .image
-    {
-      position: relative;
-      image-rendering: pixelated;
-      img 
-      {
-        width:120%;
-      }
-    }
+    .image img {
+      width: 100%;
+      height: auto;
+      max-width: 500px; /* Ensure the image doesn't get overly large */
+      object-fit: contain; /* Keeps the image proportions */
+      border: 1px solid #ccc; /* Temporary for debugging */
+  }
+  
 }
 
 
