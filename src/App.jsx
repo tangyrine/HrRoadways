@@ -1,19 +1,35 @@
-import { useState } from 'react'
-import reactLogo from './assets/react.svg'
-import viteLogo from '/vite.svg'
-import Buscard from './components/BusCard'
-import Nav from './components/nav'
-import Hero from './components/hero'
-import script from './assets/script.js'
-function App() {
+import React from 'react';
+import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
+import Navigation from './components/nav';
+import Hero from './components/hero';
+import Available from './components/Available';
 
-  return (
-    <>
-      <Nav/>
-      <Hero/>
-      {/* <Buscard/> */}
-    </>
-  )
+function Home() {
+    return <p>Hero</p>;
 }
 
-export default App
+function Contact() {
+    return <h1>Contact Page</h1>;
+}
+
+function Donate() {
+    return <h1>Donate Page</h1>;
+}
+
+function Trip() {
+    return <h1>Trip Page</h1>;
+}
+
+function App() {
+    return (
+        <Router>
+            <Navigation />
+            <Routes>
+                <Route path='/' element={<Hero/>}></Route>
+                <Route path='/Available' element={<Available    />}></Route>
+            </Routes>
+        </Router>
+    );
+}
+
+export default App;
