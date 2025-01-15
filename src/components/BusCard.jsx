@@ -4,14 +4,14 @@ import { MdPinDrop } from "react-icons/md";
 import { TiFlag } from "react-icons/ti";
 import { FaLongArrowAltRight } from "react-icons/fa";
 
-import busImg from '../assets/hr bus.png'
+import busImg from '../assets/hr_bus.png'
 function BusCard() {
   return (
     <>
      <div className="card">
 
         <div className="image">
-        <img src={busImg} alt="Travel Image" className="image"/>
+        <img src={busImg} alt="Travel Image" className="image_tag"/>
         </div>{/* Image */}
 
         <div className="card-content">
@@ -19,15 +19,15 @@ function BusCard() {
             <p className="description">Have a safe journey with Haryana Roadways</p>
             <div className="info">
             <div>
-                <i class="fa-solid fa-map-pin"></i>
+                <i className="fa-solid fa-map-pin"></i>
                 <span>Dehadun</span>
-                
-                <i class="fa-solid fa-arrow-right"></i>
 
-                <i class="fa-solid fa-location-dot"></i>
+                <i className="fa-solid fa-arrow-right"></i>
+
+                <i className="fa-solid fa-location-dot"></i>
                 <span>Yamunanagar</span>
 
-                <i class="fa-solid fa-bolt"></i>
+                <i className="fa-solid fa-bolt"></i>
 
                 <span>Distance : </span>
                 200 km
@@ -50,7 +50,7 @@ function BusCard() {
             <div className='via'>
                 <i className="fas fa-map-marker-alt"></i>
                 <b>Via</b> - Route A
-                
+
             </div>
             </div>
         </div>{/* Content */}
