@@ -1,97 +1,140 @@
-    import React, { useState } from 'react'; // Import useState hook
-import '../assets/hero.css';
-import {Link} from 'react-router-dom';
-import Bus from '../assets/Bus.png';
-function Hero() {
-    // Step 1: Define a state to store form data
-    const [formData, setFormData] = useState({
-        src: '',
-        dest: '',
-    });
-    console.log(Bus);
-    // Step 2: Handle input changes and update the state
-    const handleChange = (event) => {
-        const { name, value } = event.target;
-        setFormData({
-            ...formData, // Keep existing data
-            [name]: value // Update the specific field
-        });
+import React from 'react';
+
+function AboutUs({ isHindi }) {
+    const translations = {
+        en: {
+            title: "About Us",
+            description: "Welcome to our website! We are a dedicated team focused on providing excellent services to our customers. Our mission is to deliver top-quality products and services that exceed expectations.",
+            missionTitle: "Our Mission",
+            missionDescription: "Our mission is to create innovative solutions that empower our customers. We aim to make a positive impact on the world by offering high-quality services, building trust, and fostering lasting relationships with our clients.",
+            teamTitle: "Meet Our Team",
+            team: [
+                { name: "John Doe", role: "CEO & Founder" },
+                { name: "Jane Smith", role: "Chief Marketing Officer" },
+                { name: "Robert Brown", role: "Lead Developer" },
+            ],
+        },
+        hi: {
+            title: "हमारे बारे में",
+            description: "हमारी वेबसाइट पर आपका स्वागत है! हम अपने ग्राहकों को उत्कृष्ट सेवाएं प्रदान करने पर केंद्रित एक समर्पित टीम हैं। हमारा मिशन शीर्ष गुणवत्ता वाले उत्पाद और सेवाएं प्रदान करना है जो अपेक्षाओं से अधिक हों।",
+            missionTitle: "हमारा मिशन",
+            missionDescription: "हमारा मिशन हमारे ग्राहकों को सशक्त बनाने के लिए नवीन समाधान बनाना है। हम उच्च गुणवत्ता वाली सेवाएं प्रदान करके, विश्वास बनाकर और अपने ग्राहकों के साथ स्थायी संबंध बनाकर दुनिया पर सकारात्मक प्रभाव डालने का लक्ष्य रखते हैं।",
+            teamTitle: "हमारी टीम से मिलें",
+            team: [
+                { name: "जॉन डो", role: "सीईओ और संस्थापक" },
+                { name: "जेन स्मिथ", role: "मुख्य विपणन अधिकारी" },
+                { name: "रॉबर्ट ब्राउन", role: "लीड डेवलपर" },
+            ],
+        },
     };
 
-    // Step 3: Handle form submission
-    const handleSubmit = (event) => {
-        event.preventDefault(); // Prevent page reload
-        console.log('Form Data:', formData); // Log data to console
-        alert('Search initiated! Check the console for details.');
+    const currentLanguage = isHindi ? translations.hi : translations.en;
+
+    const pageStyle = {
+        fontFamily: 'Arial, sans-serif',
+        padding: '20px',
+        color: 'white',
+        backgroundColor: '#1d2d44',
+        minHeight: '100vh',
+        marginTop: '50px',
     };
-    
+
+    const containerStyle = {
+        maxWidth: '1200px',
+        marginTop: '70px',
+        margin: '0 auto',
+        backgroundColor: '#1d2d44',
+        padding: '30px',
+        borderRadius: '8px',
+        boxShadow: '0px 4px 20px rgba(0, 0, 0, 0.6)',
+    };
+
+    const titleStyle = {
+        padding: '20px',
+        fontSize: '2.5rem',
+        textAlign: 'center',
+        color: '#EEEEEE',
+    };
+
+    const descriptionStyle = {
+        fontSize: '1.2rem',
+        lineHeight: '1.6',
+        marginTop: '20px',
+        textAlign: 'center',
+        color: 'white',
+    };
+
+    const sectionTitleStyle = {
+        fontSize: '2rem',
+        marginTop: '30px',
+        color: '#EEEEEE',
+    };
+
+    const missionDescriptionStyle = {
+        fontSize: '1.1rem',
+        lineHeight: '1.6',
+        color: 'white',
+        marginTop: '10px',
+    };
+
+    const teamMembersStyle = {
+        display: 'flex',
+        justifyContent: 'space-around',
+        marginTop: '40px',
+    };
+
+    const teamMemberStyle = {
+        textAlign: 'center',
+        padding: '40px',
+        backgroundColor: '#f7f7f7',
+        borderRadius: '8px',
+        boxShadow: '0 4px 10px rgba(0, 0, 0, 0.4)',
+        transition: 'transform 0.3s ease-in-out',
+    };
+
+    const teamImageStyle = {
+        width: '150px',
+        height: '150px',
+        borderRadius: '50%',
+        objectFit: 'cover',
+    };
+
+    const teamNameStyle = {
+        fontSize: '1.5rem',
+        color: '#333',
+        marginTop: '10px',
+    };
+
+    const teamRoleStyle = {
+        fontSize: '1rem',
+        color: '#777',
+        marginTop: '5px',
+    };
+
     return (
-        <div className="hero">
-            <div className="body">
-                {/* Left Section */}
-                <div className="left">
-                    <center>
-                        <p className="hea">Haryana Roadways Always Best</p>
-                    </center>
-                    <div className="form">
-                        <form onSubmit={handleSubmit} action='./Available.jsx'>
-                            <center>
-                                <p>Search All Haryana Buses</p>
-                            </center>
-                            <div className="input-group">
-                              <input
-                                  required
-                                  type="text"
-                                  name="src" // Matches the key in state
-                                  autoComplete="off"
-                                  className="input"
-                                  value={formData.src}
-                                  onChange={handleChange}
-                              />
-                              <label className="user-label">Departure Bus Stand</label>
-                          </div>
-                          <br></br>
-                          <div className="input-group">
-                              <input
-                                  required
-                                  type="text"
-                                  name="dest" // Matches the key in state
-                                  autoComplete="off"
-                                  className="input"
-                                  value={formData.dest}
-                                  onChange={handleChange}
-                              />
-                              <label className="user-label">Arrival Bus Stand</label>
-                          </div>
-
-                            <br />
-
-                            <br />
-                            <Link to='/Available'>
-                            <button type="submit" className="CartBtn">
-                                <span className="IconContainer">
-                                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64" width="18px" fill="white">
-                                        <path d="M6,28 C4.9,28 4,28.9 4,30 L4,50 C4,51.1 4.9,52 6,52 L58,52 C59.1,52 60,51.1 60,50 L60,30 C60,28.9 59.1,28 58,28 L6,28 Z M6,30 L58,30 L58,48 L6,48 L6,30 Z M9,46 L9,34 L55,34 L55,46 L9,46 Z M10,42 C10.55,42 11,42.45 11,43 C11,43.55 10.55,44 10,44 C9.45,44 9,43.55 9,43 C9,42.45 9.45,42 10,42 Z M54,42 C54.55,42 55,42.45 55,43 C55,43.55 54.55,44 54,44 C53.45,44 53,43.55 53,43 C53,42.45 53.45,42 54,42 Z" />
-                                    </svg>
-                                </span>
-                                <p className="text">Search Now</p>
-                            </button>
-                            </Link>
-
-                        </form>
-                    </div>
-                </div>
-
-                {/* Right Section */}
-                <div className="right">
-                    <p>"Plan Your Journey with Haryana Roadways"</p>
-                    <div className="image">
-                    <img src={Bus} alt="Bus" loading="lazy" />
-                    </div> 
+        <div style={pageStyle}>
+            <div style={containerStyle}>
+                <h1 style={titleStyle}>{currentLanguage.title}</h1>
+                <p style={descriptionStyle}>{currentLanguage.description}</p>
+                <h2 style={sectionTitleStyle}>{currentLanguage.missionTitle}</h2>
+                <p style={missionDescriptionStyle}>{currentLanguage.missionDescription}</p>
+                <h2 style={sectionTitleStyle}>{currentLanguage.teamTitle}</h2>
+                <div style={teamMembersStyle}>
+                    {currentLanguage.team.map((member, index) => (
+                        <div key={index} style={teamMemberStyle}>
+                            <img
+                                src={`team-member${index + 1}.jpg`}  // Replace with your actual image paths
+                                alt={`Team Member ${index + 1}`}
+                                style={teamImageStyle}
+                            />
+                            <h3 style={teamNameStyle}>{member.name}</h3>
+                            <p style={teamRoleStyle}>{member.role}</p>
+                        </div>
+                    ))}
                 </div>
             </div>
         </div>
     );
 }
 
-export default Hero;
+export default AboutUs;
