@@ -1,8 +1,33 @@
-# React + Vite
+<h1 align="center">HrRoadways</h1>
+<h4 align="center">
+  HrRoadways is a comprehensive project designed to provide users with an intuitive platform to check bus routes, timings, and real-time updates for government bus services.
+</h4>
+<h2 align="center">
+  <a href="https://hr-roadways.vercel.app/" target="_blank" rel="noopener noreferrer">Live Link</a>
+</h2>
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+## Tech Stack
+- React with Vite Framework
 
-Currently, two official plugins are available:
+## File Structure
+<pre>
+HrRoadways/
+├── Databases/
+│   └── State_Database/
+├── src/
+│   ├── components/
+│   └── assets/
+</pre>
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react/README.md) uses [Babel](https://babeljs.io/) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+## Getting Started
+1. Clone the repository:
+   ```bash
+   git clone https://github.com/NishantRana07/HrRoadways.git
+2. Navigate to the project directory and install dependencies:
+  ```
+    npm install
+  ```
+3. Run the development server to access the site locally: 
+  ```
+    npm run dev
+  ```
