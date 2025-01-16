@@ -3,6 +3,7 @@ import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
 import Navigation from './components/nav';
 import Hero from './components/hero';
 import Available from './components/Available';
+import AboutUs from './components/Aboutus'; // Import AboutUs component
 
 function Home() {
     return <p>Hero</p>;
@@ -25,8 +26,9 @@ function App() {
         <Router>
             <Navigation />
             <Routes>
-                <Route path='/' element={<Hero/>}></Route>
-                <Route path='/Available' element={<Available    />}></Route>
+                <Route path='/' element={<Hero />} />
+                <Route path='/Available' element={<Available />} />
+                <Route path='/about' element={<AboutUs />} /> 
             </Routes>
         </Router>
     );
