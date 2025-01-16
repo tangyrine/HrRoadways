@@ -5,6 +5,7 @@ import Hero from './components/hero';
 import Available from './components/Available';
 import AboutUs from './components/Aboutus'; 
 import Trip from './components/Trip';
+import Footer from './components/footer';
 
 function Home() {
     return <p>Hero</p>;
@@ -32,6 +33,7 @@ function App() {
                 
 
             </Routes>
+            <Footer/>
         </Router>
     );
 }

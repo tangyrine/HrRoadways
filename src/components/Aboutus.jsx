@@ -1,4 +1,4 @@
-import React from 'react';
+import React, {useEffect} from 'react';
 
 function AboutUs() {
     const pageStyle = {
@@ -86,6 +86,11 @@ function AboutUs() {
         color: '#777',
         marginTop: '5px',
     };
+
+
+    useEffect(() => {
+      window.scrollTo(0, 0);
+    }, []);
 
     return (
         <div style={pageStyle}>
