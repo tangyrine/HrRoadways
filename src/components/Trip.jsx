@@ -3,6 +3,35 @@ import "../assets/Trip.css";
 import Slider from "rc-slider";
 import "rc-slider/assets/index.css";
 
+// Translations object for UI text only
+const translations = {
+  en: {
+    filters: "Filters",
+    priceRange: "Price Range",
+    minRating: "Minimum Rating",
+    priceLabel: (price) => `₹${price}`,
+    ratingLabel: (rating) => `${rating} Stars`,
+    hotels: "Hotels",
+    noHotels: "No hotels match your criteria.",
+    perNight: "/ night",
+    rating: "Rating",
+    stars: "/ 5",
+  },
+  hi: {
+    filters: "फिल्टर",
+    priceRange: "मूल्य सीमा",
+    minRating: "न्यूनतम रेटिंग",
+    priceLabel: (price) => `₹${price}`,
+    ratingLabel: (rating) => `${rating} सितारे`,
+    hotels: "होटल",
+    noHotels: "आपके मानदंडों से मेल खाने वाले कोई होटल नहीं हैं।",
+    perNight: "/ रात",
+    rating: "रेटिंग",
+    stars: "/ 5",
+  },
+};
+
+// Original hotel data without translations
 const hotels = [
   {
     id: 1,
@@ -70,7 +99,8 @@ const hotels = [
   },
 ];
 
-function SidebarFilter({ filters, onFilterChange }) {
+// SidebarFilter component
+function SidebarFilter({ filters, onFilterChange, currentLanguage }) {
   const [priceRange, setPriceRange] = useState([500, 8000]);
   const [minRating, setMinRating] = useState(0);
 
@@ -86,9 +116,9 @@ function SidebarFilter({ filters, onFilterChange }) {
 
   return (
     <div className="sidebar-filter">
-      <h3>Filters</h3>
+      <h3>{currentLanguage.filters}</h3>
       <div className="filter-section">
-        <h4>Price Range</h4>
+        <h4>{currentLanguage.priceRange}</h4>
         <Slider
           range
           min={500}
@@ -99,12 +129,12 @@ function SidebarFilter({ filters, onFilterChange }) {
           className="slider"
         />
         <div className="range-labels">
-          <span>₹{priceRange[0]}</span>
-          <span>₹{priceRange[1]}</span>
+          <span>{currentLanguage.priceLabel(priceRange[0])}</span>
+          <span>{currentLanguage.priceLabel(priceRange[1])}</span>
         </div>
       </div>
       <div className="filter-section">
-        <h4>Minimum Rating</h4>
+        <h4>{currentLanguage.minRating}</h4>
         <Slider
           min={0}
           max={5}
@@ -114,28 +144,37 @@ function SidebarFilter({ filters, onFilterChange }) {
           className="slider"
         />
         <div className="range-labels">
-          <span>{minRating} Stars</span>
+          <span>{currentLanguage.ratingLabel(minRating)}</span>
         </div>
       </div>
     </div>
   );
 }
 
-function HotelCard({ hotel }) {
+// HotelCard component
+function HotelCard({ hotel, currentLanguage }) {
   return (
     <div className="hotel-card">
       <img src={hotel.image} alt={hotel.name} className="hotel-image" />
       <div className="hotel-details">
         <h3 className="hotel-name">{hotel.name}</h3>
         <p className="hotel-location">{hotel.location}</p>
-        <p className="hotel-price">${hotel.pricePerNight} / night</p>
-        <p className="hotel-rating">Rating: {hotel.rating} / 5</p>
+        <p className="hotel-price">
+          {currentLanguage.priceLabel(hotel.pricePerNight)}{" "}
+          {currentLanguage.perNight}
+        </p>
+        <p className="hotel-rating">
+          {currentLanguage.rating}: {hotel.rating} {currentLanguage.stars}
+        </p>
       </div>
     </div>
   );
 }
 
-function Trip() {
+// Trip component with language toggle
+function Trip({ isHindi }) {
+  const currentLanguage = isHindi ? translations.hi : translations.en;
+
   const [filters, setFilters] = useState({
     priceRange: [500, 8000],
     minRating: 0,
@@ -149,26 +188,32 @@ function Trip() {
     const matchesPrice =
       hotel.pricePerNight >= filters.priceRange[0] &&
       hotel.pricePerNight <= filters.priceRange[1];
-
     const matchesRating = hotel.rating >= filters.minRating;
-
     return matchesPrice && matchesRating;
   });
 
   return (
     <div className="trip-container">
       <div className="trip-sidebar">
-        <SidebarFilter filters={filters} onFilterChange={handleFilterChange} />
+        <SidebarFilter
+          filters={filters}
+          onFilterChange={handleFilterChange}
+          currentLanguage={currentLanguage}
+        />
       </div>
       <div className="trip-main">
-        <h2 className="trip-title">Hotels</h2>
+        <h2 className="trip-title">{currentLanguage.hotels}</h2>
         <div className="hotel-grid">
           {filteredHotels.length > 0 ? (
             filteredHotels.map((hotel) => (
-              <HotelCard key={hotel.id} hotel={hotel} />
+              <HotelCard
+                key={hotel.id}
+                hotel={hotel}
+                currentLanguage={currentLanguage}
+              />
             ))
           ) : (
-            <p>No hotels match your criteria.</p>
+            <p>{currentLanguage.noHotels}</p>
           )}
         </div>
       </div>

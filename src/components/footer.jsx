@@ -1,41 +1,84 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
 
-const Footer = () => {
+function Footer({ isHindi }) {
+  // Example translations for demonstration
+  const translations = {
+    en: {
+      company: "company",
+      aboutUs: "About us",
+      services: "our services",
+      privacy: "privacy policy",
+      affiliate: "affiliate program",
+      getHelp: "get help",
+      faq: "FAQ",
+      contactUs: "contact us",
+      busStatus: "Bus status",
+      paymentOptions: "payment options",
+      rides: "Rides",
+      trips: "Trips",
+      luxury: "Luxury destination",
+      visitCities: "Visit cities",
+      bestRides: "Best rides",
+      followUs: "follow us",
+    },
+    hi: {
+      company: "कंपनी",
+      aboutUs: "हमारे बारे में",
+      services: "हमारी सेवाएँ",
+      privacy: "गोपनीयता नीति",
+      affiliate: "सहबद्ध कार्यक्रम",
+      getHelp: "सहायता प्राप्त करें",
+      faq: "सामान्य प्रश्न",
+      contactUs: "संपर्क करें",
+      busStatus: "बस स्थिति",
+      paymentOptions: "भुगतान विकल्प",
+      rides: "सवारी",
+      trips: "यात्राएँ",
+      luxury: "लग्जरी गंतव्य",
+      visitCities: "शहरों की यात्रा करें",
+      bestRides: "सर्वश्रेष्ठ सवारी",
+      followUs: "हमें फॉलो करें",
+    },
+  };
+
+  // Decide which language to use
+  const t = isHindi ? translations.hi : translations.en;
+
   return (
     <>
       <footer className="footer">
         <div className="container">
           <div className="row">
             <div className="footer-col">
-              <h4>company</h4>
+              <h4>{t.company}</h4>
               <ul>
-                <li><Link to="/about ">About us</Link></li>
-                <li><a href="#">our services</a></li>
-                <li><a href="#">privacy policy</a></li>
-                <li><a href="#">affiliate program</a></li>
+                <li><Link to="/about">{t.aboutUs}</Link></li>
+                <li><a href="#">{t.services}</a></li>
+                <li><a href="#">{t.privacy}</a></li>
+                <li><a href="#">{t.affiliate}</a></li>
               </ul>
             </div>
             <div className="footer-col">
-              <h4>get help</h4>
+              <h4>{t.getHelp}</h4>
               <ul>
-                <li><a href="#">FAQ</a></li>
-                <li><a href="#">contact us</a></li>
-                <li><a href="#">Bus status</a></li>
-                <li><a href="#">payment options</a></li>
+                <li><a href="#">{t.faq}</a></li>
+                <li><a href="#">{t.contactUs}</a></li>
+                <li><a href="#">{t.busStatus}</a></li>
+                <li><a href="#">{t.paymentOptions}</a></li>
               </ul>
             </div>
             <div className="footer-col">
-              <h4> Rides </h4>
+              <h4>{t.rides}</h4>
               <ul>
-                <li><a href="#">Trips </a></li>
-                <li><a href="#">Luxary destination</a></li>
-                <li><a href="#">Visit cities</a></li>
-                <li><a href="#">Best rides</a></li>
+                <li><a href="#">{t.trips}</a></li>
+                <li><a href="#">{t.luxury}</a></li>
+                <li><a href="#">{t.visitCities}</a></li>
+                <li><a href="#">{t.bestRides}</a></li>
               </ul>
             </div>
             <div className="footer-col">
-              <h4>follow us</h4>
+              <h4>{t.followUs}</h4>
               <div className="social-links">
                 <a href="#"><i className="fab fa-facebook-f"></i></a>
                 <a href="#"><i className="fab fa-twitter"></i></a>
@@ -46,7 +89,7 @@ const Footer = () => {
           </div>
         </div>
       </footer>
-
+      
       <style>
         {`
           @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap');
@@ -146,6 +189,6 @@ const Footer = () => {
       </style>
     </>
   );
-};
+}
 
 export default Footer;
