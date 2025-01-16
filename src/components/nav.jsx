@@ -20,6 +20,7 @@ function Navigation() {
                         <li><Link to="/">Home</Link></li>
                         <li><Link to="/contact">Contact</Link></li>
                         <li><Link to="/donate">Donate</Link></li>
+                        <li><Link to="/about" style={{ textDecoration: 'none', color: 'white', fontSize: '15px' }}>About us</Link></li>
                         <li><Link to="/trip">Trip</Link></li>
                         <li className='lang'>
                             EN
