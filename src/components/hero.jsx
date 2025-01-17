@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import '../assets/hero.css';
-import Bus from '../assets/Bus.png';
+import BusImage from '../assets/Bus.png'; // Import the Bus image
 
 function Hero({ isHindi }) {
     const translations = {
@@ -87,7 +87,7 @@ function Hero({ isHindi }) {
                 <div className="right">
                     <p>{currentLanguage.quote}</p>
                     <div className="image">
-                        <img src={Bus} alt="Bus" loading="lazy" />
+                        <img src={BusImage} alt="Bus" />
                     </div>
                 </div>
             </div>
