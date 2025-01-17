@@ -1,7 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { Calendar, Clock, MapPin, Users, AlertCircle, Info, ArrowRight, Bus, Phone, Star, Shield } from 'lucide-react';
 
-// Custom Alert Component
 const CustomAlert = ({ type, children }) => (
   <div className={`p-4 rounded-lg flex items-center gap-3 ${
     type === 'warning' ? 'bg-amber-100 text-amber-700' : 'bg-blue-100 text-blue-700'
