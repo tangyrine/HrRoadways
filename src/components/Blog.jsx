@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-
+import '../assets/Blog.css';
 const Blog = () => {
   const [posts, setPosts] = useState([]);
   const [title, setTitle] = useState('');
