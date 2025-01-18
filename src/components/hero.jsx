@@ -3,7 +3,7 @@ import { Calendar, Clock, MapPin, Users, AlertCircle, Info, ArrowRight, Bus, Pho
 
 const CustomAlert = ({ type, children }) => (
   <div className={`p-4 rounded-lg flex items-center gap-3 ${
-    type === 'warning' ? 'bg-amber-100 text-amber-700' : 'bg-blue-100 text-blue-700'
+    type === 'warning' ? 'bg-orange-100 text-orange-700' : 'bg-blue-100 text-blue-700'
   }`}>
     {type === 'warning' ? 
       <AlertCircle className="w-5 h-5" /> : 
@@ -13,7 +13,7 @@ const CustomAlert = ({ type, children }) => (
 );
 
 const CustomCard = ({ children, className }) => (
-  <div className={`bg-white rounded-xl shadow-lg border border-amber-200 ${className}`}>
+  <div className={`bg-white rounded-xl shadow-lg border border-blue-200 ${className}`}>
     {children}
   </div>
 );
@@ -51,7 +51,7 @@ const Hero = ({ isHindi = false }) => {
 
   const translations = {
     en: {
-      heading: "Haryana Roadways - Aapki Apni Bus Service",
+      heading: "Haryana Roadways - Your Own Bus Service",
       subheading: "Your Journey, Our Pride | आपकी यात्रा, हमारा गौरव",
       departure: "From",
       arrival: "To",
@@ -101,26 +101,24 @@ const Hero = ({ isHindi = false }) => {
   };
 
   return (
-    <div className="min-h-screen bg-gradient-to-b from-amber-50 to-amber-100">
-      {/* Hero Banner */}
+    <div className="min-h-screen bg-gradient-to-b from-blue-50 to-blue-100">
       <div className="relative h-96">
-        <div className="absolute inset-0 bg-gradient-to-r from-amber-900/70 to-red-900/70" />
+        <div className="absolute inset-0 bg-gradient-to-r from-blue-900/70 to-blue-800/70" />
         <div className="relative container mx-auto px-4 h-full flex flex-col justify-center text-white">
-          <h1 className="text-5xl font-bold mb-4 text-amber-100">{currentLanguage.heading}</h1>
-          <p className="text-2xl text-amber-200">{currentLanguage.subheading}</p>
+          <h1 className="text-5xl font-bold mb-4">{currentLanguage.heading}</h1>
+          <p className="text-2xl text-blue-100">{currentLanguage.subheading}</p>
         </div>
       </div>
 
-      {/* Features Bar */}
-      <div className="bg-amber-900 text-white py-4 border-t border-amber-700">
+      <div className="bg-blue-900 text-white py-4 border-t border-blue-700">
         <div className="container mx-auto px-4">
           <div className="grid grid-cols-1 md:grid-cols-4 gap-4">
             {features.map((feature, index) => (
               <div key={index} className="flex items-center gap-3">
-                <feature.icon className="w-8 h-8 text-amber-300" />
+                <feature.icon className="w-8 h-8 text-blue-300" />
                 <div>
                   <div className="font-semibold">{feature.title}</div>
-                  <div className="text-sm text-amber-200">{feature.desc}</div>
+                  <div className="text-sm text-blue-200">{feature.desc}</div>
                 </div>
               </div>
             ))}
@@ -128,16 +126,13 @@ const Hero = ({ isHindi = false }) => {
         </div>
       </div>
 
-      {/* Main Content */}
       <div className="container mx-auto px-4 -mt-16 relative z-10">
         <div className="grid md:grid-cols-3 gap-8">
-          {/* Search Form */}
           <CustomCard className="md:col-span-2 p-6">
             <form className="space-y-6">
               <div className="grid md:grid-cols-2 gap-6">
-                {/* Source Input */}
                 <div className="relative">
-                  <label className="block text-sm font-medium mb-2 text-amber-900">
+                  <label className="block text-sm font-medium mb-2 text-blue-900">
                     <MapPin className="inline w-4 h-4 mr-1" />
                     {currentLanguage.departure}
                   </label>
@@ -146,15 +141,15 @@ const Hero = ({ isHindi = false }) => {
                     name="src"
                     value={formData.src}
                     onChange={handleChange}
-                    className="w-full p-3 border-2 border-amber-200 rounded-lg focus:ring-2 focus:ring-amber-200"
+                    className="w-full p-3 border-2 border-blue-200 rounded-lg focus:ring-2 focus:ring-blue-200"
                     placeholder={currentLanguage.searchPlaceholder}
                   />
                   {showSrcSuggestions && (
-                    <div className="absolute z-20 w-full bg-white border-2 border-amber-200 rounded-lg mt-1 shadow-lg">
+                    <div className="absolute z-20 w-full bg-white border-2 border-blue-200 rounded-lg mt-1 shadow-lg">
                       {filteredStands.map((stand) => (
                         <div
                           key={stand}
-                          className="p-3 hover:bg-amber-50 cursor-pointer"
+                          className="p-3 hover:bg-blue-50 cursor-pointer"
                         >
                           {stand}
                         </div>
@@ -172,8 +167,8 @@ const Hero = ({ isHindi = false }) => {
                         onClick={() => setSelectedBusType(type)}
                         className={`flex-1 p-3 rounded-lg border-2 transition ${
                           selectedBusType === type
-                            ? 'border-amber-500 bg-amber-50'
-                            : 'border-amber-200 hover:border-amber-300'
+                            ? 'border-blue-500 bg-blue-50'
+                            : 'border-blue-200 hover:border-blue-300'
                         }`}
                       >
                         <Bus className="w-5 h-5 mx-auto mb-2" />
@@ -185,7 +180,7 @@ const Hero = ({ isHindi = false }) => {
 
                 <button
                   type="submit"
-                  className="md:col-span-2 w-full bg-amber-800 text-white py-4 rounded-lg hover:bg-amber-900 transition font-semibold text-lg shadow-lg"
+                  className="md:col-span-2 w-full bg-blue-800 text-white py-4 rounded-lg hover:bg-blue-900 transition font-semibold text-lg shadow-lg"
                 >
                   {currentLanguage.button}
                 </button>
@@ -195,18 +190,18 @@ const Hero = ({ isHindi = false }) => {
 
           <div className="space-y-6">
             <CustomCard className="p-4">
-              <h3 className="font-semibold mb-4 text-amber-900 text-lg border-b border-amber-100 pb-2">
+              <h3 className="font-semibold mb-4 text-blue-900 text-lg border-b border-blue-100 pb-2">
                 {currentLanguage.popular}
               </h3>
               <div className="space-y-3">
                 {popularRoutes.map((route, index) => (
                   <div
                     key={index}
-                    className="p-3 hover:bg-amber-50 rounded-lg cursor-pointer transition border border-amber-100 hover:border-amber-300"
+                    className="p-3 hover:bg-blue-50 rounded-lg cursor-pointer transition border border-blue-100 hover:border-blue-300"
                   >
                     <div className="flex items-center justify-between mb-2">
                       <span className="font-medium">{route.src}</span>
-                      <ArrowRight className="w-4 h-4 text-amber-600" />
+                      <ArrowRight className="w-4 h-4 text-blue-600" />
                       <span className="font-medium">{route.dest}</span>
                     </div>
                     <div className="flex justify-between text-sm text-gray-600">
