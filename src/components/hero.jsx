@@ -104,7 +104,7 @@ const Hero = ({ isHindi = false }) => {
     <div className="min-h-screen bg-gradient-to-b from-blue-50 to-blue-100">
       <div className="relative h-96">
         <div className="absolute inset-0 bg-gradient-to-r from-blue-900/70 to-blue-800/70" />
-        <div className="relative container mx-auto px-4 h-full flex flex-col justify-center text-white">
+        <div className="relative container mx-auto px-4 h-full flex flex-col justify-center text-white text-center">
           <h1 className="text-5xl font-bold mb-4">{currentLanguage.heading}</h1>
           <p className="text-2xl text-blue-100">{currentLanguage.subheading}</p>
         </div>
@@ -112,9 +112,9 @@ const Hero = ({ isHindi = false }) => {
 
       <div className="bg-blue-900 text-white py-4 border-t border-blue-700">
         <div className="container mx-auto px-4">
-          <div className="grid grid-cols-1 md:grid-cols-4 gap-4">
+          <div className="grid grid-cols-1 md:grid-cols-4 gap-4 text-center">
             {features.map((feature, index) => (
-              <div key={index} className="flex items-center gap-3">
+              <div key={index} className="flex flex-col items-center gap-3">
                 <feature.icon className="w-8 h-8 text-blue-300" />
                 <div>
                   <div className="font-semibold">{feature.title}</div>
@@ -150,6 +150,10 @@ const Hero = ({ isHindi = false }) => {
                         <div
                           key={stand}
                           className="p-3 hover:bg-blue-50 cursor-pointer"
+                          onClick={() => {
+                            setFormData({ ...formData, src: stand });
+                            setShowSrcSuggestions(false);
+                          }}
                         >
                           {stand}
                         </div>
@@ -158,33 +162,77 @@ const Hero = ({ isHindi = false }) => {
                   )}
                 </div>
 
-                <div className="md:col-span-2">
-                  <div className="flex gap-4">
-                    {['all', 'volvo', 'superExpress', 'ordinary'].map((type) => (
-                      <button
-                        key={type}
-                        type="button"
-                        onClick={() => setSelectedBusType(type)}
-                        className={`flex-1 p-3 rounded-lg border-2 transition ${
-                          selectedBusType === type
-                            ? 'border-blue-500 bg-blue-50'
-                            : 'border-blue-200 hover:border-blue-300'
-                        }`}
-                      >
-                        <Bus className="w-5 h-5 mx-auto mb-2" />
-                        {currentLanguage[type]}
-                      </button>
-                    ))}
-                  </div>
+                <div className="relative">
+                  <label className="block text-sm font-medium mb-2 text-blue-900">
+                    <MapPin className="inline w-4 h-4 mr-1" />
+                    {currentLanguage.arrival}
+                  </label>
+                  <input
+                    type="text"
+                    name="dest"
+                    value={formData.dest}
+                    onChange={handleChange}
+                    className="w-full p-3 border-2 border-blue-200 rounded-lg focus:ring-2 focus:ring-blue-200"
+                    placeholder={currentLanguage.searchPlaceholder}
+                  />
                 </div>
 
-                <button
-                  type="submit"
-                  className="md:col-span-2 w-full bg-blue-800 text-white py-4 rounded-lg hover:bg-blue-900 transition font-semibold text-lg shadow-lg"
-                >
-                  {currentLanguage.button}
-                </button>
+                <div className="relative">
+                  <label className="block text-sm font-medium mb-2 text-blue-900">
+                    <Calendar className="inline w-4 h-4 mr-1" />
+                    Date
+                  </label>
+                  <input
+                    type="date"
+                    name="date"
+                    value={formData.date}
+                    onChange={handleChange}
+                    className="w-full p-3 border-2 border-blue-200 rounded-lg focus:ring-2 focus:ring-blue-200"
+                  />
+                </div>
+
+                <div className="relative">
+                  <label className="block text-sm font-medium mb-2 text-blue-900">
+                    <Users className="inline w-4 h-4 mr-1" />
+                    Passengers
+                  </label>
+                  <input
+                    type="number"
+                    name="passengers"
+                    value={formData.passengers}
+                    onChange={handleChange}
+                    className="w-full p-3 border-2 border-blue-200 rounded-lg focus:ring-2 focus:ring-blue-200"
+                    min="1"
+                  />
+                </div>
               </div>
+
+              <div className="md:col-span-2">
+                <div className="flex gap-4 flex-wrap">
+                  {['all', 'volvo', 'superExpress', 'ordinary'].map((type) => (
+                    <button
+                      key={type}
+                      type="button"
+                      onClick={() => setSelectedBusType(type)}
+                      className={`flex-1 p-3 rounded-lg border-2 transition ${
+                        selectedBusType === type
+                          ? 'border-blue-500 bg-blue-50'
+                          : 'border-blue-200 hover:border-blue-300'
+                      }`}
+                    >
+                      <Bus className="w-5 h-5 mx-auto mb-2" />
+                      {currentLanguage[type]}
+                    </button>
+                  ))}
+                </div>
+              </div>
+
+              <button
+                type="submit"
+                className="md:col-span-2 w-full bg-blue-800 text-white py-4 rounded-lg hover:bg-blue-900 transition font-semibold text-lg shadow-lg"
+              >
+                {currentLanguage.button}
+              </button>
             </form>
           </CustomCard>
 
