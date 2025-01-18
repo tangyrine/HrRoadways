@@ -6,7 +6,7 @@ import Available from './components/Available';
 import AboutUs from './components/Aboutus';
 import Trip from './components/Trip';
 import Footer from './components/footer';
-import Blog from './components/Blog'; // Pc529
+import Blog from './components/Blog';
 
 function Contact() {
     return <h1>Contact Page</h1>;
@@ -19,7 +19,7 @@ function Donate() {
 function App() {
     const [isHindi, setIsHindi] = useState(false);
     const [showBackToTop, setShowBackToTop] = useState(false);
-    const [hovered, setHovered] = useState(false); // Track hover state
+    const [hovered, setHovered] = useState(false);
 
     const handleToggleLanguage = () => setIsHindi(!isHindi);
 
@@ -53,7 +53,9 @@ function App() {
                 <Route path="/Available" element={<Available isHindi={isHindi} />} />
                 <Route path="/about" element={<AboutUs />} />
                 <Route path="/trip" element={<Trip isHindi={isHindi} />} />
-                <Route path="/blog" element={<Blog />} /> {/* P202a */}
+                <Route path="/blog" element={<Blog />} />
+                <Route path="/contact" element={<Contact />} />
+                <Route path="/donate" element={<Donate />} />
             </Routes>
 
             {/* Footer */}
@@ -63,13 +65,13 @@ function App() {
             {showBackToTop && (
                 <button
                     onClick={handleScrollToTop}
-                    onMouseEnter={() => setHovered(true)} // Set hover state
-                    onMouseLeave={() => setHovered(false)} // Reset hover state
+                    onMouseEnter={() => setHovered(true)}
+                    onMouseLeave={() => setHovered(false)}
                     style={{
                         position: 'fixed',
                         bottom: '20px',
                         right: '20px',
-                        backgroundColor: hovered ? '#555' : '#333', // Change color on hover
+                        backgroundColor: hovered ? '#555' : '#333',
                         color: '#fff',
                         padding: '10px 15px',
                         borderRadius: '5px',
@@ -77,7 +79,7 @@ function App() {
                         cursor: 'pointer',
                         zIndex: '1000',
                         border: 'none',
-                        transition: 'background-color 0.3s ease', // Smooth transition
+                        transition: 'background-color 0.3s ease',
                     }}
                 >
                     ↑
