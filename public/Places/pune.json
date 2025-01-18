@@ -1,0 +1,61 @@
+{
+    "location": "Pune",
+    "places": [
+        {
+            "name": "Shaniwar Wada",
+            "category": "Historical",
+            "description": "A historical fortification that was the seat of the Peshwas of the Maratha Empire.",
+            "latitude": "18.5200",
+            "longitude": "73.8560"
+        },
+        {
+            "name": "Aga Khan Palace",
+            "category": "Historical",
+            "description": "A palace and museum dedicated to Mahatma Gandhi and the Indian independence movement.",
+            "latitude": "18.5200",
+            "longitude": "73.8500"
+        },
+        {
+            "name": "Osho Ashram",
+            "category": "Religious",
+            "description": "A meditation center and spiritual retreat founded by Osho.",
+            "latitude": "18.5300",
+            "longitude": "73.8400"
+        },
+        {
+            "name": "Sinhagad Fort",
+            "category": "Historical",
+            "description": "A historic fort located on a hill, offering panoramic views of the surrounding area.",
+            "latitude": "18.4000",
+            "longitude": "73.8000"
+        },
+        {
+            "name": "Katraj Snake Park",
+            "category": "Nature",
+            "description": "A park and zoo dedicated to snakes and other reptiles.",
+            "latitude": "18.5200",
+            "longitude": "73.8500"
+        },
+        {
+            "name": "Lal Mahal Bus Stop",
+            "category": "Bus Stop",
+            "description": "A major bus terminal in Pune.",
+            "latitude": "18.5200",
+            "longitude": "73.8500"
+        },
+        {
+            "name": "Ganesh Nagar Bus Stop",
+            "category": "Bus Stop",
+            "description": "A bus terminal located in the Ganesh Nagar area of Pune.",
+            "latitude": "18.5300",
+            "longitude": "73.8400"
+        },
+        {
+            "name": "Shubham Mangal Karyalay Bus Stop",
+            "category": "Bus Stop",
+            "description": "A bus terminal located in the Lohegaon area of Pune.",
+            "latitude": "18.5400",
+            "longitude": "73.8300"
+        }
+    ]
+}

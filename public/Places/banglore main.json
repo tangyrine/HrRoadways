@@ -1,0 +1,61 @@
+{
+    "location": "Bangalore",
+    "places": [
+        {
+            "name": "Lalbagh Botanical Garden",
+            "category": "Garden",
+            "description": "A beautiful botanical garden with a variety of flora and historical monuments.",
+            "latitude": "12.9650",
+            "longitude": "77.5800"
+        },
+        {
+            "name": "Bangalore Palace",
+            "category": "Historical",
+            "description": "A grand palace built in 1878, inspired by England's Windsor Castle.",
+            "latitude": "12.9833",
+            "longitude": "77.5950"
+        },
+        {
+            "name": "Cubbon Park",
+            "category": "Park",
+            "description": "A lush green park in the heart of the city, perfect for a relaxing stroll.",
+            "latitude": "12.9833",
+            "longitude": "77.5950"
+        },
+        {
+            "name": "ISKCON Temple",
+            "category": "Religious",
+            "description": "A beautiful temple dedicated to Lord Krishna, known for its serene atmosphere.",
+            "latitude": "12.9700",
+            "longitude": "77.5800"
+        },
+        {
+            "name": "Bannerghatta National Park",
+            "category": "Nature",
+            "description": "A national park with a zoo, aquarium, and safari park, great for family outings.",
+            "latitude": "12.7410",
+            "longitude": "77.5910"
+        },
+        {
+            "name": "Vidhana Soudha",
+            "category": "Historical",
+            "description": "A magnificent legislative building known for its impressive architecture.",
+            "latitude": "12.9833",
+            "longitude": "77.5950"
+        },
+        {
+            "name": "MG Road Bus Stop",
+            "category": "Bus Stop",
+            "description": "A major bus terminal in the central business district of Bangalore.",
+            "latitude": "12.9833",
+            "longitude": "77.5950"
+        },
+        {
+            "name": "Majestic Bus Station",
+            "category": "Bus Stop",
+            "description": "One of the busiest bus terminals in Bangalore, connecting various parts of the city.",
+            "latitude": "12.9833",
+            "longitude": "77.5950"
+        }
+    ]
+}
