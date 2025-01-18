@@ -1,0 +1,89 @@
+{
+    "location": "Kolkata",
+    "places": [
+        {
+            "name": "Victoria Memorial",
+            "category": "Historical",
+            "description": "A grand marble building dedicated to Queen Victoria, now a museum.",
+            "latitude": "22.5200",
+            "longitude": "88.3490"
+        },
+        {
+            "name": "Howrah Bridge",
+            "category": "Historical",
+            "description": "A famous cantilever bridge over the Hooghly River, connecting Kolkata and Howrah.",
+            "latitude": "22.5800",
+            "longitude": "88.3500"
+        },
+        {
+            "name": "Indian Museum",
+            "category": "Museum",
+            "description": "One of the oldest museums in India, showcasing a vast collection of artifacts and exhibits.",
+            "latitude": "22.5400",
+            "longitude": "88.3500"
+        },
+        {
+            "name": "Marble Palace",
+            "category": "Historical",
+            "description": "A beautiful mansion with a collection of art and antiques.",
+            "latitude": "22.5400",
+            "longitude": "88.3500"
+        },
+        {
+            "name": "Belur Math",
+            "category": "Religious",
+            "description": "The headquarters of the Ramakrishna Math and Mission, known for its architectural beauty.",
+            "latitude": "22.6000",
+            "longitude": "88.3700"
+        },
+        {
+            "name": "Dakshineswar Kali Temple",
+            "category": "Religious",
+            "description": "A famous temple dedicated to Goddess Kali, located on the banks of the Hooghly River.",
+            "latitude": "22.6500",
+            "longitude": "88.3700"
+        },
+        {
+            "name": "Alipore Zoo",
+            "category": "Zoo",
+            "description": "One of the oldest zoos in India, home to a variety of animals and birds.",
+            "latitude": "22.5200",
+            "longitude": "88.3400"
+        },
+        {
+            "name": "Kalighat Kali Temple",
+            "category": "Religious",
+            "description": "A famous temple dedicated to Goddess Kali, located in the Kalighat area.",
+            "latitude": "22.5200",
+            "longitude": "88.3400"
+        },
+        {
+            "name": "Science City",
+            "category": "Science",
+            "description": "A large science park with interactive exhibits and educational displays.",
+            "latitude": "22.5200",
+            "longitude": "88.3500"
+        },
+        {
+            "name": "New Town Eco Park",
+            "category": "Park",
+            "description": "A large urban park with various recreational facilities and green spaces.",
+            "latitude": "22.6000",
+            "longitude": "88.3700"
+        },
+        {
+            "name": "NICCO Park",
+            "category": "Amusement",
+            "description": "A popular amusement park with thrilling rides and attractions for all ages.",
+            "latitude": "22.5200",
+            "longitude": "88.3500"
+        },
+        {
+            "name": "Esplanade Bus Stop",
+            "category": "Bus Stop",
+            "description": "A major bus terminal in central Kolkata.",
+            "latitude": "22.5400",
+            "longitude": "88.3500"
+        }
+    ]
+}

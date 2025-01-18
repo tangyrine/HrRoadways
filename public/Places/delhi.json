@@ -1,0 +1,61 @@
+{
+    "location": "Delhi",
+    "places": [
+        {
+            "name": "India Gate",
+            "category": "Historical",
+            "description": "A war memorial dedicated to the soldiers who died in World War I.",
+            "latitude": "28.6129",
+            "longitude": "77.2295"
+        },
+        {
+            "name": "Red Fort",
+            "category": "Historical",
+            "description": "A historic fort that served as the main residence of the Mughal emperors.",
+            "latitude": "28.6562",
+            "longitude": "77.2410"
+        },
+        {
+            "name": "Qutub Minar",
+            "category": "Historical",
+            "description": "A UNESCO World Heritage Site and the tallest brick minaret in the world.",
+            "latitude": "28.5244",
+            "longitude": "77.1855"
+        },
+        {
+            "name": "Lotus Temple",
+            "category": "Religious",
+            "description": "A Bahá'í House of Worship known for its distinctive lotus-shaped architecture.",
+            "latitude": "28.5535",
+            "longitude": "77.2588"
+        },
+        {
+            "name": "Humayun's Tomb",
+            "category": "Historical",
+            "description": "A UNESCO World Heritage Site and the tomb of the Mughal Emperor Humayun.",
+            "latitude": "28.5933",
+            "longitude": "77.2507"
+        },
+        {
+            "name": "Connaught Place",
+            "category": "Market",
+            "description": "A major commercial and financial hub, known for its Georgian-style architecture.",
+            "latitude": "28.6315",
+            "longitude": "77.2167"
+        },
+        {
+            "name": "Dilli Haat",
+            "category": "Market",
+            "description": "An open-air market offering a variety of handicrafts, food, and cultural performances.",
+            "latitude": "28.5672",
+            "longitude": "77.2115"
+        },
+        {
+            "name": "ISBT Kashmere Gate",
+            "category": "Bus Stop",
+            "description": "A major inter-state bus terminal in Delhi.",
+            "latitude": "28.6670",
+            "longitude": "77.2310"
+        }
+    ]
+}
