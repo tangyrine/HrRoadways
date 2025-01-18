@@ -151,7 +151,7 @@
         left: calc(.15 * var(--size));
         top: calc(.5 * var(--size));
         height: var(--size);
-        letter-spacing: calc(-0.04 * var(--size));
+        letter-spacing: calc(-0.04 * var (--size));
         color: #9b9b9b;
         font-family: "Times New Roman", serif;
         z-index: 2;
