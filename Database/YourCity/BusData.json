@@ -1,0 +1,24 @@
+[
+    {
+        "from": "City A",
+        "to": "City B",
+        "Departure_Time": "08:00 AM",
+        "Bus_Route": "City A to City B",
+        "Total_Distance": "100 KM",
+        "Price": "₹500",
+        "Bus_Type": "AC",
+        "Via": "City C, City D, City E",
+        "Contact": "1234567890"
+    },
+    {
+        "from": "City F",
+        "to": "City G",
+        "Departure_Time": "10:00 AM",
+        "Bus_Route": "City F to City G",
+        "Total_Distance": "150 KM",
+        "Price": "₹700",
+        "Bus_Type": "Non-AC",
+        "Via": "City H, City I, City J",
+        "Contact": "0987654321"
+    }
+]
