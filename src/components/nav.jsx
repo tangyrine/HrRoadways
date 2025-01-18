@@ -1,6 +1,8 @@
 import React, { useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
-import { Menu, X, ChevronDown, Phone, Globe2, Bus, Search } from 'lucide-react';
+import '../assets/nav.css';
+import Logo from '../assets/LogoHR.png'; // Import the project logo
+import { Menu, X, ChevronDown, Phone, Search } from 'lucide-react'; // Remove Bus import
 
 const Navigation = ({ isHindi, onToggleLanguage }) => {
   const [isScrolled, setIsScrolled] = useState(false);
@@ -20,6 +22,7 @@ const Navigation = ({ isHindi, onToggleLanguage }) => {
       pass: "Bus Pass",
       helpline: "24x7 Helpline",
       search: "Search Routes",
+      blog: "Blog", // Added Blog in English
       quickLinks: "Quick Links"
     },
     hi: {
@@ -34,6 +37,7 @@ const Navigation = ({ isHindi, onToggleLanguage }) => {
       pass: "बस पास",
       helpline: "24x7 हेल्पलाइन",
       search: "मार्ग खोजें",
+      blog: "ब्लॉग", // Added Blog in Hindi
       quickLinks: "त्वरित लिंक"
     }
   };
@@ -55,6 +59,10 @@ const Navigation = ({ isHindi, onToggleLanguage }) => {
     { title: currentLanguage.pass, path: '/pass' }
   ];
 
+  const toggleSidebar = () => {
+    setIsMobileMenuOpen(!isMobileMenuOpen);
+  };
+
   return (
     <>
       <div className="bg-blue-900 text-white py-2 hidden md:block">
@@ -70,21 +78,21 @@ const Navigation = ({ isHindi, onToggleLanguage }) => {
             </button>
           </div>
           <div className="flex items-center space-x-4">
-            <button className="hover:text-blue-200">{currentLanguage.quickLinks}</button>
-            <span className="text-blue-300">|</span>
-            <div className="flex items-center space-x-2">
-              <span className={isHindi ? 'opacity-50' : 'opacity-100'}>EN</span>
-              <div className="relative inline-block w-10 h-5">
-                <input
-                  type="checkbox"
-                  checked={isHindi}
-                  onChange={onToggleLanguage}
-                  className="sr-only peer"
-                />
-                <div className="w-10 h-5 bg-blue-700 rounded-full peer peer-checked:after:translate-x-full after:content-[''] after:absolute after:top-0.5 after:left-0.5 after:bg-white after:rounded-full after:h-4 after:w-4 after:transition-all peer-checked:bg-blue-500"></div>
+            <li className="lang">
+              EN
+              <div className="checkbox-wrapper-5">
+                <div className="check">
+                  <input 
+                    id="check-5" 
+                    type="checkbox" 
+                    checked={isHindi} 
+                    onChange={onToggleLanguage} 
+                  />
+                  <label htmlFor="check-5" />
+                </div>
               </div>
-              <span className={isHindi ? 'opacity-100' : 'opacity-50'}>HI</span>
-            </div>
+              HI
+            </li>
           </div>
         </div>
       </div>
@@ -93,7 +101,7 @@ const Navigation = ({ isHindi, onToggleLanguage }) => {
         <div className="container mx-auto px-4">
           <div className="flex justify-between items-center h-16">
             <Link to="/" className="flex items-center space-x-2">
-              <Bus className="w-8 h-8 text-blue-800" />
+              <img src={Logo} alt="Haryana Roadways Logo" className="w-8 h-8" />
               <span className="font-bold text-xl text-blue-900">Haryana Roadways</span>
             </Link>
 
@@ -130,6 +138,7 @@ const Navigation = ({ isHindi, onToggleLanguage }) => {
 
               <Link to="/trip" className="nav-link">{currentLanguage.trip}</Link>
               <Link to="/about" className="nav-link">{currentLanguage.about}</Link>
+              <Link to="/blog" className="nav-link">{currentLanguage.blog}</Link> {/* Added Blog Link */}
               <Link to="/contact" className="nav-link">{currentLanguage.contact}</Link>
               
               <button className="bg-blue-800 text-white px-4 py-2 rounded-lg hover:bg-blue-900 transition flex items-center">
@@ -140,50 +149,42 @@ const Navigation = ({ isHindi, onToggleLanguage }) => {
 
             <button 
               className="md:hidden text-blue-900"
-              onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
+              onClick={toggleSidebar}
             >
               {isMobileMenuOpen ? <X className="w-6 h-6" /> : <Menu className="w-6 h-6" />}
             </button>
           </div>
         </div>
+      </nav>
 
-        {isMobileMenuOpen && (
-          <div className="md:hidden bg-white border-t">
-            <div className="container mx-auto px-4 py-4 space-y-4">
-              <Link to="/" className="block py-2">{currentLanguage.home}</Link>
-              <div className="border-t pt-2">
-                <div className="font-medium mb-2">{currentLanguage.services}</div>
-                {servicesDropdown.map((item, index) => (
-                  <Link
-                    key={index}
-                    to={item.path}
-                    className="block py-2 pl-4 text-gray-600"
-                  >
-                    {item.title}
-                  </Link>
-                ))}
-              </div>
-              <Link to="/trip" className="block py-2">{currentLanguage.trip}</Link>
-              <Link to="/about" className="block py-2">{currentLanguage.about}</Link>
-              <Link to="/contact" className="block py-2">{currentLanguage.contact}</Link>
-              
-              <div className="flex items-center space-x-2 py-2 border-t">
-                <span>EN</span>
-                <div className="relative inline-block w-10 h-5">
-                  <input
-                    type="checkbox"
-                    checked={isHindi}
-                    onChange={onToggleLanguage}
-                    className="sr-only peer"
-                  />
-                  <div className="w-10 h-5 bg-blue-700 rounded-full peer peer-checked:after:translate-x-full after:content-[''] after:absolute after:top-0.5 after:left-0.5 after:bg-white after:rounded-full after:h-4 after:w-4 after:transition-all peer-checked:bg-blue-500"></div>
-                </div>
-                <span>HI</span>
+      <div className={`sidebar ${isMobileMenuOpen ? 'open' : ''}`}>
+        <button className="close-btn" onClick={toggleSidebar}>
+          &times;
+        </button>
+        <ul>
+          <li><Link to="/" onClick={toggleSidebar}>{currentLanguage.home}</Link></li>
+          <li><Link to="/contact" onClick={toggleSidebar}>{currentLanguage.contact}</Link></li>
+          <li><Link to="/donate" onClick={toggleSidebar}>{currentLanguage.donate}</Link></li>
+          <li><Link to="/about" onClick={toggleSidebar}>{currentLanguage.about}</Link></li>
+          <li><Link to="/trip" onClick={toggleSidebar}>{currentLanguage.trip}</Link></li>
+          <li><Link to="/blog" onClick={toggleSidebar}>{currentLanguage.blog}</Link></li> {/* Added Blog Link */}
+          <li className="lang">
+            EN
+            <div className="checkbox-wrapper-5">
+              <div className="check">
+                <input 
+                    id="check-5" 
+                    type="checkbox" 
+                    checked={isHindi} 
+                    onChange={onToggleLanguage} 
+                />
+                <label htmlFor="check-5" />
               </div>
             </div>
-          </div>
-        )}
-      </nav>
+            HI
+          </li>
+        </ul>
+      </div>
 
       <style>{`
         .nav-link {
@@ -211,6 +212,72 @@ const Navigation = ({ isHindi, onToggleLanguage }) => {
         
         .nav-link:hover:after {
           transform: scaleX(1);
+        }
+
+        .sidebar {
+          position: fixed;
+          top: 0;
+          right: 0;
+          width: 100%; /* Make sidebar full width on mobile screens */
+          height: 100%;
+          background-color: rgba(0, 0, 50, 0.9); /* Dark navy blue with slight transparency */
+          box-shadow: -2px 0 5px rgba(0, 0, 0, 0.1);
+          transform: translateX(100%);
+          transition: transform 0.3s;
+          z-index: 1001;
+          padding-top: 60px; /* To ensure it does not overlap with the nav bar */
+          color: white;
+        }
+        
+        .sidebar.open {
+          transform: translateX(0);
+        }
+        
+        .sidebar .close-btn {
+          font-size: 2rem;
+          background: none;
+          border: none;
+          cursor: pointer;
+          padding: 1rem;
+          text-align: center; /* Centering the close button */
+          width: 100%; /* Making the button take full width */
+        }
+        
+        .sidebar ul {
+          list-style: none;
+          padding: 0;
+        }
+        
+        .sidebar ul li {
+          padding: 1rem;
+          text-align: center;
+          border-bottom: 1px solid #eaeaea;
+        }
+        
+        .sidebar ul li a {
+          text-decoration: none;
+          color: white;
+          font-weight: 500;
+        }
+
+        /* Responsive Styles */
+        @media (max-width: 768px) {
+          .hamburger {
+            display: block;
+          }
+
+          .nav-links {
+            display: none;
+          }
+
+          .left img {
+            margin-left: 0; /* Remove left margin on smaller screens */
+          }
+
+          .right {
+            justify-content: space-between; /* Ensure proper alignment */
+            width: 100%;
+          }
         }
       `}</style>
     </>

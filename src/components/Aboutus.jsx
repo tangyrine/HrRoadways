@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 
 function AboutUs({ isHindi }) {
     const translations = {
@@ -28,7 +28,12 @@ function AboutUs({ isHindi }) {
         },
     };
 
-    const currentLanguage = isHindi ? translations.hi : translations.en;
+    const [currentLanguage, setCurrentLanguage] = useState(translations.en);
+
+    useEffect(() => {
+        console.log("Language toggled: ", isHindi ? "Hindi" : "English"); // Debugging step
+        setCurrentLanguage(isHindi ? translations.hi : translations.en);
+    }, [isHindi]);
 
     const pageStyle = {
         fontFamily: 'Arial, sans-serif',
@@ -36,13 +41,13 @@ function AboutUs({ isHindi }) {
         color: 'white',
         backgroundColor: '#1d2d44',
         minHeight: '100vh',
-        marginTop: '50px',
+        marginTop: '0', // Removed top margin
+        overflowX: 'hidden', // Prevent horizontal scrolling
     };
 
     const containerStyle = {
         maxWidth: '1200px',
-        marginTop: '70px',
-        margin: '0 auto',
+        margin: '70px auto 0 auto', // Adjusted margin
         backgroundColor: '#1d2d44',
         padding: '30px',
         borderRadius: '8px',
@@ -80,16 +85,19 @@ function AboutUs({ isHindi }) {
     const teamMembersStyle = {
         display: 'flex',
         justifyContent: 'space-around',
+        flexWrap: 'wrap', // Allow wrapping for responsiveness
         marginTop: '40px',
     };
 
     const teamMemberStyle = {
         textAlign: 'center',
-        padding: '40px',
+        padding: '20px',
         backgroundColor: '#f7f7f7',
         borderRadius: '8px',
         boxShadow: '0 4px 10px rgba(0, 0, 0, 0.4)',
         transition: 'transform 0.3s ease-in-out',
+        margin: '10px', // Add margin for spacing
+        flex: '1 1 250px', // Make the team members responsive
     };
 
     const teamImageStyle = {

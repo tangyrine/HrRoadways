@@ -51,7 +51,7 @@ function App() {
             <Routes>
                 <Route path="/" element={<Hero isHindi={isHindi} />} />
                 <Route path="/Available" element={<Available isHindi={isHindi} />} />
-                <Route path="/about" element={<AboutUs />} />
+                <Route path="/about" element={<AboutUs isHindi={isHindi} />} />
                 <Route path="/trip" element={<Trip isHindi={isHindi} />} />
                 <Route path="/blog" element={<Blog />} />
                 <Route path="/contact" element={<Contact />} />
