@@ -24,6 +24,7 @@ const Navigation = ({ isHindi, onToggleLanguage }) => {
       search: "Search Routes",
       blog: "Blog",
       quickLinks: "Quick Links",
+      travellocations: "Travel",
     },
     hi: {
       home: "मुख्य पृष्ठ",
@@ -39,6 +40,7 @@ const Navigation = ({ isHindi, onToggleLanguage }) => {
       search: "मार्ग खोजें",
       blog: "ब्लॉग",
       quickLinks: "त्वरित लिंक",
+      travellocations: "यात्रा",
     },
   };
 
@@ -141,15 +143,18 @@ const Navigation = ({ isHindi, onToggleLanguage }) => {
               <Link to="/trip" className="nav-link">
                 {currentLanguage.trip}
               </Link>
+              <Link to="/travellocations" className="nav-link">
+                {currentLanguage.travellocations}
+              </Link>
               <Link to="/about" className="nav-link">
                 {currentLanguage.about}
               </Link>
               <Link to="/blog" className="nav-link">
                 {currentLanguage.blog}
               </Link>
-              <Link to="/contact" className="nav-link">
+              {/* <Link to="/contact" className="nav-link">
                 {currentLanguage.contact}
-              </Link>
+              </Link> */}
               <Link to="/donate" className="nav-link">
                 {currentLanguage.donate}
               </Link>
@@ -177,11 +182,11 @@ const Navigation = ({ isHindi, onToggleLanguage }) => {
               {currentLanguage.home}
             </Link>
           </li>
-          <li>
+          {/* <li>
             <Link to="/contact" onClick={toggleSidebar}>
               {currentLanguage.contact}
             </Link>
-          </li>
+          </li> */}
           <li>
             <Link to="/donate" onClick={toggleSidebar}>
               {currentLanguage.donate}
@@ -195,6 +200,11 @@ const Navigation = ({ isHindi, onToggleLanguage }) => {
           <li>
             <Link to="/trip" onClick={toggleSidebar}>
               {currentLanguage.trip}
+            </Link>
+          </li>
+          <li>
+            <Link to="/travellocations" onClick={toggleSidebar}>
+                {currentLanguage.travellocations}
             </Link>
           </li>
           <li>
