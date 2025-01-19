@@ -24,7 +24,7 @@ const Navigation = ({ isHindi, onToggleLanguage }) => {
       search: "Search Routes",
       blog: "Blog",
       quickLinks: "Quick Links",
-      travellocations: "Travel Locations",
+      travellocations: "Travel",
     },
     hi: {
       home: "मुख्य पृष्ठ",
@@ -40,7 +40,7 @@ const Navigation = ({ isHindi, onToggleLanguage }) => {
       search: "मार्ग खोजें",
       blog: "ब्लॉग",
       quickLinks: "त्वरित लिंक",
-      travellocations: "यात्रा स्थल",
+      travellocations: "यात्रा",
     },
   };
 
@@ -152,9 +152,9 @@ const Navigation = ({ isHindi, onToggleLanguage }) => {
               <Link to="/blog" className="nav-link">
                 {currentLanguage.blog}
               </Link>
-              <Link to="/contact" className="nav-link">
+              {/* <Link to="/contact" className="nav-link">
                 {currentLanguage.contact}
-              </Link>
+              </Link> */}
               <Link to="/donate" className="nav-link">
                 {currentLanguage.donate}
               </Link>
