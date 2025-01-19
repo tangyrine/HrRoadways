@@ -78,17 +78,21 @@ const Navigation = ({ isHindi, onToggleLanguage }) => {
             </button>
           </div>
           <div className="flex items-center space-x-4">
-            <span className={isHindi ? 'opacity-50' : 'opacity-100'}>EN</span>
-            <div className="relative inline-block w-10 h-5">
-              <input
-                type="checkbox"
-                checked={isHindi}
-                onChange={onToggleLanguage}
-                className="sr-only peer"
-              />
-              <div className="w-10 h-5 bg-blue-700 rounded-full peer peer-checked:after:translate-x-full after:content-[''] after:absolute after:top-0.5 after:left-0.5 after:bg-white after:rounded-full after:h-4 after:w-4 after:transition-all peer-checked:bg-blue-500"></div>
-            </div>
-            <span className={isHindi ? 'opacity-100' : 'opacity-50'}>HI</span>
+            <li className="lang">
+              EN
+              <div className="checkbox-wrapper-5">
+                <div className="check">
+                  <input 
+                    id="check-5" 
+                    type="checkbox" 
+                    checked={isHindi} 
+                    onChange={onToggleLanguage} 
+                  />
+                  <label htmlFor="check-5" />
+                </div>
+              </div>
+              HI
+            </li>
           </div>
         </div>
       </div>
@@ -112,32 +116,26 @@ const Navigation = ({ isHindi, onToggleLanguage }) => {
                 {currentLanguage.home}
               </Link>
 
-              <div className="relative group">
-                <button
-                  className="nav-link flex items-center"
-                  onMouseEnter={() => setIsServicesOpen(true)}
-                  onMouseLeave={() => setIsServicesOpen(false)}
-                >
+              <div
+                className="relative group"
+                onMouseEnter={() => setIsServicesOpen(true)}
+                onMouseLeave={() => setIsServicesOpen(false)}
+              >
+                <button className="nav-link flex items-center">
                   {currentLanguage.services}
                   <ChevronDown className="w-4 h-4 ml-1" />
                 </button>
-                {isServicesOpen && (
-                  <div
-                    className="absolute top-full left-0 w-48 bg-white shadow-lg rounded-lg py-2 mt-1"
-                    onMouseEnter={() => setIsServicesOpen(true)}
-                    onMouseLeave={() => setIsServicesOpen(false)}
-                  >
-                    {servicesDropdown.map((item, index) => (
-                      <Link
-                        key={index}
-                        to={item.path}
-                        className="block px-4 py-2 text-gray-700 hover:bg-blue-50 hover:text-blue-800"
-                      >
-                        {item.title}
-                      </Link>
-                    ))}
-                  </div>
-                )}
+                <div className={`dropdown ${isServicesOpen ? 'show' : ''}`}>
+                  {servicesDropdown.map((item, index) => (
+                    <Link
+                      key={index}
+                      to={item.path}
+                      className="block px-4 py-2 text-gray-700 hover:bg-blue-50 hover:text-blue-800"
+                    >
+                      {item.title}
+                    </Link>
+                  ))}
+                </div>
               </div>
 
               <Link to="/trip" className="nav-link">
@@ -200,6 +198,21 @@ const Navigation = ({ isHindi, onToggleLanguage }) => {
             <Link to="/blog" onClick={toggleSidebar}>
               {currentLanguage.blog}
             </Link>
+          </li>
+          <li className="lang">
+            EN
+            <div className="checkbox-wrapper-5">
+              <div className="check">
+                <input 
+                    id="check-5" 
+                    type="checkbox" 
+                    checked={isHindi} 
+                    onChange={onToggleLanguage} 
+                />
+                <label htmlFor="check-5" />
+              </div>
+            </div>
+            HI
           </li>
         </ul>
       </div>
