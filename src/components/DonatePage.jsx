@@ -9,7 +9,7 @@ const DonatePage = () => {
                 <p>Your Journey, Our Pride</p>
             </header>
             <div className="donate-content">
-                <h2>Support Haryana Roadways</h2>
+                <h2>Support This Project </h2>
                 <p>Your donations help us improve our services and provide safe, reliable transportation for everyone.</p>
                 <form className="donate-form">
                     <label htmlFor="donationAmount">Donation Amount (INR):</label>
