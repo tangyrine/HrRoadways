@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import '../assets/Blog.css'; // Assuming you have a separate CSS file for styling
+import '../assets/Blog.css';
 
 const BlogPage = () => {
     const [posts, setPosts] = useState([

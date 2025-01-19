@@ -1,5 +1,5 @@
 import React from 'react';
-import '../assets/DonatePage.css'; // Assuming you have a separate CSS file for styling
+import '../assets/DonatePage.css';
 
 const DonatePage = () => {
     return (
