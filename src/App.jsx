@@ -7,13 +7,10 @@ import AboutUs from './components/Aboutus';
 import Trip from './components/Trip';
 import Footer from './components/footer';
 import Blog from './components/Blog';
+import DonatePage from './components/DonatePage';
 
 function Contact() {
     return <h1>Contact Page</h1>;
-}
-
-function Donate() {
-    return <h1>Donate Page</h1>;
 }
 
 function App() {
@@ -55,7 +52,7 @@ function App() {
                 <Route path="/trip" element={<Trip isHindi={isHindi} />} />
                 <Route path="/blog" element={<Blog />} />
                 <Route path="/contact" element={<Contact />} />
-                <Route path="/donate" element={<Donate />} />
+                <Route path="/donate" element={<DonatePage />} />
             </Routes>
 
             {/* Footer */}

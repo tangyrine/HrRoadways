@@ -82,11 +82,11 @@ const Navigation = ({ isHindi, onToggleLanguage }) => {
               EN
               <div className="checkbox-wrapper-5">
                 <div className="check">
-                  <input 
-                    id="check-5" 
-                    type="checkbox" 
-                    checked={isHindi} 
-                    onChange={onToggleLanguage} 
+                  <input
+                    id="check-5"
+                    type="checkbox"
+                    checked={isHindi}
+                    onChange={onToggleLanguage}
                   />
                   <label htmlFor="check-5" />
                 </div>
@@ -150,6 +150,9 @@ const Navigation = ({ isHindi, onToggleLanguage }) => {
               <Link to="/contact" className="nav-link">
                 {currentLanguage.contact}
               </Link>
+              <Link to="/donate" className="nav-link">
+                {currentLanguage.donate}
+              </Link>
 
               <button className="bg-blue-800 text-white px-4 py-2 rounded-lg hover:bg-blue-900 transition flex items-center">
                 <Phone className="w-4 h-4 mr-2" />
@@ -203,11 +206,11 @@ const Navigation = ({ isHindi, onToggleLanguage }) => {
             EN
             <div className="checkbox-wrapper-5">
               <div className="check">
-                <input 
-                    id="check-5" 
-                    type="checkbox" 
-                    checked={isHindi} 
-                    onChange={onToggleLanguage} 
+                <input
+                    id="check-5"
+                    type="checkbox"
+                    checked={isHindi}
+                    onChange={onToggleLanguage}
                 />
                 <label htmlFor="check-5" />
               </div>
