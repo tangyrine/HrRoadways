@@ -182,11 +182,11 @@ const Navigation = ({ isHindi, onToggleLanguage }) => {
               {currentLanguage.home}
             </Link>
           </li>
-          <li>
+          {/* <li>
             <Link to="/contact" onClick={toggleSidebar}>
               {currentLanguage.contact}
             </Link>
-          </li>
+          </li> */}
           <li>
             <Link to="/donate" onClick={toggleSidebar}>
               {currentLanguage.donate}
