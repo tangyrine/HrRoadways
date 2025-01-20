@@ -3,6 +3,8 @@ import { Link } from 'react-router-dom';
 import '../assets/nav.css';
 import Logo from '../assets/LogoHR.png'; // Import the project logo
 import { Menu, X, ChevronDown, Phone, Search } from 'lucide-react';
+import HelplinePage from './HelpLinepage';
+
 
 const Navigation = ({ isHindi, onToggleLanguage }) => {
   const [isScrolled, setIsScrolled] = useState(false);
@@ -159,9 +161,9 @@ const Navigation = ({ isHindi, onToggleLanguage }) => {
                 {currentLanguage.donate}
               </Link>
 
-              <button className="bg-blue-800 text-white px-4 py-2 rounded-lg hover:bg-blue-900 transition flex items-center">
+             <button className="bg-blue-800 text-white px-4 py-2 rounded-lg hover:bg-blue-900 transition flex items-center">
                 <Phone className="w-4 h-4 mr-2" />
-                {currentLanguage.helpline}
+                <Link to="/helpline" >{currentLanguage.helpline}</Link>
               </button>
             </div>
 

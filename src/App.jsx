@@ -9,7 +9,7 @@ import Footer from './components/footer';
 import Blog from './components/Blog';
 import DonatePage from './components/DonatePage';
 import TravelLocations from './components/TravelLocation';
-
+import HelplinePage from './components/HelpLinepage';
 function Contact() {
     return <h1>Contact Page</h1>;
 }
@@ -55,6 +55,8 @@ function App() {
                 <Route path="/contact" element={<Contact />} />
                 <Route path="/donate" element={<DonatePage />} />
                 <Route path="/travellocations" element={<TravelLocations />} />
+                <Route path="/helpline" element={<HelplinePage />} />
+
             </Routes>
 
             {/* Footer */}
