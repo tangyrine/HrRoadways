@@ -10,7 +10,7 @@ const HelplinePage = () => {
 
       <main className="max-w-4xl mx-auto px-4 py-8">
         {/* Contact Details Section */}
-        <section className="bg-blue-50 rounded-lg shadow-md p-6 mb-8">
+        <section className="bg-white hover:bg-blue-100 rounded-lg shadow-md p-6 mb-8">
           <h2 className="text-xl font-semibold text-blue-900">Contact Details</h2>
           <ul className="mt-4 space-y-3">
             <li>
