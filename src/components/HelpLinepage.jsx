@@ -57,14 +57,11 @@ const HelplinePage = () => {
           
           {/* Search Bar */}
           <div className="mt-8 relative max-w-2xl mx-auto">
-            <input
-              type="text"
-              placeholder="Search for help..."
-              className="w-full px-6 py-3 rounded-full text-gray-800 border-2 border-transparent focus:border-blue-400 outline-none transition-all duration-300 pl-12"
-              value={searchQuery}
-              onChange={(e) => setSearchQuery(e.target.value)}
-            />
-            <Search className="absolute left-4 top-3.5 text-gray-400" size={20} />
+          <input type="text" placeholder="Search for help..." className="w-full px-6 py-3 rounded-full text-gray-800 border-2 border-transparent focus:border-blue-400 outline-none transition-all duration-300 pl-12 bg-gray-100 hover:bg-gray-50 hover:shadow-md hover:border-blue-400 focus:shadow-blue-400" value={searchQuery} onChange={(e) =>setSearchQuery(e.target.value)}/>
+          <Search
+            className="absolute left-4 top-3.5 text-gray-400 transition-colors duration-300 hover:text-blue-500"
+            size={20}
+          />
           </div>
         </div>
       </header>
