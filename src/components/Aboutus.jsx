@@ -1,163 +1,159 @@
 import React, { useEffect, useState } from 'react';
+import { MapPin, Award, Star, Heart } from 'lucide-react';
 
 function AboutUs({ isHindi }) {
     const translations = {
         en: {
             title: "About Us",
-            description: "Welcome to our website! We are a dedicated team focused on providing excellent services to our customers. Our mission is to deliver top-quality products and services that exceed expectations.",
+            description: "Welcome to Haryana Tourism! We are passionate about showcasing the rich cultural heritage and natural beauty of Haryana. Our team is dedicated to promoting authentic Haryanvi experiences and traditional values.",
             missionTitle: "Our Mission",
-            missionDescription: "Our mission is to create innovative solutions that empower our customers. We aim to make a positive impact on the world by offering high-quality services, building trust, and fostering lasting relationships with our clients.",
+            missionDescription: "Our mission is to preserve and promote the vibrant culture of Haryana while providing exceptional tourism experiences. We strive to showcase our state's rich heritage, from ancient battlegrounds to modern cities.",
+            valuesTitle: "Our Cultural Values",
+            values: [
+                { title: "Hospitality", description: "Embodying the spirit of 'Atithi Devo Bhava'" },
+                { title: "Heritage", description: "Preserving our rich Haryanvi traditions" },
+                { title: "Community", description: "Supporting local artisans and culture" },
+                { title: "Excellence", description: "Delivering authentic experiences" }
+            ],
+            culturalHighlights: "Cultural Highlights",
+            culturalEvents: [
+                { name: "Geeta Jayanti", date: "December", location: "Kurukshetra" },
+                { name: "Surajkund Mela", date: "February", location: "Faridabad" },
+                { name: "Haryana Day", date: "November 1st", location: "Statewide" }
+            ],
             teamTitle: "Meet Our Team",
             team: [
-                { name: "Nishant Rana", role: "CEO & Founder" },
-                { name: "Amaan Syed", role: "Lead Developer" },
-                { name: "Sanjeevani", role: "Chief Marketing Officer" },
+                { name: "Nishant Rana", role: "CEO & Founder", expertise: "Cultural Heritage Expert" },
+                { name: "Amaan Syed", role: "Lead Developer", expertise: "Digital Innovation" },
+                { name: "Sanjeevani", role: "Chief Marketing Officer", expertise: "Tourism Development" }
             ],
+            achievements: "Our Achievements",
+            achievementsList: [
+                "Best Tourism Initiative Award 2024",
+                "Cultural Preservation Excellence",
+                "Digital Innovation in Tourism"
+            ]
         },
         hi: {
             title: "हमारे बारे में",
-            description: "हमारी वेबसाइट पर आपका स्वागत है! हम अपने ग्राहकों को उत्कृष्ट सेवाएं प्रदान करने पर केंद्रित एक समर्पित टीम हैं। हमारा मिशन शीर्ष गुणवत्ता वाले उत्पाद और सेवाएं प्रदान करना है जो अपेक्षाओं से अधिक हों।",
+            description: "हरियाणा पर्यटन में आपका स्वागत है! हम हरियाणा की समृद्ध सांस्कृतिक विरासत और प्राकृतिक सौंदर्य को प्रदर्शित करने के लिए उत्साहित हैं। हमारी टीम प्रामाणिक हरियाणवी अनुभवों और पारंपरिक मूल्यों को बढ़ावा देने के लिए समर्पित है।",
             missionTitle: "हमारा मिशन",
-            missionDescription: "हमारा मिशन हमारे ग्राहकों को सशक्त बनाने के लिए नवीन समाधान बनाना है। हम उच्च गुणवत्ता वाली सेवाएं प्रदान करके, विश्वास बनाकर और अपने ग्राहकों के साथ स्थायी संबंध बनाकर दुनिया पर सकारात्मक प्रभाव डालने का लक्ष्य रखते हैं।",
+            missionDescription: "हमारा मिशन असाधारण पर्यटन अनुभव प्रदान करते हुए हरियाणा की जीवंत संस्कृति को संरक्षित और बढ़ावा देना है। हम प्राचीन युद्धभूमि से लेकर आधुनिक शहरों तक अपने राज्य की समृद्ध विरासत को प्रदर्शित करने का प्रयास करते हैं।",
+            valuesTitle: "हमारे सांस्कृतिक मूल्य",
+            values: [
+                { title: "आतिथ्य", description: "'अतिथि देवो भव' की भावना को साकार करना" },
+                { title: "विरासत", description: "हमारी समृद्ध हरियाणवी परंपराओं का संरक्षण" },
+                { title: "समुदाय", description: "स्थानीय कलाकारों और संस्कृति का समर्थन" },
+                { title: "उत्कृष्टता", description: "प्रामाणिक अनुभव प्रदान करना" }
+            ],
+            culturalHighlights: "सांस्कृतिक विशेषताएं",
+            culturalEvents: [
+                { name: "गीता जयंती", date: "दिसंबर", location: "कुरुक्षेत्र" },
+                { name: "सूरजकुंड मेला", date: "फरवरी", location: "फरीदाबाद" },
+                { name: "हरियाणा दिवस", date: "1 नवंबर", location: "पूरे राज्य में" }
+            ],
             teamTitle: "हमारी टीम से मिलें",
             team: [
-                { name: "निशांत राणा", role: "CEO & Founder" },
-                { name: "अमान सैयद", role: "Lead Developer" },
-                { name: "संजीवनी", role: "Chief Marketing Officer" },
+                { name: "निशांत राणा", role: "CEO और संस्थापक", expertise: "सांस्कृतिक विरासत विशेषज्ञ" },
+                { name: "अमान सैयद", role: "लीड डेवलपर", expertise: "डिजिटल नवाचार" },
+                { name: "संजीवनी", role: "मुख्य विपणन अधिकारी", expertise: "पर्यटन विकास" }
+            ],
+            achievements: "हमारी उपलब्धियां",
+            achievementsList: [
+                "सर्वश्रेष्ठ पर्यटन पहल पुरस्कार 2024",
+                "सांस्कृतिक संरक्षण उत्कृष्टता",
+                "पर्यटन में डिजिटल नवाचार"
             ]
-        },
-    };
-    const [currentLanguage, setCurrentLanguage] = useState(translations.en);
-
-    useEffect(() => {
-        console.log("Language toggled: ", isHindi ? "Hindi" : "English"); // Debugging step
-        setCurrentLanguage(isHindi ? translations.hi : translations.en);
-    }, [isHindi]);
-
-    const pageStyle = {
-        fontFamily: 'Arial, sans-serif',
-        padding: '20px',
-        color: 'white',
-        backgroundColor: '#1d2d44',
-        minHeight: '100vh',
-        marginTop: '0', // Removed top margin
-        overflowX: 'hidden', // Prevent horizontal scrolling
+        }
     };
 
-    const containerStyle = {
-        maxWidth: '1200px',
-        margin: '70px auto 0 auto', // Adjusted margin
-        backgroundColor: '#1d2d44',
-        padding: '30px',
-        borderRadius: '8px',
-        boxShadow: '0px 4px 20px rgba(0, 0, 0, 0.6)',
-    };
+        const [currentLanguage, setCurrentLanguage] = useState(translations.en);
+        const [activeEvent, setActiveEvent] = useState(null);
 
-    const titleStyle = {
-        padding: '20px',
-        fontSize: '2.5rem',
-        textAlign: 'center',
-        color: '#EEEEEE',
-    };
+        useEffect(() => {
+            setCurrentLanguage(isHindi ? translations.hi : translations.en);
+        }, [isHindi]);
 
-    const descriptionStyle = {
-        fontSize: '1.2rem',
-        lineHeight: '1.6',
-        marginTop: '20px',
-        textAlign: 'center',
-        color: 'white',
-    };
+        return (
+            <div className="min-h-screen bg-gradient-to-b from-indigo-900 to-blue-900 text-white py-20">
+                <div className="max-w-6xl mx-auto px-4">
+                    {/* Hero Section */}
+                    <div className="text-center mb-16">
+                        <h1 className="text-5xl font-bold mb-6">{currentLanguage.title}</h1>
+                        <p className="text-xl leading-relaxed">{currentLanguage.description}</p>
+                    </div>
 
-    const sectionTitleStyle = {
-        fontSize: '2rem',
-        marginTop: '30px',
-        color: '#EEEEEE',
-    };
+                    {/* Values Section */}
+                    <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8 mb-16">
+                        {currentLanguage.values.map((value, index) => (
+                            <div key={index} className="bg-white/10 p-6 rounded-lg backdrop-blur-sm hover:transform hover:scale-105 transition-transform">
+                                <h3 className="text-xl font-bold mb-3">{value.title}</h3>
+                                <p className="text-gray-200">{value.description}</p>
+                            </div>
+                        ))}
+                    </div>
 
-    const missionDescriptionStyle = {
-        fontSize: '1.1rem',
-        lineHeight: '1.6',
-        color: 'white',
-        marginTop: '10px',
-    };
-
-    const teamMembersStyle = {
-        display: 'flex',
-        justifyContent: 'space-around',
-        flexWrap: 'wrap', // Allow wrapping for responsiveness
-        marginTop: '40px',
-    };
-
-    const teamMemberStyle = {
-        display: 'flex', // Add flexbox to the team member container
-        flexDirection: 'column', // Stack content vertically
-        alignItems: 'center', // Center-align all items
-        justifyContent: 'center', // Center-align all items
-        textAlign: 'center',
-        padding: '20px',
-        backgroundColor: '#f7f7f7',
-        borderRadius: '8px',
-        boxShadow: '0 4px 10px rgba(0, 0, 0, 0.4)',
-        transition: 'transform 0.3s ease-in-out',
-        margin: '10px',
-        flex: '1 1 250px', // Make the team members responsive
-    };
-    
-
-    const teamImageStyle = {
-        width: '150px',
-        height: '150px',
-        borderRadius: '50%',
-        objectFit: 'cover', // Ensures the image fits within the boundaries
-        objectPosition: 'center', // Keeps the focus in the center of the image
-        boxSizing: 'border-box', // Ensures padding and borders don't affect the dimensions
-        overflow: 'hidden', // Ensures content outside boundaries is hidden
-    };
-    
-
-    const teamNameStyle = {
-        fontSize: '1.5rem',
-        color: '#333',
-        marginTop: '10px',
-    };
-
-    const teamRoleStyle = {
-        fontSize: '1rem',
-        color: '#777',
-        marginTop: '5px',
-    };
-
-    return (
-        <div style={pageStyle}>
-            <div style={containerStyle}>
-                <h1 style={titleStyle}>{currentLanguage.title}</h1>
-                <p style={descriptionStyle}>{currentLanguage.description}</p>
-                <h2 style={sectionTitleStyle}>{currentLanguage.missionTitle}</h2>
-                <p style={missionDescriptionStyle}>{currentLanguage.missionDescription}</p>
-                <h2 style={sectionTitleStyle}>{currentLanguage.teamTitle}</h2>
-                <div style={teamMembersStyle}>
-                    {currentLanguage.team.map((member, index) => (
-                        <div key={index} style={teamMemberStyle}>
-                            <img
-                                src={`/src/assets/team-member${index + 1}.png`}  // Replace with your actual image paths
-                                alt={`Team Member ${index + 1}`}
-                                style={{
-                                    width: '150px',
-                                    height: '150px',
-                                    borderRadius: '50%',
-                                    objectFit: index === 2 ? 'contain' : 'cover', // Use 'contain' for the third image
-                                    objectPosition: 'center', // Keep the image centered
-                                    backgroundColor: '#ffffff', // Optional: fill gaps for 'contain'
-                                }}
-                            />
-                            <h3 style={teamNameStyle}>{member.name}</h3>
-                            <p style={teamRoleStyle}>{member.role}</p>
+                    {/* Cultural Events Section */}
+                    <div className="mb-16">
+                        <h2 className="text-3xl font-bold mb-8 text-center">{currentLanguage.culturalHighlights}</h2>
+                        <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
+                            {currentLanguage.culturalEvents.map((event, index) => (
+                                <div
+                                    key={index}
+                                    className="bg-white/5 p-6 rounded-lg cursor-pointer hover:bg-white/10 transition-all"
+                                    onMouseEnter={() => setActiveEvent(index)}
+                                    onMouseLeave={() => setActiveEvent(null)}
+                                >
+                                    <div className="flex items-center mb-4">
+                                        <MapPin className="w-5 h-5 mr-2 text-yellow-400" />
+                                        <h3 className="text-xl font-bold">{event.name}</h3>
+                                    </div>
+                                    <p className="text-gray-300 mb-2">{event.date}</p>
+                                    <p className="text-gray-300">{event.location}</p>
+                                    {activeEvent === index && (
+                                        <div className="mt-4 text-sm text-gray-300 animate-fadeIn">
+                                            Click to learn more about this event
+                                        </div>
+                                    )}
+                                </div>
+                            ))}
                         </div>
-                    ))}
+                    </div>
+
+                    {/* Team Section */}
+                    <div className="mb-16">
+                        <h2 className="text-3xl font-bold mb-8 text-center">{currentLanguage.teamTitle}</h2>
+                        <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
+                            {currentLanguage.team.map((member, index) => (
+                                <div key={index} className="bg-white/5 p-6 rounded-lg text-center hover:transform hover:scale-105 transition-transform">
+                                    <img
+                                        src={`/src/assets/team-member${index + 1}.png`}
+                                        alt={member.name}
+                                        className="w-32 h-32 rounded-full mx-auto mb-4 object-cover"
+                                    />
+                                    <h3 className="text-xl font-bold mb-2">{member.name}</h3>
+                                    <p className="text-yellow-400 mb-2">{member.role}</p>
+                                    <p className="text-gray-300 text-sm">{member.expertise}</p>
+                                </div>
+                            ))}
+                        </div>
+                    </div>
+
+                    {/* Achievements Section */}
+                    <div className="bg-white/5 p-8 rounded-lg">
+                        <h2 className="text-3xl font-bold mb-8 text-center">{currentLanguage.achievements}</h2>
+                        <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
+                            {currentLanguage.achievementsList.map((achievement, index) => (
+                                <div key={index} className="flex items-center">
+                                    <Award className="w-6 h-6 text-yellow-400 mr-3 flex-shrink-0" />
+                                    <p className="text-gray-200">{achievement}</p>
+                                </div>
+                            ))}
+                        </div>
+                    </div>
                 </div>
             </div>
-        </div>
-    );
-}
+        );
+    }
 
-export default AboutUs;
+    export default AboutUs;
