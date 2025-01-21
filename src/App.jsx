@@ -6,6 +6,7 @@ import Available from './components/Available';
 import AboutUs from './components/Aboutus';
 import Trip from './components/Trip';
 import Footer from './components/footer';
+import FAQ from './components/faq';
 import Blog from './components/Blog';
 import DonatePage from './components/DonatePage';
 import TravelLocations from './components/TravelLocation';
@@ -59,6 +60,7 @@ function App() {
                 <Route path="/donate" element={<DonatePage />} />
                 <Route path="/travellocations" element={<TravelLocations />} />
                 <Route path="/helpline" element={<HelplinePage />} />
+                <Route path="/faq" element={<FAQ />} />
 
             </Routes>
 
