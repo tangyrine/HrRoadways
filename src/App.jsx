@@ -11,8 +11,6 @@ import DonatePage from './components/DonatePage';
 import TravelLocations from './components/TravelLocation';
 import HelplinePage from './components/HelpLinepage';
 
-
-
 function Contact() {
     return <h1>Contact Page</h1>;
 }
