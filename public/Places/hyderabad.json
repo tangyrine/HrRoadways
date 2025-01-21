@@ -1,0 +1,61 @@
+{
+    "location": "Hyderabad",
+    "places": [
+        {
+            "name": "Charminar",
+            "category": "Historical",
+            "description": "A grand monument with four towering minarets, built in 1591 by Muhammad Quli Qutb Shah.",
+            "latitude": "17.3605",
+            "longitude": "78.4743"
+        },
+        {
+            "name": "Golconda Fort",
+            "category": "Historical",
+            "description": "A historic fort known for its impressive architecture and acoustic system.",
+            "latitude": "17.3850",
+            "longitude": "78.4670"
+        },
+        {
+            "name": "Salar Jung Museum",
+            "category": "Museum",
+            "description": "One of the largest museums in India, housing a vast collection of art and artifacts.",
+            "latitude": "17.3667",
+            "longitude": "78.4767"
+        },
+        {
+            "name": "Birla Mandir",
+            "category": "Religious",
+            "description": "A beautiful temple dedicated to Lord Venkateswara, built with white marble.",
+            "latitude": "17.3850",
+            "longitude": "78.4740"
+        },
+        {
+            "name": "Lumbini Park",
+            "category": "Park",
+            "description": "A beautiful park along the Hussain Sagar lake, known for its musical fountain show.",
+            "latitude": "17.3850",
+            "longitude": "78.4760"
+        },
+        {
+            "name": "Ramoji Film City",
+            "category": "Entertainment",
+            "description": "One of the largest film studios in the world, offering various entertainment activities.",
+            "latitude": "17.3500",
+            "longitude": "78.4500"
+        },
+        {
+            "name": "ISBT Uppal Bus Stop",
+            "category": "Bus Stop",
+            "description": "A major inter-state bus terminal in Hyderabad.",
+            "latitude": "17.3500",
+            "longitude": "78.4500"
+        },
+        {
+            "name": "Gandhi Bhavan",
+            "category": "Historical",
+            "description": "A museum dedicated to Mahatma Gandhi, showcasing his life and works.",
+            "latitude": "17.3850",
+            "longitude": "78.4760"
+        }
+    ]
+}

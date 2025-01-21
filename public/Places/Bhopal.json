@@ -1,0 +1,67 @@
+[
+    {
+    "location": "Bhopal",
+    "places": [
+        {
+            "name": "Habibganj-Isbt Bus stand",
+            "category": "Bus Stop",
+            "description": "-",
+            "latitude": "23.2285° N",
+            "longitude": "77.4423° E"
+        }
+    ]
+},
+
+{
+    "location": "Bhopal",
+    "places": [
+        {
+            "name": "Aashima Mall ",
+            "category": "Shopping Mall",
+            "description": "-",
+            "latitude": "23.1828° N",
+            "longitude": "77.4563° E"
+        }
+    ]
+},
+
+{
+    "location": "Bhopal",
+    "places": [
+        {
+            "name": "Nadra Bus Stand",
+            "category": "Bus Stop",
+            "description": "-",
+            "latitude": "23.2656° N",
+            "longitude": "77.4053° E"
+        }
+    ]
+},
+
+{
+    "location": "Bhopal",
+    "places": [
+        {
+            "name": "Lal Ghati",
+            "category": "Locality",
+            "description": "-",
+            "latitude": "23.2811° N",
+            "longitude": " 77.3605° E"
+        }
+    ]
+},
+
+{
+    "location": "Bhopal",
+    "places": [
+        {
+            "name": "Karond",
+            "category": "Locaality",
+            "description": "-",
+            "latitude": "23.2951° N",
+            "longitude": "77.4037° E"
+        }
+    ]
+}
+
+]
