@@ -10,7 +10,6 @@ import Blog from './components/Blog';
 import DonatePage from './components/DonatePage';
 import TravelLocations from './components/TravelLocation';
 import HelplinePage from './components/HelpLinepage';
-import 'font-awesome/css/font-awesome.min.css';
 
 
 

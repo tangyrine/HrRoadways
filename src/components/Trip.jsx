@@ -291,4 +291,4 @@ const Trip = ({ isHindi }) => {
   );
 };
 
-export default Trip;
+export default Trip; 
