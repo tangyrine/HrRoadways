@@ -62,7 +62,8 @@ function Footer({ isHindi }) {
             <div className="footer-col">
               <h4>{t.getHelp}</h4>
               <ul>
-                <li><a href="#">{t.faq}</a></li>
+                <li><Link to="/faq">{t.faq}</Link></li>
+                <li><a href="#">{t.contactUs}</a></li>
                 <li><a href="#">{t.contactUs}</a></li>
                 <li><a href="#">{t.busStatus}</a></li>
                 <li><a href="#">{t.paymentOptions}</a></li>
