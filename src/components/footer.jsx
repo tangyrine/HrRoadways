@@ -56,7 +56,7 @@ function Footer({ isHindi }) {
               <ul>
                 <li><Link to="/about">{t.aboutUs}</Link></li>
                 <li><a href="/under-construction">{t.services}</a></li>
-                <li><a href="/under-construction">{t.privacy}</a></li>
+                <li><a href="/policy">{t.privacy}</a></li>
                 <li><a href="/under-construction">{t.affiliate}</a></li>
               </ul>
             </div>
