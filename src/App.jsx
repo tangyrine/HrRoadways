@@ -12,6 +12,8 @@ import DonatePage from './components/DonatePage';
 import TravelLocations from './components/TravelLocation';
 import HelplinePage from './components/HelpLinepage';
 import Schedule from './components/Schedule';
+import Policy from './components/InfoPage'
+import UnderConstruction from './components/UnderConstruction'
 
 function Contact() {
     return <h1>Contact Page</h1>;
@@ -54,6 +56,8 @@ function App() {
                 <Route path="/Available" element={<Available isHindi={isHindi} />} />
                 <Route path="/about" element={<AboutUs isHindi={isHindi} />} />
                 <Route path="/trip" element={<Trip isHindi={isHindi} />} />
+                <Route path="/policy" element={<Policy isHindi={isHindi} />} />
+                <Route path="/under-construction" element={<UnderConstruction isHindi={isHindi} />} />
                 <Route path="/blog" element={<Blog />} />
                 <Route path="/schedule" element={<Schedule />} />
                 <Route path="/contact" element={<Contact />} />
