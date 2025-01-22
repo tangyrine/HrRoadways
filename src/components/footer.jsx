@@ -55,27 +55,27 @@ function Footer({ isHindi }) {
               <h4>{t.company}</h4>
               <ul>
                 <li><Link to="/about">{t.aboutUs}</Link></li>
-                <li><a href="/under-construction">{t.services}</a></li>
-                <li><a href="/policy">{t.privacy}</a></li>
-                <li><a href="/under-construction">{t.affiliate}</a></li>
+                <li><Link to="/under-construction">{t.services}</Link></li>
+                <li><Link to="/policy">{t.privacy}</Link></li>
+                <li><Link to="/under-construction">{t.affiliate}</Link></li>
               </ul>
             </div>
             <div className="footer-col">
               <h4>{t.getHelp}</h4>
               <ul>
-                <li><a href="/faq">{t.faq}</a></li>
-                <li><a href="/under-construction">{t.contactUs}</a></li>
-                <li><a href="/under-construction">{t.busStatus}</a></li>
-                <li><a href="/nder-construction">{t.paymentOptions}</a></li>
+                <li><Link to="/faq">{t.faq}</Link></li>
+                <li><Link to="/under-construction">{t.contactUs}</Link></li>
+                <li><Link to="/under-construction">{t.busStatus}</Link></li>
+                <li><Link to="/under-construction">{t.paymentOptions}</Link></li>
               </ul>
             </div>
             <div className="footer-col">
               <h4>{t.rides}</h4>
               <ul>
-                <li><a href="/trip">{t.trips}</a></li>
-                <li><a href="/under-construction">{t.luxury}</a></li>
-                <li><a href="/travellocations">{t.visitCities}</a></li>
-                <li><a href="/under-construction">{t.bestRides}</a></li>
+                <li><Link to="/trip">{t.trips}</Link></li>
+                <li><Link to="/under-construction">{t.luxury}</Link></li>
+                <li><Link to="/travellocations">{t.visitCities}</Link></li>
+                <li><Link to="/under-construction">{t.bestRides}</Link></li>
               </ul>
             </div>
             <div className="footer-col">
