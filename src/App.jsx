@@ -12,6 +12,7 @@ import DonatePage from './components/DonatePage';
 import TravelLocations from './components/TravelLocation';
 import HelplinePage from './components/HelpLinepage';
 import Schedule from './components/Schedule';
+import BusTracker from './components/Track';
 
 function Contact() {
     return <h1>Contact Page</h1>;
@@ -55,6 +56,7 @@ function App() {
                 <Route path="/about" element={<AboutUs isHindi={isHindi} />} />
                 <Route path="/trip" element={<Trip isHindi={isHindi} />} />
                 <Route path="/blog" element={<Blog />} />
+                <Route path="/track" element={<BusTracker />} />
                 <Route path="/schedule" element={<Schedule />} />
                 <Route path="/contact" element={<Contact />} />
                 <Route path="/donate" element={<DonatePage />} />
