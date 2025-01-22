@@ -38,7 +38,7 @@ const Schedule = ({ isHindi = false }) => {
     const fetchBusData = async () => {
       try {
         setLoading(true);
-        const response = await fetch('/Databases/haryana.json');
+        const response = await fetch('../Databases/Haryana.json');
         if (!response.ok) {
           throw new Error('Failed to fetch bus schedule data');
         }
