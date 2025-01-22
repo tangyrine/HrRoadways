@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { Bus, Clock, MapPin, Phone, RotateCw, Users } from 'lucide-react';
+import { motion, AnimatePresence } from 'framer-motion';
 
 const translations = {
   en: {
@@ -30,7 +31,7 @@ const translations = {
     refreshing: "स्थान ताजगी कर रहे हैं...",
     busInfo: {
       route: "रूट",
-      speed: "वर्तमान गति",
+      speed: "वर्तमान गति", 
       nextStop: "अगला स्टॉप",
       eta: "ETA",
       passengers: "यात्री",
@@ -41,204 +42,274 @@ const translations = {
     minutes: "मिनट"
   }
 };
-
 const mockBusData = [
-  {
-    id: "HR-01-1234",
-    routeNumber: "Delhi-Chandigarh Express",
-    currentLocation: [28.7041, 77.1025],
-    route: [
-      [28.7041, 77.1025],
-      [29.1042, 77.3124],
-      [30.3752, 76.7821]
-    ],
-    speed: 65,
-    nextStop: "Panipat",
-    eta: 25,
-    passengers: 32,
-    capacity: 50,
-    driver: "Rajesh Kumar",
-    contact: "+91 98765-43210",
-    status: "On Time"
-  },
-  {
-    id: "HR-02-5678",
-    routeNumber: "Gurgaon-Sonipat Express",
-    currentLocation: [28.4595, 77.0266],
-    route: [
-      [28.4595, 77.0266],
-      [28.6139, 77.2090],
-      [28.9931, 77.0151]
-    ],
-    speed: 55,
-    nextStop: "Rohini",
-    eta: 15,
-    passengers: 28,
-    capacity: 45,
-    driver: "Amit Singh",
-    contact: "+91 98765-43211",
-    status: "Delayed"
-  }
-];
+    {
+      id: "HR-01-1234",
+      routeNumber: "Delhi-Chandigarh Express",
+      currentLocation: [28.7041, 77.1025],
+      route: [
+        [28.7041, 77.1025],
+        [29.1042, 77.3124],
+        [30.3752, 76.7821]
+      ],
+      speed: 65,
+      nextStop: "Panipat",
+      eta: 25,
+      passengers: 32,
+      capacity: 50,
+      driver: "Rajesh Kumar",
+      contact: "+91 98765-43210",
+      status: "On Time"
+    },
+    {
+      id: "HR-02-5678",
+      routeNumber: "Gurgaon-Sonipat Express",
+      currentLocation: [28.4595, 77.0266],
+      route: [
+        [28.4595, 77.0266],
+        [28.6139, 77.2090],
+        [28.9931, 77.0151]
+      ],
+      speed: 55,
+      nextStop: "Rohini",
+      eta: 15,
+      passengers: 28,
+      capacity: 45,
+      driver: "Amit Singh",
+      contact: "+91 98765-43211",
+      status: "Delayed"
+    }
+  ];
 
 const BusListItem = ({ bus, onClick, isSelected }) => (
-  <div
+  <motion.div
+    layout
+    initial={{ opacity: 0, y: 20 }}
+    animate={{ opacity: 1, y: 0 }}
+    exit={{ opacity: 0, y: -20 }}
+    whileHover={{ scale: 1.02 }}
     onClick={() => onClick(bus)}
-    className="bg-white border rounded-lg p-4 cursor-pointer transition-all hover:bg-gray-50 mb-2"
+    className="bg-white rounded-lg p-4 cursor-pointer transition-all mb-4 shadow-lg hover:shadow-xl"
     style={{
-      borderColor: isSelected ? '#3b82f6' : '#e5e7eb',
-      backgroundColor: isSelected ? '#eff6ff' : 'white'
+      borderLeft: isSelected ? '4px solid #3b82f6' : '4px solid transparent',
     }}
   >
     <div className="flex justify-between items-start">
       <div>
         <div className="flex items-center gap-2">
-          <Bus color="#2563eb" size={20} />
-          <span className="font-semibold">{bus.routeNumber}</span>
+          <motion.div
+            animate={{ rotate: isSelected ? 360 : 0 }}
+            transition={{ duration: 0.5 }}
+          >
+            <Bus color="#3b82f6" size={24} />
+          </motion.div>
+          <span className="font-bold text-lg">{bus.routeNumber}</span>
         </div>
-        <div className="text-sm text-gray-600 mt-1">{bus.id}</div>
+        <div className="text-gray-600 mt-1">{bus.id}</div>
       </div>
-      <div 
-        className="px-2 py-1 rounded text-sm"
+      <motion.div 
+        whileHover={{ scale: 1.1 }}
+        className="px-3 py-1 rounded-full text-sm font-semibold"
         style={{
           backgroundColor: bus.status === 'On Time' ? '#dcfce7' : '#fef9c3',
           color: bus.status === 'On Time' ? '#166534' : '#854d0e'
         }}
       >
         {bus.status}
-      </div>
+      </motion.div>
     </div>
 
-    <div className="mt-3 grid grid-cols-2 gap-2 text-sm">
-      <div className="flex items-center gap-1">
-        <MapPin size={14} color="#9ca3af" />
-        <span>{bus.nextStop}</span>
-      </div>
-      <div className="flex items-center gap-1">
-        <Clock size={14} color="#9ca3af" />
-        <span>ETA: {bus.eta} min</span>
-      </div>
-      <div className="flex items-center gap-1">
-        <Users size={14} color="#9ca3af" />
-        <span>{bus.passengers}/{bus.capacity}</span>
-      </div>
+    <div className="mt-4 grid grid-cols-3 gap-4">
+      <motion.div whileHover={{ y: -2 }} className="flex flex-col items-center p-2 bg-gray-50 rounded">
+        <MapPin size={16} color="#3b82f6" />
+        <span className="text-sm mt-1">{bus.nextStop}</span>
+      </motion.div>
+      <motion.div whileHover={{ y: -2 }} className="flex flex-col items-center p-2 bg-gray-50 rounded">
+        <Clock size={16} color="#3b82f6" />
+        <span className="text-sm mt-1">{bus.eta} min</span>
+      </motion.div>
+      <motion.div whileHover={{ y: -2 }} className="flex flex-col items-center p-2 bg-gray-50 rounded">
+        <Users size={16} color="#3b82f6" />
+        <span className="text-sm mt-1">{bus.passengers}/{bus.capacity}</span>
+      </motion.div>
     </div>
-  </div>
+  </motion.div>
 );
 
 const BusDetails = ({ bus, language }) => (
-  <div className="bg-white rounded-lg shadow-lg p-4 mt-6">
-    <h3 className="text-lg font-semibold mb-4">{bus.routeNumber}</h3>
-    <div className="grid grid-cols-2 gap-4">
-      <div>
-        <label className="text-sm text-gray-600">{language.busInfo.speed}</label>
-        <p className="font-semibold">{bus.speed} {language.kmh}</p>
+  <motion.div
+    initial={{ opacity: 0, height: 0 }}
+    animate={{ opacity: 1, height: 'auto' }}
+    exit={{ opacity: 0, height: 0 }}
+    className="bg-white rounded-lg shadow-xl p-6 mt-6 overflow-hidden"
+  >
+    <motion.div
+      initial={{ y: 20, opacity: 0 }}
+      animate={{ y: 0, opacity: 1 }}
+      transition={{ delay: 0.2 }}
+    >
+      <h3 className="text-2xl font-bold mb-6 text-blue-600">{bus.routeNumber}</h3>
+      <div className="grid grid-cols-2 gap-6">
+        <InfoCard
+          icon={<Clock size={20} />}
+          label={language.busInfo.speed}
+          value={`${bus.speed} ${language.kmh}`}
+        />
+        <InfoCard
+          icon={<MapPin size={20} />}
+          label={language.busInfo.nextStop}
+          value={bus.nextStop}
+        />
+        <InfoCard
+          icon={<Clock size={20} />}
+          label={language.busInfo.eta}
+          value={`${bus.eta} ${language.minutes}`}
+        />
+        <InfoCard
+          icon={<Users size={20} />}
+          label={language.busInfo.passengers}
+          value={`${bus.passengers}/${bus.capacity}`}
+        />
       </div>
-      <div>
-        <label className="text-sm text-gray-600">{language.busInfo.nextStop}</label>
-        <p className="font-semibold">{bus.nextStop}</p>
+      <div className="mt-6 pt-6 border-t border-gray-100">
+        <div className="space-y-4">
+          <div className="flex items-center gap-4">
+            <div className="w-10 h-10 rounded-full bg-blue-100 flex items-center justify-center">
+              <Users size={20} color="#3b82f6" />
+            </div>
+            <div>
+              <div className="text-sm text-gray-600">{language.busInfo.driver}</div>
+              <div className="font-semibold">{bus.driver}</div>
+            </div>
+          </div>
+          <div className="flex items-center gap-4">
+            <div className="w-10 h-10 rounded-full bg-blue-100 flex items-center justify-center">
+              <Phone size={20} color="#3b82f6" />
+            </div>
+            <div>
+              <div className="text-sm text-gray-600">{language.busInfo.contact}</div>
+              <div className="font-semibold">{bus.contact}</div>
+            </div>
+          </div>
+        </div>
       </div>
-      <div>
-        <label className="text-sm text-gray-600">{language.busInfo.eta}</label>
-        <p className="font-semibold">{bus.eta} {language.minutes}</p>
-      </div>
-      <div>
-        <label className="text-sm text-gray-600">{language.busInfo.passengers}</label>
-        <p className="font-semibold">{bus.passengers}/{bus.capacity}</p>
-      </div>
+    </motion.div>
+  </motion.div>
+);
+
+const InfoCard = ({ icon, label, value }) => (
+  <motion.div
+    whileHover={{ scale: 1.02 }}
+    className="bg-gray-50 p-4 rounded-lg"
+  >
+    <div className="flex items-center gap-2 text-blue-600 mb-2">
+      {icon}
+      <span className="text-sm">{label}</span>
     </div>
-    <div className="mt-4 pt-4 border-t">
-      <div className="mb-2">
-        <label className="text-sm text-gray-600">{language.busInfo.driver}</label>
-        <p className="font-semibold">{bus.driver}</p>
-      </div>
-      <div>
-        <label className="text-sm text-gray-600">{language.busInfo.contact}</label>
-        <p className="font-semibold flex items-center gap-2">
-          <Phone size={16} color="#2563eb" />
-          {bus.contact}
-        </p>
-      </div>
-    </div>
-  </div>
+    <div className="font-semibold text-lg">{value}</div>
+  </motion.div>
+);
+
+const LoadingSpinner = () => (
+  <motion.div
+    animate={{ rotate: 360 }}
+    transition={{ duration: 1, repeat: Infinity, ease: "linear" }}
+    className="w-12 h-12 border-4 border-blue-200 border-t-blue-600 rounded-full"
+  />
 );
 
 const BusTracker = ({ isHindi = false }) => {
-    const [activeBuses, setActiveBuses] = useState([]);
-    const [selectedBus, setSelectedBus] = useState(null);
-    const [loading, setLoading] = useState(true);
-    const [lastUpdate, setLastUpdate] = useState(new Date());
+  const [activeBuses, setActiveBuses] = useState([]);
+  const [selectedBus, setSelectedBus] = useState(null);
+  const [loading, setLoading] = useState(true);
+  const [lastUpdate, setLastUpdate] = useState(new Date());
 
-    const currentLanguage = isHindi ? translations.hi : translations.en;
+  const currentLanguage = isHindi ? translations.hi : translations.en;
 
-    useEffect(() => {
-      const fetchBusLocations = async () => {
-        try {
-          setLoading(true);
-          // Simulate API call with mock data
-          setActiveBuses(mockBusData);
-          setLastUpdate(new Date());
-        } catch (error) {
-          console.error("Error fetching bus locations:", error);
-        } finally {
-          setLoading(false);
-        }
-      };
+  useEffect(() => {
+    const fetchBusLocations = async () => {
+      setLoading(true);
+      await new Promise(resolve => setTimeout(resolve, 1000));
+      setActiveBuses(mockBusData);
+      setLastUpdate(new Date());
+      setLoading(false);
+    };
 
-      fetchBusLocations();
-      const interval = setInterval(fetchBusLocations, 30000);
-      return () => clearInterval(interval);
-    }, []);
+    fetchBusLocations();
+    const interval = setInterval(fetchBusLocations, 30000);
+    return () => clearInterval(interval);
+  }, []);
 
-    if (typeof window === 'undefined') {
-      return null;
-    }
+  if (typeof window === 'undefined') return null;
 
-    if (loading && activeBuses.length === 0) {
-      return (
-        <div className="flex items-center justify-center min-h-screen">
-          <div className="text-center">
-            <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-blue-600 mb-4"></div>
-            <p className="text-gray-600">{currentLanguage.loading}</p>
-          </div>
-        </div>
-      );
-    }
-
-    return (
-      <div className="max-w-7xl mx-auto px-4 py-8">
-        <div 
-          className="rounded-lg p-8 mb-8 text-white"
-          style={{ background: 'linear-gradient(to right, #2563eb, #1d4ed8)' }}
+  return (
+    <div className="min-h-screen bg-gray-50">
+      <motion.div
+        initial={{ opacity: 0, y: -20 }}
+        animate={{ opacity: 1, y: 0 }}
+        className="max-w-7xl mx-auto px-4 py-8"
+      >
+        <motion.div
+          whileHover={{ scale: 1.01 }}
+          className="rounded-xl p-8 mb-8 text-white bg-gradient-to-r from-blue-600 to-blue-800 shadow-lg"
         >
-          <h1 className="text-3xl font-bold mb-2">{currentLanguage.title}</h1>
-          <p className="text-blue-100">{currentLanguage.subtitle}</p>
-        </div>
+          <motion.h1
+            initial={{ opacity: 0, x: -20 }}
+            animate={{ opacity: 1, x: 0 }}
+            className="text-4xl font-bold mb-2"
+          >
+            {currentLanguage.title}
+          </motion.h1>
+          <motion.p
+            initial={{ opacity: 0, x: -20 }}
+            animate={{ opacity: 1, x: 0 }}
+            transition={{ delay: 0.2 }}
+            className="text-blue-100 text-lg"
+          >
+            {currentLanguage.subtitle}
+          </motion.p>
+        </motion.div>
 
-        <div className="grid grid-cols-1 lg:grid-cols-3 gap-8">
-          <div>
-            <h2 className="text-lg font-semibold mb-4">
-              {currentLanguage.activeBuses} ({activeBuses.length})
-            </h2>
+        {loading && activeBuses.length === 0 ? (
+          <div className="flex flex-col items-center justify-center min-h-[400px]">
+            <LoadingSpinner />
+            <p className="mt-4 text-gray-600">{currentLanguage.loading}</p>
+          </div>
+        ) : (
+          <div className="grid grid-cols-1 lg:grid-cols-2 gap-8">
+            <div>
+              <motion.h2
+                initial={{ opacity: 0 }}
+                animate={{ opacity: 1 }}
+                className="text-xl font-bold mb-6 text-gray-800"
+              >
+                {currentLanguage.activeBuses} ({activeBuses.length})
+              </motion.h2>
 
-            <div className="space-y-4">
-              {activeBuses.map(bus => (
-                <BusListItem
-                  key={bus.id}
-                  bus={bus}
-                  onClick={setSelectedBus}
-                  isSelected={selectedBus?.id === bus.id}
-                />
-              ))}
+              <AnimatePresence>
+                {activeBuses.map(bus => (
+                  <BusListItem
+                    key={bus.id}
+                    bus={bus}
+                    onClick={setSelectedBus}
+                    isSelected={selectedBus?.id === bus.id}
+                  />
+                ))}
+              </AnimatePresence>
             </div>
 
-            {selectedBus && (
-              <BusDetails bus={selectedBus} language={currentLanguage} />
-            )}
+            <div className="lg:sticky lg:top-8">
+              <AnimatePresence>
+                {selectedBus && (
+                  <BusDetails bus={selectedBus} language={currentLanguage} />
+                )}
+              </AnimatePresence>
+            </div>
           </div>
-        </div>
-      </div>
-    );
+        )}
+      </motion.div>
+    </div>
+  );
 };
 
 export default BusTracker;
