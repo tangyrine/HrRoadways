@@ -55,27 +55,27 @@ function Footer({ isHindi }) {
               <h4>{t.company}</h4>
               <ul>
                 <li><Link to="/about">{t.aboutUs}</Link></li>
-                <li><a href="/services">{t.services}</a></li>
-                <li><a href="/privacy">{t.privacy}</a></li>
-                <li><a href="/affiliate">{t.affiliate}</a></li>
+                <li><a href="/under-construction">{t.services}</a></li>
+                <li><a href="/under-construction">{t.privacy}</a></li>
+                <li><a href="/under-construction">{t.affiliate}</a></li>
               </ul>
             </div>
             <div className="footer-col">
               <h4>{t.getHelp}</h4>
               <ul>
                 <li><a href="/faq">{t.faq}</a></li>
-                <li><a href="/helpline">{t.contactUs}</a></li>
-                <li><a href="/bus-status">{t.busStatus}</a></li>
-                <li><a href="/payment-options">{t.paymentOptions}</a></li>
+                <li><a href="/under-construction">{t.contactUs}</a></li>
+                <li><a href="/under-construction">{t.busStatus}</a></li>
+                <li><a href="/nder-construction">{t.paymentOptions}</a></li>
               </ul>
             </div>
             <div className="footer-col">
               <h4>{t.rides}</h4>
               <ul>
                 <li><a href="/trip">{t.trips}</a></li>
-                <li><a href="/luxury">{t.luxury}</a></li>
+                <li><a href="/under-construction">{t.luxury}</a></li>
                 <li><a href="/travellocations">{t.visitCities}</a></li>
-                <li><a href="/bestRides">{t.bestRides}</a></li>
+                <li><a href="/under-construction">{t.bestRides}</a></li>
               </ul>
             </div>
             <div className="footer-col">

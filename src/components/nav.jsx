@@ -1,8 +1,10 @@
 import React, { useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
 import '../assets/nav.css';
-import Logo from '../assets/LogoHR.png'; 
+import Logo from '../assets/LogoHR.png'; // Import the project logo
 import { Menu, X, ChevronDown, Phone, Search } from 'lucide-react';
+import HelplinePage from './HelpLinepage';
+
 
 const Navigation = ({ isHindi, onToggleLanguage }) => {
   const [isScrolled, setIsScrolled] = useState(false);
@@ -74,14 +76,14 @@ const Navigation = ({ isHindi, onToggleLanguage }) => {
               <Phone className="w-4 h-4 mr-1" />
               1800-180-2345
             </span>
-            <button className="flex items-center hover:text-blue-200 transition-all">
+            <button className="flex items-center hover:text-blue-200">
               <Search className="w-4 h-4 mr-1" />
               {currentLanguage.search}
             </button>
           </div>
           <div className="flex items-center space-x-4">
             <li className="lang">
-              ENGLISH
+              EN
               <div className="checkbox-wrapper-5">
                 <div className="check">
                   <input
@@ -93,25 +95,28 @@ const Navigation = ({ isHindi, onToggleLanguage }) => {
                   <label htmlFor="check-5" />
                 </div>
               </div>
-              HINDI
+              HI
             </li>
           </div>
         </div>
       </div>
 
       <nav
-        className={`sticky top-0 z-50 w-full ${isScrolled ? 'shadow-lg bg-white' : 'bg-white/95'} transition-all duration-300`}
+        className={`sticky top-0 z-50 w-full ${
+          isScrolled ? 'shadow-lg bg-white' : 'bg-white/95'
+        } transition-all duration-300`}
       >
-       <div className="container mx-auto px-4">
-      <div className="flex justify-between items-center h-16">
-        <Link to="/" className="flex items-center space-x-2">
-          <img src={Logo} alt="Haryana Roadways Logo" className="w-8 h-8" />
-          <span className="font-bold text-xl text-yellow-900 hover:text-teal-500 transition-colors duration-300">
-            Haryana Roadways
-          </span>
-        </Link>
+        <div className="container mx-auto px-4">
+          <div className="flex justify-between items-center h-16">
+            <Link to="/" className="flex items-center space-x-2">
+              <img src={Logo} alt="Haryana Roadways Logo" className="w-8 h-8" />
+              <span className="font-bold text-xl text-blue-900">
+                Haryana Roadways
+              </span>
+            </Link>
+
             <div className="hidden md:flex items-center space-x-8">
-              <Link to="/" className="nav-link hover:text-blue-600 hover:rounded-lg hover:px-4 hover:py-2 transition-all duration-300">
+              <Link to="/" className="nav-link">
                 {currentLanguage.home}
               </Link>
 
@@ -120,7 +125,7 @@ const Navigation = ({ isHindi, onToggleLanguage }) => {
                 onMouseEnter={() => setIsServicesOpen(true)}
                 onMouseLeave={() => setIsServicesOpen(false)}
               >
-                <button className="nav-link flex items-center hover:text-blue-600 hover:rounded-lg hover:px-4 hover:py-2 transition-all duration-300">
+                <button className="nav-link flex items-center">
                   {currentLanguage.services}
                   <ChevronDown className="w-4 h-4 ml-1" />
                 </button>
@@ -129,7 +134,7 @@ const Navigation = ({ isHindi, onToggleLanguage }) => {
                     <Link
                       key={index}
                       to={item.path}
-                      className="block px-4 py-2 text-gray-700 hover:bg-blue-50 hover:text-blue-800 hover:rounded-lg transition-all"
+                      className="block px-4 py-2 text-gray-700 hover:bg-blue-50 hover:text-blue-800"
                     >
                       {item.title}
                     </Link>
@@ -137,26 +142,28 @@ const Navigation = ({ isHindi, onToggleLanguage }) => {
                 </div>
               </div>
 
-              <Link to="/trip" className="nav-link hover:text-blue-600 hover:rounded-lg hover:px-4 hover:py-2 transition-all duration-300">
+              <Link to="/trip" className="nav-link">
                 {currentLanguage.trip}
               </Link>
-              <Link to="/travellocations" className="nav-link hover:text-blue-600 hover:rounded-lg hover:px-4 hover:py-2 transition-all duration-300">
+              <Link to="/travellocations" className="nav-link">
                 {currentLanguage.travellocations}
               </Link>
-              <Link to="/about" className="nav-link hover:text-blue-600 hover:rounded-lg hover:px-4 hover:py-2 transition-all duration-300">
+              <Link to="/about" className="nav-link">
                 {currentLanguage.about}
               </Link>
-              <Link to="/blog" className="nav-link hover:text-blue-600 hover:rounded-lg hover:px-4 hover:py-2 transition-all duration-300">
+              <Link to="/blog" className="nav-link">
                 {currentLanguage.blog}
               </Link>
-
-              <Link to="/donate" className="nav-link hover:text-blue-600 hover:rounded-lg hover:px-4 hover:py-2 transition-all duration-300">
+              {/* <Link to="/contact" className="nav-link">
+                {currentLanguage.contact}
+              </Link> */}
+              <Link to="/donate" className="nav-link">
                 {currentLanguage.donate}
               </Link>
 
-              <button className="bg-blue-800 text-white px-4 py-2 rounded-lg hover:bg-blue-900 hover:rounded-full transition-all flex items-center">
+             <button className="bg-blue-800 text-white px-4 py-2 rounded-lg hover:bg-blue-900 transition flex items-center">
                 <Phone className="w-4 h-4 mr-2" />
-                <Link to="/helpline">{currentLanguage.helpline}</Link>
+                <Link to="/helpline" >{currentLanguage.helpline}</Link>
               </button>
             </div>
 
@@ -173,32 +180,37 @@ const Navigation = ({ isHindi, onToggleLanguage }) => {
       <div className={`sidebar ${isMobileMenuOpen ? 'open' : ''}`}>
         <ul>
           <li>
-            <Link to="/" onClick={toggleSidebar} className="hover:text-blue-600 hover:rounded-lg hover:px-4 hover:py-2 transition-all duration-300">
+            <Link to="/" onClick={toggleSidebar}>
               {currentLanguage.home}
             </Link>
           </li>
+          {/* <li>
+            <Link to="/contact" onClick={toggleSidebar}>
+              {currentLanguage.contact}
+            </Link>
+          </li> */}
           <li>
-            <Link to="/donate" onClick={toggleSidebar} className="hover:text-blue-600 hover:rounded-lg hover:px-4 hover:py-2 transition-all duration-300">
+            <Link to="/donate" onClick={toggleSidebar}>
               {currentLanguage.donate}
             </Link>
           </li>
           <li>
-            <Link to="/about" onClick={toggleSidebar} className="hover:text-blue-600 hover:rounded-lg hover:px-4 hover:py-2 transition-all duration-300">
+            <Link to="/about" onClick={toggleSidebar}>
               {currentLanguage.about}
             </Link>
           </li>
           <li>
-            <Link to="/trip" onClick={toggleSidebar} className="hover:text-blue-600 hover:rounded-lg hover:px-4 hover:py-2 transition-all duration-300">
+            <Link to="/trip" onClick={toggleSidebar}>
               {currentLanguage.trip}
             </Link>
           </li>
           <li>
-            <Link to="/travellocations" onClick={toggleSidebar} className="hover:text-blue-600 hover:rounded-lg hover:px-4 hover:py-2 transition-all duration-300">
-              {currentLanguage.travellocations}
+            <Link to="/travellocations" onClick={toggleSidebar}>
+                {currentLanguage.travellocations}
             </Link>
           </li>
           <li>
-            <Link to="/blog" onClick={toggleSidebar} className="hover:text-blue-600 hover:rounded-lg hover:px-4 hover:py-2 transition-all duration-300">
+            <Link to="/blog" onClick={toggleSidebar}>
               {currentLanguage.blog}
             </Link>
           </li>
@@ -207,10 +219,10 @@ const Navigation = ({ isHindi, onToggleLanguage }) => {
             <div className="checkbox-wrapper-5">
               <div className="check">
                 <input
-                  id="check-5"
-                  type="checkbox"
-                  checked={isHindi}
-                  onChange={onToggleLanguage}
+                    id="check-5"
+                    type="checkbox"
+                    checked={isHindi}
+                    onChange={onToggleLanguage}
                 />
                 <label htmlFor="check-5" />
               </div>
