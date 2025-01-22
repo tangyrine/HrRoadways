@@ -13,8 +13,6 @@ import TravelLocations from './components/TravelLocation';
 import HelplinePage from './components/HelpLinepage';
 import Schedule from './components/Schedule';
 
-
-
 function Contact() {
     return <h1>Contact Page</h1>;
 }
