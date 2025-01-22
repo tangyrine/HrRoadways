@@ -11,6 +11,7 @@ import Blog from './components/Blog';
 import DonatePage from './components/DonatePage';
 import TravelLocations from './components/TravelLocation';
 import HelplinePage from './components/HelpLinepage';
+import Schedule from './components/Schedule';
 
 
 
@@ -56,6 +57,7 @@ function App() {
                 <Route path="/about" element={<AboutUs isHindi={isHindi} />} />
                 <Route path="/trip" element={<Trip isHindi={isHindi} />} />
                 <Route path="/blog" element={<Blog />} />
+                <Route path="/schedule" element={<Schedule />} />
                 <Route path="/contact" element={<Contact />} />
                 <Route path="/donate" element={<DonatePage />} />
                 <Route path="/travellocations" element={<TravelLocations />} />
