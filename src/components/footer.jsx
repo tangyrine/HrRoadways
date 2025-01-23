@@ -64,7 +64,7 @@ function Footer({ isHindi }) {
               <h4>{t.getHelp}</h4>
               <ul>
                 <li><Link to="/faq">{t.faq}</Link></li>
-                <li><Link to="/under-construction">{t.contactUs}</Link></li>
+                <li><Link to="/contact">{t.contactUs}</Link></li>
                 <li><Link to="/track">{t.busStatus}</Link></li>
                 <li><Link to="/under-construction">{t.paymentOptions}</Link></li>
               </ul>
