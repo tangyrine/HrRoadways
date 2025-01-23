@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { Calendar, Clock, MapPin, Users, AlertCircle, Info, ArrowRight, Bus, Phone, Star, Shield } from 'lucide-react';
+import TrafficUpdates from './TrafficUpdates'; 
 
 const CustomAlert = ({ type, children }) => (
   <div className={`p-4 rounded-lg flex items-center gap-3 ${
@@ -263,11 +264,8 @@ const Hero = ({ isHindi = false }) => {
             </CustomCard>
 
             <div className="space-y-3">
-              {alerts.map((alert, index) => (
-                <CustomAlert key={index} type={alert.type}>
-                  {alert.message}
-                </CustomAlert>
-              ))}
+              
+              <TrafficUpdates />
             </div>
           </div>
         </div>
