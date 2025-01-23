@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
 import { Bus, MapPin, Clock, Globe, Facebook, Twitter, Instagram, Linkedin, Share } from 'lucide-react';
-import '../assets/Footer.css'; // Import the CSS file
+import '../assets/footer.css'; // Import the CSS file
 
 function Footer({ isHindi }) {
   const [currentTime, setCurrentTime] = useState(new Date());
