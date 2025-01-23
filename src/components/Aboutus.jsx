@@ -1,5 +1,10 @@
 import React, { useEffect, useState } from 'react';
-import { MapPin, Award, Star, Heart } from 'lucide-react';
+import { MapPin, Award } from 'lucide-react';
+
+// Import team member images
+import teamMember1 from '/src/assets/team-member1.png';
+import teamMember2 from '/src/assets/team-member2.png';
+import teamMember3 from '/src/assets/team-member3.png';
 
 function AboutUs({ isHindi }) {
     const translations = {
@@ -23,9 +28,9 @@ function AboutUs({ isHindi }) {
             ],
             teamTitle: "Meet Our Team",
             team: [
-                { name: "Nishant Rana", role: "CEO & Founder", expertise: "Cultural Heritage Expert" },
-                { name: "Amaan Syed", role: "Lead Developer", expertise: "Digital Innovation" },
-                { name: "Sanjeevani", role: "Chief Marketing Officer", expertise: "Tourism Development" }
+                { name: "Nishant Rana", role: "CEO & Founder", expertise: "Cultural Heritage Expert", image: teamMember1 },
+                { name: "Amaan Syed", role: "Lead Developer", expertise: "Digital Innovation", image: teamMember2 },
+                { name: "Sanjeevani", role: "Chief Marketing Officer", expertise: "Tourism Development", image: teamMember3 }
             ],
             achievements: "Our Achievements",
             achievementsList: [
@@ -54,9 +59,9 @@ function AboutUs({ isHindi }) {
             ],
             teamTitle: "हमारी टीम से मिलें",
             team: [
-                { name: "निशांत राणा", role: "CEO और संस्थापक", expertise: "सांस्कृतिक विरासत विशेषज्ञ" },
-                { name: "अमान सैयद", role: "लीड डेवलपर", expertise: "डिजिटल नवाचार" },
-                { name: "संजीवनी", role: "मुख्य विपणन अधिकारी", expertise: "पर्यटन विकास" }
+                { name: "निशांत राणा", role: "CEO और संस्थापक", expertise: "सांस्कृतिक विरासत विशेषज्ञ", image: teamMember1 },
+                { name: "अमान सैयद", role: "लीड डेवलपर", expertise: "डिजिटल नवाचार", image: teamMember2 },
+                { name: "संजीवनी", role: "मुख्य विपणन अधिकारी", expertise: "पर्यटन विकास", image: teamMember3 }
             ],
             achievements: "हमारी उपलब्धियां",
             achievementsList: [
@@ -67,93 +72,93 @@ function AboutUs({ isHindi }) {
         }
     };
 
-        const [currentLanguage, setCurrentLanguage] = useState(translations.en);
-        const [activeEvent, setActiveEvent] = useState(null);
+    const [currentLanguage, setCurrentLanguage] = useState(translations.en);
+    const [activeEvent, setActiveEvent] = useState(null);
 
-        useEffect(() => {
-            setCurrentLanguage(isHindi ? translations.hi : translations.en);
-        }, [isHindi]);
+    useEffect(() => {
+        setCurrentLanguage(isHindi ? translations.hi : translations.en);
+    }, [isHindi]);
 
-        return (
-            <div className="min-h-screen bg-gradient-to-b from-indigo-900 to-blue-900 text-white py-20">
-                <div className="max-w-6xl mx-auto px-4">
-                    {/* Hero Section */}
-                    <div className="text-center mb-16">
-                        <h1 className="text-5xl font-bold mb-6">{currentLanguage.title}</h1>
-                        <p className="text-xl leading-relaxed">{currentLanguage.description}</p>
-                    </div>
+    return (
+        <div className="min-h-screen bg-gradient-to-b from-indigo-900 to-blue-900 text-white py-20">
+            <div className="max-w-6xl mx-auto px-4">
+                {/* Hero Section */}
+                <div className="text-center mb-16">
+                    <h1 className="text-5xl font-bold mb-6">{currentLanguage.title}</h1>
+                    <p className="text-xl leading-relaxed">{currentLanguage.description}</p>
+                </div>
 
-                    {/* Values Section */}
-                    <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8 mb-16">
-                        {currentLanguage.values.map((value, index) => (
-                            <div key={index} className="bg-white/10 p-6 rounded-lg backdrop-blur-sm hover:transform hover:scale-105 transition-transform">
-                                <h3 className="text-xl font-bold mb-3">{value.title}</h3>
-                                <p className="text-gray-200">{value.description}</p>
+                {/* Values Section */}
+                <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8 mb-16">
+                    {currentLanguage.values.map((value, index) => (
+                        <div key={index} className="bg-white/10 p-6 rounded-lg backdrop-blur-sm hover:transform hover:scale-105 transition-transform">
+                            <h3 className="text-xl font-bold mb-3">{value.title}</h3>
+                            <p className="text-gray-200">{value.description}</p>
+                        </div>
+                    ))}
+                </div>
+
+                {/* Cultural Events Section */}
+                <div className="mb-16">
+                    <h2 className="text-3xl font-bold mb-8 text-center">{currentLanguage.culturalHighlights}</h2>
+                    <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
+                        {currentLanguage.culturalEvents.map((event, index) => (
+                            <div
+                                key={index}
+                                className="bg-white/5 p-6 rounded-lg cursor-pointer hover:bg-white/10 transition-all"
+                                onMouseEnter={() => setActiveEvent(index)}
+                                onMouseLeave={() => setActiveEvent(null)}
+                            >
+                                <div className="flex items-center mb-4">
+                                    <MapPin className="w-5 h-5 mr-2 text-yellow-400" />
+                                    <h3 className="text-xl font-bold">{event.name}</h3>
+                                </div>
+                                <p className="text-gray-300 mb-2">{event.date}</p>
+                                <p className="text-gray-300">{event.location}</p>
+                                {activeEvent === index && (
+                                    <div className="mt-4 text-sm text-gray-300 animate-fadeIn">
+                                        Click to learn more about this event
+                                    </div>
+                                )}
                             </div>
                         ))}
                     </div>
+                </div>
 
-                    {/* Cultural Events Section */}
-                    <div className="mb-16">
-                        <h2 className="text-3xl font-bold mb-8 text-center">{currentLanguage.culturalHighlights}</h2>
-                        <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
-                            {currentLanguage.culturalEvents.map((event, index) => (
-                                <div
-                                    key={index}
-                                    className="bg-white/5 p-6 rounded-lg cursor-pointer hover:bg-white/10 transition-all"
-                                    onMouseEnter={() => setActiveEvent(index)}
-                                    onMouseLeave={() => setActiveEvent(null)}
-                                >
-                                    <div className="flex items-center mb-4">
-                                        <MapPin className="w-5 h-5 mr-2 text-yellow-400" />
-                                        <h3 className="text-xl font-bold">{event.name}</h3>
-                                    </div>
-                                    <p className="text-gray-300 mb-2">{event.date}</p>
-                                    <p className="text-gray-300">{event.location}</p>
-                                    {activeEvent === index && (
-                                        <div className="mt-4 text-sm text-gray-300 animate-fadeIn">
-                                            Click to learn more about this event
-                                        </div>
-                                    )}
-                                </div>
-                            ))}
-                        </div>
+                {/* Team Section */}
+                <div className="mb-16">
+                    <h2 className="text-3xl font-bold mb-8 text-center">{currentLanguage.teamTitle}</h2>
+                    <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
+                        {currentLanguage.team.map((member, index) => (
+                            <div key={index} className="bg-white/5 p-6 rounded-lg text-center hover:transform hover:scale-105 transition-transform">
+                                <img
+                                    src={member.image}
+                                    alt={member.name}
+                                    className="w-32 h-32 rounded-full mx-auto mb-4 object-cover"
+                                />
+                                <h3 className="text-xl font-bold mb-2">{member.name}</h3>
+                                <p className="text-yellow-400 mb-2">{member.role}</p>
+                                <p className="text-gray-300 text-sm">{member.expertise}</p>
+                            </div>
+                        ))}
                     </div>
+                </div>
 
-                    {/* Team Section */}
-                    <div className="mb-16">
-                        <h2 className="text-3xl font-bold mb-8 text-center">{currentLanguage.teamTitle}</h2>
-                        <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
-                            {currentLanguage.team.map((member, index) => (
-                                <div key={index} className="bg-white/5 p-6 rounded-lg text-center hover:transform hover:scale-105 transition-transform">
-                                    <img
-                                        src={`/src/assets/team-member${index + 1}.png`}
-                                        alt={member.name}
-                                        className="w-32 h-32 rounded-full mx-auto mb-4 object-cover"
-                                    />
-                                    <h3 className="text-xl font-bold mb-2">{member.name}</h3>
-                                    <p className="text-yellow-400 mb-2">{member.role}</p>
-                                    <p className="text-gray-300 text-sm">{member.expertise}</p>
-                                </div>
-                            ))}
-                        </div>
-                    </div>
-
-                    {/* Achievements Section */}
-                    <div className="bg-white/5 p-8 rounded-lg">
-                        <h2 className="text-3xl font-bold mb-8 text-center">{currentLanguage.achievements}</h2>
-                        <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
-                            {currentLanguage.achievementsList.map((achievement, index) => (
-                                <div key={index} className="flex items-center">
-                                    <Award className="w-6 h-6 text-yellow-400 mr-3 flex-shrink-0" />
-                                    <p className="text-gray-200">{achievement}</p>
-                                </div>
-                            ))}
-                        </div>
+                {/* Achievements Section */}
+                <div className="bg-white/5 p-8 rounded-lg">
+                    <h2 className="text-3xl font-bold mb-8 text-center">{currentLanguage.achievements}</h2>
+                    <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
+                        {currentLanguage.achievementsList.map((achievement, index) => (
+                            <div key={index} className="flex items-center">
+                                <Award className="w-6 h-6 text-yellow-400 mr-3 flex-shrink-0" />
+                                <p className="text-gray-200">{achievement}</p>
+                            </div>
+                        ))}
                     </div>
                 </div>
             </div>
-        );
-    }
+        </div>
+    );
+}
 
-    export default AboutUs;
+export default AboutUs;
