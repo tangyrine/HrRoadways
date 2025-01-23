@@ -13,9 +13,9 @@ import TravelLocations from './components/TravelLocation';
 import HelplinePage from './components/HelpLinepage';
 import Schedule from './components/Schedule';
 import BusTracker from './components/Track';
-import Policy from './components/InfoPage'
-import UnderConstruction from './components/UnderConstruction'
-
+import Policy from './components/InfoPage';
+import UnderConstruction from './components/UnderConstruction';
+import AffiliateProgram from './components/AffiliateProgram'; // Added
 
 function Contact() {
     return <h1>Contact Page</h1>;
@@ -30,7 +30,7 @@ function App() {
 
     useEffect(() => {
         const handleScroll = () => {
-            setShowBackToTop(window.scrollY > 100); // Show button after scrolling 100px
+            setShowBackToTop(window.scrollY > 100);
         };
 
         window.addEventListener('scroll', handleScroll);
@@ -67,8 +67,8 @@ function App() {
                 <Route path="/donate" element={<DonatePage />} />
                 <Route path="/travellocations" element={<TravelLocations />} />
                 <Route path="/helpline" element={<HelplinePage />} />
-                <Route path="/faq" element={<FAQ />} />
-
+                <Route path="/faq" element={<FAQ />} />
+                <Route path="/affiliate" element={<AffiliateProgram isHindi={isHindi}/>} /> {/* Added */}
             </Routes>
 
             {/* Footer */}
@@ -77,27 +77,27 @@ function App() {
             {/* Back to Top Button */}
             {showBackToTop && (
                 <button
-                onClick={handleScrollToTop}
-                onMouseEnter={() => setHovered(true)}
-                onMouseLeave={() => setHovered(false)}
-                style={{
-                    position: "fixed",
-                    bottom: "20px",
-                    right: "20px",
-                    backgroundColor: hovered ? "#1E90FF" : "#007BFF", // Lighter blue on hover
-                    color: "#fff",
-                    padding: "10px 15px",
-                    borderRadius: "50px",
-                    fontSize: "18px",
-                    cursor: "pointer",
-                    zIndex: "1000",
-                    border: "none",
-                    boxShadow: hovered ? "0px 4px 6px rgba(0, 0, 0, 0.2)" : "none",
-                    transition: "background-color 0.3s ease, box-shadow 0.3s ease",
-                }}
-            >
-                <i className="fa fa-arrow-up fa-lg"></i>
-            </button>
+                    onClick={handleScrollToTop}
+                    onMouseEnter={() => setHovered(true)}
+                    onMouseLeave={() => setHovered(false)}
+                    style={{
+                        position: "fixed",
+                        bottom: "20px",
+                        right: "20px",
+                        backgroundColor: hovered ? "#1E90FF" : "#007BFF",
+                        color: "#fff",
+                        padding: "10px 15px",
+                        borderRadius: "50px",
+                        fontSize: "18px",
+                        cursor: "pointer",
+                        zIndex: "1000",
+                        border: "none",
+                        boxShadow: hovered ? "0px 4px 6px rgba(0, 0, 0, 0.2)" : "none",
+                        transition: "background-color 0.3s ease, box-shadow 0.3s ease",
+                    }}
+                >
+                    <i className="fa fa-arrow-up fa-lg"></i>
+                </button>
             )}
         </Router>
     );

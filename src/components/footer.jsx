@@ -57,7 +57,7 @@ function Footer({ isHindi }) {
                 <li><Link to="/about">{t.aboutUs}</Link></li>
                 <li><Link to="/under-construction">{t.services}</Link></li>
                 <li><Link to="/policy">{t.privacy}</Link></li>
-                <li><Link to="/under-construction">{t.affiliate}</Link></li>
+                <li><Link to="/affiliate">{t.affiliate}</Link></li>
               </ul>
             </div>
             <div className="footer-col">
@@ -65,7 +65,7 @@ function Footer({ isHindi }) {
               <ul>
                 <li><Link to="/faq">{t.faq}</Link></li>
                 <li><Link to="/under-construction">{t.contactUs}</Link></li>
-                <li><Link to="/under-construction">{t.busStatus}</Link></li>
+                <li><Link to="/track">{t.busStatus}</Link></li>
                 <li><Link to="/under-construction">{t.paymentOptions}</Link></li>
               </ul>
             </div>
