@@ -1,34 +1,35 @@
 import React, { useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
-import { Bus, MapPin, Clock, Globe, Facebook, Twitter, Instagram, Linkedin } from 'lucide-react';
+import { Bus, MapPin, Clock, Globe, Facebook, Twitter, Instagram, Linkedin, Share } from 'lucide-react';
+import '../assets/Footer.css'; // Import the CSS file
 
 function Footer({ isHindi }) {
   const [currentTime, setCurrentTime] = useState(new Date());
 
   const translations = {
     en: {
-      company: "company",
+      company: "Company",
       aboutUs: "About us",
-      services: "our services",
-      privacy: "privacy policy",
-      affiliate: "affiliate program",
-      getHelp: "get help",
+      services: "Our Services",
+      privacy: "Policy",
+      affiliate: "Affiliate Program",
+      getHelp: "Help",
       faq: "FAQ",
-      contactUs: "contact us",
-      busStatus: "Bus status",
-      paymentOptions: "payment options",
+      contactUs: "Contact Us",
+      busStatus: "Bus Status",
+      paymentOptions: "Payment Options",
       rides: "Rides",
       trips: "Trips",
-      luxury: "Luxury destination",
-      visitCities: "Visit cities",
-      bestRides: "Best rides",
-      followUs: "follow us",
+      luxury: "Luxury Destination",
+      visitCities: "Visit Cities",
+      bestRides: "Best Rides",
+      followUs: "Follow Us",
     },
     hi: {
       company: "कंपनी",
       aboutUs: "हमारे बारे में",
       services: "हमारी सेवाएँ",
-      privacy: "गोपनीयता नीति",
+      privacy: "नीति",
       affiliate: "सहबद्ध कार्यक्रम",
       getHelp: "सहायता प्राप्त करें",
       faq: "सामान्य प्रश्न",
@@ -55,31 +56,28 @@ function Footer({ isHindi }) {
   const t = isHindi ? translations.hi : translations.en;
 
   return (
-    <footer className="bg-gradient-to-b from-blue-900 to-blue-800 text-white py-8 relative overflow-hidden">
-      <div className="absolute inset-0 opacity-10 pointer-events-none">
-        <div className="absolute top-0 left-0 w-full h-full bg-gradient-to-r from-blue-700 to-indigo-700 animate-pulse"></div>
-      </div>
-
-      <div className="absolute top-2 right-4 text-right z-10">
-        <div className="flex items-center gap-2 text-sm bg-white/10 rounded-full px-4 py-1 backdrop-blur-sm">
-          <Globe className="w-4 h-4 text-blue-300 animate-spin-slow" />
+    <footer className="footer">
+      <div className="footer-bg-overlay" />
+      <div className="footer-time">
+        <div className="footer-time-content">
+          <Globe className="footer-time-icon" />
           <span>{currentTime.toLocaleTimeString()}</span>
         </div>
+        <div className="footer-date-content">
+          <Clock className="footer-date-icon" />
+          <span>{currentTime.toLocaleDateString()}</span>
+        </div>
       </div>
 
-      <div className="container mx-auto px-4 relative z-10">
-        <div className="flex justify-between items-center mb-6">
-          <div className="flex items-center gap-3">
-            <Bus className="w-8 h-8 text-blue-300 animate-bounce" />
-            <h2 className="text-2xl font-bold text-white">Haryana Roadways</h2>
-          </div>
-          <div className="flex items-center gap-2 text-white/70">
-            <Clock className="w-4 h-4" />
-            <span>{currentTime.toLocaleDateString()}</span>
+      <div className="footer-container">
+        <div className="footer-header">
+          <div className="footer-logo">
+            <Bus className="footer-logo-icon" />
+            <h2 className="footer-title">Haryana Roadways</h2>
           </div>
         </div>
 
-        <div className="grid md:grid-cols-4 gap-4">
+        <div className="footer-sections">
           {[
             {
               title: t.company,
@@ -113,42 +111,35 @@ function Footer({ isHindi }) {
             },
             {
               title: t.followUs,
-              icon: Linkedin,
+              icon: Share,
               links: [],
             },
           ].map((section, index) => (
-            <div key={index} className="space-y-2">
-              <div className="flex items-center gap-3 mb-2 border-b pb-1 border-blue-700">
-                <section.icon className="w-5 h-5 text-blue-300" />
-                <h4 className="text-lg font-bold text-white">{section.title}</h4>
+            <div key={index} className="footer-section">
+              <div className="footer-section-header">
+                <section.icon className="footer-section-icon" />
+                <h4 className="footer-section-title">{section.title}</h4>
               </div>
               {section.links.length > 0 ? (
-                <ul className="space-y-1">
+                <ul className="footer-links">
                   {section.links.map((link, linkIndex) => (
                     <li key={linkIndex}>
-                      <Link
-                        to={link.to}
-                        className="text-white/80 hover:text-white hover:translate-x-2 transition-all duration-300 inline-block text-sm"
-                      >
+                      <Link to={link.to} className="footer-link">
                         {link.label}
                       </Link>
                     </li>
                   ))}
                 </ul>
               ) : (
-                <div className="social-links flex gap-4 justify-center">
+                <div className="footer-social-links">
                   {[
-                    { Icon: Facebook, color: "text-blue-400", href: "https://github.com/NishantRana07" },
-                    { Icon: Twitter, color: "text-sky-400", href: "https://github.com/NishantRana07/" },
-                    { Icon: Instagram, color: "text-blue-500", href: "https://github.com/NishantRana07/" },
-                    { Icon: Linkedin, color: "text-blue-600", href: "https://github.com/NishantRana07/" },
+                    { Icon: Facebook, color: "social-facebook", href: "https://github.com/NishantRana07" },
+                    { Icon: Twitter, color: "social-twitter", href: "https://github.com/NishantRana07/" },
+                    { Icon: Instagram, color: "social-instagram", href: "https://github.com/NishantRana07/" },
+                    { Icon: Linkedin, color: "social-linkedin", href: "https://github.com/NishantRana07/" },
                   ].map(({ Icon, color, href }, idx) => (
-                    <a
-                      key={idx}
-                      href={href}
-                      className="hover:scale-110 transition-transform duration-300 hover:rotate-6"
-                    >
-                      <Icon className={`w-6 h-6 ${color} hover:opacity-70`} />
+                    <a key={idx} href={href} className="footer-social-link">
+                      <Icon className={`footer-social-icon ${color}`} />
                     </a>
                   ))}
                 </div>
@@ -157,11 +148,11 @@ function Footer({ isHindi }) {
           ))}
         </div>
 
-        <div className="mt-6 pt-3 border-t border-blue-700 text-center">
-          <div className="flex justify-center items-center gap-2">
-            <Bus className="w-6 h-6 text-blue-300 animate-pulse" />
-            <p className="text-xs text-white/70">© {new Date().getFullYear()} Haryana Roadways - Connecting Communities</p>
-            <Bus className="w-6 h-6 text-blue-300 animate-pulse" />
+        <div className="footer-bottom">
+          <div className="footer-bottom-content">
+            <Bus className="footer-bottom-icon" />
+            <p className="footer-bottom-text">© {new Date().getFullYear()} Haryana Roadways - Connecting Communities</p>
+            <Bus className="footer-bottom-icon" />
           </div>
         </div>
       </div>
