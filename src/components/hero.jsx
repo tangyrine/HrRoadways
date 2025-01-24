@@ -1,5 +1,5 @@
-import React, { useState, useEffect } from 'react';
-import { Calendar, Clock, MapPin, Users, AlertCircle, Info, ArrowRight, Bus, Phone, Star, Shield } from 'lucide-react';
+import React, { useState, useEffect, useRef } from 'react';
+import { Calendar, Clock, MapPin, AlertCircle, Info, ArrowRight, Shield, Star, Phone, Users, Repeat } from 'lucide-react';
 import TrafficUpdates from './TrafficUpdates';
 import '../assets/hero.css';  // Import the CSS file
 
@@ -25,11 +25,6 @@ const popularRoutes = [
   { src: 'Rohtak', dest: 'Ambala', time: '2h 15m', fare: '₹350', frequency: 'Every hour' }
 ];
 
-const busStands = [
-  'Chandigarh', 'Delhi', 'Gurugram', 'Panipat', 'Hisar',
-  'Rohtak', 'Ambala', 'Faridabad', 'Karnal', 'Kurukshetra'
-];
-
 const translations = {
   en: {
     heading: "Haryana Roadways - Your Own Bus Service",
@@ -43,6 +38,8 @@ const translations = {
     superExpress: "Super Express",
     ordinary: "Ordinary",
     searchPlaceholder: "Search bus stands...",
+    passengers: "Passengers",
+    roundTrip: "Round Trip",
     features: [
       { icon: Shield, title: 'Safe Travel', desc: 'GPS tracked buses' },
       { icon: Clock, title: 'Punctual', desc: '98% on-time arrival' },
@@ -62,6 +59,8 @@ const translations = {
     superExpress: "सुपर एक्सप्रेस",
     ordinary: "साधारण",
     searchPlaceholder: "बस स्टैंड खोजें...",
+    passengers: "यात्री",
+    roundTrip: "राउंड ट्रिप",
     features: [
       { icon: Shield, title: 'सुरक्षित यात्रा', desc: 'जीपीएस ट्रैक की गई बसें' },
       { icon: Clock, title: 'समयनिष्ठ', desc: '98% समय पर आगमन' },
@@ -73,16 +72,23 @@ const translations = {
 
 const Hero = ({ isHindi }) => {
   const [currentLanguage, setCurrentLanguage] = useState(translations.en);
-  const [selectedBusType, setSelectedBusType] = useState('all');
   const [formData, setFormData] = useState({
     src: '',
     dest: '',
     date: new Date().toISOString().split('T')[0],
-    passengers: 1
+    passengers: 1,
+    roundTrip: false,
   });
-  const [filteredStands, setFilteredStands] = useState([]);
+  const [busStands, setBusStands] = useState([]);
+  const [filteredSrcStands, setFilteredSrcStands] = useState([]);
+  const [filteredDestStands, setFilteredDestStands] = useState([]);
   const [showSrcSuggestions, setShowSrcSuggestions] = useState(false);
+  const [showDestSuggestions, setShowDestSuggestions] = useState(false);
   const [alerts, setAlerts] = useState([]);
+  const [activeSuggestionIndex, setActiveSuggestionIndex] = useState(-1);
+  const [activeInput, setActiveInput] = useState('');
+  const [buses, setBuses] = useState([]);
+  const suggestionsRef = useRef([]);
 
   useEffect(() => {
     setCurrentLanguage(isHindi ? translations.hi : translations.en);
@@ -95,6 +101,19 @@ const Hero = ({ isHindi }) => {
     ]);
   }, []);
 
+  useEffect(() => {
+    fetch('/Databases/Haryana.json')
+      .then(response => response.json())
+      .then(data => {
+        const uniqueBusStands = new Set();
+        data.forEach(route => {
+          uniqueBusStands.add(route.from);
+          uniqueBusStands.add(route.to);
+        });
+        setBusStands([...uniqueBusStands]);
+      });
+  }, []);
+
   const handleChange = (event) => {
     const { name, value } = event.target;
     setFormData({ ...formData, [name]: value });
@@ -102,10 +121,113 @@ const Hero = ({ isHindi }) => {
     if (name === 'src') {
       const filtered = busStands.filter(stand => 
         stand.toLowerCase().includes(value.toLowerCase())
-      );
-      setFilteredStands(filtered);
+      ).slice(0, 10); // Limit to 10 locations
+      setFilteredSrcStands(filtered);
       setShowSrcSuggestions(true);
+      setFilteredDestStands([]);
+      setShowDestSuggestions(false);
+      setActiveInput('src');
+      setActiveSuggestionIndex(-1);
+    } else if (name === 'dest' && formData.src) {
+      const filtered = busStands.filter(stand => 
+        stand.toLowerCase().includes(value.toLowerCase()) && stand !== formData.src
+      ).slice(0, 10); // Limit to 10 locations
+      setFilteredDestStands(filtered);
+      setShowDestSuggestions(true);
+      setActiveInput('dest');
+      setActiveSuggestionIndex(-1);
     }
+  };
+
+  const handleKeyDown = (event) => {
+    if (activeInput === 'src' && showSrcSuggestions) {
+      if (event.key === 'ArrowDown') {
+        setActiveSuggestionIndex((prevIndex) => {
+          const newIndex = prevIndex === filteredSrcStands.length - 1 ? 0 : prevIndex + 1;
+          suggestionsRef.current[newIndex]?.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
+          return newIndex;
+        });
+      } else if (event.key === 'ArrowUp') {
+        setActiveSuggestionIndex((prevIndex) => {
+          const newIndex = prevIndex <= 0 ? filteredSrcStands.length - 1 : prevIndex - 1;
+          suggestionsRef.current[newIndex]?.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
+          return newIndex;
+        });
+      } else if (event.key === 'Enter' && activeSuggestionIndex >= 0) {
+        setFormData({ ...formData, src: filteredSrcStands[activeSuggestionIndex] });
+        setShowSrcSuggestions(false);
+        setActiveSuggestionIndex(-1);
+      }
+    } else if (activeInput === 'dest' && showDestSuggestions) {
+      if (event.key === 'ArrowDown') {
+        setActiveSuggestionIndex((prevIndex) => {
+          const newIndex = prevIndex === filteredDestStands.length - 1 ? 0 : prevIndex + 1;
+          suggestionsRef.current[newIndex]?.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
+          return newIndex;
+        });
+      } else if (event.key === 'ArrowUp') {
+        setActiveSuggestionIndex((prevIndex) => {
+          const newIndex = prevIndex <= 0 ? filteredDestStands.length - 1 : prevIndex - 1;
+          suggestionsRef.current[newIndex]?.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
+          return newIndex;
+        });
+      } else if (event.key === 'Enter' && activeSuggestionIndex >= 0) {
+        setFormData({ ...formData, dest: filteredDestStands[activeSuggestionIndex] });
+        setShowDestSuggestions(false);
+        setActiveSuggestionIndex(-1);
+      }
+    }
+  };
+
+  const handleSuggestionClick = (name, value) => {
+    setFormData(prevState => ({ ...prevState, [name]: value }));
+    setShowSrcSuggestions(false);
+    setShowDestSuggestions(false);
+    setActiveSuggestionIndex(-1);
+  };
+
+  const handlePopularRouteClick = (route) => {
+    setFormData({
+      ...formData,
+      src: route.src,
+      dest: route.dest
+    });
+    setFilteredSrcStands([]);
+    setShowSrcSuggestions(false);
+    setFilteredDestStands([]);
+    setShowDestSuggestions(false);
+    setActiveSuggestionIndex(-1);
+  };
+
+  const handleSubmit = (event) => {
+    event.preventDefault();
+    fetch('/Databases/Haryana.json')
+      .then(response => response.json())
+      .then(data => {
+        const filteredBuses = data.filter(bus => {
+          const isExactRoute =
+            bus.from.toLowerCase() === formData.src.toLowerCase() &&
+            bus.to.toLowerCase() === formData.dest.toLowerCase();
+          const isReverseRoute =
+            formData.roundTrip &&
+            bus.from.toLowerCase() === formData.dest.toLowerCase() &&
+            bus.to.toLowerCase() === formData.src.toLowerCase();
+          const isViaRoute =
+            bus.from.toLowerCase() === formData.src.toLowerCase() &&
+            bus.via?.toLowerCase().includes(formData.dest.toLowerCase());
+          const isViaReverseRoute =
+            formData.roundTrip &&
+            bus.from.toLowerCase() === formData.dest.toLowerCase() &&
+            bus.via?.toLowerCase().includes(formData.src.toLowerCase());
+
+          return isExactRoute || isReverseRoute || isViaRoute || isViaReverseRoute;
+        });
+        setBuses(filteredBuses);
+      });
+  };
+
+  const handleCheckboxChange = () => {
+    setFormData({ ...formData, roundTrip: !formData.roundTrip });
   };
 
   return (
@@ -131,100 +253,114 @@ const Hero = ({ isHindi }) => {
           ))}
         </div>
       </div>
-
       <div className="hero-content">
         <div className="content-grid">
           <CustomCard className="form-card">
-            <form className="form">
-              <div className="form-grid">
-                <div className="form-group">
-                  <label className="form-label">
-                    <MapPin className="form-icon" />
-                    {currentLanguage.departure}
-                  </label>
-                  <input
-                    type="text"
-                    name="src"
-                    value={formData.src}
-                    onChange={handleChange}
-                    className="form-input"
-                    placeholder={currentLanguage.searchPlaceholder}
-                  />
-                  {showSrcSuggestions && (
-                    <div className="suggestions-container">
-                      {filteredStands.map((stand) => (
-                        <div
-                          key={stand}
-                          className="suggestion-item"
-                          onClick={() => {
-                            setFormData({ ...formData, src: stand });
-                            setShowSrcSuggestions(false);
-                          }}
-                        >
-                          {stand}
-                        </div>
-                      ))}
-                    </div>
-                  )}
-                </div>
-
-                <div className="form-group">
-                  <label className="form-label">
-                    <MapPin className="form-icon" />
-                    {currentLanguage.arrival}
-                  </label>
-                  <input
-                    type="text"
-                    name="dest"
-                    value={formData.dest}
-                    onChange={handleChange}
-                    className="form-input"
-                    placeholder={currentLanguage.searchPlaceholder}
-                  />
-                </div>
-
-                <div className="form-group">
-                  <label className="form-label">
-                    <Calendar className="form-icon" />
-                    Date
-                  </label>
-                  <input
-                    type="date"
-                    name="date"
-                    value={formData.date}
-                    onChange={handleChange}
-                    className="form-input"
-                  />
-                </div>
-
-                <div className="form-group">
-                  <label className="form-label">
-                    <Users className="form-icon" />
-                    Passengers
-                  </label>
-                  <input
-                    type="number"
-                    name="passengers"
-                    value={formData.passengers}
-                    onChange={handleChange}
-                    className="form-input"
-                    min="1"
-                  />
-                </div>
+            <form className="form" onKeyDown={handleKeyDown} onSubmit={handleSubmit}>
+              <div className="form-group">
+                <label className="form-label">
+                  <MapPin className="form-icon" />
+                  {currentLanguage.departure}
+                </label>
+                <input
+                  type="text"
+                  name="src"
+                  value={formData.src}
+                  onChange={handleChange}
+                  className="form-input"
+                  placeholder={currentLanguage.searchPlaceholder}
+                  autoComplete="off" // Disable Chrome autocomplete
+                  onFocus={() => setActiveInput('src')}
+                />
+                {showSrcSuggestions && (
+                  <div className="suggestions-container">
+                    {filteredSrcStands.map((stand, index) => (
+                      <div
+                        key={stand}
+                        ref={(el) => suggestionsRef.current[index] = el}
+                        className={`suggestion-item ${index === activeSuggestionIndex ? 'active' : ''}`}
+                        onClick={() => handleSuggestionClick('src', stand)}
+                      >
+                        {stand}
+                      </div>
+                    ))}
+                  </div>
+                )}
               </div>
 
-              <div className="bus-type-container">
-                {['all', 'volvo', 'superExpress', 'ordinary'].map((type) => (
-                  <button
-                    key={type}
-                    type="button"
-                    onClick={() => setSelectedBusType(type)}
-                    className={`bus-type-button ${selectedBusType === type ? 'selected' : ''}`}
-                  >
-                    <Bus className="bus-type-icon" />
-                    {currentLanguage[type]}
-                  </button>
-                ))}
+              <div className="form-group">
+                <label className="form-label">
+                  <MapPin className="form-icon" />
+                  {currentLanguage.arrival}
+                </label>
+                <input
+                  type="text"
+                  name="dest"
+                  value={formData.dest}
+                  onChange={handleChange}
+                  className="form-input"
+                  placeholder={currentLanguage.searchPlaceholder}
+                  autoComplete="off" // Disable Chrome autocomplete
+                  disabled={!formData.src}
+                  onFocus={() => setActiveInput('dest')}
+                />
+                {showDestSuggestions && (
+                  <div className="suggestions-container">
+                    {filteredDestStands.map((stand, index) => (
+                      <div
+                        key={stand}
+                        ref={(el) => suggestionsRef.current[index] = el}
+                        className={`suggestion-item ${index === activeSuggestionIndex ? 'active' : ''}`}
+                        onClick={() => handleSuggestionClick('dest', stand)}
+                      >
+                        {stand}
+                      </div>
+                    ))}
+                  </div>
+                )}
+              </div>
+
+              <div className="form-group">
+                <label className="form-label">
+                  <Calendar className="form-icon" />
+                  Date
+                </label>
+                <input
+                  type="date"
+                  name="date"
+                  value={formData.date}
+                  onChange={handleChange}
+                  className="form-input"
+                />
+              </div>
+
+              <div className="form-group">
+                <label className="form-label">
+                  <Users className="form-icon" />
+                  {currentLanguage.passengers}
+                </label>
+                <input
+                  type="number"
+                  name="passengers"
+                  value={formData.passengers}
+                  onChange={handleChange}
+                  className="form-input"
+                  min="1"
+                />
+              </div>
+
+              <div className="form-group">
+                <label className="form-label">
+                  <Repeat className="form-icon" />
+                  {currentLanguage.roundTrip}
+                </label>
+                <input
+                  type="checkbox"
+                  name="roundTrip"
+                  checked={formData.roundTrip}
+                  onChange={handleCheckboxChange}
+                  className="form-checkbox"
+                />
               </div>
 
               <button
@@ -246,6 +382,7 @@ const Hero = ({ isHindi }) => {
                   <div
                     key={index}
                     className="popular-route-item"
+                    onClick={() => handlePopularRouteClick(route)}
                   >
                     <div className="route-info">
                       <span className="route-src">{route.src}</span>
@@ -267,6 +404,26 @@ const Hero = ({ isHindi }) => {
             </div>
           </div>
         </div>
+
+        {buses.length > 0 && (
+          <div className="bus-results">
+            <h3 className="bus-results-heading">{currentLanguage.allBuses}</h3>
+            <div className="bus-grid">
+              {buses.map((bus, index) => (
+                <div key={index} className="bus-item">
+                  <div className="bus-info">
+                    <span className="bus-route">{bus.Bus_Route}</span>
+                    <span className="bus-departure">{bus.Departure_Time}</span>
+                    <span className="bus-distance">{bus.Total_Distance}</span>
+                    <span className="bus-price">{bus.Price}</span>
+                    <span className="bus-type">{bus.Bus_Type}</span>
+                    <span className="bus-via">{bus.Via}</span>
+                  </div>
+                </div>
+              ))}
+            </div>
+          </div>
+        )}
       </div>
     </div>
   );

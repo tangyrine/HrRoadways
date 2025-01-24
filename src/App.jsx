@@ -17,6 +17,7 @@ import Policy from './components/InfoPage';
 import UnderConstruction from './components/UnderConstruction';
 import ContactUs from './components/ContactUs';
 import AffiliateProgram from './components/AffiliateProgram'; // Added
+import BusCard from './components/BusCard';
 
 function App() {
     const [isHindi, setIsHindi] = useState(false);
@@ -68,6 +69,7 @@ function App() {
                 <Route path="/faq" element={<FAQ />} />
                 <Route path="/affiliate" element={<AffiliateProgram isHindi={isHindi}/>} /> {/* Added */}
                 <Route path="/contact" element={<ContactUs isHindi={isHindi} />} />
+                <Route path="/card" element={<BusCard isHindi={isHindi} />} />
             </Routes>
 
             {/* Footer */}
