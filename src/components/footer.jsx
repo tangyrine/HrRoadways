@@ -104,7 +104,7 @@ function Footer({ isHindi }) {
               icon: Globe,
               links: [
                 { label: t.trips, to: "/trip" },
-                { label: t.luxury, to: "/under-construction" },
+                { label: t.luxury, to: "/luxury" },
                 { label: t.visitCities, to: "/travellocations" },
                 { label: t.bestRides, to: "/under-construction" },
               ],

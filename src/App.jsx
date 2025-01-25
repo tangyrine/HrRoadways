@@ -19,6 +19,7 @@ import ContactUs from './components/ContactUs';
 import AffiliateProgram from './components/AffiliateProgram'; // Added
 import BusCard from './components/BusCard';
 import PaymentOptions from './components/Paymentoptions';
+import RoyalHaryanaTourism from './components/RoyalHaryanaTourism';
 function App() {
     const [isHindi, setIsHindi] = useState(false);
     const [showBackToTop, setShowBackToTop] = useState(false);
@@ -63,6 +64,7 @@ function App() {
                 <Route path="/payment" element={<PaymentOptions />} />
                 <Route path="/track" element={<BusTracker />} />
                 <Route path="/schedule" element={<Schedule />} />
+                <Route path="/luxury" element={<RoyalHaryanaTourism/>} />
                 <Route path="/contactUs" element={<ContactUs/>} />
                 <Route path="/donate" element={<DonatePage />} />
                 <Route path="/travellocations" element={<TravelLocations />} />
