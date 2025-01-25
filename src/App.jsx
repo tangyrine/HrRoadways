@@ -61,7 +61,7 @@ function App() {
                 <Route path="/policy" element={<Policy isHindi={isHindi} />} />
                 <Route path="/under-construction" element={<UnderConstruction isHindi={isHindi} />} />
                 <Route path="/contactUs" element={<ContactUs/>} />
-                <Route path="/blog" element={<Blog />} />
+                <Route path="/blog" element={<Blog isHindi={isHindi} />} />
                 <Route path="/payment" element={<PaymentOptions />} />
                 <Route path="/track" element={<BusTracker />} />
                 <Route path="/schedule" element={<Schedule />} />
@@ -69,9 +69,9 @@ function App() {
                 <Route path="/contactUs" element={<ContactUs/>} />
                 <Route path="/donate" element={<DonatePage />} />
                 <Route path="/services" element={<ServicesPage />} />
-                <Route path="/travellocations" element={<TravelLocations />} />
-                <Route path="/helpline" element={<HelplinePage />} />
-                <Route path="/faq" element={<FAQ />} />
+                <Route path="/travellocations" element={<TravelLocations isHindi={isHindi} />} />
+                <Route path="/helpline" element={<HelplinePage isHindi={isHindi} />} />
+                <Route path="/faq" element={<FAQ isHindi={isHindi} />} />
                 <Route path="/affiliate" element={<AffiliateProgram isHindi={isHindi}/>} /> {/* Added */}
                 <Route path="/contact" element={<ContactUs isHindi={isHindi} />} />
                 <Route path="/card" element={<BusCard isHindi={isHindi} />} />
