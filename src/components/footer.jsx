@@ -84,7 +84,7 @@ function Footer({ isHindi }) {
               icon: MapPin,
               links: [
                 { label: t.aboutUs, to: "/about" },
-                { label: t.services, to: "/under-construction" },
+                { label: t.services, to: "/services" },
                 { label: t.privacy, to: "/policy" },
                 { label: t.affiliate, to: "/affiliate" },
               ],
