@@ -3,10 +3,7 @@ import { Link } from 'react-router-dom';
 import '../assets/nav.css';
 import Logo from '../assets/LogoHR.png'; // Import the project logo
 import { Menu, X, ChevronDown, Phone, Search } from 'lucide-react';
-import HelplinePage from './HelpLinepage';
 import SearchWindow from './SearchWindow';
-
-
 
 const Navigation = ({ isHindi, onToggleLanguage }) => {
   const [isScrolled, setIsScrolled] = useState(false);
@@ -72,6 +69,7 @@ const Navigation = ({ isHindi, onToggleLanguage }) => {
 
   return (
     <>
+      {/* Top Bar */}
       <div className="bg-blue-900 text-white py-2 hidden md:block">
         <div className="container mx-auto px-4 flex justify-between items-center text-sm">
           <div className="flex items-center space-x-4">
@@ -79,13 +77,13 @@ const Navigation = ({ isHindi, onToggleLanguage }) => {
               <Phone className="w-4 h-4 mr-1" />
               1800-180-2345
             </span>
-            <button 
-  className="flex items-center hover:text-blue-200"
-  onClick={() => setIsSearchOpen(true)}
->
-  <Search className="w-4 h-4 mr-1" />
-  {currentLanguage.search}
-</button>
+            <button
+              className="flex items-center hover:text-blue-200"
+              onClick={() => setIsSearchOpen(true)}
+            >
+              <Search className="w-4 h-4 mr-1" />
+              {currentLanguage.search}
+            </button>
           </div>
           <div className="flex items-center space-x-4">
             <li className="lang">
@@ -107,6 +105,7 @@ const Navigation = ({ isHindi, onToggleLanguage }) => {
         </div>
       </div>
 
+      {/* Navigation Bar */}
       <nav
         className={`sticky top-0 z-50 w-full ${
           isScrolled ? 'shadow-lg bg-white' : 'bg-white/95'
@@ -114,6 +113,7 @@ const Navigation = ({ isHindi, onToggleLanguage }) => {
       >
         <div className="container mx-auto px-4">
           <div className="flex justify-between items-center h-16">
+            {/* Logo */}
             <Link to="/" className="flex items-center space-x-2">
               <img src={Logo} alt="Haryana Roadways Logo" className="w-8 h-8" />
               <span className="font-bold text-xl text-blue-900">
@@ -121,26 +121,44 @@ const Navigation = ({ isHindi, onToggleLanguage }) => {
               </span>
             </Link>
 
+            {/* Desktop Links */}
             <div className="hidden md:flex items-center space-x-8">
               <Link to="/" className="nav-link">
                 {currentLanguage.home}
               </Link>
 
+              {/* Services Dropdown */}
               <div
                 className="relative group"
                 onMouseEnter={() => setIsServicesOpen(true)}
                 onMouseLeave={() => setIsServicesOpen(false)}
               >
-                <button className="nav-link flex items-center">
+                <button
+                  className="nav-link flex items-center"
+                  aria-expanded={isServicesOpen}
+                  aria-label="Services"
+                  onClick={() => setIsServicesOpen(!isServicesOpen)}
+                >
                   {currentLanguage.services}
-                  <ChevronDown className="w-4 h-4 ml-1" />
+                  <ChevronDown
+                    className={`w-4 h-4 ml-1 transition-transform ${
+                      isServicesOpen ? 'rotate-180' : 'rotate-0'
+                    }`}
+                  />
                 </button>
-                <div className={`dropdown ${isServicesOpen ? 'show' : ''}`}>
+                <div
+                  className={`absolute top-full left-0 mt-2 bg-white border border-gray-200 rounded-md shadow-lg ${
+                    isServicesOpen ? 'block' : 'hidden'
+                  } z-50`}
+                  role="menu"
+                  aria-label="Services Dropdown"
+                >
                   {servicesDropdown.map((item, index) => (
                     <Link
                       key={index}
                       to={item.path}
-                      className="block px-4 py-2 text-gray-700 hover:bg-blue-50 hover:text-blue-800"
+                      className="block px-4 py-2 text-gray-700 hover:bg-blue-50 hover:text-blue-800 transition-colors"
+                      onClick={() => setIsServicesOpen(false)}
                     >
                       {item.title}
                     </Link>
@@ -160,29 +178,25 @@ const Navigation = ({ isHindi, onToggleLanguage }) => {
               <Link to="/blog" className="nav-link">
                 {currentLanguage.blog}
               </Link>
-              {/* <Link to="/contact" className="nav-link">
-                {currentLanguage.contact}
-              </Link> */}
               <Link to="/donate" className="nav-link">
                 {currentLanguage.donate}
               </Link>
 
-             <button className="bg-blue-800 text-white px-4 py-2 rounded-lg hover:bg-blue-900 transition flex items-center">
+              <button className="bg-blue-800 text-white px-4 py-2 rounded-lg hover:bg-blue-900 transition flex items-center">
                 <Phone className="w-4 h-4 mr-2" />
-                <Link to="/helpline" >{currentLanguage.helpline}</Link>
+                <Link to="/helpline">{currentLanguage.helpline}</Link>
               </button>
             </div>
 
-            <button
-              className="md:hidden text-blue-900"
-              onClick={toggleSidebar}
-            >
+            {/* Mobile Menu Button */}
+            <button className="md:hidden text-blue-900" onClick={toggleSidebar}>
               {isMobileMenuOpen ? <X className="w-6 h-6" /> : <Menu className="w-6 h-6" />}
             </button>
           </div>
         </div>
       </nav>
 
+      {/* Mobile Sidebar */}
       <div className={`sidebar ${isMobileMenuOpen ? 'open' : ''}`}>
         <ul>
           <li>
@@ -190,11 +204,6 @@ const Navigation = ({ isHindi, onToggleLanguage }) => {
               {currentLanguage.home}
             </Link>
           </li>
-          {/* <li>
-            <Link to="/contact" onClick={toggleSidebar}>
-              {currentLanguage.contact}
-            </Link>
-          </li> */}
           <li>
             <Link to="/donate" onClick={toggleSidebar}>
               {currentLanguage.donate}
@@ -212,7 +221,7 @@ const Navigation = ({ isHindi, onToggleLanguage }) => {
           </li>
           <li>
             <Link to="/travellocations" onClick={toggleSidebar}>
-                {currentLanguage.travellocations}
+              {currentLanguage.travellocations}
             </Link>
           </li>
           <li>
@@ -225,10 +234,10 @@ const Navigation = ({ isHindi, onToggleLanguage }) => {
             <div className="checkbox-wrapper-5">
               <div className="check">
                 <input
-                    id="check-5"
-                    type="checkbox"
-                    checked={isHindi}
-                    onChange={onToggleLanguage}
+                  id="check-5"
+                  type="checkbox"
+                  checked={isHindi}
+                  onChange={onToggleLanguage}
                 />
                 <label htmlFor="check-5" />
               </div>
@@ -237,16 +246,15 @@ const Navigation = ({ isHindi, onToggleLanguage }) => {
           </li>
         </ul>
       </div>
-      <SearchWindow 
-  isOpen={isSearchOpen}
-  onClose={() => setIsSearchOpen(false)}
-  isHindi={isHindi}
-/>
+
+      {/* Search Window */}
+      <SearchWindow
+        isOpen={isSearchOpen}
+        onClose={() => setIsSearchOpen(false)}
+        isHindi={isHindi}
+      />
     </>
-    
-    
   );
-  
 };
 
 export default Navigation;
