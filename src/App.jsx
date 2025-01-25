@@ -18,7 +18,7 @@ import UnderConstruction from './components/UnderConstruction';
 import ContactUs from './components/ContactUs';
 import AffiliateProgram from './components/AffiliateProgram'; // Added
 import BusCard from './components/BusCard';
-
+import PaymentOptions from './components/Paymentoptions';
 function App() {
     const [isHindi, setIsHindi] = useState(false);
     const [showBackToTop, setShowBackToTop] = useState(false);
@@ -60,6 +60,7 @@ function App() {
                 <Route path="/under-construction" element={<UnderConstruction isHindi={isHindi} />} />
                 <Route path="/contactUs" element={<ContactUs/>} />
                 <Route path="/blog" element={<Blog />} />
+                <Route path="/payment" element={<PaymentOptions />} />
                 <Route path="/track" element={<BusTracker />} />
                 <Route path="/schedule" element={<Schedule />} />
                 <Route path="/contactUs" element={<ContactUs/>} />
