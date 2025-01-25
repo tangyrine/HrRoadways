@@ -96,7 +96,7 @@ function Footer({ isHindi }) {
                 { label: t.faq, to: "/faq" },
                 { label: t.contactUs, to: "/contact" },
                 { label: t.busStatus, to: "/track" },
-                { label: t.paymentOptions, to: "/under-construction" },
+                { label: t.paymentOptions, to: "/payment" },
               ],
             },
             {
