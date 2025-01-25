@@ -15,11 +15,9 @@ import Schedule from './components/Schedule';
 import BusTracker from './components/Track';
 import Policy from './components/InfoPage';
 import UnderConstruction from './components/UnderConstruction';
+import ContactUs from './components/ContactUs';
 import AffiliateProgram from './components/AffiliateProgram'; // Added
-
-function Contact() {
-    return <h1>Contact Page</h1>;
-}
+import BusCard from './components/BusCard';
 
 function App() {
     const [isHindi, setIsHindi] = useState(false);
@@ -60,15 +58,18 @@ function App() {
                 <Route path="/trip" element={<Trip isHindi={isHindi} />} />
                 <Route path="/policy" element={<Policy isHindi={isHindi} />} />
                 <Route path="/under-construction" element={<UnderConstruction isHindi={isHindi} />} />
+                <Route path="/contactUs" element={<ContactUs/>} />
                 <Route path="/blog" element={<Blog />} />
                 <Route path="/track" element={<BusTracker />} />
                 <Route path="/schedule" element={<Schedule />} />
-                <Route path="/contact" element={<Contact />} />
+                <Route path="/contactUs" element={<ContactUs/>} />
                 <Route path="/donate" element={<DonatePage />} />
                 <Route path="/travellocations" element={<TravelLocations />} />
                 <Route path="/helpline" element={<HelplinePage />} />
                 <Route path="/faq" element={<FAQ />} />
                 <Route path="/affiliate" element={<AffiliateProgram isHindi={isHindi}/>} /> {/* Added */}
+                <Route path="/contact" element={<ContactUs isHindi={isHindi} />} />
+                <Route path="/card" element={<BusCard isHindi={isHindi} />} />
             </Routes>
 
             {/* Footer */}
