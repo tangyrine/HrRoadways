@@ -156,6 +156,7 @@ const DonatePage = () => {
                     <input
                       type="text"
                       value={donorInfo.name}
+                      placeholder='Enter Your Name'
                       onChange={(e) => setDonorInfo({...donorInfo, name: e.target.value})}
                       className="w-full px-4 py-2 border rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500"
                       required
@@ -168,6 +169,7 @@ const DonatePage = () => {
                     <input
                       type="email"
                       value={donorInfo.email}
+                      placeholder='Enter Your Email'
                       onChange={(e) => setDonorInfo({...donorInfo, email: e.target.value})}
                       className="w-full px-4 py-2 border rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500"
                       required
@@ -180,6 +182,7 @@ const DonatePage = () => {
                     <input
                       type="tel"
                       value={donorInfo.phone}
+                      placeholder='E.g: +91 xxxxx-xxxxx'
                       onChange={(e) => setDonorInfo({...donorInfo, phone: e.target.value})}
                       className="w-full px-4 py-2 border rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500"
                     />
@@ -191,6 +194,7 @@ const DonatePage = () => {
                     <input
                       type="text"
                       value={donorInfo.panCard}
+                      placeholder='Enter Your PAN Card Number'
                       onChange={(e) => setDonorInfo({...donorInfo, panCard: e.target.value})}
                       className="w-full px-4 py-2 border rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500"
                     />

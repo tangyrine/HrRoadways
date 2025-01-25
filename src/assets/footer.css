@@ -83,7 +83,7 @@
 
 .footer-header {
   display: flex;
-  justify-content: space-between;
+  justify-content: center;
   align-items: center;
   margin-bottom: 1.5rem;
 }
@@ -160,7 +160,7 @@
 .footer-social-links {
   display: flex;
   gap: 1rem;
-  justify-content: left;
+  justify-content: center;
 }
 
 .footer-social-link {
@@ -217,4 +217,99 @@
 .footer-bottom-text {
   font-size: 0.75rem;
   color: rgba(255, 255, 255, 0.7);
+}
+
+/* Media Queries for Responsiveness */
+@media (max-width: 768px) {
+  .footer-sections {
+    grid-template-columns: repeat(2, 1fr);
+    gap: 0.5rem;
+  }
+
+  .footer-logo {
+    flex-direction: column;
+    align-items: center;
+  }
+
+  .footer-title {
+    font-size: 1rem;
+  }
+
+  .footer-section-title {
+    font-size: 0.875rem;
+  }
+
+  .footer-links {
+    gap: 0.5rem;
+  }
+
+  .footer-link {
+    font-size: 0.875rem;
+  }
+
+  .footer-social-links {
+    justify-content: center;
+  }
+}
+
+@media (max-width: 480px) {
+  .footer-sections {
+    grid-template-columns: 1fr;
+    gap: 1rem;
+  }
+
+  .footer-time {
+    position: static;
+    text-align: center;
+    margin-bottom: 1rem;
+  }
+
+  .footer-time-content,
+  .footer-date-content {
+    justify-content: center;
+  }
+
+  .footer-logo {
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+  }
+
+  .footer-title {
+    font-size: 1.25rem; /* Increased font size */
+    text-align: center; /* Center aligned */
+  }
+
+  .footer-section-header {
+    justify-content: center;
+  }
+
+  .footer-section-title {
+    font-size: 1rem; /* Increased font size */
+    text-align: center; /* Center aligned */
+  }
+
+  .footer-links {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr); /* Creating two columns */
+    gap: 1rem;
+    text-align: center; /* Center aligned */
+  }
+
+  .footer-link {
+    font-size: 1rem; /* Increased font size */
+  }
+
+  .footer-social-links {
+    justify-content: center;
+  }
+
+  .footer-bottom-content {
+    flex-direction: column;
+    gap: 0.25rem;
+  }
+
+  .footer-bottom-text {
+    font-size: 0.875rem; /* Increased font size */
+  }
 }
