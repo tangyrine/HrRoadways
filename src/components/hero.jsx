@@ -1,7 +1,8 @@
 import React, { useState, useEffect, useRef } from 'react';
 import { Calendar, Clock, MapPin, AlertCircle, Info, ArrowRight, Shield, Star, Phone, Users, Repeat } from 'lucide-react';
 import TrafficUpdates from './TrafficUpdates';
-import '../assets/hero.css';  // Import the CSS file
+import '../assets/hero.css';
+import PopularRoutes from './PopularRoutes';  // Import the CSS file
 
 const CustomAlert = ({ type, children }) => (
   <div className={`custom-alert ${type === 'warning' ? 'warning' : 'info'}`}>
@@ -373,31 +374,7 @@ const Hero = ({ isHindi }) => {
           </CustomCard>
 
           <div className="right-panel">
-            <CustomCard className="popular-routes-card">
-              <h3 className="popular-routes-heading">
-                {currentLanguage.popular}
-              </h3>
-              <div className="popular-routes-list">
-                {popularRoutes.map((route, index) => (
-                  <div
-                    key={index}
-                    className="popular-route-item"
-                    onClick={() => handlePopularRouteClick(route)}
-                  >
-                    <div className="route-info">
-                      <span className="route-src">{route.src}</span>
-                      <ArrowRight className="route-arrow" />
-                      <span className="route-dest">{route.dest}</span>
-                    </div>
-                    <div className="route-details">
-                      <span>{route.time}</span>
-                      <span>{route.fare}</span>
-                      <span>{route.frequency}</span>
-                    </div>
-                  </div>
-                ))}
-              </div>
-            </CustomCard>
+          <PopularRoutes />
 
             <div className="traffic-updates">
               <TrafficUpdates />
