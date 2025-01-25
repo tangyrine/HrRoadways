@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { Calendar, Clock, MapPin, Users, AlertCircle, Info, ArrowRight, Bus, Phone, Star, Shield } from 'lucide-react';
 import TrafficUpdates from './TrafficUpdates'; 
+import PopularRoutes from './PopularRoutes';
 
 const CustomAlert = ({ type, children }) => (
   <div className={`p-4 rounded-lg flex items-center gap-3 ${
@@ -237,40 +238,16 @@ const Hero = ({ isHindi = false }) => {
             </form>
           </CustomCard>
 
-          <div className="space-y-6">
-            <CustomCard className="p-4">
-              <h3 className="font-semibold mb-4 text-blue-900 text-lg border-b border-blue-100 pb-2">
-                {currentLanguage.popular}
-              </h3>
-              <div className="space-y-3">
-                {popularRoutes.map((route, index) => (
-                  <div
-                    key={index}
-                    className="p-3 hover:bg-blue-50 rounded-lg cursor-pointer transition border border-blue-100 hover:border-blue-300"
-                  >
-                    <div className="flex items-center justify-between mb-2">
-                      <span className="font-medium">{route.src}</span>
-                      <ArrowRight className="w-4 h-4 text-blue-600" />
-                      <span className="font-medium">{route.dest}</span>
-                    </div>
-                    <div className="flex justify-between text-sm text-gray-600">
-                      <span>{route.time}</span>
-                      <span>{route.fare}</span>
-                      <span>{route.frequency}</span>
-                    </div>
-                  </div>
-                ))}
-              </div>
-            </CustomCard>
+          
 
-            <div className="space-y-3">
-              
-              <TrafficUpdates />
-            </div>
+          <div className="space-y-6">
+  <PopularRoutes />
+  <TrafficUpdates />
+</div>
           </div>
         </div>
       </div>
-    </div>
+    
   );
 };
 
