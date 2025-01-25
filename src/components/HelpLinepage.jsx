@@ -1,47 +1,110 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { Phone, Mail, Clock, MessageCircle, Search } from 'lucide-react';
 
-const HelplinePage = () => {
+const HelplinePage = ({ isHindi }) => {
+  const translations = {
+    en: {
+      title: '24/7 Helpline',
+      description: 'Always here to assist you anytime, anywhere!',
+      searchPlaceholder: 'Search for help...',
+      callUs: 'Call Us',
+      emailSupport: 'Email Support',
+      liveChat: 'Live Chat',
+      contactHours: 'Contact Hours',
+      phoneSupport: 'Phone Support',
+      emailResponseTime: 'Email Response Time',
+      categories: [
+        { id: 'all', name: 'All Topics' },
+        { id: 'booking', name: 'Booking' },
+        { id: 'payment', name: 'Payment' },
+        { id: 'cancellation', name: 'Cancellation' },
+      ],
+      faqs: [
+        {
+          id: 1,
+          category: 'booking',
+          question: 'How can I book a ticket?',
+          answer: 'You can book a ticket through our website or mobile app. Select your route, choose your seat, and proceed to payment.',
+        },
+        {
+          id: 2,
+          category: 'cancellation',
+          question: 'How can I cancel my booking?',
+          answer: 'To cancel your booking, go to the "My Bookings" section, select the booking, and click "Cancel". Cancellation fees may apply based on timing.',
+        },
+        {
+          id: 3,
+          category: 'payment',
+          question: 'What payment methods are accepted?',
+          answer: 'We accept credit cards, debit cards, and digital wallets including PayPal, Google Pay, and Apple Pay.',
+        },
+        {
+          id: 4,
+          category: 'booking',
+          question: 'Can I modify my booking?',
+          answer: 'Yes, you can modify your booking up to 6 hours before departure through the "Modify Booking" option or by contacting our support team.',
+        },
+      ],
+      quickContact: 'Need more help? We\'re here for you!',
+      copyright: '© 2025 Haryana Roadways Service. All rights reserved.',
+    },
+    hi: {
+      title: '24/7 हेल्पलाइन',
+      description: 'हमेशा यहाँ आपकी सहायता के लिए, कभी भी, कहीं भी!',
+      searchPlaceholder: 'मदद के लिए खोजें...',
+      callUs: 'हमें कॉल करें',
+      emailSupport: 'ईमेल समर्थन',
+      liveChat: 'लाइव चैट',
+      contactHours: 'संपर्क समय',
+      phoneSupport: 'फोन समर्थन',
+      emailResponseTime: 'ईमेल प्रतिक्रिया समय',
+      categories: [
+        { id: 'all', name: 'सभी विषय' },
+        { id: 'booking', name: 'बुकिंग' },
+        { id: 'payment', name: 'भुगतान' },
+        { id: 'cancellation', name: 'रद्द करना' },
+      ],
+      faqs: [
+        {
+          id: 1,
+          category: 'booking',
+          question: 'मैं टिकट कैसे बुक कर सकता हूँ?',
+          answer: 'आप हमारी वेबसाइट या मोबाइल ऐप के माध्यम से टिकट बुक कर सकते हैं। अपने मार्ग का चयन करें, अपनी सीट चुनें और भुगतान के लिए आगे बढ़ें।',
+        },
+        {
+          id: 2,
+          category: 'cancellation',
+          question: 'मैं अपनी बुकिंग कैसे रद्द कर सकता हूँ?',
+          answer: 'अपनी बुकिंग रद्द करने के लिए, "मेरी बुकिंग" अनुभाग में जाएं, बुकिंग का चयन करें और "रद्द करें" पर क्लिक करें। समय के आधार पर रद्दीकरण शुल्क लागू हो सकता है।',
+        },
+        {
+          id: 3,
+          category: 'payment',
+          question: 'कौन से भुगतान विधियाँ स्वीकार की जाती हैं?',
+          answer: 'हम क्रेडिट कार्ड, डेबिट कार्ड और डिजिटल वॉलेट्स को स्वीकार करते हैं जिनमें पेपाल, गूगल पे और एप्पल पे शामिल हैं।',
+        },
+        {
+          id: 4,
+          category: 'booking',
+          question: 'क्या मैं अपनी बुकिंग में संशोधन कर सकता हूँ?',
+          answer: 'हाँ, आप प्रस्थान से 6 घंटे पहले तक "बुकिंग संशोधित करें" विकल्प के माध्यम से या हमारी समर्थन टीम से संपर्क करके अपनी बुकिंग में संशोधन कर सकते हैं।',
+        },
+      ],
+      quickContact: 'अधिक सहायता चाहिए? हम आपके लिए यहाँ हैं!',
+      copyright: '© 2025 हरियाणा रोडवेज सेवा। सर्वाधिकार सुरक्षित।',
+    },
+  };
+
+  const [currentLanguage, setCurrentLanguage] = useState(translations.en);
   const [searchQuery, setSearchQuery] = useState('');
   const [selectedCategory, setSelectedCategory] = useState('all');
-  
-  const categories = [
-    { id: 'all', name: 'All Topics' },
-    { id: 'booking', name: 'Booking' },
-    { id: 'payment', name: 'Payment' },
-    { id: 'cancellation', name: 'Cancellation' },
-  ];
-
-  const faqs = [
-    {
-      id: 1,
-      category: 'booking',
-      question: 'How can I book a ticket?',
-      answer: 'You can book a ticket through our website or mobile app. Select your route, choose your seat, and proceed to payment.'
-    },
-    {
-      id: 2,
-      category: 'cancellation',
-      question: 'How can I cancel my booking?',
-      answer: 'To cancel your booking, go to the "My Bookings" section, select the booking, and click "Cancel". Cancellation fees may apply based on timing.'
-    },
-    {
-      id: 3,
-      category: 'payment',
-      question: 'What payment methods are accepted?',
-      answer: 'We accept credit cards, debit cards, and digital wallets including PayPal, Google Pay, and Apple Pay.'
-    },
-    {
-      id: 4,
-      category: 'booking',
-      question: 'Can I modify my booking?',
-      answer: 'Yes, you can modify your booking up to 6 hours before departure through the "Modify Booking" option or by contacting our support team.'
-    }
-  ];
-
   const [expandedFaq, setExpandedFaq] = useState(null);
 
-  const filteredFaqs = faqs.filter(faq => 
+  useEffect(() => {
+    setCurrentLanguage(isHindi ? translations.hi : translations.en);
+  }, [isHindi]);
+
+  const filteredFaqs = currentLanguage.faqs.filter(faq => 
     (selectedCategory === 'all' || faq.category === selectedCategory) &&
     (faq.question.toLowerCase().includes(searchQuery.toLowerCase()) ||
      faq.answer.toLowerCase().includes(searchQuery.toLowerCase()))
@@ -52,16 +115,22 @@ const HelplinePage = () => {
       <header className="bg-blue-900 text-white py-12 relative overflow-hidden">
         <div className="absolute inset-0 bg-[url('/api/placeholder/1920/400')] opacity-10"></div>
         <div className="max-w-4xl mx-auto px-4 relative">
-          <h1 className="text-4xl font-bold animate-fade-in">24/7 Helpline</h1>
-          <p className="text-xl mt-4 opacity-90">Always here to assist you anytime, anywhere!</p>
+          <h1 className="text-4xl font-bold animate-fade-in">{currentLanguage.title}</h1>
+          <p className="text-xl mt-4 opacity-90">{currentLanguage.description}</p>
           
           {/* Search Bar */}
           <div className="mt-8 relative max-w-2xl mx-auto">
-          <input type="text" placeholder="Search for help..." className="w-full px-6 py-3 rounded-full text-gray-800 border-2 border-transparent focus:border-blue-400 outline-none transition-all duration-300 pl-12 bg-gray-100 hover:bg-gray-50 hover:shadow-md hover:border-blue-400 focus:shadow-blue-400" value={searchQuery} onChange={(e) =>setSearchQuery(e.target.value)}/>
-          <Search
-            className="absolute left-4 top-3.5 text-gray-400 transition-colors duration-300 hover:text-blue-500"
-            size={20}
-          />
+            <input 
+              type="text" 
+              placeholder={currentLanguage.searchPlaceholder} 
+              className="w-full px-6 py-3 rounded-full text-gray-800 border-2 border-transparent focus:border-blue-400 outline-none transition-all duration-300"
+              value={searchQuery}
+              onChange={(e) => setSearchQuery(e.target.value)}
+            />
+            <Search
+              className="absolute left-4 top-3.5 text-gray-400 transition-colors duration-300 hover:text-blue-500"
+              size={20}
+            />
           </div>
         </div>
       </header>
@@ -71,7 +140,7 @@ const HelplinePage = () => {
         <div className="grid md:grid-cols-3 gap-6 mb-12">
           <div className="bg-white rounded-xl p-6 shadow-lg hover:shadow-xl transform hover:-translate-y-1 transition-all duration-300">
             <Phone className="text-blue-600 mb-4" size={24} />
-            <h3 className="font-semibold text-lg mb-2">Call Us</h3>
+            <h3 className="font-semibold text-lg mb-2">{currentLanguage.callUs}</h3>
             <a href="tel:+18001234567" className="text-blue-600 hover:text-blue-800 transition-colors">
               +1 800 123 4567
             </a>
@@ -79,7 +148,7 @@ const HelplinePage = () => {
           
           <div className="bg-white rounded-xl p-6 shadow-lg hover:shadow-xl transform hover:-translate-y-1 transition-all duration-300">
             <Mail className="text-blue-600 mb-4" size={24} />
-            <h3 className="font-semibold text-lg mb-2">Email Support</h3>
+            <h3 className="font-semibold text-lg mb-2">{currentLanguage.emailSupport}</h3>
             <a href="mailto:support@busbooking.com" className="text-blue-600 hover:text-blue-800 transition-colors">
               support@haryanaroadways.com
             </a>
@@ -87,9 +156,9 @@ const HelplinePage = () => {
           
           <div className="bg-white rounded-xl p-6 shadow-lg hover:shadow-xl transform hover:-translate-y-1 transition-all duration-300">
             <MessageCircle className="text-blue-600 mb-4" size={24} />
-            <h3 className="font-semibold text-lg mb-2">Live Chat</h3>
+            <h3 className="font-semibold text-lg mb-2">{currentLanguage.liveChat}</h3>
             <button className="bg-blue-100 text-blue-600 px-4 py-2 rounded-full hover:bg-blue-200 transition-colors">
-              Start Chat
+              {currentLanguage.liveChat}
             </button>
           </div>
         </div>
@@ -97,12 +166,12 @@ const HelplinePage = () => {
         {/* FAQs Section */}
         <section className="bg-white rounded-xl shadow-lg p-8">
           <h2 className="text-2xl font-semibold text-blue-900 mb-6">
-            Frequently Asked Questions
+            {currentLanguage.contactHours}
           </h2>
 
           {/* Category Filters */}
           <div className="flex flex-wrap gap-3 mb-6">
-            {categories.map(category => (
+            {currentLanguage.categories.map(category => (
               <button
                 key={category.id}
                 onClick={() => setSelectedCategory(category.id)}
@@ -150,15 +219,15 @@ const HelplinePage = () => {
         <section className="mt-12 bg-white rounded-xl shadow-lg p-8">
           <div className="flex items-center gap-4 mb-6">
             <Clock className="text-blue-600" size={24} />
-            <h2 className="text-2xl font-semibold text-blue-900">Contact Hours</h2>
+            <h2 className="text-2xl font-semibold text-blue-900">{currentLanguage.contactHours}</h2>
           </div>
           <div className="grid md:grid-cols-2 gap-6">
             <div>
-              <h3 className="font-medium mb-2">Phone Support</h3>
+              <h3 className="font-medium mb-2">{currentLanguage.phoneSupport}</h3>
               <p className="text-gray-600">24/7 Available</p>
             </div>
             <div>
-              <h3 className="font-medium mb-2">Email Response Time</h3>
+              <h3 className="font-medium mb-2">{currentLanguage.emailResponseTime}</h3>
               <p className="text-gray-600">Within 2 hours</p>
             </div>
           </div>
@@ -167,8 +236,8 @@ const HelplinePage = () => {
 
       <footer className="bg-blue-900 text-white py-8 mt-12">
         <div className="max-w-4xl mx-auto px-4 text-center">
-          <p className="text-lg mb-4">Need more help? We're here for you!</p>
-          <p className="text-sm opacity-75">© 2025 Haryana Roadways Service. All rights reserved.</p>
+          <p className="text-lg mb-4">{currentLanguage.quickContact}</p>
+          <p className="text-sm opacity-75">{currentLanguage.copyright}</p>
         </div>
       </footer>
     </div>

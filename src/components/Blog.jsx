@@ -1,33 +1,124 @@
-import React, { useState } from 'react';
-import { Calendar, Clock, ThumbsUp, Share2, Bookmark, Search, Filter, Tag, MapPin, Bus } from 'lucide-react';
+import React, { useState, useEffect } from 'react';
+import { Calendar, Clock, ThumbsUp, Share2, Bookmark, Search, MapPin, Bus } from 'lucide-react';
 
-const BlogPage = () => {
-  const [posts, setPosts] = useState([
-    {
-      id: 1,
-      title: "Why Choose Haryana Roadways for Your Next Journey?",
-      content: "Planning a trip? Haryana Roadways offers a safe, reliable, and cost-effective way to travel across the state and beyond. Our buses are equipped with modern amenities like GPS tracking, comfortable seating, and punctual schedules, ensuring you reach your destination on time. Whether you're traveling for work or leisure, we prioritize your safety and comfort. Book your next journey with us and experience the difference!",
-      date: "2025-01-18",
-      author: "Transport Department",
-      category: "Service Updates",
-      tags: ["Travel", "Safety", "Comfort"],
-      likes: 45,
-      route: "Delhi-Chandigarh",
-      readTime: "3 min"
+const BlogPage = ({ isHindi }) => {
+  const translations = {
+    en: {
+      title: "Haryana Roadways Blog",
+      subtitle: "Your Journey, Our Pride",
+      subscribeButton: "Subscribe to Updates",
+      searchPlaceholder: "Search posts...",
+      categories: [
+        'all',
+        'Service Updates',
+        'Travel Guide',
+        'Safety Tips',
+        'News',
+        'Route Updates'
+      ],
+      sortBy: {
+        latest: "Latest",
+        popular: "Most Popular"
+      },
+      addNewPost: "Add New Post",
+      titlePlaceholder: "Title",
+      contentPlaceholder: "Content",
+      categoryPlaceholder: "Select Category",
+      tagsPlaceholder: "Tags (comma-separated)",
+      routePlaceholder: "Related Route (optional)",
+      publishButton: "Publish Post",
+      popularRoutes: "Popular Routes",
+      postBy: "By",
+      saved: "Saved",
+      save: "Save",
+      share: "Share",
+      posts: [
+        {
+          id: 1,
+          title: "Why Choose Haryana Roadways for Your Next Journey?",
+          content: "Planning a trip? Haryana Roadways offers a safe, reliable, and cost-effective way to travel across the state and beyond. Our buses are equipped with modern amenities like GPS tracking, comfortable seating, and more.",
+          date: "2025-01-18",
+          author: "Transport Department",
+          category: "Service Updates",
+          tags: ["Travel", "Safety", "Comfort"],
+          likes: 45,
+          route: "Delhi-Chandigarh",
+          readTime: "3 min"
+        },
+        {
+          id: 2,
+          title: "Explore the Best of Haryana: Top 5 Destinations",
+          content: "Haryana is home to some incredible destinations that are perfect for weekend getaways or short trips. Here are our top five picks: \n\n1. Sultanpur National Park: A paradise for bird watchers.\n2. Kurukshetra: A historical and spiritual destination.\n3. Pinjore Gardens: Beautifully landscaped gardens.\n4. Morni Hills: A serene hill station.\n5. Surajkund: Known for its annual crafts fair.",
+          date: "2025-01-17",
+          author: "Tourism Department",
+          category: "Travel Guide",
+          tags: ["Tourism", "Destinations", "Weekend Getaway"],
+          likes: 72,
+          route: "Multiple Routes",
+          readTime: "5 min"
+        }
+      ]
     },
-    {
-      id: 2,
-      title: "Explore the Best of Haryana: Top 5 Destinations",
-      content: "Haryana is home to some incredible destinations that are perfect for weekend getaways or short trips. Here are our top five picks: \n\n1. Sultanpur National Park: A paradise for bird watchers and nature enthusiasts. \n\n2. Kurukshetra: A historical city known for its significance in the Mahabharata.\n\n3. Pinjore Gardens: Beautifully maintained Mughal gardens that are perfect for a day out.\n\n4. Morni Hills: Ideal for adventure lovers and nature seekers.\n\n5. Surajkund: Famous for its annual crafts fair and rich cultural heritage. \n\nPack your bags and hop on a Haryana Roadways bus to explore these amazing destinations!",
-      date: "2025-01-17",
-      author: "Tourism Department",
-      category: "Travel Guide",
-      tags: ["Tourism", "Destinations", "Weekend Getaway"],
-      likes: 72,
-      route: "Multiple Routes",
-      readTime: "5 min"
-    }
-  ]);
+    hi: {
+      title: "हरियाणा रोडवेज ब्लॉग",
+      subtitle: "आपकी यात्रा, हमारी शान",
+      subscribeButton: "अपडेट्स के लिए सदस्यता लें",
+      searchPlaceholder: "पोस्ट खोजें...",
+      categories: [
+        'सभी',
+        'सेवा अपडेट',
+        'यात्रा गाइड',
+        'सुरक्षा टिप्स',
+        'समाचार',
+        'मार्ग अपडेट'
+      ],
+      sortBy: {
+        latest: "नवीनतम",
+        popular: "सबसे लोकप्रिय"
+      },
+      addNewPost: "नई पोस्ट जोड़ें",
+      titlePlaceholder: "शीर्षक",
+      contentPlaceholder: "सामग्री",
+      categoryPlaceholder: "श्रेणी चुनें",
+      tagsPlaceholder: "टैग (अल्पविराम से अलग करें)",
+      routePlaceholder: "संबंधित मार्ग (वैकल्पिक)",
+      publishButton: "पोस्ट प्रकाशित करें",
+      popularRoutes: "लोकप्रिय मार्ग",
+      postBy: "द्वारा",
+      saved: "सहेजा गया",
+      save: "सहेजें",
+      share: "साझा करें",
+      posts: [
+        {
+          id: 1,
+          title: "अपनी अगली यात्रा के लिए हरियाणा रोडवेज क्यों चुनें?",
+          content: "यात्रा की योजना बना रहे हैं? हरियाणा रोडवेज राज्य भर में और उससे आगे यात्रा करने का एक सुरक्षित, विश्वसनीय और किफायती तरीका प्रदान करता है। हमारी बसें जीपीएस ट्रैकिंग, आरामदायक सीटिंग और अन्य आधुनिक सुविधाओं से सुसज्जित हैं।",
+          date: "2025-01-18",
+          author: "परिवहन विभाग",
+          category: "सेवा अपडेट",
+          tags: ["यात्रा", "सुरक्षा", "आराम"],
+          likes: 45,
+          route: "दिल्ली-चंडीगढ़",
+          readTime: "3 मिनट"
+        },
+        {
+          id: 2,
+          title: "हरियाणा का सर्वश्रेष्ठ अन्वेषण करें: शीर्ष 5 गंतव्य",
+          content: "हरियाणा कुछ अविश्वसनीय गंतव्यों का घर है जो सप्ताहांत की छुट्टियों या छोटी यात्राओं के लिए एकदम सही हैं। यहां हमारे शीर्ष पांच चयन हैं: \n\n1. सुल्तानपुर नेशनल पार्क: पक्षी प्रेमियों के लिए स्वर्ग।\n2. कुरुक्षेत्र: एक ऐतिहासिक और आध्यात्मिक गंतव्य।\n3. पिंजौर गार्डन: खूबसूरती से सजाए गए बगीचे।\n4. मोरनी हिल्स: एक शांत पहाड़ी स्टेशन।\n5. सूरजकुंड: अपने वार्षिक शिल्प मेले के लिए जाना जाता है।",
+          date: "2025-01-17",
+          author: "पर्यटन विभाग",
+          category: "यात्रा गाइड",
+          tags: ["पर्यटन", "गंतव्य", "सप्ताहांत छुट्टी"],
+          likes: 72,
+          route: "एकाधिक मार्ग",
+          readTime: "5 मिनट"
+        }
+      ]
+    },
+  };
+
+  const [currentLanguage, setCurrentLanguage] = useState(translations.en);
+  const [posts, setPosts] = useState(currentLanguage.posts);
 
   const [formData, setFormData] = useState({ title: '', content: '', category: '', tags: '', route: '' });
   const [selectedCategory, setSelectedCategory] = useState('all');
@@ -35,14 +126,10 @@ const BlogPage = () => {
   const [savedPosts, setSavedPosts] = useState(new Set());
   const [sortBy, setSortBy] = useState('latest');
 
-  const categories = [
-    'all',
-    'Service Updates',
-    'Travel Guide',
-    'Safety Tips',
-    'News',
-    'Route Updates'
-  ];
+  useEffect(() => {
+    setCurrentLanguage(isHindi ? translations.hi : translations.en);
+    setPosts(isHindi ? translations.hi.posts : translations.en.posts);
+  }, [isHindi]);
 
   const handleChange = (e) => {
     const { name, value } = e.target;
@@ -105,13 +192,13 @@ const BlogPage = () => {
             <div>
               <h1 className="text-3xl font-bold flex items-center gap-2">
                 <Bus size={32} />
-                Haryana Roadways Blog
+                {currentLanguage.title}
               </h1>
-              <p className="mt-2 text-blue-100">Your Journey, Our Pride</p>
+              <p className="mt-2 text-blue-100">{currentLanguage.subtitle}</p>
             </div>
             <div className="flex gap-4">
               <button className="bg-white text-blue-900 px-4 py-2 rounded-lg hover:bg-blue-50 transition-colors">
-                Subscribe to Updates
+                {currentLanguage.subscribeButton}
               </button>
             </div>
           </div>
@@ -129,7 +216,7 @@ const BlogPage = () => {
                   <Search className="absolute left-3 top-3 text-gray-400" size={20} />
                   <input
                     type="text"
-                    placeholder="Search posts..."
+                    placeholder={currentLanguage.searchPlaceholder}
                     className="w-full pl-10 pr-4 py-2 border rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500"
                     value={searchQuery}
                     onChange={(e) => setSearchQuery(e.target.value)}
@@ -140,13 +227,13 @@ const BlogPage = () => {
                   value={sortBy}
                   onChange={(e) => setSortBy(e.target.value)}
                 >
-                  <option value="latest">Latest</option>
-                  <option value="popular">Most Popular</option>
+                  <option value="latest">{currentLanguage.sortBy.latest}</option>
+                  <option value="popular">{currentLanguage.sortBy.popular}</option>
                 </select>
               </div>
 
               <div className="flex gap-2 overflow-x-auto pb-2">
-                {categories.map(category => (
+                {currentLanguage.categories.map(category => (
                   <button
                     key={category}
                     onClick={() => setSelectedCategory(category)}
@@ -209,7 +296,7 @@ const BlogPage = () => {
                         </button>
                         <button className="flex items-center gap-1 text-gray-600 hover:text-blue-600">
                           <Share2 size={18} />
-                          Share
+                          {currentLanguage.share}
                         </button>
                         <button
                           onClick={() => toggleSave(post.id)}
@@ -218,10 +305,10 @@ const BlogPage = () => {
                           }`}
                         >
                           <Bookmark size={18} />
-                          {savedPosts.has(post.id) ? 'Saved' : 'Save'}
+                          {savedPosts.has(post.id) ? currentLanguage.saved : currentLanguage.save}
                         </button>
                       </div>
-                      <span className="text-sm text-gray-600">By {post.author}</span>
+                      <span className="text-sm text-gray-600">{currentLanguage.postBy} {post.author}</span>
                     </div>
                   </div>
                 </article>
@@ -233,12 +320,12 @@ const BlogPage = () => {
           <div className="w-80 shrink-0">
             {/* Add New Post Form */}
             <div className="bg-white rounded-lg shadow-md p-4 mb-6">
-              <h3 className="text-lg font-semibold mb-4">Add New Post</h3>
+              <h3 className="text-lg font-semibold mb-4">{currentLanguage.addNewPost}</h3>
               <form onSubmit={handleSubmit} className="space-y-4">
                 <input
                   type="text"
                   name="title"
-                  placeholder="Title"
+                  placeholder={currentLanguage.titlePlaceholder}
                   className="w-full px-4 py-2 border rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500"
                   value={formData.title}
                   onChange={handleChange}
@@ -246,7 +333,7 @@ const BlogPage = () => {
                 />
                 <textarea
                   name="content"
-                  placeholder="Content"
+                  placeholder={currentLanguage.contentPlaceholder}
                   className="w-full px-4 py-2 border rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 h-32"
                   value={formData.content}
                   onChange={handleChange}
@@ -259,15 +346,15 @@ const BlogPage = () => {
                   onChange={handleChange}
                   required
                 >
-                  <option value="">Select Category</option>
-                  {categories.filter(cat => cat !== 'all').map(category => (
+                  <option value="">{currentLanguage.categoryPlaceholder}</option>
+                  {currentLanguage.categories.filter(cat => cat !== 'all').map(category => (
                     <option key={category} value={category}>{category}</option>
                   ))}
                 </select>
                 <input
                   type="text"
                   name="tags"
-                  placeholder="Tags (comma-separated)"
+                  placeholder={currentLanguage.tagsPlaceholder}
                   className="w-full px-4 py-2 border rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500"
                   value={formData.tags}
                   onChange={handleChange}
@@ -275,7 +362,7 @@ const BlogPage = () => {
                 <input
                   type="text"
                   name="route"
-                  placeholder="Related Route (optional)"
+                  placeholder={currentLanguage.routePlaceholder}
                   className="w-full px-4 py-2 border rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500"
                   value={formData.route}
                   onChange={handleChange}
@@ -284,14 +371,14 @@ const BlogPage = () => {
                   type="submit"
                   className="w-full bg-blue-600 text-white py-2 rounded-lg hover:bg-blue-700 transition-colors"
                 >
-                  Publish Post
+                  {currentLanguage.publishButton}
                 </button>
               </form>
             </div>
 
             {/* Popular Routes */}
             <div className="bg-white rounded-lg shadow-md p-4">
-              <h3 className="text-lg font-semibold mb-4">Popular Routes</h3>
+              <h3 className="text-lg font-semibold mb-4">{currentLanguage.popularRoutes}</h3>
               <ul className="space-y-3">
                 <li className="flex items-center gap-2 text-gray-600 hover:text-blue-600">
                   <Bus size={16} />
