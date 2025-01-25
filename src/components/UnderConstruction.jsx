@@ -1,6 +1,6 @@
 // src/components/UnderConstruction.jsx
 import React from 'react';
-import '../assets/underConstruction.css';
+import '../styles/underConstruction.css';
 import constructionImage from '../assets/under-construction.webp'; // Ensure the image is in this path
 
 const UnderConstruction = () => {

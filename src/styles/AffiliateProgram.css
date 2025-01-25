@@ -1,0 +1,138 @@
+.affiliate-program-container {
+    min-height: 100vh;
+    background: linear-gradient(to bottom, #ebf8ff, #e6f6ff);
+    padding: 3rem 0;
+}
+
+.header {
+    text-align: center;
+    margin-bottom: 3rem;
+}
+
+.header-title {
+    font-size: 2.5rem;
+    font-weight: bold;
+    color: #1a202c;
+    margin-bottom: 1rem;
+}
+
+.header-description {
+    font-size: 1.25rem;
+    color: #2c5282;
+    max-width: 40rem;
+    margin: 0 auto;
+}
+
+.tabs-container {
+    background: white;
+    border-radius: 1rem;
+    box-shadow: 0 10px 15px rgba(0, 0, 0, 0.1);
+    overflow: hidden;
+}
+
+.tabs {
+    display: flex;
+    border-bottom: 1px solid #e2e8f0;
+}
+
+.tab {
+    flex: 1;
+    padding: 1rem;
+    font-size: 1.125rem;
+    font-weight: 600;
+    text-align: center;
+    transition: background 0.3s, color 0.3s;
+    cursor: pointer;
+}
+
+.tab:hover {
+    background: #ebf8ff;
+}
+
+.active-tab {
+    background: #3182ce;
+    color: white;
+}
+
+.tabs-content {
+    padding: 2rem;
+}
+
+.referral-code-container {
+    margin-top: 3rem;
+    background: #3182ce;
+    color: white;
+    padding: 2rem;
+    border-radius: 1rem;
+    text-align: center;
+}
+
+.referral-code-title {
+    font-size: 1.875rem;
+    font-weight: bold;
+    margin-bottom: 1.5rem;
+}
+
+.referral-code-box {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 1rem;
+}
+
+.referral-code {
+    background: white;
+    color: #2c5282;
+    padding: 0.75rem 1.5rem;
+    font-size: 1.5rem;
+    font-family: monospace;
+    border-radius: 0.5rem;
+}
+
+.copy-button {
+    background: white;
+    color: #3182ce;
+    padding: 0.75rem;
+    border-radius: 0.5rem;
+    transition: background 0.3s;
+    cursor: pointer;
+}
+
+.copy-button:hover {
+    background: #ebf8ff;
+}
+
+.icon {
+    width: 1.5rem;
+    height: 1.5rem;
+}
+
+.footer {
+    margin-top: 3rem;
+    text-align: center;
+}
+
+.footer-title {
+    font-size: 1.875rem;
+    font-weight: bold;
+    color: #1a202c;
+    margin-bottom: 1.5rem;
+}
+
+.sign-up-button {
+    background: #3182ce;
+    color: white;
+    padding: 1rem 3rem;
+    font-size: 1.25rem;
+    border-radius: 9999px;
+    transition: background 0.3s;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 0.5rem;
+    cursor: pointer;
+}
+
+.sign-up-button:hover {
+    background: #2b6cb0;
+}

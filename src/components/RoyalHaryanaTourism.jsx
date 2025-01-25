@@ -3,7 +3,7 @@ import {
   MapPin, Flower, Leaf, Sun, Award, Clock, 
   Calendar, Shield, Star, Users, Compass
 } from 'lucide-react';
-import '../assets/luxury.css';
+import '../styles/luxury.css';
 
 const royalHaryanaDestinations = [
   {
