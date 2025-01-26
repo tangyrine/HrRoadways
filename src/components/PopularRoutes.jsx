@@ -1,3 +1,4 @@
+// src/components/PopularRoutes.jsx
 import React, { useState, useEffect } from 'react';
 import { ArrowRight, Map, Clock, DollarSign, Calendar } from 'lucide-react';
 import { motion, AnimatePresence } from 'framer-motion';
@@ -58,7 +59,7 @@ const popularRoutes = [
   }
 ];
 
-const PopularRoutes = () => {
+const PopularRoutes = ({ onRouteClick }) => {
   const [selectedRoute, setSelectedRoute] = useState(null);
   const [activeRouteIndex, setActiveRouteIndex] = useState(0);
 
@@ -91,7 +92,10 @@ const PopularRoutes = () => {
               >
                 <div 
                   className="flex items-center justify-between bg-blue-50 p-4 rounded-lg cursor-pointer hover:bg-blue-100 transition"
-                  onClick={() => setSelectedRoute(route)}
+                  onClick={() => { 
+                    setSelectedRoute(route);
+                    onRouteClick(route);
+                  }}  // Call the function passed via props
                 >
                   <div className="flex items-center space-x-4">
                     <div className="text-center">
