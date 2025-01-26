@@ -8,7 +8,60 @@ import {
   CheckCircle 
 } from 'lucide-react';
 
-const PaymentOptions = () => {
+const translations = {
+  en: {
+    paymentMethods: "Payment Methods",
+    paymentMethodsDesc: "Select a payment method to proceed",
+    creditCard: "Credit Card",
+    creditCardDesc: "Pay securely with your credit card",
+    debitCard: "Debit Card",
+    debitCardDesc: "Use your bank debit card",
+    upi: "UPI",
+    upiDesc: "Quick and instant payment",
+    wallet: "Digital Wallet",
+    walletDesc: "Pay using mobile wallets",
+    cardNumber: "Card Number",
+    cardName: "Name on Card",
+    expiryDate: "Expiry Date",
+    cvv: "CVV",
+    upiId: "UPI ID",
+    scanQrCode: "Scan QR code with your UPI app",
+    digitalWallets: "Digital Wallets",
+    totalPayable: "Total Payable",
+    confirmPayment: "Confirm Payment",
+    safeSecure: "100% Safe & Secure Payment",
+    cardDetails: "Card Details",
+    upiPayment: "UPI Payment",
+    selectPaymentMethod: "Select a payment method to proceed"
+  },
+  hi: {
+    paymentMethods: "भुगतान विधियाँ",
+    paymentMethodsDesc: "आगे बढ़ने के लिए भुगतान विधि चुनें",
+    creditCard: "क्रेडिट कार्ड",
+    creditCardDesc: "अपने क्रेडिट कार्ड से सुरक्षित रूप से भुगतान करें",
+    debitCard: "डेबिट कार्ड",
+    debitCardDesc: "अपने बैंक डेबिट कार्ड का उपयोग करें",
+    upi: "यूपीआई",
+    upiDesc: "त्वरित और तत्काल भुगतान",
+    wallet: "डिजिटल वॉलेट",
+    walletDesc: "मोबाइल वॉलेट का उपयोग करके भुगतान करें",
+    cardNumber: "कार्ड नंबर",
+    cardName: "कार्ड पर नाम",
+    expiryDate: "समाप्ति तिथि",
+    cvv: "सीवीवी",
+    upiId: "यूपीआई आईडी",
+    scanQrCode: "अपने यूपीआई ऐप से क्यूआर कोड स्कैन करें",
+    digitalWallets: "डिजिटल वॉलेट्स",
+    totalPayable: "कुल देय",
+    confirmPayment: "भुगतान की पुष्टि करें",
+    safeSecure: "100% सुरक्षित और सुरक्षित भुगतान",
+    cardDetails: "कार्ड विवरण",
+    upiPayment: "यूपीआई भुगतान",
+    selectPaymentMethod: "आगे बढ़ने के लिए भुगतान विधि चुनें"
+  }
+};
+
+const PaymentOptions = ({ isHindi }) => {
   const [selectedPaymentMethod, setSelectedPaymentMethod] = useState(null);
   const [cardDetails, setCardDetails] = useState({
     cardNumber: '',
@@ -23,30 +76,32 @@ const PaymentOptions = () => {
     console.log('Selected Payment Method:', selectedPaymentMethod);
   }, [selectedPaymentMethod]);
 
+  const currentLanguage = isHindi ? translations.hi : translations.en;
+
   const paymentMethods = [
     { 
       id: 'credit', 
       icon: CreditCard, 
-      title: 'Credit Card', 
-      description: 'Pay securely with your credit card' 
+      title: currentLanguage.creditCard, 
+      description: currentLanguage.creditCardDesc 
     },
     { 
       id: 'debit', 
       icon: CreditCardIcon, 
-      title: 'Debit Card', 
-      description: 'Use your bank debit card' 
+      title: currentLanguage.debitCard, 
+      description: currentLanguage.debitCardDesc 
     },
     { 
       id: 'upi', 
       icon: QrCode, 
-      title: 'UPI', 
-      description: 'Quick and instant payment' 
+      title: currentLanguage.upi, 
+      description: currentLanguage.upiDesc 
     },
     { 
       id: 'wallet', 
       icon: Wallet, 
-      title: 'Digital Wallet', 
-      description: 'Pay using mobile wallets' 
+      title: currentLanguage.wallet, 
+      description: currentLanguage.walletDesc 
     }
   ];
 
@@ -69,11 +124,11 @@ const PaymentOptions = () => {
         return (
           <div className="payment-form bg-white p-6 rounded-lg shadow-md">
             <h3 className="text-xl font-semibold mb-4 text-gray-800">
-              {selectedPaymentMethod.title} Details
+              {currentLanguage.cardDetails}
             </h3>
             <div className="space-y-4">
               <div>
-                <label className="block text-sm font-medium text-gray-700">Card Number</label>
+                <label className="block text-sm font-medium text-gray-700">{currentLanguage.cardNumber}</label>
                 <input
                   type="text"
                   name="cardNumber"
@@ -83,7 +138,41 @@ const PaymentOptions = () => {
                   className="mt-1 block w-full border border-gray-300 rounded-md shadow-sm py-2 px-3 focus:ring-blue-500 focus:border-blue-500"
                 />
               </div>
-              {/* Rest of the input fields remain the same */}
+              <div>
+                <label className="block text-sm font-medium text-gray-700">{currentLanguage.cardName}</label>
+                <input
+                  type="text"
+                  name="cardName"
+                  value={cardDetails.cardName}
+                  onChange={handleCardDetailsChange}
+                  placeholder="John Doe"
+                  className="mt-1 block w-full border border-gray-300 rounded-md shadow-sm py-2 px-3 focus:ring-blue-500 focus:border-blue-500"
+                />
+              </div>
+              <div className="grid grid-cols-2 gap-4">
+                <div>
+                  <label className="block text-sm font-medium text-gray-700">{currentLanguage.expiryDate}</label>
+                  <input
+                    type="text"
+                    name="expiryDate"
+                    value={cardDetails.expiryDate}
+                    onChange={handleCardDetailsChange}
+                    placeholder="MM/YY"
+                    className="mt-1 block w-full border border-gray-300 rounded-md shadow-sm py-2 px-3 focus:ring-blue-500 focus:border-blue-500"
+                  />
+                </div>
+                <div>
+                  <label className="block text-sm font-medium text-gray-700">{currentLanguage.cvv}</label>
+                  <input
+                    type="text"
+                    name="cvv"
+                    value={cardDetails.cvv}
+                    onChange={handleCardDetailsChange}
+                    placeholder="123"
+                    className="mt-1 block w-full border border-gray-300 rounded-md shadow-sm py-2 px-3 focus:ring-blue-500 focus:border-blue-500"
+                  />
+                </div>
+              </div>
             </div>
           </div>
         );
@@ -91,11 +180,11 @@ const PaymentOptions = () => {
         return (
           <div className="payment-form bg-white p-6 rounded-lg shadow-md">
             <h3 className="text-xl font-semibold mb-4 text-gray-800">
-              UPI Payment
+              {currentLanguage.upiPayment}
             </h3>
             <div className="space-y-4">
               <div>
-                <label className="block text-sm font-medium text-gray-700">UPI ID</label>
+                <label className="block text-sm font-medium text-gray-700">{currentLanguage.upiId}</label>
                 <input
                   type="text"
                   placeholder="yourname@upi"
@@ -104,7 +193,7 @@ const PaymentOptions = () => {
               </div>
               <div className="flex items-center text-sm text-gray-600">
                 <QrCode className="mr-2 text-blue-500" size={20} />
-                Scan QR code with your UPI app
+                {currentLanguage.scanQrCode}
               </div>
             </div>
           </div>
@@ -113,7 +202,7 @@ const PaymentOptions = () => {
         return (
           <div className="payment-form bg-white p-6 rounded-lg shadow-md">
             <h3 className="text-xl font-semibold mb-4 text-gray-800">
-              Digital Wallets
+              {currentLanguage.digitalWallets}
             </h3>
             <div className="grid grid-cols-2 gap-4">
               {['Paytm', 'PhonePe', 'Google Pay', 'Amazon Pay'].map((wallet) => (
@@ -139,7 +228,7 @@ const PaymentOptions = () => {
           {/* Payment methods sidebar */}
           <div className="md:w-1/3 bg-gray-50 p-6 border-r">
             <h2 className="text-2xl font-bold mb-6 text-gray-800">
-              Payment Methods
+              {currentLanguage.paymentMethods}
             </h2>
             <div className="space-y-4">
               {paymentMethods.map((method) => (
@@ -173,20 +262,20 @@ const PaymentOptions = () => {
             ) : (
               <div className="text-center py-12 text-gray-500">
                 <ShieldCheck className="mx-auto mb-4 text-blue-500" size={48} />
-                <p>Select a payment method to proceed</p>
+                <p>{currentLanguage.selectPaymentMethod}</p>
               </div>
             )}
 
             {selectedPaymentMethod && (
               <div className="mt-6 flex justify-between items-center">
                 <div className="text-xl font-bold text-gray-800">
-                  Total Payable: ₹2,500
+                  {currentLanguage.totalPayable}: ₹2,500
                 </div>
                 <button 
                   className="bg-blue-600 text-white px-6 py-3 rounded-lg hover:bg-blue-700 transition flex items-center"
                 >
                   <CheckCircle className="mr-2" size={20} />
-                  Confirm Payment
+                  {currentLanguage.confirmPayment}
                 </button>
               </div>
             )}
@@ -196,7 +285,7 @@ const PaymentOptions = () => {
         {/* Security footer */}
         <div className="bg-blue-50 p-4 flex items-center justify-center text-blue-800">
           <ShieldCheck className="mr-2" size={20} />
-          <span>100% Safe & Secure Payment</span>
+          <span>{currentLanguage.safeSecure}</span>
         </div>
       </div>
     </div>

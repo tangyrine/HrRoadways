@@ -1,7 +1,70 @@
 import React, { useState } from 'react';
 import { Heart, Bus, CreditCard, Calendar, Mail, CheckCircle, Clock, Users } from 'lucide-react';
 
-const DonatePage = () => {
+const translations = {
+  en: {
+    headerTitle: "Haryana Roadways",
+    headerSubtitle: "Your Journey, Our Pride",
+    supportTitle: "Support Our Mission",
+    selectAmountLabel: "Select Donation Amount (INR)",
+    customAmountPlaceholder: "Custom Amount",
+    oneTime: "One-time",
+    monthly: "Monthly",
+    fullNameLabel: "Full Name",
+    emailLabel: "Email",
+    phoneNumberLabel: "Phone Number",
+    panCardLabel: "PAN Card (for tax benefits)",
+    messageLabel: "Message (Optional)",
+    messagePlaceholder: "Share why you're supporting us...",
+    paymentMethodLabel: "Payment Method",
+    completeDonation: "Complete Donation",
+    yourImpactTitle: "Your Impact",
+    busesImpact: "100+ Buses",
+    busesImpactDetail: "Maintained monthly",
+    passengersImpact: "50,000+ Passengers",
+    passengersImpactDetail: "Served daily",
+    serviceImpact: "24/7 Service",
+    serviceImpactDetail: "Round the clock operations",
+    recentSupportersTitle: "Recent Supporters",
+    taxBenefitsTitle: "Tax Benefits",
+    taxBenefitsDetail: "All donations are eligible for tax deduction under Section 80G of the Income Tax Act. You will receive a tax receipt via email.",
+    thankYouTitle: "Thank You for Your Donation!",
+    thankYouMessage: "Your generous contribution will help us improve our services and infrastructure. A confirmation email has been sent to",
+    makeAnotherDonation: "Make Another Donation"
+  },
+  hi: {
+    headerTitle: "हरियाणा रोडवेज",
+    headerSubtitle: "आपकी यात्रा, हमारा गर्व",
+    supportTitle: "हमारे मिशन का समर्थन करें",
+    selectAmountLabel: "दान राशि चुनें (INR)",
+    customAmountPlaceholder: "कस्टम राशि",
+    oneTime: "एक बार",
+    monthly: "मासिक",
+    fullNameLabel: "पूरा नाम",
+    emailLabel: "ईमेल",
+    phoneNumberLabel: "फोन नंबर",
+    panCardLabel: "पैन कार्ड (कर लाभ के लिए)",
+    messageLabel: "संदेश (वैकल्पिक)",
+    messagePlaceholder: "आप हमारे समर्थन क्यों कर रहे हैं, साझा करें...",
+    paymentMethodLabel: "भुगतान विधि",
+    completeDonation: "दान पूरा करें",
+    yourImpactTitle: "आपका प्रभाव",
+    busesImpact: "100+ बसें",
+    busesImpactDetail: "मासिक रखरखाव",
+    passengersImpact: "50,000+ यात्री",
+    passengersImpactDetail: "प्रतिदिन सेवा",
+    serviceImpact: "24/7 सेवा",
+    serviceImpactDetail: "घड़ी के चारों ओर संचालन",
+    recentSupportersTitle: "हाल के समर्थक",
+    taxBenefitsTitle: "कर लाभ",
+    taxBenefitsDetail: "सभी दान आयकर अधिनियम की धारा 80G के तहत कर कटौती के लिए पात्र हैं। आपको ईमेल के माध्यम से एक कर रसीद प्राप्त होगी।",
+    thankYouTitle: "आपके दान के लिए धन्यवाद!",
+    thankYouMessage: "आपके उदार योगदान से हमें अपनी सेवाओं और बुनियादी ढांचे में सुधार करने में मदद मिलेगी। एक पुष्टिकरण ईमेल भेजा गया है",
+    makeAnotherDonation: "एक और दान करें"
+  }
+};
+
+const DonatePage = ({ isHindi }) => {
   const [amount, setAmount] = useState('');
   const [customAmount, setCustomAmount] = useState('');
   const [donorInfo, setDonorInfo] = useState({
@@ -37,6 +100,8 @@ const DonatePage = () => {
     setAmount('custom');
   };
 
+  const currentLanguage = isHindi ? translations.hi : translations.en;
+
   if (showThankYou) {
     return (
       <div className="min-h-screen bg-gray-50">
@@ -44,24 +109,23 @@ const DonatePage = () => {
           <div className="max-w-4xl mx-auto px-4 text-center">
             <h1 className="text-3xl font-bold flex items-center justify-center gap-2">
               <Bus size={32} />
-              Haryana Roadways
+              {currentLanguage.headerTitle}
             </h1>
-            <p className="mt-2">Your Journey, Our Pride</p>
+            <p className="mt-2">{currentLanguage.headerSubtitle}</p>
           </div>
         </header>
 
         <div className="max-w-2xl mx-auto mt-16 p-8 bg-white rounded-lg shadow-lg text-center">
           <CheckCircle className="w-16 h-16 text-green-500 mx-auto mb-6" />
-          <h2 className="text-2xl font-bold text-gray-800 mb-4">Thank You for Your Donation!</h2>
+          <h2 className="text-2xl font-bold text-gray-800 mb-4">{currentLanguage.thankYouTitle}</h2>
           <p className="text-gray-600 mb-6">
-            Your generous contribution will help us improve our services and infrastructure.
-            A confirmation email has been sent to {donorInfo.email}.
+            {currentLanguage.thankYouMessage} {donorInfo.email}.
           </p>
           <button 
             onClick={() => window.location.reload()}
             className="bg-blue-600 text-white px-6 py-2 rounded-lg hover:bg-blue-700 transition-colors"
           >
-            Make Another Donation
+            {currentLanguage.makeAnotherDonation}
           </button>
         </div>
       </div>
@@ -74,9 +138,9 @@ const DonatePage = () => {
         <div className="max-w-4xl mx-auto px-4 text-center">
           <h1 className="text-3xl font-bold flex items-center justify-center gap-2">
             <Bus size={32} />
-            Haryana Roadways
+            {currentLanguage.headerTitle}
           </h1>
-          <p className="mt-2">Your Journey, Our Pride</p>
+          <p className="mt-2">{currentLanguage.headerSubtitle}</p>
         </div>
       </header>
 
@@ -87,13 +151,13 @@ const DonatePage = () => {
             <div className="bg-white rounded-lg shadow-lg p-6">
               <h2 className="text-2xl font-bold text-gray-800 mb-6 flex items-center gap-2">
                 <Heart className="text-red-500" />
-                Support Our Mission
+                {currentLanguage.supportTitle}
               </h2>
 
               <form onSubmit={handleSubmit} className="space-y-6">
                 <div>
                   <label className="block text-gray-700 font-medium mb-3">
-                    Select Donation Amount (INR)
+                    {currentLanguage.selectAmountLabel}
                   </label>
                   <div className="grid grid-cols-2 md:grid-cols-4 gap-3 mb-4">
                     {predefinedAmounts.map((value) => (
@@ -114,7 +178,7 @@ const DonatePage = () => {
                   <div className="mt-3">
                     <input
                       type="number"
-                      placeholder="Custom Amount"
+                      placeholder={currentLanguage.customAmountPlaceholder}
                       value={customAmount}
                       onChange={handleCustomAmount}
                       className="w-full px-4 py-2 border rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500"
@@ -133,7 +197,7 @@ const DonatePage = () => {
                         : 'bg-white text-gray-700 border-gray-300'
                     }`}
                   >
-                    One-time
+                    {currentLanguage.oneTime}
                   </button>
                   <button
                     type="button"
@@ -144,19 +208,19 @@ const DonatePage = () => {
                         : 'bg-white text-gray-700 border-gray-300'
                     }`}
                   >
-                    Monthly
+                    {currentLanguage.monthly}
                   </button>
                 </div>
 
                 <div className="grid md:grid-cols-2 gap-4">
                   <div>
                     <label className="block text-gray-700 font-medium mb-2">
-                      Full Name
+                      {currentLanguage.fullNameLabel}
                     </label>
                     <input
                       type="text"
                       value={donorInfo.name}
-                      placeholder='Enter Your Name'
+                      placeholder={currentLanguage.fullNameLabel}
                       onChange={(e) => setDonorInfo({...donorInfo, name: e.target.value})}
                       className="w-full px-4 py-2 border rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500"
                       required
@@ -164,12 +228,12 @@ const DonatePage = () => {
                   </div>
                   <div>
                     <label className="block text-gray-700 font-medium mb-2">
-                      Email
+                      {currentLanguage.emailLabel}
                     </label>
                     <input
                       type="email"
                       value={donorInfo.email}
-                      placeholder='Enter Your Email'
+                      placeholder={currentLanguage.emailLabel}
                       onChange={(e) => setDonorInfo({...donorInfo, email: e.target.value})}
                       className="w-full px-4 py-2 border rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500"
                       required
@@ -177,24 +241,24 @@ const DonatePage = () => {
                   </div>
                   <div>
                     <label className="block text-gray-700 font-medium mb-2">
-                      Phone Number
+                      {currentLanguage.phoneNumberLabel}
                     </label>
                     <input
                       type="tel"
                       value={donorInfo.phone}
-                      placeholder='E.g: +91 xxxxx-xxxxx'
+                      placeholder={currentLanguage.phoneNumberLabel}
                       onChange={(e) => setDonorInfo({...donorInfo, phone: e.target.value})}
                       className="w-full px-4 py-2 border rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500"
                     />
                   </div>
                   <div>
                     <label className="block text-gray-700 font-medium mb-2">
-                      PAN Card (for tax benefits)
+                      {currentLanguage.panCardLabel}
                     </label>
                     <input
                       type="text"
                       value={donorInfo.panCard}
-                      placeholder='Enter Your PAN Card Number'
+                      placeholder={currentLanguage.panCardLabel}
                       onChange={(e) => setDonorInfo({...donorInfo, panCard: e.target.value})}
                       className="w-full px-4 py-2 border rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500"
                     />
@@ -203,19 +267,19 @@ const DonatePage = () => {
 
                 <div>
                   <label className="block text-gray-700 font-medium mb-2">
-                    Message (Optional)
+                    {currentLanguage.messageLabel}
                   </label>
                   <textarea
                     value={donorInfo.message}
                     onChange={(e) => setDonorInfo({...donorInfo, message: e.target.value})}
                     className="w-full px-4 py-2 border rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 h-24"
-                    placeholder="Share why you're supporting us..."
+                    placeholder={currentLanguage.messagePlaceholder}
                   ></textarea>
                 </div>
 
                 <div>
                   <label className="block text-gray-700 font-medium mb-3">
-                    Payment Method
+                    {currentLanguage.paymentMethodLabel}
                   </label>
                   <div className="grid grid-cols-3 gap-3">
                     <button
@@ -228,7 +292,7 @@ const DonatePage = () => {
                       }`}
                     >
                       <CreditCard size={20} />
-                      Card
+                      {isHindi ? "कार्ड" : "Card"}
                     </button>
                     <button
                       type="button"
@@ -239,7 +303,7 @@ const DonatePage = () => {
                           : 'bg-white text-gray-700 border-gray-300'
                       }`}
                     >
-                      UPI
+                      {isHindi ? "यूपीआई" : "UPI"}
                     </button>
                     <button
                       type="button"
@@ -250,7 +314,7 @@ const DonatePage = () => {
                           : 'bg-white text-gray-700 border-gray-300'
                       }`}
                     >
-                      Net Banking
+                      {isHindi ? "नेट बैंकिंग" : "Net Banking"}
                     </button>
                   </div>
                 </div>
@@ -260,7 +324,7 @@ const DonatePage = () => {
                   className="w-full bg-blue-600 text-white py-3 rounded-lg hover:bg-blue-700 transition-colors flex items-center justify-center gap-2"
                 >
                   <Heart size={20} />
-                  Complete Donation
+                  {currentLanguage.completeDonation}
                 </button>
               </form>
             </div>
@@ -268,34 +332,34 @@ const DonatePage = () => {
 
           <div className="space-y-6">
             <div className="bg-white rounded-lg shadow-lg p-6">
-              <h3 className="text-lg font-semibold text-gray-800 mb-4">Your Impact</h3>
+              <h3 className="text-lg font-semibold text-gray-800 mb-4">{currentLanguage.yourImpactTitle}</h3>
               <div className="space-y-4">
                 <div className="flex items-center gap-3">
                   <Bus className="text-blue-600" />
                   <div>
-                    <p className="font-semibold">100+ Buses</p>
-                    <p className="text-sm text-gray-600">Maintained monthly</p>
+                    <p className="font-semibold">{currentLanguage.busesImpact}</p>
+                    <p className="text-sm text-gray-600">{currentLanguage.busesImpactDetail}</p>
                   </div>
                 </div>
                 <div className="flex items-center gap-3">
                   <Users className="text-blue-600" />
                   <div>
-                    <p className="font-semibold">50,000+ Passengers</p>
-                    <p className="text-sm text-gray-600">Served daily</p>
+                    <p className="font-semibold">{currentLanguage.passengersImpact}</p>
+                    <p className="text-sm text-gray-600">{currentLanguage.passengersImpactDetail}</p>
                   </div>
                 </div>
                 <div className="flex items-center gap-3">
                   <Clock className="text-blue-600" />
                   <div>
-                    <p className="font-semibold">24/7 Service</p>
-                    <p className="text-sm text-gray-600">Round the clock operations</p>
+                    <p className="font-semibold">{currentLanguage.serviceImpact}</p>
+                    <p className="text-sm text-gray-600">{currentLanguage.serviceImpactDetail}</p>
                   </div>
                 </div>
               </div>
             </div>
 
             <div className="bg-white rounded-lg shadow-lg p-6">
-              <h3 className="text-lg font-semibold text-gray-800 mb-4">Recent Supporters</h3>
+              <h3 className="text-lg font-semibold text-gray-800 mb-4">{currentLanguage.recentSupportersTitle}</h3>
               <div className="space-y-4">
                 {recentDonors.map((donor, index) => (
                   <div key={index} className="border-b last:border-0 pb-3 last:pb-0">
@@ -310,10 +374,9 @@ const DonatePage = () => {
             </div>
 
             <div className="bg-white rounded-lg shadow-lg p-6">
-              <h3 className="text-lg font-semibold text-gray-800 mb-2">Tax Benefits</h3>
+              <h3 className="text-lg font-semibold text-gray-800 mb-2">{currentLanguage.taxBenefitsTitle}</h3>
               <p className="text-gray-600 text-sm">
-                All donations are eligible for tax deduction under Section 80G of the Income Tax Act.
-                You will receive a tax receipt via email.
+                {currentLanguage.taxBenefitsDetail}
               </p>
             </div>
           </div>

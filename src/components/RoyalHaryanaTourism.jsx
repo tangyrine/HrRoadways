@@ -5,68 +5,132 @@ import {
 } from 'lucide-react';
 import '../styles/luxury.css';
 
-const royalHaryanaDestinations = [
-  {
-    id: 1,
-    name: "Sultanpur Palace, Hisar",
-    description: "A majestic royal residence showcasing Haryana's architectural splendor",
-    price: "₹5,999",
-    rating: 4.8,
-    duration: "2 Days / 1 Night",
-    highlights: [
-      "Heritage Palace Tour", 
-      "Royal Dining Experience", 
-      "Historical Museum Visit"
-    ],
-    location: "Hisar",
-    bestSeason: "October to March",
-    activities: [
-      "Guided Heritage Walk",
-      "Traditional Haryanvi Cuisine",
-      "Architectural Photography"
-    ]
-  },
-  {
-    id: 2,
-    name: "Kurukshetra Heritage Trail",
-    description: "Explore the land of Mahabharata with spiritual and historical significance",
-    price: "₹4,599",
-    rating: 4.9,
-    duration: "3 Days / 2 Nights",
-    highlights: [
-      "Brahma Sarovar", 
-      "Jyotisar Krishna Temple", 
-      "Archaeological Museums"
-    ],
-    location: "Kurukshetra",
-    bestSeason: "Winter Months",
-    activities: [
-      "Spiritual Retreats",
-      "Historical Exploration",
-      "Cultural Workshops"
-    ]
-  },
-  {
-    id: 3,
-    name: "Pehowa Royal Retreat",
-    description: "Discover the serene royal heritage of ancient Haryana",
-    price: "₹6,299",
-    rating: 4.7,
-    duration: "2 Days / 1 Night",
-    highlights: [
-      "Ancient Temples", 
-      "Rural Luxury Experience", 
-      "Traditional Craft Workshops"
-    ],
-    location: "Pehowa",
-    bestSeason: "October to February",
-    activities: [
-      "Pottery Making",
-      "Folk Performance",
-      "Nature Walks"
-    ]
-  }
-];
+const royalHaryanaDestinations = {
+  en: [
+    {
+      id: 1,
+      name: "Sultanpur Palace, Hisar",
+      description: "A majestic royal residence showcasing Haryana's architectural splendor",
+      price: "₹5,999",
+      rating: 4.8,
+      duration: "2 Days / 1 Night",
+      highlights: [
+        "Heritage Palace Tour", 
+        "Royal Dining Experience", 
+        "Historical Museum Visit"
+      ],
+      location: "Hisar",
+      bestSeason: "October to March",
+      activities: [
+        "Guided Heritage Walk",
+        "Traditional Haryanvi Cuisine",
+        "Architectural Photography"
+      ]
+    },
+    {
+      id: 2,
+      name: "Kurukshetra Heritage Trail",
+      description: "Explore the land of Mahabharata with spiritual and historical significance",
+      price: "₹4,599",
+      rating: 4.9,
+      duration: "3 Days / 2 Nights",
+      highlights: [
+        "Brahma Sarovar", 
+        "Jyotisar Krishna Temple", 
+        "Archaeological Museums"
+      ],
+      location: "Kurukshetra",
+      bestSeason: "Winter Months",
+      activities: [
+        "Spiritual Retreats",
+        "Historical Exploration",
+        "Cultural Workshops"
+      ]
+    },
+    {
+      id: 3,
+      name: "Pehowa Royal Retreat",
+      description: "Discover the serene royal heritage of ancient Haryana",
+      price: "₹6,299",
+      rating: 4.7,
+      duration: "2 Days / 1 Night",
+      highlights: [
+        "Ancient Temples", 
+        "Rural Luxury Experience", 
+        "Traditional Craft Workshops"
+      ],
+      location: "Pehowa",
+      bestSeason: "October to February",
+      activities: [
+        "Pottery Making",
+        "Folk Performance",
+        "Nature Walks"
+      ]
+    }
+  ],
+  hi: [
+    {
+      id: 1,
+      name: "सुल्तानपुर पैलेस, हिसार",
+      description: "हरियाणा की वास्तुकला की भव्यता को दर्शाने वाला एक शानदार रॉयल निवास",
+      price: "₹5,999",
+      rating: 4.8,
+      duration: "2 दिन / 1 रात",
+      highlights: [
+        "विरासत महल यात्रा", 
+        "रॉयल डाइनिंग अनुभव", 
+        "ऐतिहासिक संग्रहालय यात्रा"
+      ],
+      location: "हिसार",
+      bestSeason: "अक्टूबर से मार्च",
+      activities: [
+        "मार्गदर्शित विरासत चलना",
+        "पारंपरिक हरियाणवी व्यंजन",
+        "वास्तुकला फोटोग्राफी"
+      ]
+    },
+    {
+      id: 2,
+      name: "कुरुक्षेत्र विरासत ट्रेल",
+      description: "आध्यात्मिक और ऐतिहासिक महत्व के साथ महाभारत की भूमि का अन्वेषण करें",
+      price: "₹4,599",
+      rating: 4.9,
+      duration: "3 दिन / 2 रातें",
+      highlights: [
+        "ब्रह्म सरोवर", 
+        "ज्योतिसर कृष्ण मंदिर", 
+        "पुरातात्विक संग्रहालय"
+      ],
+      location: "कुरुक्षेत्र",
+      bestSeason: "सर्दी के महीने",
+      activities: [
+        "आध्यात्मिक रिट्रीट",
+        "ऐतिहासिक अन्वेषण",
+        "सांस्कृतिक कार्यशालाएँ"
+      ]
+    },
+    {
+      id: 3,
+      name: "पिहोवा रॉयल रिट्रीट",
+      description: "प्राचीन हरियाणा की शांतिपूर्ण रॉयल विरासत की खोज करें",
+      price: "₹6,299",
+      rating: 4.7,
+      duration: "2 दिन / 1 रात",
+      highlights: [
+        "प्राचीन मंदिर", 
+        "ग्रामीण लक्जरी अनुभव", 
+        "पारंपरिक शिल्प कार्यशालाएँ"
+      ],
+      location: "पिहोवा",
+      bestSeason: "अक्टूबर से फरवरी",
+      activities: [
+        "मिट्टी के बर्तन बनाना",
+        "लोक प्रदर्शन",
+        "प्रकृति की सैर"
+      ]
+    }
+  ]
+};
 
 const translations = {
   en: {
@@ -80,11 +144,24 @@ const translations = {
       { icon: Compass, title: "Local Expertise", desc: "Expert local guides" },
       { icon: Leaf, title: "Sustainable Tourism", desc: "Eco-friendly royal experiences" }
     ]
+  },
+  hi: {
+    title: "रॉयल हरियाणा ओडिसी",
+    subtitle: "हरियाणा की भव्य विरासत का अनावरण करें",
+    searchPlaceholder: "रॉयल स्थलों का अन्वेषण करें",
+    searchButton: "रॉयल अनुभवों की खोज करें",
+    features: [
+      { icon: Shield, title: "रॉयल सुरक्षा", desc: "समग्र यात्रा संरक्षण" },
+      { icon: Star, title: "संपादित अनुभव", desc: "हाथ से चुने गए रॉयल गंतव्य" },
+      { icon: Compass, title: "स्थानीय विशेषज्ञता", desc: "विशेषज्ञ स्थानीय गाइड" },
+      { icon: Leaf, title: "सतत पर्यटन", desc: "इको-फ्रेंडली रॉयल अनुभव" }
+    ]
   }
 };
 
-const RoyalHaryanaTourism = () => {
-  const [destinations, setDestinations] = useState(royalHaryanaDestinations);
+const RoyalHaryanaTourism = ({ isHindi }) => {
+  const [currentLanguage, setCurrentLanguage] = useState(translations.en);
+  const [destinations, setDestinations] = useState(royalHaryanaDestinations.en);
   const [searchTerm, setSearchTerm] = useState('');
   const [curtainOpen, setCurtainOpen] = useState(false);
   const [selectedDestination, setSelectedDestination] = useState(null);
@@ -93,6 +170,11 @@ const RoyalHaryanaTourism = () => {
     duration: ''
   });
   const curtainRef = useRef(null);
+
+  useEffect(() => {
+    setCurrentLanguage(isHindi ? translations.hi : translations.en);
+    setDestinations(isHindi ? royalHaryanaDestinations.hi : royalHaryanaDestinations.en);
+  }, [isHindi]);
 
   useEffect(() => {
     const timer = setTimeout(() => {
@@ -109,7 +191,7 @@ const RoyalHaryanaTourism = () => {
   };
 
   const filterDestinations = (term) => {
-    let filtered = royalHaryanaDestinations.filter(dest => 
+    let filtered = destinations.filter(dest => 
       dest.name.toLowerCase().includes(term) ||
       dest.location.toLowerCase().includes(term)
     );
@@ -149,8 +231,8 @@ const RoyalHaryanaTourism = () => {
       <header className="royal-header">
         <div className="header-overlay" />
         <div className="header-content">
-          <h1 className="royal-title">Royal Haryana Odyssey</h1>
-          <p className="royal-subtitle">Uncover the Majestic Heritage of Haryana</p>
+          <h1 className="royal-title">{currentLanguage.title}</h1>
+          <p className="royal-subtitle">{currentLanguage.subtitle}</p>
         </div>
       </header>
 
@@ -161,27 +243,27 @@ const RoyalHaryanaTourism = () => {
             onChange={(e) => setFilters({...filters, season: e.target.value})}
             className="royal-select"
           >
-            <option value="">Select Season</option>
-            <option value="Winter">Winter</option>
-            <option value="Summer">Summer</option>
-            <option value="Monsoon">Monsoon</option>
+            <option value="">{isHindi ? "मौसम चुनें" : "Select Season"}</option>
+            <option value="Winter">{isHindi ? "सर्दी" : "Winter"}</option>
+            <option value="Summer">{isHindi ? "गर्मी" : "Summer"}</option>
+            <option value="Monsoon">{isHindi ? "मानसून" : "Monsoon"}</option>
           </select>
 
           <select 
             onChange={(e) => setFilters({...filters, duration: e.target.value})}
             className="royal-select"
           >
-            <option value="">Select Duration</option>
-            <option value="1 Night">1 Night</option>
-            <option value="2 Nights">2 Nights</option>
-            <option value="3 Nights">3 Nights</option>
+            <option value="">{isHindi ? "अवधि चुनें" : "Select Duration"}</option>
+            <option value="1 Night">{isHindi ? "1 रात" : "1 Night"}</option>
+            <option value="2 Nights">{isHindi ? "2 रातें" : "2 Nights"}</option>
+            <option value="3 Nights">{isHindi ? "3 रातें" : "3 Nights"}</option>
           </select>
         </div>
       </section>
 
       {/* Features Section */}
       <section className="royal-features">
-        {translations.en.features.map((feature, index) => (
+        {currentLanguage.features.map((feature, index) => (
           <div key={index} className="feature-card">
             <feature.icon className="feature-icon" />
             <div className="feature-details">
@@ -197,13 +279,13 @@ const RoyalHaryanaTourism = () => {
         <div className="search-container">
           <input 
             type="text" 
-            placeholder="Explore Royal Destinations" 
+            placeholder={currentLanguage.searchPlaceholder} 
             value={searchTerm}
             onChange={handleSearch}
             className="royal-search-input"
           />
           <button className="royal-search-button">
-            Discover Royal Experiences
+            {currentLanguage.searchButton}
           </button>
         </div>
       </section>
@@ -252,7 +334,7 @@ const RoyalHaryanaTourism = () => {
 
             <div className="modal-sections">
               <div className="modal-section">
-                <h3>Destination Highlights</h3>
+                <h3>{isHindi ? "गंतव्य मुख्य विशेषताएं" : "Destination Highlights"}</h3>
                 {selectedDestination.highlights.map((highlight, index) => (
                   <div key={index} className="highlight-item">
                     <Flower /> {highlight}
@@ -261,7 +343,7 @@ const RoyalHaryanaTourism = () => {
               </div>
 
               <div className="modal-section">
-                <h3>Recommended Activities</h3>
+                <h3>{isHindi ? "अनुशंसित गतिविधियाँ" : "Recommended Activities"}</h3>
                 {selectedDestination.activities.map((activity, index) => (
                   <div key={index} className="activity-item">
                     <Compass /> {activity}
@@ -271,8 +353,8 @@ const RoyalHaryanaTourism = () => {
             </div>
 
             <div className="modal-actions">
-              <button className="book-now">Book Royal Experience</button>
-              <button className="learn-more">Detailed Itinerary</button>
+              <button className="book-now">{isHindi ? "रॉयल अनुभव बुक करें" : "Book Royal Experience"}</button>
+              <button className="learn-more">{isHindi ? "विस्तृत यात्रा कार्यक्रम" : "Detailed Itinerary"}</button>
             </div>
           </div>
         </div>
