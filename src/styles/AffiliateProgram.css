@@ -2,6 +2,8 @@
     min-height: 100vh;
     background: linear-gradient(to bottom, #ebf8ff, #e6f6ff);
     padding: 3rem 0;
+    align-items: center;
+    text-align: center;
 }
 
 .header {
@@ -14,6 +16,7 @@
     font-weight: bold;
     color: #1a202c;
     margin-bottom: 1rem;
+    text-align: center;
 }
 
 .header-description {
@@ -115,7 +118,7 @@
 .footer-title {
     font-size: 1.875rem;
     font-weight: bold;
-    color: #1a202c;
+    color: #ffffff;
     margin-bottom: 1.5rem;
 }
 
@@ -126,11 +129,12 @@
     font-size: 1.25rem;
     border-radius: 9999px;
     transition: background 0.3s;
-    display: flex;
+    display: inline-flex;
     align-items: center;
     justify-content: center;
     gap: 0.5rem;
     cursor: pointer;
+    margin: 0 auto;
 }
 
 .sign-up-button:hover {
