@@ -13,13 +13,8 @@ import {
   Search
 } from 'lucide-react';
 
-const InfoPage = ({ initialLanguage = 'en' }) => {
-  const [language, setLanguage] = useState(initialLanguage);
-  const [activeSection, setActiveSection] = useState('overview');
-  const [searchTerm, setSearchTerm] = useState('');
-  const [expandedSections, setExpandedSections] = useState({});
-
-  const privacyPolicyContent = {
+const InfoPage = ({ isHindi }) => {
+  const translations = {
     en: {
       header: {
         title: "Privacy Policy",
@@ -100,8 +95,86 @@ const InfoPage = ({ initialLanguage = 'en' }) => {
         title: "गोपनीयता नीति",
         lastUpdated: "अंतिम अपडेट: जनवरी 2024"
       },
+      sections: {
+        overview: {
+          title: "अवलोकन",
+          content: `
+            हमारी व्यापक गोपनीयता नीति में आपका स्वागत है। हम आपकी व्यक्तिगत जानकारी की सुरक्षा करने और 
+            इसे एकत्रित, उपयोग और सुरक्षित करने के तरीके में पारदर्शिता सुनिश्चित करने के लिए प्रतिबद्ध हैं। 
+            यह नीति हमारे सभी डिजिटल प्लेटफार्मों और सेवाओं में हमारे अभ्यासों की रूपरेखा तैयार करती है।
+          `
+        },
+        dataCollection: {
+          title: "डेटा संग्रहण",
+          content: `
+            हम अपनी सेवाएं प्रदान करने और सुधारने के लिए जानकारी एकत्र करते हैं। इसमें शामिल हैं:
+            - व्यक्तिगत पहचान जानकारी
+            - उपयोग और उपकरण डेटा
+            - स्थान जानकारी
+            - संचार प्राथमिकताएं
+          `,
+          details: [
+            "न्यूनतम डेटा संग्रहण",
+            "स्पष्ट सहमति आवश्यक",
+            "सुरक्षित डेटा प्रबंधन",
+            "पारदर्शी डेटा उपयोग"
+          ]
+        },
+        dataUsage: {
+          title: "हम आपके डेटा का उपयोग कैसे करते हैं",
+          content: `
+            आपका डेटा हमें उपयोगकर्ता अनुभव को बढ़ाने और व्यक्तिगत सेवाएं प्रदान करने में मदद करता है:
+            - सेवा सुधार
+            - वैयक्तिकरण
+            - सुरक्षा निगरानी
+            - संचार
+          `
+        },
+        userRights: {
+          title: "आपके अधिकार",
+          content: `
+            हम आपको आपके व्यक्तिगत जानकारी पर पूरी तरह से नियंत्रण प्रदान करते हैं:
+            - पहुंच का अधिकार
+            - सुधार का अधिकार
+            - हटाने का अधिकार
+            - आपत्ति करने का अधिकार
+          `,
+          steps: [
+            "हमारे पोर्टल के माध्यम से अनुरोध सबमिट करें",
+            "अपनी पहचान सत्यापित करें",
+            "हम आपके अनुरोध को 30 दिनों के भीतर संसाधित करेंगे"
+          ]
+        },
+        dataSecurity: {
+          title: "डेटा सुरक्षा",
+          content: `
+            हम आपकी जानकारी की सुरक्षा के लिए उन्नत सुरक्षा उपाय लागू करते हैं:
+            - अंत-से-अंत एन्क्रिप्शन
+            - नियमित सुरक्षा ऑडिट
+            - सुरक्षित डेटा केंद्र
+            - बहु-कारक प्रमाणीकरण
+          `
+        }
+      },
+      legalConsent: {
+        title: "कानूनी सहमति",
+        content: "हमारी सेवाओं का उपयोग करके, आप इस गोपनीयता नीति की शर्तों से सहमति देते हैं।"
+      },
+      actions: {
+        downloadPolicy: "पूर्ण नीति डाउनलोड करें",
+        contactUs: "गोपनीयता टीम से संपर्क करें"
+      }
     }
   };
+
+  const [currentLanguage, setCurrentLanguage] = useState(translations.en);
+  const [activeSection, setActiveSection] = useState('overview');
+  const [searchTerm, setSearchTerm] = useState('');
+  const [expandedSections, setExpandedSections] = useState({});
+
+  useEffect(() => {
+    setCurrentLanguage(isHindi ? translations.hi : translations.en);
+  }, [isHindi]);
 
   const toggleSection = (sectionKey) => {
     setExpandedSections(prev => ({
@@ -111,7 +184,7 @@ const InfoPage = ({ initialLanguage = 'en' }) => {
   };
 
   const copyPolicy = () => {
-    const policy = Object.values(privacyPolicyContent[language].sections)
+    const policy = Object.values(currentLanguage.sections)
       .map(section => `${section.title}\n${section.content}`)
       .join('\n\n');
     
@@ -120,7 +193,7 @@ const InfoPage = ({ initialLanguage = 'en' }) => {
   };
 
   const downloadPolicy = () => {
-    const policy = Object.values(privacyPolicyContent[language].sections)
+    const policy = Object.values(currentLanguage.sections)
       .map(section => `${section.title}\n${section.content}`)
       .join('\n\n');
     
@@ -131,7 +204,7 @@ const InfoPage = ({ initialLanguage = 'en' }) => {
     link.click();
   };
 
-  const filteredSections = Object.entries(privacyPolicyContent[language].sections)
+  const filteredSections = Object.entries(currentLanguage.sections)
     .filter(([key, section]) => 
       section.title.toLowerCase().includes(searchTerm.toLowerCase()) ||
       section.content.toLowerCase().includes(searchTerm.toLowerCase())
@@ -145,15 +218,26 @@ const InfoPage = ({ initialLanguage = 'en' }) => {
             <Shield className="text-blue-600 mr-3" size={32} />
             <div>
               <h1 className="text-3xl font-bold text-blue-600">
-                {privacyPolicyContent[language].header.title}
+                {currentLanguage.header.title}
               </h1>
               <p className="text-gray-500">
-                {privacyPolicyContent[language].header.lastUpdated}
+                {currentLanguage.header.lastUpdated}
               </p>
             </div>
           </div>
           <div className="flex items-center space-x-4">
-            
+            <button 
+              onClick={() => setCurrentLanguage(currentLanguage === translations.en ? translations.hi : translations.en)}
+              className="flex items-center bg-blue-100 text-blue-600 px-3 py-1 rounded-full hover:bg-blue-200 transition"
+            >
+              {currentLanguage === translations.en ? 'हिं' : 'EN'}
+            </button>
+            <button 
+              onClick={copyPolicy}
+              className="flex items-center bg-blue-100 text-blue-600 px-4 py-2 rounded-full hover:bg-blue-200 transition"
+            >
+              <Copy className="mr-2" /> {currentLanguage === translations.en ? 'Copy Policy' : 'नीति कॉपी करें'}
+            </button>
           </div>
         </div>
       </header>
@@ -165,7 +249,7 @@ const InfoPage = ({ initialLanguage = 'en' }) => {
           <div className="mb-4 relative">
             <input 
               type="text"
-              placeholder="Search policy..."
+              placeholder={currentLanguage === translations.en ? "Search policy..." : "नीति खोजें..."}
               value={searchTerm}
               onChange={(e) => setSearchTerm(e.target.value)}
               className="w-full p-2 pl-8 border rounded-lg"
@@ -173,7 +257,7 @@ const InfoPage = ({ initialLanguage = 'en' }) => {
             <Search className="absolute left-2 top-3 text-gray-400" size={18} />
           </div>
 
-          {Object.entries(privacyPolicyContent[language].sections).map(([key, section]) => (
+          {Object.entries(currentLanguage.sections).map(([key, section]) => (
             <button
               key={key}
               onClick={() => setActiveSection(key)}
@@ -227,7 +311,7 @@ const InfoPage = ({ initialLanguage = 'en' }) => {
             ))
           ) : (
             <div className="text-center text-gray-500">
-              No sections match your search
+              {currentLanguage === translations.en ? 'No sections match your search' : 'कोई अनुभाग आपकी खोज से मेल नहीं खाते'}
             </div>
           )}
         </div>
@@ -240,16 +324,16 @@ const InfoPage = ({ initialLanguage = 'en' }) => {
             <Download className="text-blue-600 mr-4" size={32} />
             <div>
               <h3 className="font-bold text-xl text-blue-600">
-                {privacyPolicyContent[language].actions.downloadPolicy}
+                {currentLanguage.actions.downloadPolicy}
               </h3>
-              <p className="text-gray-500">Download the complete policy document</p>
+              <p className="text-gray-500">{currentLanguage === translations.en ? 'Download the complete policy document' : 'पूर्ण नीति दस्तावेज़ डाउनलोड करें'}</p>
             </div>
           </div>
           <button 
             onClick={downloadPolicy}
             className="bg-blue-600 text-white px-4 py-2 rounded-full hover:bg-blue-700 transition"
           >
-            Download
+            {currentLanguage === translations.en ? 'Download' : 'डाउनलोड करें'}
           </button>
         </div>
 
@@ -258,16 +342,16 @@ const InfoPage = ({ initialLanguage = 'en' }) => {
             <Mail className="text-green-600 mr-4" size={32} />
             <div>
               <h3 className="font-bold text-xl text-green-600">
-                {privacyPolicyContent[language].actions.contactUs}
+                {currentLanguage.actions.contactUs}
               </h3>
-              <p className="text-gray-500">Reach out to our privacy team</p>
+              <p className="text-gray-500">{currentLanguage === translations.en ? 'Reach out to our privacy team' : 'हमारी गोपनीयता टीम से संपर्क करें'}</p>
             </div>
           </div>
           <button 
             onClick={() => window.location.href = 'mailto:privacy@yourcompany.com'}
             className="bg-green-600 text-white px-4 py-2 rounded-full hover:bg-green-700 transition"
           >
-            Contact
+            {currentLanguage === translations.en ? 'Contact' : 'संपर्क करें'}
           </button>
         </div>
       </div>

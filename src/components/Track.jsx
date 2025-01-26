@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { Bus, Clock, MapPin, Phone, RotateCw, Users } from 'lucide-react';
+import { Bus, Clock, MapPin, Phone, Users } from 'lucide-react';
 import { motion, AnimatePresence } from 'framer-motion';
 
 const translations = {
@@ -20,7 +20,13 @@ const translations = {
       contact: "Contact"
     },
     kmh: "km/h",
-    minutes: "min"
+    minutes: "min",
+    routes: {
+      "Delhi-Chandigarh Express": "Delhi-Chandigarh Express",
+      "Gurgaon-Sonipat Express": "Gurgaon-Sonipat Express",
+      "Panipat": "Panipat",
+      "Rohini": "Rohini"
+    }
   },
   hi: {
     title: "लाइव बस ट्रैकिंग",
@@ -39,49 +45,56 @@ const translations = {
       contact: "संपर्क"
     },
     kmh: "किमी/घंटा",
-    minutes: "मिनट"
+    minutes: "मिनट",
+    routes: {
+      "Delhi-Chandigarh Express": "दिल्ली-चंडीगढ़ एक्सप्रेस",
+      "Gurgaon-Sonipat Express": "गुरुग्राम-सोनीपत एक्सप्रेस",
+      "Panipat": "पानीपत",
+      "Rohini": "रोहिणी"
+    }
   }
 };
-const mockBusData = [
-    {
-      id: "HR-01-1234",
-      routeNumber: "Delhi-Chandigarh Express",
-      currentLocation: [28.7041, 77.1025],
-      route: [
-        [28.7041, 77.1025],
-        [29.1042, 77.3124],
-        [30.3752, 76.7821]
-      ],
-      speed: 65,
-      nextStop: "Panipat",
-      eta: 25,
-      passengers: 32,
-      capacity: 50,
-      driver: "Rajesh Kumar",
-      contact: "+91 98765-43210",
-      status: "On Time"
-    },
-    {
-      id: "HR-02-5678",
-      routeNumber: "Gurgaon-Sonipat Express",
-      currentLocation: [28.4595, 77.0266],
-      route: [
-        [28.4595, 77.0266],
-        [28.6139, 77.2090],
-        [28.9931, 77.0151]
-      ],
-      speed: 55,
-      nextStop: "Rohini",
-      eta: 15,
-      passengers: 28,
-      capacity: 45,
-      driver: "Amit Singh",
-      contact: "+91 98765-43211",
-      status: "Delayed"
-    }
-  ];
 
-const BusListItem = ({ bus, onClick, isSelected }) => (
+const mockBusData = [
+  {
+    id: "HR-01-1234",
+    routeNumber: "Delhi-Chandigarh Express",
+    currentLocation: [28.7041, 77.1025],
+    route: [
+      [28.7041, 77.1025],
+      [29.1042, 77.3124],
+      [30.3752, 76.7821]
+    ],
+    speed: 65,
+    nextStop: "Panipat",
+    eta: 25,
+    passengers: 32,
+    capacity: 50,
+    driver: "Rajesh Kumar",
+    contact: "+91 98765-43210",
+    status: "On Time"
+  },
+  {
+    id: "HR-02-5678",
+    routeNumber: "Gurgaon-Sonipat Express",
+    currentLocation: [28.4595, 77.0266],
+    route: [
+      [28.4595, 77.0266],
+      [28.6139, 77.2090],
+      [28.9931, 77.0151]
+    ],
+    speed: 55,
+    nextStop: "Rohini",
+    eta: 15,
+    passengers: 28,
+    capacity: 45,
+    driver: "Amit Singh",
+    contact: "+91 98765-43211",
+    status: "Delayed"
+  }
+];
+
+const BusListItem = ({ bus, onClick, isSelected, language }) => (
   <motion.div
     layout
     initial={{ opacity: 0, y: 20 }}
@@ -103,7 +116,7 @@ const BusListItem = ({ bus, onClick, isSelected }) => (
           >
             <Bus color="#3b82f6" size={24} />
           </motion.div>
-          <span className="font-bold text-lg">{bus.routeNumber}</span>
+          <span className="font-bold text-lg">{language.routes[bus.routeNumber]}</span>
         </div>
         <div className="text-gray-600 mt-1">{bus.id}</div>
       </div>
@@ -122,11 +135,11 @@ const BusListItem = ({ bus, onClick, isSelected }) => (
     <div className="mt-4 grid grid-cols-3 gap-4">
       <motion.div whileHover={{ y: -2 }} className="flex flex-col items-center p-2 bg-gray-50 rounded">
         <MapPin size={16} color="#3b82f6" />
-        <span className="text-sm mt-1">{bus.nextStop}</span>
+        <span className="text-sm mt-1">{language.routes[bus.nextStop]}</span>
       </motion.div>
       <motion.div whileHover={{ y: -2 }} className="flex flex-col items-center p-2 bg-gray-50 rounded">
         <Clock size={16} color="#3b82f6" />
-        <span className="text-sm mt-1">{bus.eta} min</span>
+        <span className="text-sm mt-1">{bus.eta} {language.minutes}</span>
       </motion.div>
       <motion.div whileHover={{ y: -2 }} className="flex flex-col items-center p-2 bg-gray-50 rounded">
         <Users size={16} color="#3b82f6" />
@@ -148,7 +161,7 @@ const BusDetails = ({ bus, language }) => (
       animate={{ y: 0, opacity: 1 }}
       transition={{ delay: 0.2 }}
     >
-      <h3 className="text-2xl font-bold mb-6 text-blue-600">{bus.routeNumber}</h3>
+      <h3 className="text-2xl font-bold mb-6 text-blue-600">{language.routes[bus.routeNumber]}</h3>
       <div className="grid grid-cols-2 gap-6">
         <InfoCard
           icon={<Clock size={20} />}
@@ -158,7 +171,7 @@ const BusDetails = ({ bus, language }) => (
         <InfoCard
           icon={<MapPin size={20} />}
           label={language.busInfo.nextStop}
-          value={bus.nextStop}
+          value={language.routes[bus.nextStop]}
         />
         <InfoCard
           icon={<Clock size={20} />}
@@ -293,6 +306,7 @@ const BusTracker = ({ isHindi = false }) => {
                     bus={bus}
                     onClick={setSelectedBus}
                     isSelected={selectedBus?.id === bus.id}
+                    language={currentLanguage}
                   />
                 ))}
               </AnimatePresence>

@@ -13,7 +13,7 @@ import TravelLocations from './components/TravelLocation';
 import HelplinePage from './components/HelpLinepage';
 import Schedule from './components/Schedule';
 import BusTracker from './components/Track';
-import Policy from './components/InfoPage';
+import InfoPage from './components/InfoPage';
 import UnderConstruction from './components/UnderConstruction';
 import ContactUs from './components/ContactUs';
 import AffiliateProgram from './components/AffiliateProgram'; // Added
@@ -58,16 +58,16 @@ function App() {
                 <Route path="/Available" element={<Available isHindi={isHindi} />} />
                 <Route path="/about" element={<AboutUs isHindi={isHindi} />} />
                 <Route path="/trip" element={<Trip isHindi={isHindi} />} />
-                <Route path="/policy" element={<Policy isHindi={isHindi} />} />
+                <Route path="/policy" element={<InfoPage isHindi={isHindi} />} />
                 <Route path="/under-construction" element={<UnderConstruction isHindi={isHindi} />} />
                 <Route path="/contactUs" element={<ContactUs/>} />
                 <Route path="/blog" element={<Blog isHindi={isHindi} />} />
                 <Route path="/payment" element={<PaymentOptions />} />
-                <Route path="/track" element={<BusTracker />} />
-                <Route path="/luxury" element={<RoyalHaryanaTourism/>} />
+                <Route path="/track" element={<BusTracker isHindi={isHindi} />} />
+                <Route path="/luxury" element={<RoyalHaryanaTourism isHindi={isHindi}/>} />
                 <Route path="/contactUs" element={<ContactUs/>} />
                 <Route path="/donate" element={<DonatePage />} />
-                <Route path="/services" element={<ServicesPage />} />
+                <Route path="/services" element={<ServicesPage isHindi={isHindi} />} />
                 <Route path="/travellocations" element={<TravelLocations isHindi={isHindi} />} />
                 <Route path="/helpline" element={<HelplinePage isHindi={isHindi} />} />
                 <Route path="/faq" element={<FAQ isHindi={isHindi} />} />
