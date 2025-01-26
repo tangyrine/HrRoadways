@@ -458,6 +458,11 @@ const Hero = ({ isHindi }) => {
             </div>
           </div>
         )}
+        {buses.length === 0 && (
+          <div className="bus-results">
+            <h3>Buses Not Found</h3>
+          </div>
+        )}
       </div>
     </div>
   );
