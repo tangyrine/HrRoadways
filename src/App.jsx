@@ -62,11 +62,11 @@ function App() {
                 <Route path="/under-construction" element={<UnderConstruction isHindi={isHindi} />} />
                 <Route path="/contactUs" element={<ContactUs/>} />
                 <Route path="/blog" element={<Blog isHindi={isHindi} />} />
-                <Route path="/payment" element={<PaymentOptions />} />
+                <Route path="/payment" element={<PaymentOptions isHindi={isHindi}/>} />
                 <Route path="/track" element={<BusTracker isHindi={isHindi} />} />
                 <Route path="/luxury" element={<RoyalHaryanaTourism isHindi={isHindi}/>} />
-                <Route path="/contactUs" element={<ContactUs/>} />
-                <Route path="/donate" element={<DonatePage />} />
+                <Route path="/contactUs" element={<ContactUs isHindi={isHindi}/>} />
+                <Route path="/donate" element={<DonatePage isHindi={isHindi}/>} />
                 <Route path="/services" element={<ServicesPage isHindi={isHindi} />} />
                 <Route path="/travellocations" element={<TravelLocations isHindi={isHindi} />} />
                 <Route path="/helpline" element={<HelplinePage isHindi={isHindi} />} />
