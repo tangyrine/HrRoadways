@@ -2,17 +2,12 @@ import React, { useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
 import '../styles/nav.css';
 import Logo from '../assets/LogoHR.png'; // Import the project logo
-import { Menu, X, ChevronDown, Phone, Search } from 'lucide-react';
-import HelplinePage from './HelpLinepage';
-import SearchWindow from './SearchWindow';
-
-
+import { Menu, X, ChevronDown, Phone } from 'lucide-react';
 
 const Navigation = ({ isHindi, onToggleLanguage }) => {
   const [isScrolled, setIsScrolled] = useState(false);
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
-  const [isServicesOpen, setIsServicesOpen] = useState(false);
-  const [isSearchOpen, setIsSearchOpen] = useState(false);
+  const [isServicesOpen, setIsServicesOpen] = useState(false);  
 
   const translations = {
     en: {
@@ -26,7 +21,6 @@ const Navigation = ({ isHindi, onToggleLanguage }) => {
       schedule: "Time Table",
       pass: "Bus Pass",
       helpline: "24x7 Helpline",
-      search: "Search Routes",
       blog: "Blog",
       quickLinks: "Quick Links",
       travellocations: "Travel",
@@ -42,7 +36,6 @@ const Navigation = ({ isHindi, onToggleLanguage }) => {
       schedule: "समय सारणी",
       pass: "बस पास",
       helpline: "24x7 हेल्पलाइन",
-      search: "मार्ग खोजें",
       blog: "ब्लॉग",
       quickLinks: "त्वरित लिंक",
       travellocations: "यात्रा",
@@ -79,13 +72,6 @@ const Navigation = ({ isHindi, onToggleLanguage }) => {
               <Phone className="w-4 h-4 mr-1" />
               1800-180-2345
             </span>
-            <button 
-  className="flex items-center hover:text-blue-200"
-  onClick={() => setIsSearchOpen(true)}
->
-  <Search className="w-4 h-4 mr-1" />
-  {currentLanguage.search}
-</button>
           </div>
           <div className="flex items-center space-x-4">
             <li className="lang">
@@ -237,11 +223,6 @@ const Navigation = ({ isHindi, onToggleLanguage }) => {
           </li>
         </ul>
       </div>
-      <SearchWindow 
-  isOpen={isSearchOpen}
-  onClose={() => setIsSearchOpen(false)}
-  isHindi={isHindi}
-/>
     </>
     
     

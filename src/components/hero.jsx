@@ -1,8 +1,8 @@
 import React, { useState, useEffect, useRef } from 'react';
-import { Calendar, Clock, MapPin, AlertCircle, Info, ArrowRight, Shield, Star, Phone, Users, Repeat } from 'lucide-react';
+import { Calendar, Clock, MapPin, AlertCircle, Info, Repeat, Shield, Star, Phone, Users } from 'lucide-react';
 import TrafficUpdates from './TrafficUpdates';
+import PopularRoutes from './PopularRoutes';
 import '../styles/hero.css';
-import PopularRoutes from './PopularRoutes';  // Import the CSS file
 
 const CustomAlert = ({ type, children }) => (
   <div className={`custom-alert ${type === 'warning' ? 'warning' : 'info'}`}>
@@ -18,13 +18,6 @@ const CustomCard = ({ children, className }) => (
     {children}
   </div>
 );
-
-const popularRoutes = [
-  { src: 'Chandigarh', dest: 'Delhi', time: '2h 30m', fare: '₹450', frequency: 'Every 30 mins' },
-  { src: 'Gurugram', dest: 'Panipat', time: '1h 45m', fare: '₹250', frequency: 'Every 45 mins' },
-  { src: 'Faridabad', dest: 'Hisar', time: '3h', fare: '₹500', frequency: 'Every hour' },
-  { src: 'Rohtak', dest: 'Ambala', time: '2h 15m', fare: '₹350', frequency: 'Every hour' }
-];
 
 const translations = {
   en: {
@@ -90,6 +83,8 @@ const Hero = ({ isHindi }) => {
   const [activeInput, setActiveInput] = useState('');
   const [buses, setBuses] = useState([]);
   const suggestionsRef = useRef([]);
+  const inputRefs = useRef([]);
+  const containerRef = useRef(null);
 
   useEffect(() => {
     setCurrentLanguage(isHindi ? translations.hi : translations.en);
@@ -113,6 +108,20 @@ const Hero = ({ isHindi }) => {
         });
         setBusStands([...uniqueBusStands]);
       });
+  }, []);
+
+  useEffect(() => {
+    const handleClickOutside = (event) => {
+      if (containerRef.current && !containerRef.current.contains(event.target)) {
+        setShowSrcSuggestions(false);
+        setShowDestSuggestions(false);
+      }
+    };
+
+    document.addEventListener('mousedown', handleClickOutside);
+    return () => {
+      document.removeEventListener('mousedown', handleClickOutside);
+    };
   }, []);
 
   const handleChange = (event) => {
@@ -141,7 +150,26 @@ const Hero = ({ isHindi }) => {
   };
 
   const handleKeyDown = (event) => {
-    if (activeInput === 'src' && showSrcSuggestions) {
+    if (event.key === 'Enter') {
+      event.preventDefault();
+      if (activeSuggestionIndex >= 0) {
+        if (activeInput === 'src') {
+          setFormData({ ...formData, src: filteredSrcStands[activeSuggestionIndex] });
+          setShowSrcSuggestions(false);
+        } else if (activeInput === 'dest') {
+          setFormData({ ...formData, dest: filteredDestStands[activeSuggestionIndex] });
+          setShowDestSuggestions(false);
+        }
+        setActiveSuggestionIndex(-1);
+      }
+
+      const currentIndex = inputRefs.current.indexOf(document.activeElement);
+      if (currentIndex >= 0 && currentIndex < inputRefs.current.length - 1) {
+        inputRefs.current[currentIndex + 1].focus();
+      } else if (currentIndex === inputRefs.current.length - 1) {
+        handleSubmit(event);
+      }
+    } else if (activeInput === 'src' && showSrcSuggestions) {
       if (event.key === 'ArrowDown') {
         setActiveSuggestionIndex((prevIndex) => {
           const newIndex = prevIndex === filteredSrcStands.length - 1 ? 0 : prevIndex + 1;
@@ -154,10 +182,6 @@ const Hero = ({ isHindi }) => {
           suggestionsRef.current[newIndex]?.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
           return newIndex;
         });
-      } else if (event.key === 'Enter' && activeSuggestionIndex >= 0) {
-        setFormData({ ...formData, src: filteredSrcStands[activeSuggestionIndex] });
-        setShowSrcSuggestions(false);
-        setActiveSuggestionIndex(-1);
       }
     } else if (activeInput === 'dest' && showDestSuggestions) {
       if (event.key === 'ArrowDown') {
@@ -172,10 +196,6 @@ const Hero = ({ isHindi }) => {
           suggestionsRef.current[newIndex]?.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
           return newIndex;
         });
-      } else if (event.key === 'Enter' && activeSuggestionIndex >= 0) {
-        setFormData({ ...formData, dest: filteredDestStands[activeSuggestionIndex] });
-        setShowDestSuggestions(false);
-        setActiveSuggestionIndex(-1);
       }
     }
   };
@@ -232,7 +252,7 @@ const Hero = ({ isHindi }) => {
   };
 
   return (
-    <div className="hero-container">
+    <div className="hero-container" ref={containerRef}>
       <div className="hero-header">
         <div className="hero-header-overlay" />
         <div className="hero-header-content">
@@ -272,6 +292,7 @@ const Hero = ({ isHindi }) => {
                   placeholder={currentLanguage.searchPlaceholder}
                   autoComplete="off" // Disable Chrome autocomplete
                   onFocus={() => setActiveInput('src')}
+                  ref={(el) => (inputRefs.current[0] = el)}
                 />
                 {showSrcSuggestions && (
                   <div className="suggestions-container">
@@ -304,6 +325,7 @@ const Hero = ({ isHindi }) => {
                   autoComplete="off" // Disable Chrome autocomplete
                   disabled={!formData.src}
                   onFocus={() => setActiveInput('dest')}
+                  ref={(el) => (inputRefs.current[1] = el)}
                 />
                 {showDestSuggestions && (
                   <div className="suggestions-container">
@@ -332,6 +354,7 @@ const Hero = ({ isHindi }) => {
                   value={formData.date}
                   onChange={handleChange}
                   className="form-input"
+                  ref={(el) => (inputRefs.current[2] = el)}
                 />
               </div>
 
@@ -347,6 +370,7 @@ const Hero = ({ isHindi }) => {
                   onChange={handleChange}
                   className="form-input"
                   min="1"
+                  ref={(el) => (inputRefs.current[3] = el)}
                 />
               </div>
 
@@ -374,7 +398,7 @@ const Hero = ({ isHindi }) => {
           </CustomCard>
 
           <div className="right-panel">
-          <PopularRoutes />
+            <PopularRoutes onRouteClick={handlePopularRouteClick} /> {/* Pass the function as a prop */}
 
             <div className="traffic-updates">
               <TrafficUpdates />
@@ -386,18 +410,51 @@ const Hero = ({ isHindi }) => {
           <div className="bus-results">
             <h3 className="bus-results-heading">{currentLanguage.allBuses}</h3>
             <div className="bus-grid">
-              {buses.map((bus, index) => (
-                <div key={index} className="bus-item">
-                  <div className="bus-info">
-                    <span className="bus-route">{bus.Bus_Route}</span>
-                    <span className="bus-departure">{bus.Departure_Time}</span>
-                    <span className="bus-distance">{bus.Total_Distance}</span>
-                    <span className="bus-price">{bus.Price}</span>
-                    <span className="bus-type">{bus.Bus_Type}</span>
-                    <span className="bus-via">{bus.Via}</span>
+              {buses.map((bus, index) => {
+                const distance = parseFloat(bus.Total_Distance.replace(/[^0-9.]/g, ''));
+                const fillPercentage = Math.min((distance / 1000) * 100, 100);
+
+                return (
+                  <div key={index} className="bus-item">
+                    <div className="bus-info">
+                      <div className="bus-card-header">
+                        <div className="bus-card-title">
+                          <Clock size={20} className="text-blue-600" />
+                          <span>{bus.Bus_Type}</span>
+                        </div>
+                        <div className="bus-card-price">
+                          <div className="bus-card-price-value">
+                            {bus.Price.includes("₹") ? bus.Price : `₹${bus.Price}`}
+                          </div>
+                          <div className="bus-card-price-distance">
+                            {bus.Total_Distance.includes("KM")
+                              ? bus.Total_Distance
+                              : `${bus.Total_Distance} KM`}
+                          </div>
+                        </div>
+                      </div>
+                      <div className="bus-card-details">
+                        <div className="bus-card-detail">
+                          <MapPin size={16} className="text-gray-400" />
+                          <span>{bus.Departure_Time}</span>
+                        </div>
+                        <div className="bus-card-detail">
+                          <MapPin size={16} className="text-gray-400" />
+                          <span>Via: {bus.Via}</span>
+                        </div>
+                      </div>
+                      <div className="distance-bar-wrapper">
+                        <div
+                          className="distance-bar-fill"
+                          style={{
+                            width: `${fillPercentage}%`,
+                          }}
+                        ></div>
+                      </div>
+                    </div>
                   </div>
-                </div>
-              ))}
+                );
+              })}
             </div>
           </div>
         )}

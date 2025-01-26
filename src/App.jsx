@@ -11,7 +11,6 @@ import Blog from './components/Blog';
 import DonatePage from './components/DonatePage';
 import TravelLocations from './components/TravelLocation';
 import HelplinePage from './components/HelpLinepage';
-import Schedule from './components/Schedule';
 import BusTracker from './components/Track';
 import InfoPage from './components/InfoPage';
 import UnderConstruction from './components/UnderConstruction';

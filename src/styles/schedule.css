@@ -1,0 +1,64 @@
+/* Custom Alert Styles */
+.custom-alert.warning {
+    background: #fefcbf;
+    color: #d69e2e;
+  }
+  
+  .custom-alert.info {
+    background: #ebf8ff;
+    color: #4299e1;
+  }
+  
+  /* Icon Styles */
+  .icon {
+    width: 1.25rem;
+    height: 1.25rem;
+  }
+  
+  /* Text Styles */
+  .text {
+    font-size: 0.875rem;
+  }
+  
+  /* Bus Results Styles */
+  .bus-results {
+    margin-top: 2rem;
+    background: white;
+    padding: 1rem;
+    border-radius: 0.75rem;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    border: 1px solid #bee3f8;
+  }
+  
+  .bus-results-heading {
+    font-weight: bold;
+    margin-bottom: 1rem;
+    font-size: 1.125rem;
+    color: #023047;
+  }
+  
+  /* Bus Grid Styles */
+  .bus-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+    gap: 1rem;
+  }
+  
+  /* Form Group Styles */
+  .form-group {
+    display: flex;
+    align-items: center;
+    margin-bottom: 1rem;
+  }
+  
+  .form-label {
+    margin-right: 0.5rem;
+  }
+  
+  .form-icon {
+    margin-right: 0.5rem;
+  }
+  
+  .form-checkbox {
+    margin-left: 0.5rem;
+  }
