@@ -1,7 +1,7 @@
 import React, { useState, useEffect, useRef } from 'react';
 import { Calendar, Clock, MapPin, AlertCircle, Info, ArrowRight, Shield, Star, Phone, Users, Repeat } from 'lucide-react';
 import TrafficUpdates from './TrafficUpdates';
-import '../assets/hero.css';
+import '../styles/hero.css';
 import PopularRoutes from './PopularRoutes';  // Import the CSS file
 
 const CustomAlert = ({ type, children }) => (

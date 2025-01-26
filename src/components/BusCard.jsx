@@ -1,5 +1,5 @@
 import React from 'react';
-import '../assets/BusCard.css';
+import '../styles/BusCard.css';
 import { MdPinDrop } from "react-icons/md";
 import { TiFlag } from "react-icons/ti";
 import { FaLongArrowAltRight } from "react-icons/fa";

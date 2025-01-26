@@ -1,5 +1,5 @@
 import React from 'react';
-import '../assets/Available.css'
+import '../styles/Available.css'
 import Buses from './BusCard'
 const Available = () => {
   return (

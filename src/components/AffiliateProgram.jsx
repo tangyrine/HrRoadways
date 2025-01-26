@@ -11,6 +11,7 @@ import {
   Users, 
   Zap
 } from 'lucide-react';
+import '../styles/AffiliateProgram.css'; // Import the CSS file
 
 const AffiliateProgram = ({ isHindi = false }) => {
   const [copiedCode, setCopiedCode] = useState(false);
@@ -27,8 +28,8 @@ const AffiliateProgram = ({ isHindi = false }) => {
     headerDescription: isHindi
       ? 'हमारे साथ साझेदारी करें और दूसरों को हमारी अद्भुत सेवाओं की खोज में मदद करते हुए कमाएं। यह सरल, लाभदायक और एक शानदार अवसर है!'
       : 'Partner with us and earn while you help others discover our amazing services. Its simple, rewarding, and a great opportunity!',
-      joinNow: isHindi ? 'अभी शामिल हों' : 'Join Now',
-      whyJoin: isHindi ? 'क्यों शामिल हों?' : 'Why Join?',
+    joinNow: isHindi ? 'अभी शामिल हों' : 'Join Now',
+    whyJoin: isHindi ? 'क्यों शामिल हों?' : 'Why Join?',
     benefits: [
       {
         title: isHindi ? 'कमीशन कमाएं' : 'Earn Commission',
@@ -176,40 +177,36 @@ const AffiliateProgram = ({ isHindi = false }) => {
   };
 
   return (
-    <div className="min-h-screen bg-gradient-to-b from-blue-50 to-blue-100 py-12">
+    <div className="affiliate-program-container">
       <div className="container mx-auto px-4">
         <motion.header 
           initial={{ opacity: 0, y: -50 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.7 }}
-          className="text-center mb-12"
+          className="header"
         >
-          <h1 className="text-4xl font-bold text-blue-900 mb-4">
+          <h1 className="header-title">
             {content.headerTitle}
           </h1>
-          <p className="text-xl text-blue-700 max-w-2xl mx-auto">
+          <p className="header-description">
             {content.headerDescription}
           </p>
         </motion.header>
 
-        <div className="bg-white rounded-2xl shadow-xl overflow-hidden">
-          <div className="flex border-b">
+        <div className="tabs-container">
+          <div className="tabs">
             {Object.entries(content.tabs).map(([key, label]) => (
               <button
                 key={key}
                 onClick={() => setActiveTab(key)}
-                className={`flex-1 p-4 text-lg font-semibold transition ${
-                  activeTab === key 
-                    ? 'bg-blue-600 text-white' 
-                    : 'bg-blue-50 text-blue-800 hover:bg-blue-100'
-                }`}
+                className={`tab ${activeTab === key ? 'active-tab' : ''}`}
               >
                 {label}
               </button>
             ))}
           </div>
 
-          <div className="p-8">
+          <div className="tabs-content">
             <AnimatePresence mode="wait">
               <motion.div 
                 key={activeTab}
@@ -228,18 +225,18 @@ const AffiliateProgram = ({ isHindi = false }) => {
           initial={{ opacity: 0, y: 50 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.7, delay: 0.5 }}
-          className="mt-12 bg-blue-600 text-white p-8 rounded-2xl text-center"
+          className="referral-code-container"
         >
-          <h2 className="text-3xl font-bold mb-6">{content.referralCode}</h2>
-          <div className="flex justify-center items-center space-x-4">
-            <div className="bg-white text-blue-800 px-6 py-3 rounded-lg text-2xl font-mono">
+          <h2 className="referral-code-title">{content.referralCode}</h2>
+          <div className="referral-code-box">
+            <div className="referral-code">
               {referralCode}
             </div>
             <button 
               onClick={copyReferralCode}
-              className="bg-white text-blue-600 p-3 rounded-lg hover:bg-blue-50 transition"
+              className="copy-button"
             >
-              {copiedCode ? <Check className="w-6 h-6" /> : <Copy className="w-6 h-6" />}
+              {copiedCode ? <Check className="icon" /> : <Copy className="icon" />}
             </button>
           </div>
         </motion.div>
@@ -248,15 +245,15 @@ const AffiliateProgram = ({ isHindi = false }) => {
           initial={{ opacity: 0 }}
           animate={{ opacity: 1 }}
           transition={{ duration: 0.7, delay: 0.7 }}
-          className="mt-12 text-center"
+          className="footer"
         >
-          <h2 className="text-3xl font-bold text-blue-900 mb-6">
+          <h2 className="footer-title">
             {content.footerTitle}
           </h2>
-          <button className="bg-blue-600 text-white px-12 py-4 rounded-full text-xl hover:bg-blue-700 transition flex items-center justify-center mx-auto space-x-2">
-            <Zap className="w-6 h-6" />
+          <button className="sign-up-button">
+            <Zap className="icon" />
             <span>{content.signUp}</span>
-            <Zap className="w-6 h-6" />
+            <Zap className="icon" />
           </button>
         </motion.footer>
       </div>

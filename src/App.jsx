@@ -64,7 +64,6 @@ function App() {
                 <Route path="/blog" element={<Blog isHindi={isHindi} />} />
                 <Route path="/payment" element={<PaymentOptions />} />
                 <Route path="/track" element={<BusTracker />} />
-                <Route path="/schedule" element={<Schedule />} />
                 <Route path="/luxury" element={<RoyalHaryanaTourism/>} />
                 <Route path="/contactUs" element={<ContactUs/>} />
                 <Route path="/donate" element={<DonatePage />} />

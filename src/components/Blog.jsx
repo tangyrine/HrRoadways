@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { Calendar, Clock, ThumbsUp, Share2, Bookmark, Search, MapPin, Bus } from 'lucide-react';
+import '../styles/Blog.css'; // Import the CSS file
 
 const BlogPage = ({ isHindi }) => {
   const translations = {
@@ -185,19 +186,19 @@ const BlogPage = ({ isHindi }) => {
     });
 
   return (
-    <div className="min-h-screen bg-gray-50">
-      <header className="bg-blue-900 text-white py-8">
-        <div className="max-w-6xl mx-auto px-4">
-          <div className="flex items-center justify-between">
+    <div className="blog-page-container">
+      <header className="blog-header">
+        <div className="header-content">
+          <div className="header-title-container">
             <div>
-              <h1 className="text-3xl font-bold flex items-center gap-2">
+              <h1 className="header-title">
                 <Bus size={32} />
                 {currentLanguage.title}
               </h1>
-              <p className="mt-2 text-blue-100">{currentLanguage.subtitle}</p>
+              <p className="header-subtitle">{currentLanguage.subtitle}</p>
             </div>
-            <div className="flex gap-4">
-              <button className="bg-white text-blue-900 px-4 py-2 rounded-lg hover:bg-blue-50 transition-colors">
+            <div className="subscribe-button-container">
+              <button className="subscribe-button">
                 {currentLanguage.subscribeButton}
               </button>
             </div>
@@ -205,25 +206,25 @@ const BlogPage = ({ isHindi }) => {
         </div>
       </header>
 
-      <main className="max-w-6xl mx-auto px-4 py-8">
-        <div className="flex gap-6">
+      <main className="main-content">
+        <div className="content-container">
           {/* Main Content */}
-          <div className="flex-1">
+          <div className="main-content-left">
             {/* Search and Filters */}
-            <div className="bg-white rounded-lg shadow-md p-4 mb-6">
-              <div className="flex gap-4 mb-4">
-                <div className="flex-1 relative">
-                  <Search className="absolute left-3 top-3 text-gray-400" size={20} />
+            <div className="search-filters">
+              <div className="search-bar">
+                <div className="search-input-container">
+                  <Search className="search-icon" size={20} />
                   <input
                     type="text"
                     placeholder={currentLanguage.searchPlaceholder}
-                    className="w-full pl-10 pr-4 py-2 border rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500"
+                    className="search-input"
                     value={searchQuery}
                     onChange={(e) => setSearchQuery(e.target.value)}
                   />
                 </div>
                 <select
-                  className="px-4 py-2 border rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500"
+                  className="sort-select"
                   value={sortBy}
                   onChange={(e) => setSortBy(e.target.value)}
                 >
@@ -232,15 +233,13 @@ const BlogPage = ({ isHindi }) => {
                 </select>
               </div>
 
-              <div className="flex gap-2 overflow-x-auto pb-2">
+              <div className="category-filters">
                 {currentLanguage.categories.map(category => (
                   <button
                     key={category}
                     onClick={() => setSelectedCategory(category)}
-                    className={`px-4 py-2 rounded-full whitespace-nowrap ${
-                      selectedCategory === category
-                        ? 'bg-blue-600 text-white'
-                        : 'bg-gray-100 text-gray-600 hover:bg-gray-200'
+                    className={`category-button ${
+                      selectedCategory === category ? 'active-category' : ''
                     }`}
                   >
                     {category}
@@ -250,65 +249,62 @@ const BlogPage = ({ isHindi }) => {
             </div>
 
             {/* Blog Posts */}
-            <div className="space-y-6">
+            <div className="blog-posts">
               {filteredPosts.map((post) => (
-                <article key={post.id} className="bg-white rounded-lg shadow-md overflow-hidden hover:shadow-lg transition-shadow">
-                  <div className="p-6">
-                    <div className="flex items-center gap-4 text-sm text-gray-600 mb-4">
-                      <span className="flex items-center gap-1">
+                <article key={post.id} className="blog-post">
+                  <div className="post-content">
+                    <div className="post-meta">
+                      <span className="post-meta-item">
                         <Calendar size={16} />
                         {post.date}
                       </span>
-                      <span className="flex items-center gap-1">
+                      <span className="post-meta-item">
                         <Clock size={16} />
                         {post.readTime}
                       </span>
                       {post.route && (
-                        <span className="flex items-center gap-1">
+                        <span className="post-meta-item">
                           <MapPin size={16} />
                           {post.route}
                         </span>
                       )}
                     </div>
 
-                    <h2 className="text-xl font-semibold mb-4">{post.title}</h2>
-                    <p className="text-gray-600 mb-4 whitespace-pre-line">{post.content}</p>
+                    <h2 className="post-title">{post.title}</h2>
+                    <p className="post-description">{post.content}</p>
 
-                    <div className="flex flex-wrap gap-2 mb-4">
+                    <div className="post-tags">
                       {post.tags.map((tag, index) => (
-                        <span
-                          key={index}
-                          className="bg-blue-100 text-blue-800 text-sm px-3 py-1 rounded-full"
-                        >
+                        <span key={index} className="post-tag">
                           {tag}
                         </span>
                       ))}
                     </div>
 
-                    <div className="flex items-center justify-between pt-4 border-t">
-                      <div className="flex items-center gap-4">
+                    <div className="post-actions">
+                      <div className="post-actions-left">
                         <button
                           onClick={() => handleLike(post.id)}
-                          className="flex items-center gap-1 text-gray-600 hover:text-blue-600"
+                          className="post-action-button"
                         >
                           <ThumbsUp size={18} />
                           {post.likes}
                         </button>
-                        <button className="flex items-center gap-1 text-gray-600 hover:text-blue-600">
+                        <button className="post-action-button">
                           <Share2 size={18} />
                           {currentLanguage.share}
                         </button>
                         <button
                           onClick={() => toggleSave(post.id)}
-                          className={`flex items-center gap-1 ${
-                            savedPosts.has(post.id) ? 'text-blue-600' : 'text-gray-600 hover:text-blue-600'
+                          className={`post-action-button ${
+                            savedPosts.has(post.id) ? 'saved' : ''
                           }`}
                         >
                           <Bookmark size={18} />
                           {savedPosts.has(post.id) ? currentLanguage.saved : currentLanguage.save}
                         </button>
                       </div>
-                      <span className="text-sm text-gray-600">{currentLanguage.postBy} {post.author}</span>
+                      <span className="post-author">{currentLanguage.postBy} {post.author}</span>
                     </div>
                   </div>
                 </article>
@@ -317,16 +313,16 @@ const BlogPage = ({ isHindi }) => {
           </div>
 
           {/* Sidebar */}
-          <div className="w-80 shrink-0">
+          <div className="sidebar">
             {/* Add New Post Form */}
-            <div className="bg-white rounded-lg shadow-md p-4 mb-6">
-              <h3 className="text-lg font-semibold mb-4">{currentLanguage.addNewPost}</h3>
-              <form onSubmit={handleSubmit} className="space-y-4">
+            <div className="new-post-form">
+              <h3 className="form-title">{currentLanguage.addNewPost}</h3>
+              <form onSubmit={handleSubmit} className="form">
                 <input
                   type="text"
                   name="title"
                   placeholder={currentLanguage.titlePlaceholder}
-                  className="w-full px-4 py-2 border rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500"
+                  className="form-input"
                   value={formData.title}
                   onChange={handleChange}
                   required
@@ -334,14 +330,14 @@ const BlogPage = ({ isHindi }) => {
                 <textarea
                   name="content"
                   placeholder={currentLanguage.contentPlaceholder}
-                  className="w-full px-4 py-2 border rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 h-32"
+                  className="form-textarea"
                   value={formData.content}
                   onChange={handleChange}
                   required
                 ></textarea>
                 <select
                   name="category"
-                  className="w-full px-4 py-2 border rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500"
+                  className="form-select"
                   value={formData.category}
                   onChange={handleChange}
                   required
@@ -355,7 +351,7 @@ const BlogPage = ({ isHindi }) => {
                   type="text"
                   name="tags"
                   placeholder={currentLanguage.tagsPlaceholder}
-                  className="w-full px-4 py-2 border rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500"
+                  className="form-input"
                   value={formData.tags}
                   onChange={handleChange}
                 />
@@ -363,13 +359,13 @@ const BlogPage = ({ isHindi }) => {
                   type="text"
                   name="route"
                   placeholder={currentLanguage.routePlaceholder}
-                  className="w-full px-4 py-2 border rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500"
+                  className="form-input"
                   value={formData.route}
                   onChange={handleChange}
                 />
                 <button
                   type="submit"
-                  className="w-full bg-blue-600 text-white py-2 rounded-lg hover:bg-blue-700 transition-colors"
+                  className="form-submit-button"
                 >
                   {currentLanguage.publishButton}
                 </button>
@@ -377,22 +373,22 @@ const BlogPage = ({ isHindi }) => {
             </div>
 
             {/* Popular Routes */}
-            <div className="bg-white rounded-lg shadow-md p-4">
-              <h3 className="text-lg font-semibold mb-4">{currentLanguage.popularRoutes}</h3>
-              <ul className="space-y-3">
-                <li className="flex items-center gap-2 text-gray-600 hover:text-blue-600">
+            <div className="popular-routes">
+              <h3 className="popular-routes-title">{currentLanguage.popularRoutes}</h3>
+              <ul className="popular-routes-list">
+                <li className="popular-route-item">
                   <Bus size={16} />
                   Delhi - Chandigarh
                 </li>
-                <li className="flex items-center gap-2 text-gray-600 hover:text-blue-600">
+                <li className="popular-route-item">
                   <Bus size={16} />
                   Gurugram - Panipat
                 </li>
-                <li className="flex items-center gap-2 text-gray-600 hover:text-blue-600">
+                <li className="popular-route-item">
                   <Bus size={16} />
                   Faridabad - Hisar
                 </li>
-                <li className="flex items-center gap-2 text-gray-600 hover:text-blue-600">
+                <li className="popular-route-item">
                   <Bus size={16} />
                   Ambala - Rohtak
                 </li>

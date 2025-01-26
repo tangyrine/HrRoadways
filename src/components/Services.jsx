@@ -5,7 +5,7 @@ import {
   CheckCircle, Headphones, TrendingUp, 
   Clock, Smartphone, AlertTriangle 
 } from 'lucide-react';
-import '../assets/OurServices.css';
+import '../styles/OurServices.css';
 const useIntersectionObserver = (ref, options = {}) => {
   const [isIntersecting, setIsIntersecting] = useState(false);
 

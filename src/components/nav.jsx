@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
-import '../assets/nav.css';
+import '../styles/nav.css';
 import Logo from '../assets/LogoHR.png'; // Import the project logo
 import { Menu, X, ChevronDown, Phone, Search } from 'lucide-react';
 import HelplinePage from './HelpLinepage';
