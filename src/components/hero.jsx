@@ -98,7 +98,7 @@ const Hero = ({ isHindi }) => {
   }, []);
 
   useEffect(() => {
-    fetch('/Databases/Haryana.json')
+    fetch('https://jsonblob.com/api/jsonBlob/1333092652136194048')
       .then(response => response.json())
       .then(data => {
         const uniqueBusStands = new Set();
@@ -222,7 +222,7 @@ const Hero = ({ isHindi }) => {
 
   const handleSubmit = (event) => {
     event.preventDefault();
-    fetch('/Databases/Haryana.json')
+    fetch('https://jsonblob.com/api/jsonBlob/1333092652136194048')
       .then(response => response.json())
       .then(data => {
         const filteredBuses = data.filter(bus => {
@@ -456,11 +456,6 @@ const Hero = ({ isHindi }) => {
                 );
               })}
             </div>
-          </div>
-        )}
-        {buses.length === 0 && (
-          <div className="bus-results">
-            <h3>Buses Not Found</h3>
           </div>
         )}
       </div>
