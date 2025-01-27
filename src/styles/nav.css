@@ -27,7 +27,7 @@ nav {
 }
 
 a.nav-link:hover {
-  background-color: rgb(91, 133, 238);
+  background-color: rgba(91, 133, 238,0);
 }
 
 .left {
