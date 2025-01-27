@@ -26,6 +26,10 @@ nav {
   overflow: hidden; /* Prevent horizontal overflow */
 }
 
+a.nav-link:hover {
+  background-color: rgba(91, 133, 238,0);
+}
+
 .left {
   display: flex;
   align-items: center;
