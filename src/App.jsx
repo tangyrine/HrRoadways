@@ -20,6 +20,7 @@ import BusCard from './components/BusCard';
 import PaymentOptions from './components/Paymentoptions';
 import RoyalHaryanaTourism from './components/RoyalHaryanaTourism';
 import ServicesPage from './components/Services';
+import BestRides from './components/BestRides';
 function App() {
     const [isHindi, setIsHindi] = useState(false);
     const [showBackToTop, setShowBackToTop] = useState(false);
@@ -57,6 +58,7 @@ function App() {
                 <Route path="/Available" element={<Available isHindi={isHindi} />} />
                 <Route path="/about" element={<AboutUs isHindi={isHindi} />} />
                 <Route path="/trip" element={<Trip isHindi={isHindi} />} />
+                <Route path="/bestrides" element={<BestRides isHindi={isHindi} />} />
                 <Route path="/policy" element={<InfoPage isHindi={isHindi} />} />
                 <Route path="/under-construction" element={<UnderConstruction isHindi={isHindi} />} />
                 <Route path="/contactUs" element={<ContactUs/>} />
