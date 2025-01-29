@@ -53,6 +53,45 @@
   text-align: center;
 }
 
+.form-input {
+  width: 100%;
+  padding: 10px;
+  font-size: 16px;
+  border: 2px solid #ccc;
+  border-radius: 5px;
+  transition: all 0.3s ease-in-out;
+}
+
+.form-input::placeholder {
+  color: #aaa;
+  opacity: 1;
+  transition: all 0.3s ease-in-out;
+}
+
+.form-input:hover {
+  border-color: #007BFF; /* Changes border color on hover */
+  background-color: #f0f8ff; /* Light blue background on hover */
+  box-shadow: 0 0 10px rgba(0, 123, 255, 0.5); /* Adds a subtle glow */
+  transform: scale(1.02); /* Slightly enlarges the input field */
+  cursor: pointer;
+}
+
+.form-input:hover::placeholder {
+  color: #007BFF; /* Changes placeholder color on hover */
+  opacity: 0.7;
+  font-weight: bold;
+}
+
+.form-input:focus {
+  border-color: #0056b3;
+  background-color: #e6f2ff;
+  outline: none;
+}
+
+.form-input:focus::placeholder {
+  opacity: 0; /* Hides placeholder on focus */
+}
+
 .feature-item {
   display: flex;
   flex-direction: column;
