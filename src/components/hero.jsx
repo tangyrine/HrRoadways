@@ -2,7 +2,9 @@ import React, { useState, useEffect, useRef } from 'react';
 import { Calendar, Clock, MapPin, AlertCircle, Info, Repeat, Shield, Star, Phone, Users } from 'lucide-react';
 import TrafficUpdates from './TrafficUpdates';
 import PopularRoutes from './PopularRoutes';
+import BusDetailModal from './BusDetailModal';
 import '../styles/hero.css';
+import '../styles/modal.css'; // Import modal styles
 
 const CustomAlert = ({ type, children }) => (
   <div className={`custom-alert ${type === 'warning' ? 'warning' : 'info'}`}>
@@ -85,6 +87,11 @@ const Hero = ({ isHindi }) => {
   const suggestionsRef = useRef([]);
   const inputRefs = useRef([]);
   const containerRef = useRef(null);
+
+
+  const [isModalOpen, setIsModalOpen] = useState(false);
+  const [selectedBus, setSelectedBus] = useState(null);
+
 
   useEffect(() => {
     setCurrentLanguage(isHindi ? translations.hi : translations.en);
@@ -251,6 +258,17 @@ const Hero = ({ isHindi }) => {
     setFormData({ ...formData, roundTrip: !formData.roundTrip });
   };
 
+  const handleBusCardClick = (bus) => {
+    setSelectedBus(bus);
+    setIsModalOpen(true);
+  };
+
+  const closeModal = () => {
+    setIsModalOpen(false);
+    setSelectedBus(null);
+  };
+
+
   return (
     <div className="hero-container" ref={containerRef}>
       <div className="hero-header">
@@ -415,7 +433,7 @@ const Hero = ({ isHindi }) => {
                 const fillPercentage = Math.min((distance / 1000) * 100, 100);
 
                 return (
-                  <div key={index} className="bus-item">
+                  <div key={index} className="bus-item" onClick={() => handleBusCardClick(bus)}>
                     <div className="bus-info">
                       <div className="bus-card-header">
                         <div className="bus-card-title">
@@ -459,6 +477,7 @@ const Hero = ({ isHindi }) => {
           </div>
         )}
       </div>
+      <BusDetailModal isOpen={isModalOpen} onClose={closeModal} bus={selectedBus} />
     </div>
   );
 };
