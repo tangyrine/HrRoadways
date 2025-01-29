@@ -1,0 +1,202 @@
+@keyframes fadeIn {
+    from {
+      opacity: 0;
+      transform: scale(0.9);
+    }
+    to {
+      opacity: 1;
+      transform: scale(1);
+    }
+  }
+  
+  @keyframes fadeOut {
+    from {
+      opacity: 1;
+      transform: scale(1);
+    }
+    to {
+      opacity: 0;
+      transform: scale(0.9);
+    }
+  }
+  
+  .modal-overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: rgba(0, 0, 0, 0.5);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    z-index: 1000;
+    animation: fadeIn 0.3s ease-in-out;
+  }
+  
+  .modal-content {
+    background: white;
+    padding: 1.5rem;
+    border-radius: 0.75rem;
+    width: 90%;
+    max-width: 800px;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    position: relative;
+    overflow: auto;
+    max-height: 90vh;
+    animation: fadeIn 0.3s ease-in-out;
+  }
+  
+  .close-button {
+    position: absolute;
+    top: 1rem;
+    right: 1rem;
+    background: none;
+    border: none;
+    font-size: 1.5rem;
+    cursor: pointer;
+  }
+  
+  .modal-body {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+  }
+  
+  .bus-seats-container {
+    flex: 1;
+    padding-right: 1rem;
+  }
+  
+  .bus-seats-title {
+    font-size: 1.25rem;
+    font-weight: bold;
+    margin-bottom: 1rem;
+  }
+  
+  .bus-seats {
+    display: flex;
+    flex-direction: column;
+    gap: 0.5rem;
+  }
+  
+  .seat-row {
+    display: flex;
+    justify-content: center;
+    gap: 0.5rem;
+  }
+  
+  .seat {
+    width: 30px;
+    height: 30px;
+    border-radius: 5px;
+    border: 1px solid #ccc;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+    font-size: 0.75rem;
+    cursor: pointer;
+    transition: transform 0.2s;
+  }
+  
+  .seat:hover {
+    transform: scale(1.1);
+  }
+  
+  .seat.filled {
+    background-color: red;
+    color: white;
+  }
+  
+  .seat.female {
+    background-color: purple;
+    color: white;
+  }
+  
+  .seat.open {
+    background-color: white;
+  }
+  
+  .seat.aisle {
+    width: 15px;
+    background-color: transparent;
+  }
+  
+  .vertical-divider {
+    width: 1px;
+    background-color: #ccc;
+    margin: 0 1rem;
+    animation: fadeIn 0.5s ease-in-out;
+  }
+  
+  .bus-details {
+    flex: 1;
+    padding-left: 1rem;
+  }
+  
+  .modal-title {
+    font-size: 1.5rem;
+    font-weight: bold;
+    margin-bottom: 1rem;
+  }
+  
+  .detail-item {
+    display: flex;
+    align-items: center;
+    margin: 0.75rem 0;
+    padding: 0.5rem 0;
+    border-bottom: 1px solid #ccc;
+  }
+  
+  .detail-icon {
+    margin-right: 0.75rem;
+    color: #023047;
+    font-size: 1.25rem;
+  }
+  
+  .detail-text {
+    font-size: 1rem;
+    color: #333;
+  }
+  
+  .seat-key {
+    display: flex;
+    justify-content: space-between;
+    margin-top: 1rem;
+  }
+  
+  .seat-key-item {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+  }
+  
+  .seat-key-item .seat {
+    width: 20px;
+    height: 20px;
+    border-radius: 3px;
+  }
+  
+  .book-button {
+    display: block;
+    width: 100%;
+    background: #023047;
+    color: white;
+    padding: 1rem;
+    border-radius: 0.5rem;
+    font-weight: bold;
+    font-size: 1.125rem;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    transition: all 0.3s;
+    cursor: pointer;
+    margin-top: 1rem;
+  }
+  
+  .book-button:hover {
+    background: #03506f;
+  }
+  
+  .modal-overlay.closing, .modal-content.closing {
+    animation: fadeOut 0.3s ease-in-out;
+  }
