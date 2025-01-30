@@ -105,7 +105,16 @@ const DonatePage = ({ isHindi }) => {
   if (showThankYou) {
     return (
       <div className="min-h-screen bg-gray-50">
-        <header className="bg-blue-900 text-white py-8">
+        <style>{`
+          @keyframes slideUp {
+            from { transform: translateY(50px); opacity: 0; }
+            to { transform: translateY(0); opacity: 1; }
+          }
+          .animate-slide-up { animation: slideUp 0.4s cubic-bezier(0.22, 1, 0.36, 1); }
+          .animate-pulse { animation: pulse 2s cubic-bezier(0.4, 0, 0.6, 1) infinite; }
+        `}</style>
+
+        <header className="bg-blue-900 text-white py-8 animate-fade-in">
           <div className="max-w-4xl mx-auto px-4 text-center">
             <h1 className="text-3xl font-bold flex items-center justify-center gap-2">
               <Bus size={32} />
@@ -115,15 +124,15 @@ const DonatePage = ({ isHindi }) => {
           </div>
         </header>
 
-        <div className="max-w-2xl mx-auto mt-16 p-8 bg-white rounded-lg shadow-lg text-center">
-          <CheckCircle className="w-16 h-16 text-green-500 mx-auto mb-6" />
+        <div className="max-w-2xl mx-auto mt-16 p-8 bg-white rounded-lg shadow-xl text-center animate-slide-up">
+          <CheckCircle className="w-16 h-16 text-green-500 mx-auto mb-6 animate-pulse" />
           <h2 className="text-2xl font-bold text-gray-800 mb-4">{currentLanguage.thankYouTitle}</h2>
           <p className="text-gray-600 mb-6">
             {currentLanguage.thankYouMessage} {donorInfo.email}.
           </p>
           <button 
             onClick={() => window.location.reload()}
-            className="bg-blue-600 text-white px-6 py-2 rounded-lg hover:bg-blue-700 transition-colors"
+            className="bg-blue-600 text-white px-6 py-2 rounded-lg hover:bg-blue-700 transition-all duration-300 hover:shadow-lg"
           >
             {currentLanguage.makeAnotherDonation}
           </button>
@@ -134,7 +143,22 @@ const DonatePage = ({ isHindi }) => {
 
   return (
     <div className="min-h-screen bg-gray-50">
-      <header className="bg-blue-900 text-white py-8">
+      <style>{`
+        @keyframes fadeIn {
+          from { opacity: 0; transform: translateY(20px); }
+          to { opacity: 1; transform: translateY(0); }
+        }
+        .animate-fade-in { animation: fadeIn 0.6s ease-out; }
+        
+        .hover-scale {
+          transition: transform 0.2s ease-in-out;
+        }
+        .hover-scale:hover {
+          transform: scale(1.02);
+        }
+      `}</style>
+
+      <header className="bg-blue-900 text-white py-8 animate-fade-in">
         <div className="max-w-4xl mx-auto px-4 text-center">
           <h1 className="text-3xl font-bold flex items-center justify-center gap-2">
             <Bus size={32} />
@@ -146,11 +170,10 @@ const DonatePage = ({ isHindi }) => {
 
       <main className="max-w-6xl mx-auto px-4 py-12">
         <div className="grid md:grid-cols-3 gap-8">
-          {/* Donation Form */}
           <div className="md:col-span-2">
-            <div className="bg-white rounded-lg shadow-lg p-6">
+            <div className="bg-white rounded-lg shadow-lg p-6 hover-scale transition-all duration-300 hover:shadow-xl">
               <h2 className="text-2xl font-bold text-gray-800 mb-6 flex items-center gap-2">
-                <Heart className="text-red-500" />
+                <Heart className="text-red-500 animate-bounce" />
                 {currentLanguage.supportTitle}
               </h2>
 
@@ -165,10 +188,10 @@ const DonatePage = ({ isHindi }) => {
                         key={value}
                         type="button"
                         onClick={() => handleAmountSelect(value)}
-                        className={`py-3 px-4 rounded-lg border text-center transition-colors ${
+                        className={`py-3 px-4 rounded-lg border text-center transition-all duration-300 hover:scale-105 ${
                           amount === value
-                            ? 'bg-blue-600 text-white border-blue-600'
-                            : 'bg-white text-gray-700 border-gray-300 hover:border-blue-500'
+                            ? 'bg-blue-600 text-white border-blue-600 shadow-lg'
+                            : 'bg-white text-gray-700 border-gray-300 hover:border-blue-500 hover:shadow-md'
                         }`}
                       >
                         ₹{value}
@@ -181,7 +204,7 @@ const DonatePage = ({ isHindi }) => {
                       placeholder={currentLanguage.customAmountPlaceholder}
                       value={customAmount}
                       onChange={handleCustomAmount}
-                      className="w-full px-4 py-2 border rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500"
+                      className="w-full px-4 py-2 border rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 transition-all duration-200 hover:border-blue-300"
                       min="50"
                     />
                   </div>
@@ -191,10 +214,10 @@ const DonatePage = ({ isHindi }) => {
                   <button
                     type="button"
                     onClick={() => setIsMonthly(false)}
-                    className={`flex-1 py-3 px-4 rounded-lg border transition-colors ${
+                    className={`flex-1 py-3 px-4 rounded-lg border transition-all duration-300 hover:shadow-md ${
                       !isMonthly
                         ? 'bg-blue-600 text-white border-blue-600'
-                        : 'bg-white text-gray-700 border-gray-300'
+                        : 'bg-white text-gray-700 border-gray-300 hover:bg-blue-50'
                     }`}
                   >
                     {currentLanguage.oneTime}
@@ -202,10 +225,10 @@ const DonatePage = ({ isHindi }) => {
                   <button
                     type="button"
                     onClick={() => setIsMonthly(true)}
-                    className={`flex-1 py-3 px-4 rounded-lg border transition-colors ${
+                    className={`flex-1 py-3 px-4 rounded-lg border transition-all duration-300 hover:shadow-md ${
                       isMonthly
                         ? 'bg-blue-600 text-white border-blue-600'
-                        : 'bg-white text-gray-700 border-gray-300'
+                        : 'bg-white text-gray-700 border-gray-300 hover:bg-blue-50'
                     }`}
                   >
                     {currentLanguage.monthly}
@@ -222,7 +245,7 @@ const DonatePage = ({ isHindi }) => {
                       value={donorInfo.name}
                       placeholder={currentLanguage.fullNameLabel}
                       onChange={(e) => setDonorInfo({...donorInfo, name: e.target.value})}
-                      className="w-full px-4 py-2 border rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500"
+                      className="w-full px-4 py-2 border rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 transition-all duration-200 hover:border-blue-300"
                       required
                     />
                   </div>
@@ -235,7 +258,7 @@ const DonatePage = ({ isHindi }) => {
                       value={donorInfo.email}
                       placeholder={currentLanguage.emailLabel}
                       onChange={(e) => setDonorInfo({...donorInfo, email: e.target.value})}
-                      className="w-full px-4 py-2 border rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500"
+                      className="w-full px-4 py-2 border rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 transition-all duration-200 hover:border-blue-300"
                       required
                     />
                   </div>
@@ -248,7 +271,7 @@ const DonatePage = ({ isHindi }) => {
                       value={donorInfo.phone}
                       placeholder={currentLanguage.phoneNumberLabel}
                       onChange={(e) => setDonorInfo({...donorInfo, phone: e.target.value})}
-                      className="w-full px-4 py-2 border rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500"
+                      className="w-full px-4 py-2 border rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 transition-all duration-200 hover:border-blue-300"
                     />
                   </div>
                   <div>
@@ -260,7 +283,7 @@ const DonatePage = ({ isHindi }) => {
                       value={donorInfo.panCard}
                       placeholder={currentLanguage.panCardLabel}
                       onChange={(e) => setDonorInfo({...donorInfo, panCard: e.target.value})}
-                      className="w-full px-4 py-2 border rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500"
+                      className="w-full px-4 py-2 border rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 transition-all duration-200 hover:border-blue-300"
                     />
                   </div>
                 </div>
@@ -272,7 +295,7 @@ const DonatePage = ({ isHindi }) => {
                   <textarea
                     value={donorInfo.message}
                     onChange={(e) => setDonorInfo({...donorInfo, message: e.target.value})}
-                    className="w-full px-4 py-2 border rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 h-24"
+                    className="w-full px-4 py-2 border rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 h-24 transition-all duration-200 hover:border-blue-300"
                     placeholder={currentLanguage.messagePlaceholder}
                   ></textarea>
                 </div>
@@ -285,10 +308,10 @@ const DonatePage = ({ isHindi }) => {
                     <button
                       type="button"
                       onClick={() => setPaymentMethod('card')}
-                      className={`py-3 px-4 rounded-lg border flex items-center justify-center gap-2 transition-colors ${
+                      className={`py-3 px-4 rounded-lg border flex items-center justify-center gap-2 transition-all duration-300 hover:shadow-md hover:scale-[1.02] ${
                         paymentMethod === 'card'
                           ? 'bg-blue-600 text-white border-blue-600'
-                          : 'bg-white text-gray-700 border-gray-300'
+                          : 'bg-white text-gray-700 border-gray-300 hover:bg-blue-50'
                       }`}
                     >
                       <CreditCard size={20} />
@@ -297,10 +320,10 @@ const DonatePage = ({ isHindi }) => {
                     <button
                       type="button"
                       onClick={() => setPaymentMethod('upi')}
-                      className={`py-3 px-4 rounded-lg border transition-colors ${
+                      className={`py-3 px-4 rounded-lg border transition-all duration-300 hover:shadow-md hover:scale-[1.02] ${
                         paymentMethod === 'upi'
                           ? 'bg-blue-600 text-white border-blue-600'
-                          : 'bg-white text-gray-700 border-gray-300'
+                          : 'bg-white text-gray-700 border-gray-300 hover:bg-blue-50'
                       }`}
                     >
                       {isHindi ? "यूपीआई" : "UPI"}
@@ -308,10 +331,10 @@ const DonatePage = ({ isHindi }) => {
                     <button
                       type="button"
                       onClick={() => setPaymentMethod('netbanking')}
-                      className={`py-3 px-4 rounded-lg border transition-colors ${
+                      className={`py-3 px-4 rounded-lg border transition-all duration-300 hover:shadow-md hover:scale-[1.02] ${
                         paymentMethod === 'netbanking'
                           ? 'bg-blue-600 text-white border-blue-600'
-                          : 'bg-white text-gray-700 border-gray-300'
+                          : 'bg-white text-gray-700 border-gray-300 hover:bg-blue-50'
                       }`}
                     >
                       {isHindi ? "नेट बैंकिंग" : "Net Banking"}
@@ -321,9 +344,9 @@ const DonatePage = ({ isHindi }) => {
 
                 <button
                   type="submit"
-                  className="w-full bg-blue-600 text-white py-3 rounded-lg hover:bg-blue-700 transition-colors flex items-center justify-center gap-2"
+                  className="w-full bg-blue-600 text-white py-3 rounded-lg hover:bg-blue-700 transition-all duration-300 hover:shadow-lg transform hover:-translate-y-0.5 flex items-center justify-center gap-2"
                 >
-                  <Heart size={20} />
+                  <Heart size={20} className="animate-bounce" />
                   {currentLanguage.completeDonation}
                 </button>
               </form>
@@ -331,25 +354,25 @@ const DonatePage = ({ isHindi }) => {
           </div>
 
           <div className="space-y-6">
-            <div className="bg-white rounded-lg shadow-lg p-6">
+            <div className="bg-white rounded-lg shadow-lg p-6 hover-scale transition-all duration-300 hover:shadow-xl">
               <h3 className="text-lg font-semibold text-gray-800 mb-4">{currentLanguage.yourImpactTitle}</h3>
               <div className="space-y-4">
-                <div className="flex items-center gap-3">
-                  <Bus className="text-blue-600" />
+                <div className="flex items-center gap-3 group">
+                  <Bus className="text-blue-600 transition-transform duration-300 group-hover:scale-110" />
                   <div>
                     <p className="font-semibold">{currentLanguage.busesImpact}</p>
                     <p className="text-sm text-gray-600">{currentLanguage.busesImpactDetail}</p>
                   </div>
                 </div>
-                <div className="flex items-center gap-3">
-                  <Users className="text-blue-600" />
+                <div className="flex items-center gap-3 group">
+                  <Users className="text-blue-600 transition-transform duration-300 group-hover:scale-110" />
                   <div>
                     <p className="font-semibold">{currentLanguage.passengersImpact}</p>
                     <p className="text-sm text-gray-600">{currentLanguage.passengersImpactDetail}</p>
                   </div>
                 </div>
-                <div className="flex items-center gap-3">
-                  <Clock className="text-blue-600" />
+                <div className="flex items-center gap-3 group">
+                  <Clock className="text-blue-600 transition-transform duration-300 group-hover:scale-110" />
                   <div>
                     <p className="font-semibold">{currentLanguage.serviceImpact}</p>
                     <p className="text-sm text-gray-600">{currentLanguage.serviceImpactDetail}</p>
@@ -358,11 +381,14 @@ const DonatePage = ({ isHindi }) => {
               </div>
             </div>
 
-            <div className="bg-white rounded-lg shadow-lg p-6">
+            <div className="bg-white rounded-lg shadow-lg p-6 hover-scale transition-all duration-300 hover:shadow-xl">
               <h3 className="text-lg font-semibold text-gray-800 mb-4">{currentLanguage.recentSupportersTitle}</h3>
               <div className="space-y-4">
                 {recentDonors.map((donor, index) => (
-                  <div key={index} className="border-b last:border-0 pb-3 last:pb-0">
+                  <div 
+                    key={index} 
+                    className="border-b last:border-0 pb-3 last:pb-0 transition-all duration-200 hover:bg-gray-50 px-2 rounded"
+                  >
                     <div className="flex justify-between items-start">
                       <p className="font-medium">{donor.name}</p>
                       <p className="text-blue-600">₹{donor.amount}</p>
@@ -373,7 +399,7 @@ const DonatePage = ({ isHindi }) => {
               </div>
             </div>
 
-            <div className="bg-white rounded-lg shadow-lg p-6">
+            <div className="bg-white rounded-lg shadow-lg p-6 hover-scale transition-all duration-300 hover:shadow-xl">
               <h3 className="text-lg font-semibold text-gray-800 mb-2">{currentLanguage.taxBenefitsTitle}</h3>
               <p className="text-gray-600 text-sm">
                 {currentLanguage.taxBenefitsDetail}
