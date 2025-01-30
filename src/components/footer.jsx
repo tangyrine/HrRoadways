@@ -14,7 +14,7 @@ function Footer({ isHindi }) {
       privacy: "Policy",
       affiliate: "Affiliate Program",
       getHelp: "Help",
-      faq: "FAQ",
+      reviews: "Reviews", // Changed from faq to reviews
       contactUs: "Contact Us",
       busStatus: "Bus Status",
       paymentOptions: "Payment Options",
@@ -32,7 +32,7 @@ function Footer({ isHindi }) {
       privacy: "नीति",
       affiliate: "सहबद्ध कार्यक्रम",
       getHelp: "सहायता प्राप्त करें",
-      faq: "सामान्य प्रश्न",
+      reviews: "समीक्षाएं", // Changed from faq to reviews
       contactUs: "संपर्क करें",
       busStatus: "बस स्थिति",
       paymentOptions: "भुगतान विकल्प",
@@ -93,7 +93,7 @@ function Footer({ isHindi }) {
               title: t.getHelp,
               icon: Bus,
               links: [
-                { label: t.faq, to: "/faq" },
+                { label: t.reviews, to: "/reviews" }, // Changed from faq to reviews
                 { label: t.contactUs, to: "/contact" },
                 { label: t.busStatus, to: "/track" },
                 { label: t.paymentOptions, to: "/payment" },
