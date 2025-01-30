@@ -1,12 +1,12 @@
 import React, { useState, useEffect } from 'react';
 import { CloudRain, Sun, Cloud, AlertTriangle } from 'lucide-react';
-
 const WeatherUpdates = () => {
   const [updates, setUpdates] = useState([]);
   const [currentIndex, setCurrentIndex] = useState(0);
   const [isAnimating, setIsAnimating] = useState(true);
-  const apiKey = 'a88a791860616b06b7b7b8637de9af7b'; // Replace with your OpenWeatherMap API key
-
+  const apiKey = import.meta.env.VITE_WEATHER_API_KEY;
+  console.log(apiKey); // Use this safely
+  
   // Define the routes and the cities along each route
   const routes = [
     { name: 'Chandigarh to Delhi', cities: ['Chandigarh', 'Delhi'] },
