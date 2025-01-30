@@ -3,6 +3,7 @@ import { Calendar, Clock, MapPin, AlertCircle, Info, Repeat, Shield, Star, Phone
 import TrafficUpdates from './TrafficUpdates';
 import PopularRoutes from './PopularRoutes';
 import BusDetailModal from './BusDetailModal';
+import WeatherUpdates from './WeatherUpdates';  
 import '../styles/hero.css';
 import '../styles/modal.css'; // Import modal styles
 
@@ -419,7 +420,7 @@ const Hero = ({ isHindi }) => {
             <PopularRoutes onRouteClick={handlePopularRouteClick} /> {/* Pass the function as a prop */}
 
             <div className="traffic-updates">
-              <TrafficUpdates />
+              <WeatherUpdates />
             </div>
           </div>
         </div>
