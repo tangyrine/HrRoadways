@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
-import { Bus, MapPin, Clock, Globe, Facebook, Twitter, Instagram, Linkedin, Share } from 'lucide-react';
+import { Facebook, Twitter, Instagram, Linkedin } from 'lucide-react';
 import '../styles/footer.css'; // Import the CSS file
 
 function Footer({ isHindi }) {
@@ -14,7 +14,7 @@ function Footer({ isHindi }) {
       privacy: "Policy",
       affiliate: "Affiliate Program",
       getHelp: "Help",
-      reviews: "Reviews", // Changed from faq to reviews
+      faq: "FAQ",
       contactUs: "Contact Us",
       busStatus: "Bus Status",
       paymentOptions: "Payment Options",
@@ -30,16 +30,16 @@ function Footer({ isHindi }) {
       aboutUs: "हमारे बारे में",
       services: "हमारी सेवाएँ",
       privacy: "नीति",
-      affiliate: "सहबद्ध कार्यक्रम",
-      getHelp: "सहायता प्राप्त करें",
-      reviews: "समीक्षाएं", // Changed from faq to reviews
+      affiliate: "संबद्ध कार्यक्रम",
+      getHelp: "मदद",
+      faq: "सामान्य प्रश्न",
       contactUs: "संपर्क करें",
-      busStatus: "बस स्थिति",
+      busStatus: "बस की स्थिति",
       paymentOptions: "भुगतान विकल्प",
       rides: "सवारी",
       trips: "यात्राएँ",
-      luxury: "लग्जरी गंतव्य",
-      visitCities: "शहरों की यात्रा करें",
+      luxury: "लक्जरी गंतव्य",
+      visitCities: "शहरों का दौरा करें",
       bestRides: "सर्वश्रेष्ठ सवारी",
       followUs: "हमें फॉलो करें",
     },
@@ -66,6 +66,14 @@ function Footer({ isHindi }) {
             <li><Link to="/affiliate">{t.affiliate}</Link></li>
           </ul>
         </div>
+        <div className="footer-section">
+          <h4>{t.getHelp}</h4>
+          <ul>
+            <li><Link to="/faq">{t.faq}</Link></li>
+            <li><Link to="/contact">{t.contactUs}</Link></li>
+            <li><Link to="/bus-status">{t.busStatus}</Link></li>
+            <li><Link to="/payment-options">{t.paymentOptions}</Link></li>
+          </ul>
         </div>
         <div className="footer-section">
           <h4>{t.rides}</h4>
@@ -79,10 +87,10 @@ function Footer({ isHindi }) {
         <div className="footer-section">
           <h4>{t.followUs}</h4>
           <div className="social-icons">
-            <a href="https://github.com/NishantRana07" target="_blank" rel="noopener noreferrer"><Facebook /></a>
-            <a href="https://github.com/NishantRana07" target="_blank" rel="noopener noreferrer"><Twitter /></a>
-            <a href="https://github.com/NishantRana07" target="_blank" rel="noopener noreferrer"><Instagram /></a>
-            <a href="https://github.com/NishantRana07" target="_blank" rel="noopener noreferrer"><Linkedin /></a>
+            <a href="https://facebook.com" target="_blank" rel="noopener noreferrer"><Facebook /></a>
+            <a href="https://twitter.com" target="_blank" rel="noopener noreferrer"><Twitter /></a>
+            <a href="https://instagram.com" target="_blank" rel="noopener noreferrer"><Instagram /></a>
+            <a href="https://linkedin.com" target="_blank" rel="noopener noreferrer"><Linkedin /></a>
           </div>
         </div>
       </div>
