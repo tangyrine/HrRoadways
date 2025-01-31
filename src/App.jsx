@@ -6,7 +6,7 @@ import Available from './components/Available';
 import AboutUs from './components/Aboutus';
 import Trip from './components/Trip';
 import Footer from './components/footer';
-import FAQ from './components/faq';
+import Reviews from './components/Review';
 import Blog from './components/Blog';
 import DonatePage from './components/DonatePage';
 import TravelLocations from './components/TravelLocation';
@@ -71,7 +71,7 @@ function App() {
                 <Route path="/services" element={<ServicesPage isHindi={isHindi} />} />
                 <Route path="/travellocations" element={<TravelLocations isHindi={isHindi} />} />
                 <Route path="/helpline" element={<HelplinePage isHindi={isHindi} />} />
-                <Route path="/faq" element={<FAQ isHindi={isHindi} />} />
+                <Route path="/reviews" element={<Reviews isHindi={isHindi} />} />
                 <Route path="/affiliate" element={<AffiliateProgram isHindi={isHindi}/>} /> {/* Added */}
                 <Route path="/contact" element={<ContactUs isHindi={isHindi} />} />
                 <Route path="/card" element={<BusCard isHindi={isHindi} />} />
