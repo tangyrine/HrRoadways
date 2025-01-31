@@ -1,70 +1,152 @@
-import React, { useState } from 'react';
-import { Heart, Bus, CreditCard, Calendar, Mail, CheckCircle, Clock, Users } from 'lucide-react';
+import React, { useState, useEffect } from 'react';
+import { Heart, Bus, CreditCard, CheckCircle, Clock, Users } from 'lucide-react';
+import QRCode from '../assets/HR_QR.png';
 
+// Translation Component
 const translations = {
   en: {
     headerTitle: "Haryana Roadways",
     headerSubtitle: "Your Journey, Our Pride",
-    supportTitle: "Support Our Mission",
-    selectAmountLabel: "Select Donation Amount (INR)",
-    customAmountPlaceholder: "Custom Amount",
+    supportMission: "Support Our Mission",
+    selectAmount: "Select Donation Amount (INR)",
+    customAmount: "Custom Amount",
     oneTime: "One-time",
     monthly: "Monthly",
-    fullNameLabel: "Full Name",
-    emailLabel: "Email",
-    phoneNumberLabel: "Phone Number",
-    panCardLabel: "PAN Card (for tax benefits)",
-    messageLabel: "Message (Optional)",
-    messagePlaceholder: "Share why you're supporting us...",
-    paymentMethodLabel: "Payment Method",
+    fullName: "Full Name",
+    email: "Email",
+    phoneNumber: "Phone Number",
+    panCard: "PAN Card (for tax benefits)",
+    message: "Message (Optional)",
+    shareMessage: "Share why you're supporting us...",
+    paymentMethod: "Payment Method",
+    card: "Card",
+    upi: "UPI",
+    netBanking: "Net Banking",
     completeDonation: "Complete Donation",
-    yourImpactTitle: "Your Impact",
-    busesImpact: "100+ Buses",
-    busesImpactDetail: "Maintained monthly",
-    passengersImpact: "50,000+ Passengers",
-    passengersImpactDetail: "Served daily",
-    serviceImpact: "24/7 Service",
-    serviceImpactDetail: "Round the clock operations",
-    recentSupportersTitle: "Recent Supporters",
-    taxBenefitsTitle: "Tax Benefits",
-    taxBenefitsDetail: "All donations are eligible for tax deduction under Section 80G of the Income Tax Act. You will receive a tax receipt via email.",
-    thankYouTitle: "Thank You for Your Donation!",
+    thankYou: "Thank You for Your Donation!",
     thankYouMessage: "Your generous contribution will help us improve our services and infrastructure. A confirmation email has been sent to",
-    makeAnotherDonation: "Make Another Donation"
+    makeAnotherDonation: "Make Another Donation",
+    yourImpact: "Your Impact",
+    maintainedMonthly: "Maintained monthly",
+    servedDaily: "Served daily",
+    roundTheClock: "Round the clock operations",
+    recentSupporters: "Recent Supporters",
+    taxBenefits: "Tax Benefits",
+    taxBenefitsMessage: "All donations are eligible for tax deduction under Section 80G of the Income Tax Act. You will receive a tax receipt via email.",
+    cardNumber: "Card Number",
+    expiryDate: "MM/YY",
+    cvv: "CVV",
+    upiId: "UPI ID",
+    bankName: "Bank Name",
+    accountNumber: "Account Number"
   },
   hi: {
     headerTitle: "हरियाणा रोडवेज",
     headerSubtitle: "आपकी यात्रा, हमारा गर्व",
-    supportTitle: "हमारे मिशन का समर्थन करें",
-    selectAmountLabel: "दान राशि चुनें (INR)",
-    customAmountPlaceholder: "कस्टम राशि",
+    supportMission: "हमारे मिशन का समर्थन करें",
+    selectAmount: "दान राशि चुनें (INR)",
+    customAmount: "कस्टम राशि",
     oneTime: "एक बार",
     monthly: "मासिक",
-    fullNameLabel: "पूरा नाम",
-    emailLabel: "ईमेल",
-    phoneNumberLabel: "फोन नंबर",
-    panCardLabel: "पैन कार्ड (कर लाभ के लिए)",
-    messageLabel: "संदेश (वैकल्पिक)",
-    messagePlaceholder: "आप हमारे समर्थन क्यों कर रहे हैं, साझा करें...",
-    paymentMethodLabel: "भुगतान विधि",
+    fullName: "पूरा नाम",
+    email: "ईमेल",
+    phoneNumber: "फोन नंबर",
+    panCard: "पैन कार्ड (कर लाभ के लिए)",
+    message: "संदेश (वैकल्पिक)",
+    shareMessage: "हमें समर्थन देने का कारण साझा करें...",
+    paymentMethod: "भुगतान का तरीका",
+    card: "कार्ड",
+    upi: "यूपीआई",
+    netBanking: "नेट बैंकिंग",
     completeDonation: "दान पूरा करें",
-    yourImpactTitle: "आपका प्रभाव",
-    busesImpact: "100+ बसें",
-    busesImpactDetail: "मासिक रखरखाव",
-    passengersImpact: "50,000+ यात्री",
-    passengersImpactDetail: "प्रतिदिन सेवा",
-    serviceImpact: "24/7 सेवा",
-    serviceImpactDetail: "घड़ी के चारों ओर संचालन",
-    recentSupportersTitle: "हाल के समर्थक",
-    taxBenefitsTitle: "कर लाभ",
-    taxBenefitsDetail: "सभी दान आयकर अधिनियम की धारा 80G के तहत कर कटौती के लिए पात्र हैं। आपको ईमेल के माध्यम से एक कर रसीद प्राप्त होगी।",
-    thankYouTitle: "आपके दान के लिए धन्यवाद!",
-    thankYouMessage: "आपके उदार योगदान से हमें अपनी सेवाओं और बुनियादी ढांचे में सुधार करने में मदद मिलेगी। एक पुष्टिकरण ईमेल भेजा गया है",
-    makeAnotherDonation: "एक और दान करें"
+    thankYou: "आपके दान के लिए धन्यवाद!",
+    thankYouMessage: "आपका उदार योगदान हमारे सेवाओं और बुनियादी ढांचे को सुधारने में मदद करेगा। एक पुष्टिकरण ईमेल भेजा गया है",
+    makeAnotherDonation: "एक और दान करें",
+    yourImpact: "आपका प्रभाव",
+    maintainedMonthly: "मासिक रूप से बनाए रखा",
+    servedDaily: "दैनिक सेवा",
+    roundTheClock: "चौबीसों घंटे संचालन",
+    recentSupporters: "हाल के समर्थक",
+    taxBenefits: "कर लाभ",
+    taxBenefitsMessage: "सभी दान आयकर अधिनियम की धारा 80G के तहत कर कटौती के लिए पात्र हैं। आपको एक कर रसीद ईमेल के माध्यम से प्राप्त होगी।",
+    cardNumber: "कार्ड नंबर",
+    expiryDate: "एमएम/वर्ष",
+    cvv: "सीवीवी",
+    upiId: "यूपीआई आईडी",
+    bankName: "बैंक का नाम",
+    accountNumber: "खाता संख्या"
+  }
+};
+
+const useTranslation = (isHindi) => {
+  const [currentLanguage, setCurrentLanguage] = useState(isHindi ? translations.hi : translations.en);
+  useEffect(() => {
+    setCurrentLanguage(isHindi ? translations.hi : translations.en);
+  }, [isHindi]);
+  return currentLanguage;
+};
+
+// Reusable Button Component
+const Button = ({ onClick, active, children }) => (
+  <button
+    type="button"
+    onClick={onClick}
+    className={`py-3 px-4 rounded-lg border text-center transition-all duration-300 hover:scale-105 ${
+      active ? 'bg-blue-600 text-white border-blue-600 shadow-lg' : 'bg-white text-gray-700 border-gray-300 hover:border-blue-500 hover:shadow-md'
+    }`}
+  >
+    {children}
+  </button>
+);
+
+// Reusable Input Component
+const Input = ({ value, onChange, placeholder, type = "text", required = false }) => (
+  <input
+    type={type}
+    value={value}
+    placeholder={placeholder}
+    onChange={onChange}
+    className="w-full px-4 py-2 border rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 transition-all duration-200 hover:border-blue-300 hover:shadow-lg"
+    required={required}
+  />
+);
+
+// Payment Details Component
+const PaymentDetails = ({ paymentMethod, t }) => {
+  switch (paymentMethod) {
+    case 'card':
+      return (
+        <>
+          <Input type="text" placeholder={t.cardNumber} required />
+          <div className="grid grid-cols-2 gap-4">
+            <Input type="text" placeholder={t.expiryDate} required />
+            <Input type="text" placeholder={t.cvv} required />
+          </div>
+        </>
+      );
+    case 'upi':
+      return (
+        <>
+          <Input type="text" placeholder={t.upiId} required />
+          <div className="text-center">
+            <img src={QRCode} alt="UPI QR Code" className="mx-auto w-48 h-48" />
+          </div>
+        </>
+      );
+    case 'netbanking':
+      return (
+        <>
+          <Input type="text" placeholder={t.bankName} required />
+          <Input type="text" placeholder={t.accountNumber} required />
+        </>
+      );
+    default:
+      return null;
   }
 };
 
 const DonatePage = ({ isHindi }) => {
+  const t = useTranslation(isHindi);
   const [amount, setAmount] = useState('');
   const [customAmount, setCustomAmount] = useState('');
   const [donorInfo, setDonorInfo] = useState({
@@ -79,11 +161,11 @@ const DonatePage = ({ isHindi }) => {
   const [showThankYou, setShowThankYou] = useState(false);
 
   const predefinedAmounts = [100, 500, 1000, 5000];
-  const [recentDonors] = useState([
+  const recentDonors = [
     { name: "Rahul S.", amount: 1000, message: "Keep up the great work!" },
     { name: "Priya M.", amount: 500, message: "Happy to support" },
     { name: "Amit K.", amount: 2000, message: "For better transportation" }
-  ]);
+  ];
 
   const handleSubmit = (e) => {
     e.preventDefault();
@@ -92,7 +174,7 @@ const DonatePage = ({ isHindi }) => {
 
   const handleAmountSelect = (value) => {
     setAmount(value);
-    setCustomAmount('');
+    setCustomAmount(value.toString());
   };
 
   const handleCustomAmount = (e) => {
@@ -100,7 +182,21 @@ const DonatePage = ({ isHindi }) => {
     setAmount('custom');
   };
 
-  const currentLanguage = isHindi ? translations.hi : translations.en;
+  useEffect(() => {
+    const handleScroll = () => {
+      document.querySelectorAll('.scroll-element').forEach((el) => {
+        const rect = el.getBoundingClientRect();
+        if (rect.top < window.innerHeight && rect.bottom >= 0) {
+          el.classList.add('animate-slide-up');
+        } else {
+          el.classList.remove('animate-slide-up');
+        }
+      });
+    };
+
+    window.addEventListener('scroll', handleScroll);
+    return () => window.removeEventListener('scroll', handleScroll);
+  }, []);
 
   if (showThankYou) {
     return (
@@ -109,23 +205,22 @@ const DonatePage = ({ isHindi }) => {
           <div className="max-w-4xl mx-auto px-4 text-center">
             <h1 className="text-3xl font-bold flex items-center justify-center gap-2">
               <Bus size={32} />
-              {currentLanguage.headerTitle}
+              {t.headerTitle}
             </h1>
-            <p className="mt-2">{currentLanguage.headerSubtitle}</p>
+            <p className="mt-2">{t.headerSubtitle}</p>
           </div>
         </header>
-
-        <div className="max-w-2xl mx-auto mt-16 p-8 bg-white rounded-lg shadow-lg text-center">
-          <CheckCircle className="w-16 h-16 text-green-500 mx-auto mb-6" />
-          <h2 className="text-2xl font-bold text-gray-800 mb-4">{currentLanguage.thankYouTitle}</h2>
+        <div className="max-w-2xl mx-auto mt-16 p-8 bg-white rounded-lg shadow-xl text-center animate-slide-up">
+          <CheckCircle className="w-16 h-16 text-green-500 mx-auto mb-6 animate-pulse" />
+          <h2 className="text-2xl font-bold text-gray-800 mb-4">{t.thankYou}</h2>
           <p className="text-gray-600 mb-6">
-            {currentLanguage.thankYouMessage} {donorInfo.email}.
+            {t.thankYouMessage} {donorInfo.email}.
           </p>
           <button 
             onClick={() => window.location.reload()}
-            className="bg-blue-600 text-white px-6 py-2 rounded-lg hover:bg-blue-700 transition-colors"
+            className="bg-blue-600 text-white px-6 py-2 rounded-lg hover:bg-blue-700 transition-all duration-300 hover:shadow-lg"
           >
-            {currentLanguage.makeAnotherDonation}
+            {t.makeAnotherDonation}
           </button>
         </div>
       </div>
@@ -134,249 +229,141 @@ const DonatePage = ({ isHindi }) => {
 
   return (
     <div className="min-h-screen bg-gray-50">
+      <style>{`
+        @keyframes slideUp {
+          from { transform: translateY(50px); opacity: 0; }
+          to { transform: translateY(0); opacity: 1; }
+        }
+        .animate-slide-up { animation: slideUp 0.4s cubic-bezier(0.22, 1, 0.36, 1); }
+        .animate-pulse { animation: pulse 2s cubic-bezier(0.4, 0, 0.6, 1) infinite; }
+      `}</style>
+      
       <header className="bg-blue-900 text-white py-8">
         <div className="max-w-4xl mx-auto px-4 text-center">
           <h1 className="text-3xl font-bold flex items-center justify-center gap-2">
             <Bus size={32} />
-            {currentLanguage.headerTitle}
+            {t.headerTitle}
           </h1>
-          <p className="mt-2">{currentLanguage.headerSubtitle}</p>
+          <p className="mt-2">{t.headerSubtitle}</p>
         </div>
       </header>
-
       <main className="max-w-6xl mx-auto px-4 py-12">
         <div className="grid md:grid-cols-3 gap-8">
-          {/* Donation Form */}
           <div className="md:col-span-2">
-            <div className="bg-white rounded-lg shadow-lg p-6">
+            <div className="bg-white rounded-lg shadow-lg p-6 scroll-element">
               <h2 className="text-2xl font-bold text-gray-800 mb-6 flex items-center gap-2">
-                <Heart className="text-red-500" />
-                {currentLanguage.supportTitle}
+                <Heart className="text-red-500 animate-bounce" />
+                {t.supportMission}
               </h2>
-
               <form onSubmit={handleSubmit} className="space-y-6">
                 <div>
-                  <label className="block text-gray-700 font-medium mb-3">
-                    {currentLanguage.selectAmountLabel}
-                  </label>
+                  <label className="block text-gray-700 font-medium mb-3">{t.selectAmount}</label>
                   <div className="grid grid-cols-2 md:grid-cols-4 gap-3 mb-4">
                     {predefinedAmounts.map((value) => (
-                      <button
+                      <Button
                         key={value}
-                        type="button"
                         onClick={() => handleAmountSelect(value)}
-                        className={`py-3 px-4 rounded-lg border text-center transition-colors ${
-                          amount === value
-                            ? 'bg-blue-600 text-white border-blue-600'
-                            : 'bg-white text-gray-700 border-gray-300 hover:border-blue-500'
-                        }`}
+                        active={amount === value}
                       >
                         ₹{value}
-                      </button>
+                      </Button>
                     ))}
                   </div>
                   <div className="mt-3">
-                    <input
+                    <Input
                       type="number"
-                      placeholder={currentLanguage.customAmountPlaceholder}
+                      placeholder={t.customAmount}
                       value={customAmount}
                       onChange={handleCustomAmount}
-                      className="w-full px-4 py-2 border rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500"
                       min="50"
                     />
                   </div>
                 </div>
-
                 <div className="flex items-center gap-4">
-                  <button
-                    type="button"
-                    onClick={() => setIsMonthly(false)}
-                    className={`flex-1 py-3 px-4 rounded-lg border transition-colors ${
-                      !isMonthly
-                        ? 'bg-blue-600 text-white border-blue-600'
-                        : 'bg-white text-gray-700 border-gray-300'
-                    }`}
-                  >
-                    {currentLanguage.oneTime}
-                  </button>
-                  <button
-                    type="button"
-                    onClick={() => setIsMonthly(true)}
-                    className={`flex-1 py-3 px-4 rounded-lg border transition-colors ${
-                      isMonthly
-                        ? 'bg-blue-600 text-white border-blue-600'
-                        : 'bg-white text-gray-700 border-gray-300'
-                    }`}
-                  >
-                    {currentLanguage.monthly}
-                  </button>
+                  <Button onClick={() => setIsMonthly(false)} active={!isMonthly}>{t.oneTime}</Button>
+                  <Button onClick={() => setIsMonthly(true)} active={isMonthly}>{t.monthly}</Button>
                 </div>
-
                 <div className="grid md:grid-cols-2 gap-4">
-                  <div>
-                    <label className="block text-gray-700 font-medium mb-2">
-                      {currentLanguage.fullNameLabel}
-                    </label>
-                    <input
-                      type="text"
-                      value={donorInfo.name}
-                      placeholder={currentLanguage.fullNameLabel}
-                      onChange={(e) => setDonorInfo({...donorInfo, name: e.target.value})}
-                      className="w-full px-4 py-2 border rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500"
-                      required
-                    />
-                  </div>
-                  <div>
-                    <label className="block text-gray-700 font-medium mb-2">
-                      {currentLanguage.emailLabel}
-                    </label>
-                    <input
-                      type="email"
-                      value={donorInfo.email}
-                      placeholder={currentLanguage.emailLabel}
-                      onChange={(e) => setDonorInfo({...donorInfo, email: e.target.value})}
-                      className="w-full px-4 py-2 border rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500"
-                      required
-                    />
-                  </div>
-                  <div>
-                    <label className="block text-gray-700 font-medium mb-2">
-                      {currentLanguage.phoneNumberLabel}
-                    </label>
-                    <input
-                      type="tel"
-                      value={donorInfo.phone}
-                      placeholder={currentLanguage.phoneNumberLabel}
-                      onChange={(e) => setDonorInfo({...donorInfo, phone: e.target.value})}
-                      className="w-full px-4 py-2 border rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500"
-                    />
-                  </div>
-                  <div>
-                    <label className="block text-gray-700 font-medium mb-2">
-                      {currentLanguage.panCardLabel}
-                    </label>
-                    <input
-                      type="text"
-                      value={donorInfo.panCard}
-                      placeholder={currentLanguage.panCardLabel}
-                      onChange={(e) => setDonorInfo({...donorInfo, panCard: e.target.value})}
-                      className="w-full px-4 py-2 border rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500"
-                    />
-                  </div>
+                  <Input 
+                    value={donorInfo.name} 
+                    onChange={(e) => setDonorInfo({ ...donorInfo, name: e.target.value })} 
+                    placeholder={t.fullName} 
+                    required 
+                  />
+                  <Input 
+                    type="email" 
+                    value={donorInfo.email} 
+                    onChange={(e) => setDonorInfo({ ...donorInfo, email: e.target.value })} 
+                    placeholder={t.email} 
+                    required 
+                  />
+                  <Input 
+                    type="tel" 
+                    value={donorInfo.phone} 
+                    onChange={(e) => setDonorInfo({ ...donorInfo, phone: e.target.value })} 
+                    placeholder={t.phoneNumber} 
+                  />
+                  <Input 
+                    value={donorInfo.panCard} 
+                    onChange={(e) => setDonorInfo({ ...donorInfo, panCard: e.target.value })} 
+                    placeholder={t.panCard} 
+                  />
                 </div>
-
                 <div>
-                  <label className="block text-gray-700 font-medium mb-2">
-                    {currentLanguage.messageLabel}
-                  </label>
+                  <label className="block text-gray-700 font-medium mb-2">{t.message}</label>
                   <textarea
                     value={donorInfo.message}
-                    onChange={(e) => setDonorInfo({...donorInfo, message: e.target.value})}
-                    className="w-full px-4 py-2 border rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 h-24"
-                    placeholder={currentLanguage.messagePlaceholder}
+                    onChange={(e) => setDonorInfo({ ...donorInfo, message: e.target.value })}
+                    className="w-full px-4 py-2 border rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 h-24 transition-all duration-200 hover:border-blue-300 hover:shadow-lg"
+                    placeholder={t.shareMessage}
                   ></textarea>
                 </div>
-
                 <div>
-                  <label className="block text-gray-700 font-medium mb-3">
-                    {currentLanguage.paymentMethodLabel}
-                  </label>
+                  <label className="block text-gray-700 font-medium mb-3">{t.paymentMethod}</label>
                   <div className="grid grid-cols-3 gap-3">
-                    <button
-                      type="button"
-                      onClick={() => setPaymentMethod('card')}
-                      className={`py-3 px-4 rounded-lg border flex items-center justify-center gap-2 transition-colors ${
-                        paymentMethod === 'card'
-                          ? 'bg-blue-600 text-white border-blue-600'
-                          : 'bg-white text-gray-700 border-gray-300'
-                      }`}
-                    >
-                      <CreditCard size={20} />
-                      {isHindi ? "कार्ड" : "Card"}
-                    </button>
-                    <button
-                      type="button"
-                      onClick={() => setPaymentMethod('upi')}
-                      className={`py-3 px-4 rounded-lg border transition-colors ${
-                        paymentMethod === 'upi'
-                          ? 'bg-blue-600 text-white border-blue-600'
-                          : 'bg-white text-gray-700 border-gray-300'
-                      }`}
-                    >
-                      {isHindi ? "यूपीआई" : "UPI"}
-                    </button>
-                    <button
-                      type="button"
-                      onClick={() => setPaymentMethod('netbanking')}
-                      className={`py-3 px-4 rounded-lg border transition-colors ${
-                        paymentMethod === 'netbanking'
-                          ? 'bg-blue-600 text-white border-blue-600'
-                          : 'bg-white text-gray-700 border-gray-300'
-                      }`}
-                    >
-                      {isHindi ? "नेट बैंकिंग" : "Net Banking"}
-                    </button>
+                    <Button onClick={() => setPaymentMethod('card')} active={paymentMethod === 'card'}>
+                      <CreditCard size={20} /> {t.card}
+                    </Button>
+                    <Button onClick={() => setPaymentMethod('upi')} active={paymentMethod === 'upi'}>
+                      {t.upi}
+                    </Button>
+                    <Button onClick={() => setPaymentMethod('netbanking')} active={paymentMethod === 'netbanking'}>
+                      {t.netBanking}
+                    </Button>
                   </div>
                 </div>
-
+                <PaymentDetails paymentMethod={paymentMethod} t={t} />
                 <button
                   type="submit"
-                  className="w-full bg-blue-600 text-white py-3 rounded-lg hover:bg-blue-700 transition-colors flex items-center justify-center gap-2"
+                  className="w-full bg-blue-600 text-white py-3 rounded-lg hover:bg-blue-700 transition-all duration-300 hover:shadow-lg transform hover:-translate-y-0.5 flex items-center justify-center gap-2"
                 >
-                  <Heart size={20} />
-                  {currentLanguage.completeDonation}
+                  <Heart size={20} className="animate-bounce" />
+                  {t.completeDonation}
                 </button>
               </form>
             </div>
           </div>
-
           <div className="space-y-6">
-            <div className="bg-white rounded-lg shadow-lg p-6">
-              <h3 className="text-lg font-semibold text-gray-800 mb-4">{currentLanguage.yourImpactTitle}</h3>
+            <div className="bg-white rounded-lg shadow-lg p-6 scroll-element">
+              <h3 className="text-lg font-semibold text-gray-800 mb-4">{t.yourImpact}</h3>
               <div className="space-y-4">
-                <div className="flex items-center gap-3">
-                  <Bus className="text-blue-600" />
-                  <div>
-                    <p className="font-semibold">{currentLanguage.busesImpact}</p>
-                    <p className="text-sm text-gray-600">{currentLanguage.busesImpactDetail}</p>
-                  </div>
-                </div>
-                <div className="flex items-center gap-3">
-                  <Users className="text-blue-600" />
-                  <div>
-                    <p className="font-semibold">{currentLanguage.passengersImpact}</p>
-                    <p className="text-sm text-gray-600">{currentLanguage.passengersImpactDetail}</p>
-                  </div>
-                </div>
-                <div className="flex items-center gap-3">
-                  <Clock className="text-blue-600" />
-                  <div>
-                    <p className="font-semibold">{currentLanguage.serviceImpact}</p>
-                    <p className="text-sm text-gray-600">{currentLanguage.serviceImpactDetail}</p>
-                  </div>
-                </div>
+                <ImpactItem icon={Bus} title="100+ Buses" description={t.maintainedMonthly} />
+                <ImpactItem icon={Users} title="50,000+ Passengers" description={t.servedDaily} />
+                <ImpactItem icon={Clock} title="24/7 Service" description={t.roundTheClock} />
               </div>
             </div>
-
-            <div className="bg-white rounded-lg shadow-lg p-6">
-              <h3 className="text-lg font-semibold text-gray-800 mb-4">{currentLanguage.recentSupportersTitle}</h3>
+            <div className="bg-white rounded-lg shadow-lg p-6 scroll-element">
+              <h3 className="text-lg font-semibold text-gray-800 mb-4">{t.recentSupporters}</h3>
               <div className="space-y-4">
                 {recentDonors.map((donor, index) => (
-                  <div key={index} className="border-b last:border-0 pb-3 last:pb-0">
-                    <div className="flex justify-between items-start">
-                      <p className="font-medium">{donor.name}</p>
-                      <p className="text-blue-600">₹{donor.amount}</p>
-                    </div>
-                    <p className="text-sm text-gray-600 mt-1">{donor.message}</p>
-                  </div>
+                  <Supporter key={index} donor={donor} />
                 ))}
               </div>
             </div>
-
-            <div className="bg-white rounded-lg shadow-lg p-6">
-              <h3 className="text-lg font-semibold text-gray-800 mb-2">{currentLanguage.taxBenefitsTitle}</h3>
+            <div className="bg-white rounded-lg shadow-lg p-6 scroll-element">
+              <h3 className="text-lg font-semibold text-gray-800 mb-2">{t.taxBenefits}</h3>
               <p className="text-gray-600 text-sm">
-                {currentLanguage.taxBenefitsDetail}
+                {t.taxBenefitsMessage}
               </p>
             </div>
           </div>
@@ -385,5 +372,27 @@ const DonatePage = ({ isHindi }) => {
     </div>
   );
 };
+
+// Impact Item Component
+const ImpactItem = ({ icon: Icon, title, description }) => (
+  <div className="flex items-center gap-3 group">
+    <Icon className="text-blue-600 transition-transform duration-300 group-hover:scale-110" />
+    <div>
+      <p className="font-semibold">{title}</p>
+      <p className="text-sm text-gray-600">{description}</p>
+    </div>
+  </div>
+);
+
+// Supporter Component
+const Supporter = ({ donor }) => (
+  <div className="border-b last:border-0 pb-3 last:pb-0 transition-all duration-200 hover:bg-gray-50 px-2 rounded">
+    <div className="flex justify-between items-start">
+      <p className="font-medium">{donor.name}</p>
+      <p className="text-blue-600">₹{donor.amount}</p>
+    </div>
+    <p className="text-sm text-gray-600 mt-1">{donor.message}</p>
+  </div>
+);
 
 export default DonatePage;

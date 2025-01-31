@@ -14,7 +14,7 @@ function Footer({ isHindi }) {
       privacy: "Policy",
       affiliate: "Affiliate Program",
       getHelp: "Help",
-      faq: "FAQ",
+      reviews: "Reviews", // Changed from faq to reviews
       contactUs: "Contact Us",
       busStatus: "Bus Status",
       paymentOptions: "Payment Options",
@@ -32,7 +32,7 @@ function Footer({ isHindi }) {
       privacy: "नीति",
       affiliate: "सहबद्ध कार्यक्रम",
       getHelp: "सहायता प्राप्त करें",
-      faq: "सामान्य प्रश्न",
+      reviews: "समीक्षाएं", // Changed from faq to reviews
       contactUs: "संपर्क करें",
       busStatus: "बस स्थिति",
       paymentOptions: "भुगतान विकल्प",
@@ -66,14 +66,6 @@ function Footer({ isHindi }) {
             <li><Link to="/affiliate">{t.affiliate}</Link></li>
           </ul>
         </div>
-        <div className="footer-section">
-          <h4>{t.getHelp}</h4>
-          <ul>
-            <li><Link to="/faq">{t.faq}</Link></li>
-            <li><Link to="/contact">{t.contactUs}</Link></li>
-            <li><Link to="/bus-status">{t.busStatus}</Link></li>
-            <li><Link to="/payment-options">{t.paymentOptions}</Link></li>
-          </ul>
         </div>
         <div className="footer-section">
           <h4>{t.rides}</h4>
@@ -87,10 +79,10 @@ function Footer({ isHindi }) {
         <div className="footer-section">
           <h4>{t.followUs}</h4>
           <div className="social-icons">
-            <a href="https://facebook.com" target="_blank" rel="noopener noreferrer"><Facebook /></a>
-            <a href="https://twitter.com" target="_blank" rel="noopener noreferrer"><Twitter /></a>
-            <a href="https://instagram.com" target="_blank" rel="noopener noreferrer"><Instagram /></a>
-            <a href="https://linkedin.com" target="_blank" rel="noopener noreferrer"><Linkedin /></a>
+            <a href="https://github.com/NishantRana07" target="_blank" rel="noopener noreferrer"><Facebook /></a>
+            <a href="https://github.com/NishantRana07" target="_blank" rel="noopener noreferrer"><Twitter /></a>
+            <a href="https://github.com/NishantRana07" target="_blank" rel="noopener noreferrer"><Instagram /></a>
+            <a href="https://github.com/NishantRana07" target="_blank" rel="noopener noreferrer"><Linkedin /></a>
           </div>
         </div>
       </div>
