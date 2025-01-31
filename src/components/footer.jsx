@@ -45,116 +45,57 @@ function Footer({ isHindi }) {
     },
   };
 
+  const t = isHindi ? translations.hi : translations.en;
+
   useEffect(() => {
-    const timeInterval = setInterval(() => {
+    const timer = setInterval(() => {
       setCurrentTime(new Date());
     }, 1000);
-
-    return () => clearInterval(timeInterval);
+    return () => clearInterval(timer);
   }, []);
-
-  const t = isHindi ? translations.hi : translations.en;
 
   return (
     <footer className="footer">
-      <div className="footer-bg-overlay" />
-      <div className="footer-time">
-        <div className="footer-time-content">
-          <Globe className="footer-time-icon" />
-          <span>{currentTime.toLocaleTimeString()}</span>
+      <div className="footer-container">
+        <div className="footer-section">
+          <h4>{t.company}</h4>
+          <ul>
+            <li><Link to="/about">{t.aboutUs}</Link></li>
+            <li><Link to="/services">{t.services}</Link></li>
+            <li><Link to="/privacy">{t.privacy}</Link></li>
+            <li><Link to="/affiliate">{t.affiliate}</Link></li>
+          </ul>
         </div>
-        <div className="footer-date-content">
-          <Clock className="footer-date-icon" />
-          <span>{currentTime.toLocaleDateString()}</span>
+        <div className="footer-section">
+          <h4>{t.getHelp}</h4>
+          <ul>
+            <li><Link to="/faq">{t.faq}</Link></li>
+            <li><Link to="/contact">{t.contactUs}</Link></li>
+            <li><Link to="/bus-status">{t.busStatus}</Link></li>
+            <li><Link to="/payment-options">{t.paymentOptions}</Link></li>
+          </ul>
+        </div>
+        <div className="footer-section">
+          <h4>{t.rides}</h4>
+          <ul>
+            <li><Link to="/trips">{t.trips}</Link></li>
+            <li><Link to="/luxury">{t.luxury}</Link></li>
+            <li><Link to="/visit-cities">{t.visitCities}</Link></li>
+            <li><Link to="/best-rides">{t.bestRides}</Link></li>
+          </ul>
+        </div>
+        <div className="footer-section">
+          <h4>{t.followUs}</h4>
+          <div className="social-icons">
+            <a href="https://facebook.com" target="_blank" rel="noopener noreferrer"><Facebook /></a>
+            <a href="https://twitter.com" target="_blank" rel="noopener noreferrer"><Twitter /></a>
+            <a href="https://instagram.com" target="_blank" rel="noopener noreferrer"><Instagram /></a>
+            <a href="https://linkedin.com" target="_blank" rel="noopener noreferrer"><Linkedin /></a>
+          </div>
         </div>
       </div>
-
-      <div className="footer-container">
-        <div className="footer-header">
-          <div className="footer-logo">
-            <Bus className="footer-logo-icon" />
-            <h2 className="footer-title">Haryana Roadways</h2>
-          </div>
-        </div>
-
-        <div className="footer-sections">
-          {[
-            {
-              title: t.company,
-              icon: MapPin,
-              links: [
-                { label: t.aboutUs, to: "/about" },
-                { label: t.services, to: "/services" },
-                { label: t.privacy, to: "/policy" },
-                { label: t.affiliate, to: "/affiliate" },
-              ],
-            },
-            {
-              title: t.getHelp,
-              icon: Bus,
-              links: [
-                { label: t.faq, to: "/faq" },
-                { label: t.contactUs, to: "/contact" },
-                { label: t.busStatus, to: "/track" },
-                { label: t.paymentOptions, to: "/payment" },
-              ],
-            },
-            {
-              title: t.rides,
-              icon: Globe,
-              links: [
-                { label: t.trips, to: "/trip" },
-                { label: t.luxury, to: "/luxury" },
-                { label: t.visitCities, to: "/travellocations" },
-                { label: t.bestRides, to: "/under-construction" },
-              ],
-            },
-            {
-              title: t.followUs,
-              icon: Share,
-              links: [],
-            },
-          ].map((section, index) => (
-            <div key={index} className="footer-section">
-              <div className="footer-section-header">
-                <section.icon className="footer-section-icon" />
-                <h4 className="footer-section-title">{section.title}</h4>
-              </div>
-              {section.links.length > 0 ? (
-                <ul className="footer-links">
-                  {section.links.map((link, linkIndex) => (
-                    <li key={linkIndex}>
-                      <Link to={link.to} className="footer-link">
-                        {link.label}
-                      </Link>
-                    </li>
-                  ))}
-                </ul>
-              ) : (
-                <div className="footer-social-links">
-                  {[
-                    { Icon: Facebook, color: "social-facebook", href: "https://github.com/NishantRana07" },
-                    { Icon: Twitter, color: "social-twitter", href: "https://github.com/NishantRana07/" },
-                    { Icon: Instagram, color: "social-instagram", href: "https://github.com/NishantRana07/" },
-                    { Icon: Linkedin, color: "social-linkedin", href: "https://github.com/NishantRana07/" },
-                  ].map(({ Icon, color, href }, idx) => (
-                    <a key={idx} href={href} className="footer-social-link">
-                      <Icon className={`footer-social-icon ${color}`} />
-                    </a>
-                  ))}
-                </div>
-              )}
-            </div>
-          ))}
-        </div>
-
-        <div className="footer-bottom">
-          <div className="footer-bottom-content">
-            <Bus className="footer-bottom-icon" />
-            <p className="footer-bottom-text">© {new Date().getFullYear()} Haryana Roadways - Connecting Communities</p>
-            <Bus className="footer-bottom-icon" />
-          </div>
-        </div>
+      <div className="footer-bottom">
+        <p>&copy; {new Date().getFullYear()} SpendWise. All rights reserved.</p>
       </div>
     </footer>
   );
