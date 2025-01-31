@@ -31,6 +31,8 @@ const InfoPage = ({ initialLanguage = 'en' }) => {
     email: '',
     message: ''
   });
+  const [isSubmitting, setIsSubmitting] = useState(false);
+  const sectionRef = useRef(null);
 
   const translations = {
     en: {
@@ -72,17 +74,20 @@ const InfoPage = ({ initialLanguage = 'en' }) => {
         {
           title: "Medical Support",
           description: "Immediate medical assistance and coordination with local healthcare facilities.",
-          icon: <Headphones />
+          icon: <Headphones />,
+          badge: "24/7 Available"
         },
         {
           title: "Legal Protection",
           description: "Comprehensive legal support and guidance during travel emergencies.",
-          icon: <Shield />
+          icon: <Shield />,
+          badge: "Multilingual"
         },
         {
           title: "Financial Assistance",
           description: "Emergency financial support and travel insurance coordination.",
-          icon: <CreditCard />
+          icon: <CreditCard />,
+          badge: "Instant Processing"
         }
       ],
       supportForm: {
@@ -90,117 +95,112 @@ const InfoPage = ({ initialLanguage = 'en' }) => {
         namePlaceholder: "Your Name",
         emailPlaceholder: "Your Email",
         messagePlaceholder: "Describe your issue",
-        submitButton: "Send Support Request"
+        submitButton: "Send Support Request",
+        successMessage: "Request submitted successfully!"
       }
     },
     hi: {
-      // Similar structure with Hindi translations
-      header: {
-        title: "यात्री का साथी",
-        subtitle: "आपका सर्वोत्तम यात्रा सहायता प्लेटफॉर्म"
-      },
-      // ... (rest of the Hindi translations would follow the same pattern)
+      // Complete Hindi translations here
     }
   };
 
-  const currentTranslation = translations[language];
+  useEffect(() => {
+    if (sectionRef.current) {
+      sectionRef.current.scrollIntoView({
+        behavior: 'smooth',
+        block: 'start'
+      });
+    }
+  }, [activeSection]);
 
-  const toggleLanguage = () => {
-    setLanguage(language === 'en' ? 'hi' : 'en');
-  };
-
-  const toggleFAQ = (index) => {
-    setExpandedFAQs(prev => ({
-      ...prev,
-      [index]: !prev[index]
-    }));
-  };
-
-  const handleSupportFormChange = (e) => {
-    const { name, value } = e.target;
-    setFormData(prev => ({
-      ...prev,
-      [name]: value
-    }));
-  };
-
-  const handleSupportSubmit = (e) => {
+  const handleSupportSubmit = async (e) => {
     e.preventDefault();
-    // Implement support request logic
+    setIsSubmitting(true);
+    await new Promise(resolve => setTimeout(resolve, 1500));
     console.log('Support Request Submitted', formData);
+    setFormData({ name: '', email: '', message: '' });
+    setIsSubmitting(false);
     setSupportModalOpen(false);
   };
 
   return (
-    <div className="min-h-screen bg-gradient-to-br from-blue-50 to-blue-100 text-gray-800">
-      {/* Top Navigation */}
-      <nav className="fixed top-0 left-0 right-0 bg-white shadow-md z-50">
+    <div className="min-h-screen bg-gradient-to-br from-blue-50 via-purple-50 to-blue-100 text-gray-800">
+      {/* Enhanced Navigation */}
+      <nav className="fixed top-0 left-0 right-0 bg-white/90 backdrop-blur-md shadow-md z-50">
         <div className="max-w-7xl mx-auto px-4 py-3 flex justify-between items-center">
-          <div className="flex items-center">
-            <Globe className="text-blue-600 mr-3" />
-            <h1 className="text-2xl font-bold text-blue-600">
+          <div className="flex items-center space-x-3">
+            <div className="p-2 bg-blue-600 rounded-lg shadow-lg">
+              <Globe className="text-white h-6 w-6" />
+            </div>
+            <h1 className="text-2xl font-bold bg-gradient-to-r from-blue-600 to-purple-600 bg-clip-text text-transparent">
               {currentTranslation.header.title}
             </h1>
           </div>
           <div className="flex items-center space-x-4">
             <button 
               onClick={toggleLanguage}
-              className="flex items-center bg-blue-100 text-blue-600 px-3 py-1 rounded-full hover:bg-blue-200 transition"
+              className="flex items-center space-x-2 bg-white text-blue-600 px-4 py-2 rounded-full shadow-md hover:shadow-lg transition-all duration-300 border border-blue-100"
             >
-              {language === 'en' ? 'हिं' : 'EN'}
+              <span className="font-medium">{language === 'en' ? 'हिं' : 'EN'}</span>
+              <Globe className="h-4 w-4" />
             </button>
             <button 
               onClick={() => setSupportModalOpen(true)}
-              className="flex items-center bg-green-500 text-white px-4 py-2 rounded-full hover:bg-green-600 transition"
+              className="flex items-center space-x-2 bg-gradient-to-r from-green-500 to-teal-500 text-white px-6 py-2.5 rounded-full shadow-lg hover:shadow-xl transition-all duration-300 hover:scale-105"
             >
-              <Headphones className="mr-2" /> Support
+              <Headphones className="h-5 w-5" />
+              <span className="font-semibold">Support</span>
             </button>
           </div>
         </div>
       </nav>
 
-      {/* Main Content Area */}
-      <div className="pt-20 max-w-7xl mx-auto px-4 grid md:grid-cols-4 gap-6">
-        {/* Sidebar Navigation */}
-        <div className="md:col-span-1 bg-white rounded-xl shadow-md p-4 sticky top-24 h-fit">
+      {/* Main Content */}
+      <div className="pt-24 max-w-7xl mx-auto px-4 grid md:grid-cols-4 gap-8">
+        {/* Enhanced Sidebar */}
+        <div className="md:col-span-1 bg-white/90 backdrop-blur-sm rounded-2xl shadow-xl p-4 sticky top-24 h-fit border border-gray-100">
           {Object.entries(currentTranslation.sections).map(([key, label]) => (
             <button
               key={key}
               onClick={() => setActiveSection(key)}
-              className={`w-full text-left p-3 rounded-lg mb-2 flex items-center transition ${
+              className={`w-full text-left p-4 rounded-xl mb-2 flex items-center space-x-3 transition-all duration-300 ${
                 activeSection === key 
-                  ? 'bg-blue-600 text-white' 
-                  : 'hover:bg-blue-100 text-gray-700'
+                  ? 'bg-gradient-to-r from-blue-600 to-purple-600 text-white shadow-lg'
+                  : 'hover:bg-gray-50/80 text-gray-700 hover:shadow-md'
               }`}
             >
-              {key === 'overview' && <MapPin className="mr-3" />}
-              {key === 'guidelines' && <ClipboardList className="mr-3" />}
-              {key === 'emergencySupport' && <AlertTriangle className="mr-3" />}
-              {key === 'privacyPolicy' && <Lock className="mr-3" />}
-              {key === 'customerCare' && <Headphones className="mr-3" />}
-              {label}
+              {key === 'overview' && <MapPin className="h-5 w-5" />}
+              {key === 'guidelines' && <ClipboardList className="h-5 w-5" />}
+              {key === 'emergencySupport' && <AlertTriangle className="h-5 w-5" />}
+              {key === 'privacyPolicy' && <Lock className="h-5 w-5" />}
+              {key === 'customerCare' && <Headphones className="h-5 w-5" />}
+              <span className="font-medium">{label}</span>
             </button>
           ))}
         </div>
 
-        {/* Content Area */}
-        <div className="md:col-span-3 bg-white rounded-xl shadow-md p-6">
+        {/* Enhanced Content Sections */}
+        <div className="md:col-span-3 bg-white/90 backdrop-blur-sm rounded-2xl shadow-xl p-8 border border-gray-100" ref={sectionRef}>
           {activeSection === 'overview' && (
-            <div className="animate-fade-in">
-              <h2 className="text-3xl font-bold text-blue-600 mb-6">
+            <div className="space-y-8">
+              <h2 className="text-4xl font-bold bg-gradient-to-r from-blue-600 to-purple-600 bg-clip-text text-transparent mb-6">
                 {currentTranslation.header.subtitle}
               </h2>
-              <p className="text-gray-700 mb-6">
+              <p className="text-lg text-gray-700 leading-relaxed">
                 {currentTranslation.overviewContent.description}
               </p>
-              <div className="grid md:grid-cols-2 gap-4">
+              <div className="grid md:grid-cols-2 gap-6">
                 {currentTranslation.overviewContent.keyFeatures.map((feature, index) => (
                   <div 
                     key={index} 
-                    className="bg-blue-50 p-4 rounded-lg flex items-center hover:shadow-md transition"
+                    className="group bg-white p-6 rounded-xl shadow-lg hover:shadow-xl transition-all duration-300 border border-gray-100 hover:border-blue-100"
                   >
-                    <Star className="text-blue-600 mr-3" />
-                    <span className="font-medium">{feature}</span>
+                    <div className="flex items-center space-x-4">
+                      <div className="p-3 bg-blue-100 rounded-lg group-hover:bg-blue-600 transition-colors duration-300">
+                        <Star className="h-6 w-6 text-blue-600 group-hover:text-white" />
+                      </div>
+                      <span className="text-lg font-semibold text-gray-800">{feature}</span>
+                    </div>
                   </div>
                 ))}
               </div>
@@ -208,22 +208,26 @@ const InfoPage = ({ initialLanguage = 'en' }) => {
           )}
 
           {activeSection === 'guidelines' && (
-            <div className="animate-fade-in">
-              <h2 className="text-3xl font-bold text-blue-600 mb-6">
-                Frequently Asked Questions
+            <div className="space-y-6">
+              <h2 className="text-3xl font-bold text-gray-900 mb-8">
+                Travel Guidelines & FAQs
               </h2>
               {currentTranslation.faqs.map((faq, index) => (
                 <div 
                   key={index} 
-                  className="border-b py-4 cursor-pointer"
+                  className="border border-gray-200 rounded-xl p-5 hover:shadow-md transition-all duration-300 cursor-pointer"
                   onClick={() => toggleFAQ(index)}
                 >
                   <div className="flex justify-between items-center">
-                    <h3 className="font-semibold text-gray-800">{faq.question}</h3>
-                    {expandedFAQs[index] ? <ChevronUp /> : <ChevronDown />}
+                    <h3 className="text-lg font-semibold text-gray-800">{faq.question}</h3>
+                    <div className="p-2 bg-blue-100 rounded-full">
+                      {expandedFAQs[index] ? 
+                        <ChevronUp className="h-5 w-5 text-blue-600" /> : 
+                        <ChevronDown className="h-5 w-5 text-blue-600" />}
+                    </div>
                   </div>
                   {expandedFAQs[index] && (
-                    <p className="mt-2 text-gray-600 animate-fade-in">
+                    <p className="mt-4 text-gray-600 pl-2 border-l-4 border-blue-600 animate-fade-in">
                       {faq.answer}
                     </p>
                   )}
@@ -233,21 +237,35 @@ const InfoPage = ({ initialLanguage = 'en' }) => {
           )}
 
           {activeSection === 'emergencySupport' && (
-            <div className="animate-fade-in">
-              <h2 className="text-3xl font-bold text-blue-600 mb-6">
+            <div className="space-y-8">
+              <h2 className="text-3xl font-bold text-gray-900 mb-8">
                 Emergency Support Services
               </h2>
               <div className="grid md:grid-cols-3 gap-6">
                 {currentTranslation.emergencySections.map((section, index) => (
                   <div 
                     key={index} 
-                    className="bg-blue-50 p-6 rounded-xl text-center hover:shadow-lg transition"
+                    className="relative bg-white p-6 rounded-2xl shadow-xl hover:shadow-2xl transition-all duration-300 border border-gray-100 group overflow-hidden"
                   >
-                    <div className="flex justify-center mb-4 text-blue-600">
-                      {section.icon}
+                    <div className="absolute inset-0 bg-gradient-to-br from-blue-50 to-purple-50 opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
+                    <div className="relative z-10">
+                      <div className="mb-5 flex justify-center">
+                        <div className="p-4 bg-blue-600 rounded-2xl shadow-lg">
+                          {React.cloneElement(section.icon, { className: 'h-8 w-8 text-white' })}
+                        </div>
+                      </div>
+                      <h3 className="text-xl font-bold text-gray-900 mb-3 text-center">
+                        {section.title}
+                      </h3>
+                      <p className="text-gray-600 text-center mb-4">
+                        {section.description}
+                      </p>
+                      <div className="text-center">
+                        <span className="inline-block px-3 py-1 text-sm bg-green-100 text-green-800 rounded-full">
+                          {section.badge}
+                        </span>
+                      </div>
                     </div>
-                    <h3 className="font-bold text-xl mb-3">{section.title}</h3>
-                    <p className="text-gray-600">{section.description}</p>
                   </div>
                 ))}
               </div>
@@ -256,46 +274,75 @@ const InfoPage = ({ initialLanguage = 'en' }) => {
         </div>
       </div>
 
-      {/* Support Modal */}
+      {/* Enhanced Support Modal */}
       {supportModalOpen && (
-        <div className="fixed inset-0 bg-black bg-opacity-50 z-50 flex items-center justify-center p-4">
-          <div className="bg-white rounded-xl max-w-md w-full p-6 shadow-2xl">
-            <h2 className="text-2xl font-bold text-blue-600 mb-4">
-              {currentTranslation.supportForm.title}
-            </h2>
-            <form onSubmit={handleSupportSubmit}>
-              <input
-                type="text"
-                name="name"
-                placeholder={currentTranslation.supportForm.namePlaceholder}
-                value={formData.name}
-                onChange={handleSupportFormChange}
-                className="w-full p-3 border rounded-lg mb-4"
-                required
-              />
-              <input
-                type="email"
-                name="email"
-                placeholder={currentTranslation.supportForm.emailPlaceholder}
-                value={formData.email}
-                onChange={handleSupportFormChange}
-                className="w-full p-3 border rounded-lg mb-4"
-                required
-              />
-              <textarea
-                name="message"
-                placeholder={currentTranslation.supportForm.messagePlaceholder}
-                value={formData.message}
-                onChange={handleSupportFormChange}
-                className="w-full p-3 border rounded-lg mb-4 h-32"
-                required
-              />
+        <div className="fixed inset-0 bg-black/30 backdrop-blur-sm z-50 flex items-center justify-center p-4 animate-fade-in">
+          <div className="bg-white rounded-2xl max-w-md w-full p-6 shadow-2xl transform transition-all duration-300 scale-95 hover:scale-100">
+            <div className="flex justify-between items-center mb-6">
+              <h2 className="text-2xl font-bold text-gray-900">
+                {currentTranslation.supportForm.title}
+              </h2>
+              <button 
+                onClick={() => setSupportModalOpen(false)}
+                className="p-2 hover:bg-gray-100 rounded-full"
+              >
+                <svg className="h-6 w-6 text-gray-500" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M6 18L18 6M6 6l12 12" />
+                </svg>
+              </button>
+            </div>
+            <form onSubmit={handleSupportSubmit} className="space-y-4">
+              <div>
+                <label className="block text-sm font-medium text-gray-700 mb-1">
+                  {currentTranslation.supportForm.namePlaceholder}
+                </label>
+                <input
+                  type="text"
+                  name="name"
+                  value={formData.name}
+                  onChange={handleSupportFormChange}
+                  className="w-full px-4 py-2.5 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500 transition-all"
+                  required
+                />
+              </div>
+              <div>
+                <label className="block text-sm font-medium text-gray-700 mb-1">
+                  {currentTranslation.supportForm.emailPlaceholder}
+                </label>
+                <input
+                  type="email"
+                  name="email"
+                  value={formData.email}
+                  onChange={handleSupportFormChange}
+                  className="w-full px-4 py-2.5 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500 transition-all"
+                  required
+                />
+              </div>
+              <div>
+                <label className="block text-sm font-medium text-gray-700 mb-1">
+                  {currentTranslation.supportForm.messagePlaceholder}
+                </label>
+                <textarea
+                  name="message"
+                  value={formData.message}
+                  onChange={handleSupportFormChange}
+                  className="w-full px-4 py-2.5 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500 transition-all h-32"
+                  required
+                />
+              </div>
               <button
                 type="submit"
-                className="w-full bg-green-500 text-white py-3 rounded-lg hover:bg-green-600 transition flex items-center justify-center"
+                disabled={isSubmitting}
+                className="w-full bg-blue-600 hover:bg-blue-700 text-white py-3.5 rounded-lg font-medium transition-all duration-300 flex items-center justify-center"
               >
-                {currentTranslation.supportForm.submitButton}
-                <ArrowRight className="ml-2" />
+                {isSubmitting ? (
+                  <div className="animate-spin rounded-full h-5 w-5 border-b-2 border-white"></div>
+                ) : (
+                  <>
+                    {currentTranslation.supportForm.submitButton}
+                    <ArrowRight className="ml-2 h-5 w-5" />
+                  </>
+                )}
               </button>
             </form>
           </div>
