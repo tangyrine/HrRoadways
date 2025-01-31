@@ -2,13 +2,14 @@ import React, { useState, useEffect } from 'react';
 import { Search, MapPin, Calendar, Info } from 'lucide-react';
 
 // Import images
-import Surajkund from '../assets/Surajkund.jpg';
-import Sultanpur_National_Park from '../assets/Sultanpur_National_Park.webp';
-import Kurukshetra from '../assets/Kurukshetra.jpg';
-import Pinjore_Gardens from '../assets/Pinjore_Gardens.avif';
-import Morni_Hills from '../assets/Morni_Hills.webp';
-import Gurgaon from '../assets/GURGAON.jpg';
-import Panchkula from '../assets/Panchkula.jpg';
+const Gurgaon = 'https://i.ibb.co/ynW25D0R/GURGAON.jpg';
+const Surajkund = 'https://i.ibb.co/9knrRy7V/Surajkund.jpg';
+const Sultanpur_National_Park = 'https://i.ibb.co/jv9sS8Ld/Sultanpur-National-Park.webp';
+const Kurukshetra = 'https://i.ibb.co/35jgWkDV/Kurukshetra.jpg';
+const Pinjore_Gardens = 'https://i.ibb.co/zVgjsCYC/Pinjore-Gardens.jpg';
+const Morni_Hills = 'https://i.ibb.co/DgY6Ty74/Morni-Hills.webp';
+const Panchkula = 'https://i.ibb.co/HTJnB2k6/Panchkula.jpg';
+
 
 const TravelLocations = ({ isHindi }) => {
     const translations = {

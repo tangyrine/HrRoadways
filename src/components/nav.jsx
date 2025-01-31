@@ -1,8 +1,8 @@
 import React, { useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
 import '../styles/nav.css';
-import Logo from '../assets/LogoHR.png'; // Import the project logo
 import { Menu, X, ChevronDown, Phone } from 'lucide-react';
+const Logo = 'https://i.ibb.co/kg3RQQ1S/LogoHR.png';
 
 const Navigation = ({ isHindi, onToggleLanguage }) => {
   const [isScrolled, setIsScrolled] = useState(false);

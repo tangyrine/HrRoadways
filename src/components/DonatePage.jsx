@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { Heart, Bus, CreditCard, CheckCircle, Clock, Users } from 'lucide-react';
-import QRCode from '../assets/HR_QR.png';
+
+const QRCode = 'https://i.postimg.cc/Y0Zv8SGc/HR-QR.png';
 
 // Translation Component
 const translations = {
