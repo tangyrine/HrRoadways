@@ -32,7 +32,13 @@ const translations = {
     roundTheClock: "Round the clock operations",
     recentSupporters: "Recent Supporters",
     taxBenefits: "Tax Benefits",
-    taxBenefitsMessage: "All donations are eligible for tax deduction under Section 80G of the Income Tax Act. You will receive a tax receipt via email."
+    taxBenefitsMessage: "All donations are eligible for tax deduction under Section 80G of the Income Tax Act. You will receive a tax receipt via email.",
+    cardNumber: "Card Number",
+    expiryDate: "MM/YY",
+    cvv: "CVV",
+    upiId: "UPI ID",
+    bankName: "Bank Name",
+    accountNumber: "Account Number"
   },
   hi: {
     headerTitle: "हरियाणा रोडवेज",
@@ -62,7 +68,13 @@ const translations = {
     roundTheClock: "चौबीसों घंटे संचालन",
     recentSupporters: "हाल के समर्थक",
     taxBenefits: "कर लाभ",
-    taxBenefitsMessage: "सभी दान आयकर अधिनियम की धारा 80G के तहत कर कटौती के लिए पात्र हैं। आपको एक कर रसीद ईमेल के माध्यम से प्राप्त होगी।"
+    taxBenefitsMessage: "सभी दान आयकर अधिनियम की धारा 80G के तहत कर कटौती के लिए पात्र हैं। आपको एक कर रसीद ईमेल के माध्यम से प्राप्त होगी।",
+    cardNumber: "कार्ड नंबर",
+    expiryDate: "एमएम/वर्ष",
+    cvv: "सीवीवी",
+    upiId: "यूपीआई आईडी",
+    bankName: "बैंक का नाम",
+    accountNumber: "खाता संख्या"
   }
 };
 
