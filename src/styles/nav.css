@@ -287,3 +287,18 @@ a.nav-link:hover {
   transform: translateY(-10px);
   transition: opacity 0.3s ease, transform 0.3s ease;
 }
+
+/* New styling for the Guide and Rules button */
+.guide-link {
+  background-color: rgba(12, 17, 81, 0.503); /* Different background color */
+  color: rgb(255, 255, 255); /* Different text color */
+  font-weight: bold; /* Bold text */
+  border-radius: 8px; /* Rounded corners */
+  padding: 8px 16px; /* Padding to make it stand out */
+  transition: background-color 0.3s ease, color 0.3s ease;
+}
+
+.guide-link:hover {
+  background-color: rgba(2, 6, 90, 0.175); /* Change background color on hover */
+  color: rgb(128, 183, 255); /* Change text color on hover */
+}

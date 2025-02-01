@@ -24,6 +24,7 @@ const Navigation = ({ isHindi, onToggleLanguage }) => {
       blog: "Blog",
       quickLinks: "Quick Links",
       travellocations: "Travel",
+      guide: "Guide and Rules" // Add new translation
     },
     hi: {
       home: "मुख्य पृष्ठ",
@@ -39,6 +40,7 @@ const Navigation = ({ isHindi, onToggleLanguage }) => {
       blog: "ब्लॉग",
       quickLinks: "त्वरित लिंक",
       travellocations: "यात्रा",
+      guide: "मार्गदर्शिका और नियम" // Add new translation
     },
   };
 
@@ -72,6 +74,9 @@ const Navigation = ({ isHindi, onToggleLanguage }) => {
               <Phone className="w-4 h-4 mr-1" />
               1800-180-2345
             </span>
+            <Link to="/guide" className="guide-link">
+              {currentLanguage.guide}
+            </Link>
           </div>
           <div className="flex items-center space-x-4">
             <li className="lang">
@@ -92,7 +97,7 @@ const Navigation = ({ isHindi, onToggleLanguage }) => {
           </div>
         </div>
       </div>
-
+      
       <nav
         className={`sticky top-0 z-50 w-full ${
           isScrolled ? 'shadow-lg bg-white' : 'bg-white/95'
@@ -146,16 +151,13 @@ const Navigation = ({ isHindi, onToggleLanguage }) => {
               <Link to="/blog" className="nav-link">
                 {currentLanguage.blog}
               </Link>
-              {/* <Link to="/contact" className="nav-link">
-                {currentLanguage.contact}
-              </Link> */}
               <Link to="/donate" className="nav-link">
                 {currentLanguage.donate}
               </Link>
 
-             <button className="bg-blue-800 text-white px-4 py-2 rounded-lg hover:bg-blue-900 transition flex items-center">
+              <button className="bg-blue-800 text-white px-4 py-2 rounded-lg hover:bg-blue-900 transition flex items-center">
                 <Phone className="w-4 h-4 mr-2" />
-                <Link to="/helpline" >{currentLanguage.helpline}</Link>
+                <Link to="/helpline">{currentLanguage.helpline}</Link>
               </button>
             </div>
 
@@ -176,11 +178,6 @@ const Navigation = ({ isHindi, onToggleLanguage }) => {
               {currentLanguage.home}
             </Link>
           </li>
-          {/* <li>
-            <Link to="/contact" onClick={toggleSidebar}>
-              {currentLanguage.contact}
-            </Link>
-          </li> */}
           <li>
             <Link to="/donate" onClick={toggleSidebar}>
               {currentLanguage.donate}
@@ -198,7 +195,7 @@ const Navigation = ({ isHindi, onToggleLanguage }) => {
           </li>
           <li>
             <Link to="/travellocations" onClick={toggleSidebar}>
-                {currentLanguage.travellocations}
+              {currentLanguage.travellocations}
             </Link>
           </li>
           <li>
@@ -211,10 +208,10 @@ const Navigation = ({ isHindi, onToggleLanguage }) => {
             <div className="checkbox-wrapper-5">
               <div className="check">
                 <input
-                    id="check-5"
-                    type="checkbox"
-                    checked={isHindi}
-                    onChange={onToggleLanguage}
+                  id="check-5"
+                  type="checkbox"
+                  checked={isHindi}
+                  onChange={onToggleLanguage}
                 />
                 <label htmlFor="check-5" />
               </div>
@@ -224,10 +221,7 @@ const Navigation = ({ isHindi, onToggleLanguage }) => {
         </ul>
       </div>
     </>
-    
-    
   );
-  
 };
 
 export default Navigation;
