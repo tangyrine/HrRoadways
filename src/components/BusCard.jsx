@@ -4,7 +4,7 @@ import { MdPinDrop } from "react-icons/md";
 import { TiFlag } from "react-icons/ti";
 import { FaLongArrowAltRight } from "react-icons/fa";
 
-import busImg from '../assets/hr_bus.png';
+const busImg = 'https://i.ibb.co/sJ5LLzXZ/hr-bus.png';
 
 function BusCard({ isHindi = false }) {
   // Define English and Hindi translations

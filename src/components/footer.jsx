@@ -106,7 +106,7 @@ function Footer({ isHindi }) {
                 { label: t.trips, to: "/trip" },
                 { label: t.luxury, to: "/luxury" },
                 { label: t.visitCities, to: "/travellocations" },
-                { label: t.bestRides, to: "/under-construction" },
+                { label: t.bestRides, to: "/bestrides" },
               ],
             },
             {

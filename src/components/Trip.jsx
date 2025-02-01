@@ -30,7 +30,7 @@ const hotels = [
     location: "Kurukshetra, Haryana",
     pricePerNight: 3500,
     rating: 4.5,
-    image: "/HotelImages/Hotel01.jpg",
+    image: "https://i.ibb.co/LdPxbQLf/Hotel01.jpg",
   },
   {
     id: 2,
@@ -38,7 +38,7 @@ const hotels = [
     location: "Panipat, Haryana",
     pricePerNight: 2200,
     rating: 4.2,
-    image: "/HotelImages/Hotel02.jpg",
+    image: "https://i.ibb.co/xKcssCVD/Hotel02.jpg",
   },
   {
     id: 3,
@@ -46,7 +46,7 @@ const hotels = [
     location: "Gurugram, Haryana",
     pricePerNight: 5000,
     rating: 4.8,
-    image: "/HotelImages/Hotel03.jpg",
+    image: "https://i.ibb.co/Xr99bS34/Hotel03.jpg",
   },
   {
     id: 4,
@@ -54,7 +54,7 @@ const hotels = [
     location: "Hisar, Haryana",
     pricePerNight: 4000,
     rating: 4.4,
-    image: "/HotelImages/Hotel04.jpeg",
+    image: "https://i.ibb.co/yFRPSmXn/Hotel04.jpg",
   },
   {
     id: 5,
@@ -62,7 +62,7 @@ const hotels = [
     location: "Panchkula, Haryana",
     pricePerNight: 4500,
     rating: 4.7,
-    image: "/HotelImages/Hotel01.jpg",
+    image: "https://i.ibb.co/LdPxbQLf/Hotel01.jpg",
   },
   {
     id: 6,
@@ -70,7 +70,7 @@ const hotels = [
     location: "Faridabad, Haryana",
     pricePerNight: 3000,
     rating: 4.3,
-    image: "/HotelImages/Hotel02.jpg",
+    image: "https://i.ibb.co/xKcssCVD/Hotel02.jpg",
   },
   {
     id: 7,
@@ -78,7 +78,7 @@ const hotels = [
     location: "Karnal, Haryana",
     pricePerNight: 2500,
     rating: 4.1,
-    image: "/HotelImages/Hotel03.jpg",
+    image: "https://i.ibb.co/Xr99bS34/Hotel03.jpg",
   },
   {
     id: 8,
@@ -86,7 +86,7 @@ const hotels = [
     location: "Rohtak, Haryana",
     pricePerNight: 3800,
     rating: 4.6,
-    image: "/HotelImages/Hotel04.jpeg",
+    image: "https://i.ibb.co/yFRPSmXn/Hotel04.jpg",
   },
 ];
 

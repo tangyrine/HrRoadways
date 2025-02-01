@@ -3,9 +3,9 @@ import { MapPin, Award } from 'lucide-react';
 import '../styles/Aboutus.css'; // Import the CSS file
 
 // Import team member images
-import teamMember1 from '/src/assets/team-member1.png';
-import teamMember2 from '/src/assets/team-member2.png';
-import teamMember3 from '/src/assets/team-member3.png';
+const teamMember1 = 'https://i.ibb.co/YTWD3c0Z/team-member1.png';
+const teamMember2 = 'https://i.ibb.co/1WrGL1w/team-member2.png';
+const teamMember3 = 'https://i.ibb.co/BHsj3qCM/team-member3.png';
 
 function AboutUs({ isHindi }) {
     const translations = {
