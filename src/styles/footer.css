@@ -1,9 +1,9 @@
 .footer {
-  background: linear-gradient(to bottom, #1e3a8a, #1e40af);
-  color: white;
-  padding: 2rem 0;
-  position: relative;
-  overflow: hidden;
+  background-color: #0c2136;
+  padding: 20px 0;
+  color: #f8f9fa;
+  border-top: 0px solid #373e45;
+  box-shadow: 0 -4px 10px rgba(0, 0, 0, 0.1);
 }
 
 .footer-bg-overlay {
@@ -74,11 +74,12 @@
 }
 
 .footer-container {
-  position: relative;
-  z-index: 10;
-  max-width: 1280px;
+  display: flex;
+  justify-content: space-around;
+  flex-wrap: wrap;
+  max-width: 1200px;
   margin: 0 auto;
-  padding: 0 1rem;
+  padding: 0 20px;
 }
 
 .footer-header {
@@ -121,6 +122,12 @@
   gap: 1rem;
 }
 
+.footer-section {
+  flex: 1;
+  min-width: 200px;
+  margin: 20px;
+}
+
 .footer-section-header {
   display: flex;
   align-items: center;
@@ -144,6 +151,44 @@
 .footer-section-title {
   font-size: 1rem;
   font-weight: bold;
+}
+
+.footer-section h4 {
+  font-size: 20px;
+  margin-bottom: 15px;
+  color: #f8f9fa;
+  position: relative;
+}
+
+.footer-section h4::after {
+  content: '';
+  display: block;
+  width: 50px;
+  height: 3px;
+  background-color: #007bff;
+  position: absolute;
+  bottom: -5px;
+  left: 0;
+}
+
+.footer-section ul {
+  list-style: none;
+  padding: 0;
+}
+
+.footer-section ul li {
+  margin-bottom: 10px;
+}
+
+.footer-section ul li a {
+  text-decoration: none;
+  color: rgba(255, 255, 255, 0.8);
+  transition: color 0.3s, transform 0.3s;
+}
+
+.footer-section ul li a:hover {
+  color: #007bff;
+  transform: translateX(5px);
 }
 
 .footer-links {
@@ -198,11 +243,27 @@
   color: #1d4ed8;
 }
 
+.social-icons {
+  display: flex;
+  justify-content: center;
+  gap: 10px;
+}
+
+.social-icons a {
+  color: rgba(255, 255, 255, 0.8);
+  transition: color 0.3s, transform 0.3s;
+}
+
+.social-icons a:hover {
+  color: #007bff;
+  transform: scale(1.1);
+}
+
 .footer-bottom {
-  margin-top: 1.5rem;
-  padding-top: 0.75rem;
-  border-top: 1px solid #3b82f6;
   text-align: center;
+  padding: 20px 0;
+  border-top: 1px solid #495057;
+  margin-top: 20px;
 }
 
 .footer-bottom-content {
@@ -222,6 +283,11 @@
 .footer-bottom-text {
   font-size: 0.75rem;
   color: rgba(255, 255, 255, 0.7);
+}
+
+.footer-bottom p {
+  margin: 0;
+  color: rgba(255, 255, 255, 0.8);
 }
 
 /* Media Queries for Responsiveness */
