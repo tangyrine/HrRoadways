@@ -1,13 +1,12 @@
 import React, { useState, useEffect } from 'react';
-import { Star, Award, Clock, MapPin, Users, Shield, Sparkles, Camera, Check, ThumbsUp, ChevronDown, ChevronUp, Bus, HeartPulse, Coffee, X } from 'lucide-react';
+import { Star, Clock, MapPin, Users, Shield, Sparkles, Camera, Check, ThumbsUp, Bus, HeartPulse, Coffee, X } from 'lucide-react';
 
 const BestRides = () => {
   const [selectedRoute, setSelectedRoute] = useState(null);
   const [isLoading, setIsLoading] = useState(true);
   const [activeTab, setActiveTab] = useState('routes');
-  const [expandedSection, setExpandedSection] = useState(null);
-  const [showVideo, setShowVideo] = useState(false);
   const [showBookingAlert, setShowBookingAlert] = useState(false);
+  const [showFleetModal, setShowFleetModal] = useState(false);
 
   const bestRoutes = [
     {
@@ -23,7 +22,7 @@ const BestRides = () => {
       amenities: ["WiFi", "USB Charging", "Entertainment System", "Refreshments"],
       highlights: ["Express Service", "Ladies Priority Seating", "Live Tracking"],
       reviews: 2450,
-      image: "/api/placeholder/600/300",
+      image: "https://i.ibb.co/3mNd73w/Delhi-to-Chandigarh.jpg",
       seatsAvailable: 12
     },
     {
@@ -39,7 +38,7 @@ const BestRides = () => {
       amenities: ["WiFi", "USB Charging", "Entertainment System", "Blankets"],
       highlights: ["Overnight Journey", "Premium Service", "Live Tracking"],
       reviews: 1890,
-      image: "/api/placeholder/600/300",
+      image: "https://i.ibb.co/qMWhYn9T/gurgaon-to-manali.jpg",
       seatsAvailable: 8
     },
     {
@@ -55,45 +54,59 @@ const BestRides = () => {
       amenities: ["WiFi", "USB Charging", "Entertainment System", "Snacks"],
       highlights: ["Scenic Route", "Premium Service", "Live Tracking"],
       reviews: 2100,
-      image: "/api/placeholder/600/300",
+      image: "https://i.ibb.co/n8gnRJp7/faridabad-to-shimla.webp",
       seatsAvailable: 15
     }
   ];
 
-  const fleetInfo = {
-    categories: [
-      {
-        id: 1,
-        name: "Volvo 9400 Multi-Axle",
-        features: [
-          "Fully Air Conditioned",
-          "Ergonomic Seating",
-          "Personal Entertainment Systems",
-          "USB Charging Points",
-          "GPS Tracking",
-          "CCTV Surveillance"
-        ],
-        capacity: "40 Seats",
-        age: "Average Fleet Age: 2 Years",
-        safety: ["ABS", "Fire Suppression System", "Speed Governor", "Driver Fatigue Detection"]
-      },
-      {
-        id: 2,
-        name: "Mercedes-Benz 2441 SHD",
-        features: [
-          "Premium Interior",
-          "Push-back Seats",
-          "Individual AC Control",
-          "WiFi Connectivity",
-          "Emergency Exit",
-          "First Aid Kit"
-        ],
-        capacity: "36 Seats",
-        age: "Average Fleet Age: 1.5 Years",
-        safety: ["ESP", "Lane Departure Warning", "Emergency Braking", "24x7 Roadside Assistance"]
-      }
-    ]
-  };
+  const fleetInfo = [
+    {
+      id: 1,
+      name: "Volvo 9400 Multi-Axle",
+      features: [
+        "Fully Air Conditioned",
+        "Ergonomic Seating",
+        "Personal Entertainment Systems",
+        "USB Charging Points",
+        "GPS Tracking",
+        "CCTV Surveillance"
+      ],
+      capacity: "40 Seats",
+      age: "Average Fleet Age: 2 Years",
+      safety: ["ABS", "Fire Suppression System", "Speed Governor", "Driver Fatigue Detection"],
+      image: "https://i.ibb.co/ks7dhtV7/volvo.jpg"
+    },
+    {
+      id: 2,
+      name: "Mercedes-Benz 2441 SHD",
+      features: [
+        "Premium Interior",
+        "Push-back Seats",
+        "Individual AC Control",
+        "WiFi Connectivity",
+        "Emergency Exit",
+        "First Aid Kit"
+      ],
+      capacity: "36 Seats",
+      age: "Average Fleet Age: 1.5 Years",
+      safety: ["ESP", "Lane Departure Warning", "Emergency Braking", "24x7 Roadside Assistance"],
+      image: "https://i.ibb.co/tTWPJMc2/mercedes.jpg"
+    },
+    {
+      id: 3,
+      name: "Ashok Leylad Metrolink - Legacy",
+      features: [
+        "Onboard Entertainment",
+        "Multiple USB Ports",
+        "GPS Monitoring",
+        "Surveillance Cameras"
+      ],
+      capacity: "42 Seats",
+      age: "Phasing out till 2028",
+      safety: ["Automatic Braking System", "Fire Extinguishers", "Speed Limiter", "Driver Monitoring System"],
+      image: "https://i.ibb.co/SXnqnGkp/ashok-leyland.jpg"
+    }
+  ];
 
   const statistics = [
     { label: "On-Time Performance", value: "98.5%", icon: Clock },
@@ -242,6 +255,41 @@ const BestRides = () => {
     </div>
   );
 
+  const FleetCard = ({ fleet }) => (
+    <div className="bg-white rounded-xl shadow-lg overflow-hidden transform transition-all duration-300 hover:scale-105 relative">
+      <div className="relative">
+        <img src={fleet.image} alt={fleet.name} className="w-full h-48 object-cover" />
+      </div>
+      <div className="p-6">
+        <h3 className="text-xl font-semibold text-gray-900">{fleet.name}</h3>
+        <div className="flex flex-col space-y-2 mt-4 text-gray-600">
+          <div>Capacity: {fleet.capacity}</div>
+          <div>{fleet.age}</div>
+        </div>
+      </div>
+      <div className="absolute inset-0 bg-black bg-opacity-0 hover:bg-opacity-75 transition-all duration-300 flex flex-col justify-center items-center text-white p-4 overflow-y-auto opacity-0 hover:opacity-100">
+        <h4 className="text-lg font-semibold mb-2">Features:</h4>
+        <ul className="space-y-1">
+          {fleet.features.map((feature, idx) => (
+            <li key={idx} className="flex items-center space-x-2">
+              <Check className="w-4 h-4 text-green-500" />
+              <span>{feature}</span>
+            </li>
+          ))}
+        </ul>
+        <h4 className="text-lg font-semibold mt-4 mb-2">Safety:</h4>
+        <ul className="space-y-1">
+          {fleet.safety.map((feature, idx) => (
+            <li key={idx} className="flex items-center space-x-2">
+              <Shield className="w-4 h-4 text-blue-500" />
+              <span>{feature}</span>
+            </li>
+          ))}
+        </ul>
+      </div>
+    </div>
+  );
+
   if (isLoading) {
     return (
       <div className="flex items-center justify-center min-h-screen bg-gray-50">
@@ -262,18 +310,18 @@ const BestRides = () => {
 
       <div className="relative h-96 bg-blue-900 overflow-hidden">
         <div className="absolute inset-0 bg-black opacity-50"></div>
-        <div className="relative max-w-7xl mx-auto px-4 h-full flex items-center">
+        <div className="relative max-w-7xl mx-auto px-4 h-full flex items-center pb-8"> {/* Added padding-bottom */}
           <div className="text-white">
             <h1 className="text-5xl font-bold mb-4">
               Experience Premium Travel
             </h1>
             <p className="text-xl mb-8">Discover why our premium routes offer the best travel experience in Haryana</p>
             <button 
-              onClick={() => setShowVideo(true)}
+              onClick={() => setShowFleetModal(true)}
               className="bg-blue-600 text-white px-8 py-3 rounded-full flex items-center space-x-2 hover:bg-blue-700 transition-all"
             >
               <Camera className="w-5 h-5" />
-              <span>Watch Fleet Tour</span>
+              <span>Our Fleet</span>
             </button>
           </div>
         </div>
@@ -323,55 +371,14 @@ const BestRides = () => {
 
         {activeTab === 'fleet' && (
           <div className="space-y-8">
-            {fleetInfo.categories.map((category) => (
-              <div key={category.id} className="bg-white rounded-lg shadow-md overflow-hidden">
-                <div
-                  className="p-6 cursor-pointer"
-                  onClick={() => setExpandedSection(
-                    expandedSection === `fleet-${category.id}` ? null : `fleet-${category.id}`
-                  )}
-                >
-                  <div className="flex justify-between items-center">
-                    <h3 className="text-xl font-semibold text-gray-900">{category.name}</h3>
-                    {expandedSection === `fleet-${category.id}` ? <ChevronUp /> : <ChevronDown />}
-                  </div>
-                </div>
-                
-                {expandedSection === `fleet-${category.id}` && (
-                  <div className="px-6 pb-6">
-                    <div className="grid md:grid-cols-2 gap-6">
-                      <div>
-                        <h4 className="font-medium text-gray-700 mb-2">Features</h4>
-                        <ul className="space-y-2">
-                          {category.features.map((feature, idx) => (
-                            <li key={idx} className="flex items-center space-x-2">
-                              <Check className="w-4 h-4 text-green-500" />
-                              <span>{feature}</span>
-                            </li>
-                          ))}
-                        </ul>
-                      </div>
-                      <div>
-                        <h4 className="font-medium text-gray-700 mb-2">Safety Features</h4>
-                        <ul className="space-y-2">
-                          {category.safety.map((feature, idx) => (
-                            <li key={idx} className="flex items-center space-x-2">
-                              <Shield className="w-4 h-4 text-blue-500" />
-                              <span>{feature}</span>
-                            </li>
-                          ))}
-                        </ul>
-                      </div>
-                    </div>
-                  </div>
-                )}
-              </div>
+            {fleetInfo.map((fleet) => (
+              <FleetCard key={fleet.id} fleet={fleet} />
             ))}
           </div>
         )}
 
         {activeTab === 'features' && (
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-8 pt-8"> {/* Added padding-top */}
             {features.map((feature, index) => (
               <div 
                 key={index}
@@ -398,24 +405,22 @@ const BestRides = () => {
         )}
       </div>
 
-      {/* Video Modal */}
-      {showVideo && (
+      {/* Fleet Modal */}
+      {showFleetModal && (
         <div className="fixed inset-0 bg-black bg-opacity-75 flex items-center justify-center z-50">
-          <div className="bg-white p-4 rounded-lg max-w-4xl w-full">
+          <div className="bg-white p-4 rounded-lg max-w-4xl w-full overflow-y-auto max-h-screen">
             <div className="flex justify-end mb-2">
               <button 
-                onClick={() => setShowVideo(false)}
+                onClick={() => setShowFleetModal(false)}
                 className="text-gray-500 hover:text-gray-700"
               >
-                Close
+                <X className="w-6 h-6" />
               </button>
             </div>
-            <div className="aspect-w-16 aspect-h-9">
-              <img 
-                src="/api/placeholder/1200/675" 
-                alt="Fleet Tour"
-                className="w-full h-full object-cover rounded"
-              />
+            <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
+              {fleetInfo.map((fleet) => (
+                <FleetCard key={fleet.id} fleet={fleet} />
+              ))}
             </div>
           </div>
         </div>
