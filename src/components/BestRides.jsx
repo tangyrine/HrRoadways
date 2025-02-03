@@ -94,7 +94,7 @@ const BestRides = () => {
     },
     {
       id: 3,
-      name: "Ashok Leylad Metrolink - Legacy",
+      name: "Ashok Leyland Metrolink - Legacy",
       features: [
         "Onboard Entertainment",
         "Multiple USB Ports",
