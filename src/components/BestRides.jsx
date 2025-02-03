@@ -22,7 +22,7 @@ const BestRides = () => {
       amenities: ["WiFi", "USB Charging", "Entertainment System", "Refreshments"],
       highlights: ["Express Service", "Ladies Priority Seating", "Live Tracking"],
       reviews: 2450,
-      image: "https://i.ibb.co/3mNd73w/Delhi-to-Chandigarh.jpg",
+      image: "https://i.ibb.co/3mNd73wn/Delhi-to-Chandigarh.jpg",
       seatsAvailable: 12
     },
     {
