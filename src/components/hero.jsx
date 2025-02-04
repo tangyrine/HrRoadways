@@ -106,7 +106,7 @@ const Hero = ({ isHindi }) => {
   }, []);
 
   useEffect(() => {
-    fetch('https://jsonblob.com/api/jsonBlob/1333092652136194048')
+    fetch('https://jsonblob.com/api/jsonBlob/1333092652136194048')//Json updated in the json blob editor to remove redundant data
       .then(response => response.json())
       .then(data => {
         const uniqueBusStands = new Set();
