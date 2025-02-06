@@ -23,6 +23,7 @@
     import BestRides from './components/BestRides';
     import Tutorial from './components/Tutorial';
     import WeeklyTimetable from './components/Timetable';
+    import RulesAndGuidelines from './components/Rules';
 
     function App() {
         const [isHindi, setIsHindi] = useState(false);
@@ -63,6 +64,7 @@
                     <Route path="/trip" element={<Trip isHindi={isHindi} />} />
                     <Route path="/bestrides" element={<BestRides isHindi={isHindi} />} />
                     <Route path="/policy" element={<InfoPage isHindi={isHindi} />} />
+                    <Route path="/rules" element={<RulesAndGuidelines isHindi={isHindi} />} />
                     <Route path="/under-construction" element={<UnderConstruction isHindi={isHindi} />} />
                     <Route path="/contactUs" element={<ContactUs/>} />
                     <Route path="/blog" element={<Blog isHindi={isHindi} />} />
