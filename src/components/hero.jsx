@@ -22,53 +22,8 @@ const CustomCard = ({ children, className }) => (
   </div>
 );
 
-const translations = {
-  en: {
-    heading: "Haryana Roadways - Your Own Bus Service",
-    subheading: "Your Journey, Our Pride | आपकी यात्रा, हमारा गौरव",
-    departure: "From",
-    arrival: "To",
-    button: "Search Buses",
-    popular: "Popular Routes",
-    allBuses: "All Buses",
-    volvo: "Volvo AC",
-    superExpress: "Super Express",
-    ordinary: "Ordinary",
-    searchPlaceholder: "Search bus stands...",
-    passengers: "Passengers",
-    roundTrip: "Round Trip",
-    features: [
-      { icon: Shield, title: 'Safe Travel', desc: 'GPS tracked buses' },
-      { icon: Clock, title: 'Punctual', desc: '98% on-time arrival' },
-      { icon: Star, title: 'Top Rated', desc: '4.5/5 user rating' },
-      { icon: Phone, title: '24/7 Support', desc: 'Always here to help' }
-    ]
-  },
-  hi: {
-    heading: "हरियाणा रोडवेज - आपकी अपनी बस सेवा",
-    subheading: "आपकी यात्रा, हमारा गौरव",
-    departure: "कहाँ से",
-    arrival: "कहाँ तक",
-    button: "बसें खोजें",
-    popular: "लोकप्रिय मार्ग",
-    allBuses: "सभी बसें",
-    volvo: "वोल्वो एसी",
-    superExpress: "सुपर एक्सप्रेस",
-    ordinary: "साधारण",
-    searchPlaceholder: "बस स्टैंड खोजें...",
-    passengers: "यात्री",
-    roundTrip: "राउंड ट्रिप",
-    features: [
-      { icon: Shield, title: 'सुरक्षित यात्रा', desc: 'जीपीएस ट्रैक की गई बसें' },
-      { icon: Clock, title: 'समयनिष्ठ', desc: '98% समय पर आगमन' },
-      { icon: Star, title: 'शीर्ष रेटेड', desc: '4.5/5 उपयोगकर्ता रेटिंग' },
-      { icon: Phone, title: '24/7 सहायता', desc: 'हमेशा मदद के लिए यहाँ' }
-    ]
-  }
-};
-
 const Hero = ({ isHindi }) => {
-  const [currentLanguage, setCurrentLanguage] = useState(translations.en);
+  const [currentLanguage, setCurrentLanguage] = useState({});
   const [formData, setFormData] = useState({
     src: '',
     dest: '',
@@ -88,14 +43,15 @@ const Hero = ({ isHindi }) => {
   const suggestionsRef = useRef([]);
   const inputRefs = useRef([]);
   const containerRef = useRef(null);
-
-
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [selectedBus, setSelectedBus] = useState(null);
 
-
   useEffect(() => {
-    setCurrentLanguage(isHindi ? translations.hi : translations.en);
+    fetch('https://jsonblob.com/api/jsonBlob/1336693063321575424')
+      .then(response => response.json())
+      .then(data => {
+        setCurrentLanguage(isHindi ? data.hi : data.en);
+      });
   }, [isHindi]);
 
   useEffect(() => {
@@ -230,7 +186,7 @@ const Hero = ({ isHindi }) => {
 
   const handleSubmit = (event) => {
     event.preventDefault();
-    fetch('https://jsonblob.com/api/jsonBlob/1333092652136194048')
+    fetch('https://jsonblob.com/api/jsonBlob/1333092652136194048')//rou
       .then(response => response.json())
       .then(data => {
         const filteredBuses = data.filter(bus => {
@@ -269,7 +225,6 @@ const Hero = ({ isHindi }) => {
     setSelectedBus(null);
   };
 
-
   return (
     <div className="hero-container" ref={containerRef}>
       <div className="hero-header">
@@ -282,17 +237,22 @@ const Hero = ({ isHindi }) => {
 
       <div className="hero-features">
         <div className="features-container">
-          {currentLanguage.features.map((feature, index) => (
-            <div key={index} className="feature-item">
-              <feature.icon className="feature-icon" />
-              <div>
-                <div className="feature-title">{feature.title}</div>
-                <div className="feature-desc">{feature.desc}</div>
+          {currentLanguage.features?.map((feature, index) => {
+            const IconComponent = feature.icon === "Shield" ? Shield : feature.icon === "Clock" ? Clock : feature.icon === "Star" ? Star : feature.icon === "Phone" ? Phone : null;
+
+            return (
+              <div key={index} className="feature-item">
+                {IconComponent && <IconComponent className="feature-icon" />}
+                <div>
+                  <div className="feature-title">{feature.title}</div>
+                  <div className="feature-desc">{feature.desc}</div>
+                </div>
               </div>
-            </div>
-          ))}
+            );
+          })}
         </div>
       </div>
+
       <div className="hero-content">
         <div className="content-grid">
           <CustomCard className="form-card">
@@ -443,7 +403,7 @@ const Hero = ({ isHindi }) => {
                         </div>
                         <div className="bus-card-price">
                           <div className="bus-card-price-value">
-                            {bus.Price.includes("₹") ? bus.Price : `₹${bus.Price}`}
+                          {bus.Price.includes("₹") ? bus.Price : `₹${bus.Price}`}
                           </div>
                           <div className="bus-card-price-distance">
                             {bus.Total_Distance.includes("KM")
