@@ -255,7 +255,6 @@ const Trip = ({ isHindi }) => {
     return matchesPrice && matchesRating;
   });
 
-  // If the translations are still loading, display a fallback message.
   if (loading) {
     return <div className="min-h-screen flex items-center justify-center">Loading...</div>;
   }

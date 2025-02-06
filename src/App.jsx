@@ -22,6 +22,7 @@
     import ServicesPage from './components/Services';
     import BestRides from './components/BestRides';
     import Tutorial from './components/Tutorial';
+    import WeeklyTimetable from './components/Timetable';
 
     function App() {
         const [isHindi, setIsHindi] = useState(false);
@@ -73,6 +74,7 @@
                     <Route path="/services" element={<ServicesPage isHindi={isHindi} />} />
                     <Route path="/travellocations" element={<TravelLocations isHindi={isHindi} />} />
                     <Route path="/helpline" element={<HelplinePage isHindi={isHindi} />} />
+                    <Route path="/schedule" element={<WeeklyTimetable isHindi={isHindi} />} />
                     <Route path="/reviews" element={<Reviews isHindi={isHindi} />} />
                     <Route path="/affiliate" element={<AffiliateProgram isHindi={isHindi}/>} /> {/* Added */}
                     <Route path="/contact" element={<ContactUs isHindi={isHindi} />} />
