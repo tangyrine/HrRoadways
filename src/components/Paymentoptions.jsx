@@ -1,64 +1,23 @@
 import React, { useState, useEffect } from 'react';
-import { 
-  CreditCard, 
-  CreditCardIcon, 
-  Wallet, 
-  ShieldCheck, 
-  QrCode, 
-  CheckCircle 
-} from 'lucide-react';
+import { CreditCard, CreditCardIcon, Wallet, ShieldCheck, QrCode, CheckCircle } from 'lucide-react';
 
-const translations = {
-  en: {
-    paymentMethods: "Payment Methods",
-    paymentMethodsDesc: "Select a payment method to proceed",
-    creditCard: "Credit Card",
-    creditCardDesc: "Pay securely with your credit card",
-    debitCard: "Debit Card",
-    debitCardDesc: "Use your bank debit card",
-    upi: "UPI",
-    upiDesc: "Quick and instant payment",
-    wallet: "Digital Wallet",
-    walletDesc: "Pay using mobile wallets",
-    cardNumber: "Card Number",
-    cardName: "Name on Card",
-    expiryDate: "Expiry Date",
-    cvv: "CVV",
-    upiId: "UPI ID",
-    scanQrCode: "Scan QR code with your UPI app",
-    digitalWallets: "Digital Wallets",
-    totalPayable: "Total Payable",
-    confirmPayment: "Confirm Payment",
-    safeSecure: "100% Safe & Secure Payment",
-    cardDetails: "Card Details",
-    upiPayment: "UPI Payment",
-    selectPaymentMethod: "Select a payment method to proceed"
-  },
-  hi: {
-    paymentMethods: "भुगतान विधियाँ",
-    paymentMethodsDesc: "आगे बढ़ने के लिए भुगतान विधि चुनें",
-    creditCard: "क्रेडिट कार्ड",
-    creditCardDesc: "अपने क्रेडिट कार्ड से सुरक्षित रूप से भुगतान करें",
-    debitCard: "डेबिट कार्ड",
-    debitCardDesc: "अपने बैंक डेबिट कार्ड का उपयोग करें",
-    upi: "यूपीआई",
-    upiDesc: "त्वरित और तत्काल भुगतान",
-    wallet: "डिजिटल वॉलेट",
-    walletDesc: "मोबाइल वॉलेट का उपयोग करके भुगतान करें",
-    cardNumber: "कार्ड नंबर",
-    cardName: "कार्ड पर नाम",
-    expiryDate: "समाप्ति तिथि",
-    cvv: "सीवीवी",
-    upiId: "यूपीआई आईडी",
-    scanQrCode: "अपने यूपीआई ऐप से क्यूआर कोड स्कैन करें",
-    digitalWallets: "डिजिटल वॉलेट्स",
-    totalPayable: "कुल देय",
-    confirmPayment: "भुगतान की पुष्टि करें",
-    safeSecure: "100% सुरक्षित और सुरक्षित भुगतान",
-    cardDetails: "कार्ड विवरण",
-    upiPayment: "यूपीआई भुगतान",
-    selectPaymentMethod: "आगे बढ़ने के लिए भुगतान विधि चुनें"
-  }
+// Custom hook to fetch translations
+const useTranslation = (isHindi) => {
+  const [currentLanguage, setCurrentLanguage] = useState(null);
+  const translationsUrl = 'https://jsonblob.com/api/jsonBlob/1338200675141738496';
+
+  useEffect(() => {
+    fetch(translationsUrl)
+      .then((response) => response.json())
+      .then((data) => {
+        setCurrentLanguage(isHindi ? data.hi : data.en);
+      })
+      .catch((error) => {
+        console.error('Error fetching translations:', error);
+      });
+  }, [isHindi]);
+
+  return currentLanguage;
 };
 
 const PaymentOptions = ({ isHindi }) => {
@@ -76,32 +35,32 @@ const PaymentOptions = ({ isHindi }) => {
     console.log('Selected Payment Method:', selectedPaymentMethod);
   }, [selectedPaymentMethod]);
 
-  const currentLanguage = isHindi ? translations.hi : translations.en;
+  const currentLanguage = useTranslation(isHindi);
 
   const paymentMethods = [
     { 
       id: 'credit', 
       icon: CreditCard, 
-      title: currentLanguage.creditCard, 
-      description: currentLanguage.creditCardDesc 
+      title: currentLanguage?.creditCard, 
+      description: currentLanguage?.creditCardDesc 
     },
     { 
       id: 'debit', 
       icon: CreditCardIcon, 
-      title: currentLanguage.debitCard, 
-      description: currentLanguage.debitCardDesc 
+      title: currentLanguage?.debitCard, 
+      description: currentLanguage?.debitCardDesc 
     },
     { 
       id: 'upi', 
       icon: QrCode, 
-      title: currentLanguage.upi, 
-      description: currentLanguage.upiDesc 
+      title: currentLanguage?.upi, 
+      description: currentLanguage?.upiDesc 
     },
     { 
       id: 'wallet', 
       icon: Wallet, 
-      title: currentLanguage.wallet, 
-      description: currentLanguage.walletDesc 
+      title: currentLanguage?.wallet, 
+      description: currentLanguage?.walletDesc 
     }
   ];
 
@@ -220,6 +179,10 @@ const PaymentOptions = ({ isHindi }) => {
         return null;
     }
   };
+
+  if (!currentLanguage) {
+    return <div>Loading translations...</div>;
+  }
 
   return (
     <div className="payment-container bg-gray-100 min-h-screen py-12 px-4">
