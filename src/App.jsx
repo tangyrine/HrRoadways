@@ -24,6 +24,7 @@ import BestRides from './components/BestRides';
 import Tutorial from './components/Tutorial';
 import WeeklyTimetable from './components/Timetable';
 import RulesAndGuidelines from './components/Rules';
+import TourGuidePage from './components/TourGuidePage';
 
 // Make sure you have a BookingPage component in your project.
 // For example, if you placed BookingPage under ./components/BookingPage:
@@ -88,6 +89,7 @@ function App() {
         <Route path="/contact" element={<ContactUs isHindi={isHindi} />} />
         <Route path="/card" element={<BusCard isHindi={isHindi} />} />
         <Route path="/guide" element={<Tutorial isHindi={isHindi} />} />
+        <Route path="/tour-guide" element={<TourGuidePage />} /> {/* Add new route */}
 
         {/* New booking route to apply same navbar & footer */}
         <Route path="/booking" element={<BookingPageWrapper />} />

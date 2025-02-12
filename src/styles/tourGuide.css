@@ -1,0 +1,78 @@
+@keyframes fadeInUp {
+  from {
+    opacity: 0;
+    transform: translateY(20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes shimmer {
+  0% {
+    background-position: -1000px 0;
+  }
+  100% {
+    background-position: 1000px 0;
+  }
+}
+
+.card-enter {
+  animation: fadeInUp 0.5s ease-out forwards;
+}
+
+.image-loading {
+  background: linear-gradient(90deg, #f0f0f0 25%, #e0e0e0 50%, #f0f0f0 75%);
+  background-size: 1000px 100%;
+  animation: shimmer 2s infinite;
+}
+
+/* Optimize transitions */
+.card-content {
+  will-change: transform, opacity, max-height;
+}
+
+/* Smooth scroll behavior */
+html {
+  scroll-behavior: smooth;
+}
+
+/* Add these styles to your CSS file */
+.description-container {
+  will-change: max-height, opacity;
+}
+
+/* Optional: Add a subtle transition for the card scale effect */
+.grid > div {
+  transform-origin: center;
+  backface-visibility: hidden;
+}
+
+.group:hover .transition-all {
+  transition: all 0.5s ease-in-out;
+}
+
+.group:hover .shadow-2xl {
+  box-shadow: 0 10px 15px rgba(0, 0, 0, 0.2), 0 4px 6px rgba(0, 0, 0, 0.2);
+}
+
+.group:hover .scale-105 {
+  transform: scale(1.05);
+}
+
+.group:hover .opacity-70 {
+  opacity: 0.7;
+}
+
+.group:hover .text-blue-700 {
+  color: #1d4ed8;
+}
+
+.group:hover .bg-blue-600 {
+  background-color: #2563eb;
+}
+
+.group:hover .hover:scale-105 {
+  transform: scale(1.05);
+}
