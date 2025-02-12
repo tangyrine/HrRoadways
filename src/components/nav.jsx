@@ -19,12 +19,12 @@ const Navigation = ({ isHindi, onToggleLanguage }) => {
       services: "Services",
       track: "Track Bus",
       schedule: "Time Table",
-      pass: "Bus Pass",
+      tourGuide: "Tour Guide", // Add new translation
       helpline: "24x7 Helpline",
       blog: "Blog",
       quickLinks: "Quick Links",
       travellocations: "Travel",
-      guide: "Guide and Rules" // Add new translation
+      guide: "Guide and Rules"
     },
     hi: {
       home: "मुख्य पृष्ठ",
@@ -35,12 +35,12 @@ const Navigation = ({ isHindi, onToggleLanguage }) => {
       services: "सेवाएं",
       track: "बस ट्रैक करें",
       schedule: "समय सारणी",
-      pass: "बस पास",
+      tourGuide: "मार्गदर्शिका", // Add new translation
       helpline: "24x7 हेल्पलाइन",
       blog: "ब्लॉग",
       quickLinks: "त्वरित लिंक",
       travellocations: "यात्रा",
-      guide: "मार्गदर्शिका और नियम" // Add new translation
+      guide: "मार्गदर्शिका और नियम"
     },
   };
 
@@ -58,7 +58,7 @@ const Navigation = ({ isHindi, onToggleLanguage }) => {
   const servicesDropdown = [
     { title: currentLanguage.track, path: '/track' },
     { title: currentLanguage.schedule, path: '/schedule' },
-    { title: currentLanguage.pass, path: '/pass' },
+    { title: currentLanguage.tourGuide, path: '/tour-guide' }, // Add this line
   ];
 
   const toggleSidebar = () => {
