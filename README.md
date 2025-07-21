@@ -3,7 +3,7 @@
   HrRoadways is a comprehensive project designed to provide users with an intuitive platform to check bus routes, timings, and real-time updates for government bus services.
 </h4>
 <h2 align="center">
-  <a href="https://hr-roadways.vercel.app/" target="_blank" rel="noopener noreferrer">Live Link</a>
+  <a href="https://hrroadways.vercel.app/" target="_blank" rel="noopener noreferrer">Live Link</a>
 </h2>
 
 ## Tech Stack
