@@ -30,7 +30,7 @@ Why is this feature important? How will it improve the user experience or functi
 **Related Issues (if any):**
 Link any related issues or pull requests that are tied to this feature request, if applicable.
 
-**Priority:**
-- [ ] Low
-- [ ] Medium
-- [ ] High
+**Priority Level:**
+- [ ] Level 1
+- [ ] Level 2
+- [ ] Level 3
