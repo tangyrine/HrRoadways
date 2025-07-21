@@ -39,9 +39,9 @@ Provide any other context that could help in investigating the issue:
 - Does the issue happen intermittently or always?
 - Does the issue occur on specific devices or browsers?
 
-**Priority:**
-- [ ] Low
-- [ ] Medium
-- [ ] High
+**Priority Level:**
+- [ ] Level 1
+- [ ] Level 2
+- [ ] Level 3
 
 (Use priority tags to help identify the urgency)
