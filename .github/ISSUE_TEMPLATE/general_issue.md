@@ -39,7 +39,7 @@ Provide any other relevant information that might help in understanding the issu
 - Is this related to any specific recent changes in the project?
 - Are you using specific configurations, frameworks, or libraries that could impact the behavior?
 
-**Priority:**
-- [ ] Low
-- [ ] Medium
-- [ ] High
+**Priority Level:**
+- [ ] Level 1
+- [ ] Level 2
+- [ ] Level 3
