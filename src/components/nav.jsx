@@ -81,25 +81,34 @@ const Navigation = ({ isHindi, onToggleLanguage }) => {
             </Link>
           </div>
           <div className="flex items-center space-x-4">
-            <div className="lang flex items-center">
-              EN
-              <div className="checkbox-wrapper-5 ml-2 mr-2">
-                <div className="check">
-                  <input
-                    id="check-5"
-                    type="checkbox"
-                    checked={isHindi}
-                    onChange={onToggleLanguage}
-                    className="sr-only"
-                  />
-                  <label htmlFor="check-5" className="toggle-label"></label>
-                </div>
-              </div>
-              HI
+           <div className="lang flex items-center">
+             {/* EN Text */}
+            <span className={`${isHindi ? "text-gray-400" : "text-blue-600 font-bold"} transition-colors duration-200`}>
+             EN
+             </span>
+
+            {/* Toggle Switch */}
+             <div className="checkbox-wrapper-5 ml- mr-2">
+             <div className="check">
+             <input
+               id="check-5"
+              type="checkbox"
+              checked={isHindi}
+              onChange={onToggleLanguage}
+              className="sr-only"
+            />
+             <label htmlFor="check-5" className="toggle-label"></label>
             </div>
           </div>
-        </div>
+
+            {/* HI Text */}
+          <span className={`${isHindi ? "text-blue-600 font-bold" : "text-gray-400"} transition-colors duration-200`}>
+          HI
+        </span>
       </div>
+    </div>
+  </div>
+</div>
 
       {/* Navbar */}
       <nav className={`sticky top-0 z-50 w-full ${isScrolled ? 'shadow-lg bg-white' : 'bg-white/95'} transition-all duration-300`}>
