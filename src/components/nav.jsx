@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
-import '../styles/nav.css'; // Keep this import for any custom CSS
+import '../styles/nav.css';
 import { Menu, X, ChevronDown, Phone } from 'lucide-react';
 import { getStoredLanguage, setStoredLanguage } from '../../libs/languageStorage';
 
@@ -53,10 +53,7 @@ const Navigation = ({ isHindi, onToggleLanguage }) => {
   }, [isHindi]);
 
   useEffect(() => {
-    const handleScroll = () => {
-      setIsScrolled(window.scrollY > 50);
-    };
-
+    const handleScroll = () => setIsScrolled(window.scrollY > 50);
     window.addEventListener('scroll', handleScroll);
     return () => window.removeEventListener('scroll', handleScroll);
   }, []);
@@ -67,13 +64,11 @@ const Navigation = ({ isHindi, onToggleLanguage }) => {
     { title: currentLanguage.tourGuide, path: '/tour-guide' },
   ];
 
-  const toggleSidebar = () => {
-    setIsMobileMenuOpen(!isMobileMenuOpen);
-  };
+  const toggleSidebar = () => setIsMobileMenuOpen(!isMobileMenuOpen);
 
   return (
     <>
-      {/* Top Bar - No changes needed here for alignment, it's already using flex and space-between */}
+      {/* Top Bar */}
       <div className="bg-blue-900 text-white py-2 hidden md:block">
         <div className="container mx-auto px-4 flex justify-between items-center text-sm">
           <div className="flex items-center space-x-4">
@@ -88,7 +83,6 @@ const Navigation = ({ isHindi, onToggleLanguage }) => {
           <div className="flex items-center space-x-4">
             <div className="lang flex items-center">
               EN
-              {/* Assuming checkbox-wrapper-5 and toggle-label are custom CSS, keep them */}
               <div className="checkbox-wrapper-5 ml-2 mr-2">
                 <div className="check">
                   <input
@@ -107,27 +101,26 @@ const Navigation = ({ isHindi, onToggleLanguage }) => {
         </div>
       </div>
 
-      {/* Main Navbar */}
+      {/* Navbar */}
       <nav className={`sticky top-0 z-50 w-full ${isScrolled ? 'shadow-lg bg-white' : 'bg-white/95'} transition-all duration-300`}>
         <div className="container mx-auto px-4">
           <div className="flex justify-between items-center h-16">
             <Link to="/" className="flex items-center space-x-2">
               <img src={Logo} alt="Haryana Roadways Logo" className="w-8 h-8" />
-              <span className="font-bold text-xl text-blue-900">
-                Haryana Roadways
-              </span>
+              <span className="text-xl font-bold text-blue-900">Haryana Roadways</span>
             </Link>
 
-            {/* Desktop Navigation Links */}
-            <div className="hidden md:flex items-center space-x-6"> {/* space-x-6 controls spacing */}
-              <Link to="/" className="text-gray-700 hover:text-blue-600 font-medium"> {/* Added font-medium for more prominence */}
+            {/* Desktop Links */}
+            <div className="hidden md:flex items-center space-x-6">
+              <Link to="/" className="text-gray-700 hover:text-blue-600 font-medium">
                 {currentLanguage.home}
               </Link>
 
-              {/* Services Dropdown */}
-              <div className="relative group"
+              <div
+                className="relative group"
                 onMouseEnter={() => setIsServicesOpen(true)}
-                onMouseLeave={() => setIsServicesOpen(false)}>
+                onMouseLeave={() => setIsServicesOpen(false)}
+              >
                 <button className="text-gray-700 hover:text-blue-600 font-medium flex items-center">
                   {currentLanguage.services}
                   <ChevronDown className="w-4 h-4 ml-1 transition-transform duration-200 group-hover:rotate-180" />
@@ -162,16 +155,15 @@ const Navigation = ({ isHindi, onToggleLanguage }) => {
                 {currentLanguage.donate}
               </Link>
 
-              {/* Helpline Button - Refined styling for better alignment */}
-              <Link to="/helpline" className="bg-blue-800 text-white px-4 py-2 rounded-lg hover:bg-blue-700 transition flex items-center text-base font-semibold ml-4"> {/* Increased padding, font-size, and added ml-4 for extra separation */}
-                <Phone className="w-4 h-4 mr-1" /> {/* Increased icon size for better visibility */}
+              <Link to="/helpline" className="bg-blue-800 text-white px-4 py-2 rounded-lg hover:bg-blue-700 transition flex items-center text-base font-semibold ml-4">
+                <Phone className="w-4 h-4 mr-1" />
                 {currentLanguage.helpline}
               </Link>
             </div>
 
-            {/* Mobile Menu Toggle Button */}
+            {/* Mobile Menu Button */}
             <button
-              className="md:hidden text-blue-900 focus:outline-none"
+              className="text-blue-900 md:hidden"
               onClick={toggleSidebar}
               aria-label="Toggle menu"
             >
@@ -185,12 +177,8 @@ const Navigation = ({ isHindi, onToggleLanguage }) => {
       <div className={`fixed inset-y-0 right-0 w-64 bg-white shadow-lg transform ${isMobileMenuOpen ? 'translate-x-0' : 'translate-x-full'} transition-transform duration-300 ease-in-out z-50 md:hidden`}>
         <div className="p-4">
           <ul className="space-y-4">
-            <li>
-              <Link to="/" onClick={toggleSidebar} className="block py-2 hover:text-blue-600">
-                {currentLanguage.home}
-              </Link>
-            </li>
-            {/* Services Dropdown in Mobile - if you want it to behave like desktop */}
+            <li><Link to="/" onClick={toggleSidebar} className="block py-2 hover:text-blue-600">{currentLanguage.home}</Link></li>
+
             <li className="relative">
               <button
                 onClick={() => setIsServicesOpen(!isServicesOpen)}
@@ -206,7 +194,7 @@ const Navigation = ({ isHindi, onToggleLanguage }) => {
                       <Link
                         to={item.path}
                         className="block px-4 py-2 text-gray-700 hover:bg-blue-50 hover:text-blue-600"
-                        onClick={toggleSidebar} // Close sidebar on clicking sub-item
+                        onClick={toggleSidebar}
                       >
                         {item.title}
                       </Link>
@@ -215,38 +203,14 @@ const Navigation = ({ isHindi, onToggleLanguage }) => {
                 </ul>
               )}
             </li>
-            {/* Other Mobile Links */}
-            <li>
-              <Link to="/trip" onClick={toggleSidebar} className="block py-2 hover:text-blue-600">
-                {currentLanguage.trip}
-              </Link>
-            </li>
-            <li>
-              <Link to="/travellocations" onClick={toggleSidebar} className="block py-2 hover:text-blue-600">
-                {currentLanguage.travellocations}
-              </Link>
-            </li>
-            <li>
-              <Link to="/about" onClick={toggleSidebar} className="block py-2 hover:text-blue-600">
-                {currentLanguage.about}
-              </Link>
-            </li>
-            <li>
-              <Link to="/blog" onClick={toggleSidebar} className="block py-2 hover:text-blue-600">
-                {currentLanguage.blog}
-              </Link>
-            </li>
-            <li>
-              <Link to="/donate" onClick={toggleSidebar} className="block py-2 hover:text-blue-600">
-                {currentLanguage.donate}
-              </Link>
-            </li>
-            <li>
-              <Link to="/helpline" onClick={toggleSidebar} className="block py-2 hover:text-blue-600">
-                {currentLanguage.helpline}
-              </Link>
-            </li>
-            {/* Language Toggle in Mobile Sidebar */}
+
+            <li><Link to="/trip" onClick={toggleSidebar} className="block py-2 hover:text-blue-600">{currentLanguage.trip}</Link></li>
+            <li><Link to="/travellocations" onClick={toggleSidebar} className="block py-2 hover:text-blue-600">{currentLanguage.travellocations}</Link></li>
+            <li><Link to="/about" onClick={toggleSidebar} className="block py-2 hover:text-blue-600">{currentLanguage.about}</Link></li>
+            <li><Link to="/blog" onClick={toggleSidebar} className="block py-2 hover:text-blue-600">{currentLanguage.blog}</Link></li>
+            <li><Link to="/donate" onClick={toggleSidebar} className="block py-2 hover:text-blue-600">{currentLanguage.donate}</Link></li>
+            <li><Link to="/helpline" onClick={toggleSidebar} className="block py-2 hover:text-blue-600">{currentLanguage.helpline}</Link></li>
+
             <li className="flex items-center justify-between py-2">
               <span>EN</span>
               <div className="checkbox-wrapper-5">
