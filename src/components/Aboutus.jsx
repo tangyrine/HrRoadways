@@ -178,7 +178,7 @@ function AboutUs({ isHindi = false }) {
                 <div className="flex flex-col items-center space-y-4">
                   <div className="p-3 bg-gray-700/50 rounded-full">
                     <img 
-                      src={`../src/assets/${tech.name.toLowerCase()}.png`}
+                      src={`/tech/${tech.name.toLowerCase()}.png`}
                       alt={tech.name}
                       className="w-12 h-12 object-contain group-hover:scale-110 transition-transform duration-300"
                       loading="lazy"
