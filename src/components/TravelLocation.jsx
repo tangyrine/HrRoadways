@@ -18,26 +18,6 @@ const TravelLocations = ({ isHindi }) => {
   // const [translations, setTranslations] = useState(null); // REMOVE THIS LINE
   const [searchTerm, setSearchTerm] = useState('');
   const [selectedCategory, setSelectedCategory] = useState('all');
-
-  // We are no longer fetching from an external URL, so this is not needed
-  // const translationsUrl = 'https://jsonblob.com/api/jsonBlob/1336700697919545344'; // REMOVE OR COMMENT OUT THIS LINE
-
-  // We no longer need the useEffect to fetch translations
-  // useEffect(() => {
-  //   fetch(translationsUrl)
-  //     .then(response => response.json())
-  //     .then(data => setTranslations(data))
-  //     .catch(error => console.error('Error fetching translations:', error));
-  // }, []); // REMOVE THIS useEffect BLOCK ENTIRELY
-
-  // Display a loading message until translations have been fetched
-  // This check is no longer needed as translationsData is imported directly
-  // if (!translations) {
-  //   return <div>Loading translations...</div>;
-  // }
-
-  // Use the appropriate language based on the isHindi prop
-  // Access translationsData directly
   const currentLanguage = isHindi ? translationsData.hi : translationsData.en;
 
   // Ensure currentLanguage and currentLanguage.locations exist before filtering
