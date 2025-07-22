@@ -1,7 +1,10 @@
 import React, { useState, useEffect } from 'react';
 import { Search, MapPin, Calendar, Info } from 'lucide-react';
 
-// Import images
+// Import local translation data instead of fetching from external URL
+import translationsData from '../assets/translations.json'; // Adjust path if needed, e.g., '../../assets/translations.json'
+
+// Import images (these look fine, they are hosted on ibb.co)
 const Gurgaon = 'https://i.ibb.co/ynW25D0R/GURGAON.jpg';
 const Surajkund = 'https://i.ibb.co/9knrRy7V/Surajkund.jpg';
 const Sultanpur_National_Park = 'https://i.ibb.co/jv9sS8Ld/Sultanpur-National-Park.webp';
@@ -11,28 +14,40 @@ const Morni_Hills = 'https://i.ibb.co/DgY6Ty74/Morni-Hills.webp';
 const Panchkula = 'https://i.ibb.co/HTJnB2k6/Panchkula.jpg';
 
 const TravelLocations = ({ isHindi }) => {
-  const [translations, setTranslations] = useState(null);
+  // Directly use the imported data, no need for useState for translations now
+  // const [translations, setTranslations] = useState(null); // REMOVE THIS LINE
   const [searchTerm, setSearchTerm] = useState('');
   const [selectedCategory, setSelectedCategory] = useState('all');
 
-  // Replace the URL below with your actual hosted JSON blob URL
-  const translationsUrl = 'https://jsonblob.com/api/jsonBlob/1336700697919545344';
+  // We are no longer fetching from an external URL, so this is not needed
+  // const translationsUrl = 'https://jsonblob.com/api/jsonBlob/1336700697919545344'; // REMOVE OR COMMENT OUT THIS LINE
 
-  // Fetch translations from the hosted JSON blob
-  useEffect(() => {
-    fetch(translationsUrl)
-      .then(response => response.json())
-      .then(data => setTranslations(data))
-      .catch(error => console.error('Error fetching translations:', error));
-  }, []);
+  // We no longer need the useEffect to fetch translations
+  // useEffect(() => {
+  //   fetch(translationsUrl)
+  //     .then(response => response.json())
+  //     .then(data => setTranslations(data))
+  //     .catch(error => console.error('Error fetching translations:', error));
+  // }, []); // REMOVE THIS useEffect BLOCK ENTIRELY
 
   // Display a loading message until translations have been fetched
-  if (!translations) {
-    return <div>Loading translations...</div>;
-  }
+  // This check is no longer needed as translationsData is imported directly
+  // if (!translations) {
+  //   return <div>Loading translations...</div>;
+  // }
 
   // Use the appropriate language based on the isHindi prop
-  const currentLanguage = isHindi ? translations.hi : translations.en;
+  // Access translationsData directly
+  const currentLanguage = isHindi ? translationsData.hi : translationsData.en;
+
+  // Ensure currentLanguage and currentLanguage.locations exist before filtering
+  // This is the direct fix for the "Cannot read properties of undefined (reading 'locations')" error
+  if (!currentLanguage || !currentLanguage.locations) {
+      // This case should ideally not be hit if translationsData.json is correctly structured
+      // But it's good for robustness if data structure is unexpected
+      console.error("Translations data or locations array is missing.");
+      return <div>Error: Travel data not available.</div>;
+  }
 
   // Filter the locations based on search term and selected category
   const filteredLocations = currentLanguage.locations.filter(location => {
