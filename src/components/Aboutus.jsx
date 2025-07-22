@@ -182,6 +182,10 @@ function AboutUs({ isHindi = false }) {
                       alt={tech.name}
                       className="w-12 h-12 object-contain group-hover:scale-110 transition-transform duration-300"
                       loading="lazy"
+                      onError={(e) => {
+                      e.target.onerror = null; 
+                      e.target.src = "/techstack/fallback.png"; 
+                      }}
                     />
                   </div>
                   <h3 className="text-lg font-medium text-blue-400">{tech.name}</h3>
