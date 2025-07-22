@@ -72,8 +72,8 @@ const Navigation = ({ isHindi, onToggleLanguage }) => {
 
   return (
     <>
-      <div className="bg-blue-900 text-white py-2 hidden md:block">
-        <div className="container mx-auto px-4 flex justify-between items-center text-sm">
+      <div className="hidden py-2 text-white bg-blue-900 md:block">
+        <div className="container flex items-center justify-between px-4 mx-auto text-sm">
           <div className="flex items-center space-x-4">
             <span className="flex items-center">
               <Phone className="w-4 h-4 mr-1" />
@@ -108,16 +108,16 @@ const Navigation = ({ isHindi, onToggleLanguage }) => {
           isScrolled ? 'shadow-lg bg-white' : 'bg-white/95'
         } transition-all duration-300`}
       >
-        <div className="container mx-auto px-4">
-          <div className="flex justify-between items-center h-16">
+        <div className="container px-4 mx-auto">
+          <div className="flex items-center justify-between h-16">
             <Link to="/" className="flex items-center space-x-2">
               <img src={Logo} alt="Haryana Roadways Logo" className="w-8 h-8" />
-              <span className="font-bold text-xl text-blue-900">
+              <span className="text-xl font-bold text-blue-900">
                 Haryana Roadways
               </span>
             </Link>
 
-            <div className="hidden md:flex items-center space-x-8">
+            <div className="items-center hidden space-x-8 md:flex">
               <Link to="/" className="nav-link">
                 {currentLanguage.home}
               </Link>
@@ -127,7 +127,7 @@ const Navigation = ({ isHindi, onToggleLanguage }) => {
                 onMouseEnter={() => setIsServicesOpen(true)}
                 onMouseLeave={() => setIsServicesOpen(false)}
               >
-                <button className="nav-link flex items-center">
+                <button className="flex items-center nav-link">
                   {currentLanguage.services}
                   <ChevronDown className="w-4 h-4 ml-1" />
                 </button>
@@ -160,14 +160,14 @@ const Navigation = ({ isHindi, onToggleLanguage }) => {
                 {currentLanguage.donate}
               </Link>
 
-              <button className="bg-blue-800 text-white px-4 py-2 rounded-lg hover:bg-blue-900 transition flex items-center">
+              <button className="flex items-center px-4 py-2 text-white transition bg-blue-800 rounded-lg hover:bg-blue-900">
                 <Phone className="w-4 h-4 mr-2" />
                 <Link to="/helpline">{currentLanguage.helpline}</Link>
               </button>
             </div>
 
             <button
-              className="md:hidden text-blue-900"
+              className="text-blue-900 md:hidden"
               onClick={toggleSidebar}
             >
               {isMobileMenuOpen ? <X className="w-6 h-6" /> : <Menu className="w-6 h-6" />}
@@ -176,7 +176,7 @@ const Navigation = ({ isHindi, onToggleLanguage }) => {
         </div>
       </nav>
 
-      <div className={`sidebar ${isMobileMenuOpen ? 'open' : ''}`}>
+      <div className={`sidebar md:hidden ${isMobileMenuOpen ? 'open' : ''}`}>
         <ul>
           <li>
             <Link to="/" onClick={toggleSidebar}>

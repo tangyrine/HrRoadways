@@ -191,7 +191,7 @@ a.nav-link:hover {
 
 .sidebar {
   position: fixed;
-  top: 0;
+  /* top: 0; */
   right: 0;
   width: 100%; /* Make sidebar full width on mobile screens */
   height: 100%;
@@ -200,7 +200,7 @@ a.nav-link:hover {
   transform: translateX(100%);
   transition: transform 0.3s;
   z-index: 1001;
-  padding-top: 60px; /* To ensure it does not overlap with the nav bar */
+  /* padding-top: 60px; To ensure it does not overlap with the nav bar */
   color: white;
 }
 
