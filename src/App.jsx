@@ -25,6 +25,8 @@ import Tutorial from './components/Tutorial';
 import WeeklyTimetable from './components/Timetable';
 import RulesAndGuidelines from './components/Rules';
 import TourGuidePage from './components/TourGuidePage';
+import { getStoredLanguage, setStoredLanguage } from '../libs/languageStorage';
+
 
 // Make sure you have a BookingPage component in your project.
 // For example, if you placed BookingPage under ./components/BookingPage:
@@ -38,11 +40,17 @@ function BookingPageWrapper() {
 }
 
 function App() {
-  const [isHindi, setIsHindi] = useState(false);
+  const [isHindi, setIsHindi] = useState(() => {
+    const storedLanguage = getStoredLanguage();
+    return storedLanguage === 'hi';
+  });
   const [showBackToTop, setShowBackToTop] = useState(false);
   const [hovered, setHovered] = useState(false);
 
-  const handleToggleLanguage = () => setIsHindi(!isHindi);
+  const handleToggleLanguage = () => {
+    setIsHindi(!isHindi);
+    setStoredLanguage(!isHindi ? 'hi' : 'en');
+  };
 
   useEffect(() => {
     const handleScroll = () => {

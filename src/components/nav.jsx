@@ -2,6 +2,7 @@ import React, { useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
 import '../styles/nav.css';
 import { Menu, X, ChevronDown, Phone } from 'lucide-react';
+import { getStoredLanguage, setStoredLanguage } from '../../libs/languageStorage';
 const Logo = 'https://i.ibb.co/kg3RQQ1S/LogoHR.png';
 
 const Navigation = ({ isHindi, onToggleLanguage }) => {
@@ -45,6 +46,10 @@ const Navigation = ({ isHindi, onToggleLanguage }) => {
   };
 
   const currentLanguage = isHindi ? translations.hi : translations.en;
+  
+  useEffect(() => {
+    setStoredLanguage(isHindi ? 'hi' : 'en');
+  }, [isHindi]);
 
   useEffect(() => {
     const handleScroll = () => {
