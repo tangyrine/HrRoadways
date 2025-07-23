@@ -133,10 +133,10 @@ function Footer({ isHindi }) {
               ) : (
                 <div className="footer-social-links">
                   {[
-                    { Icon: Facebook, color: "social-facebook", href: "https://github.com/NishantRana07" },
-                    { Icon: Twitter, color: "social-twitter", href: "https://github.com/NishantRana07/" },
-                    { Icon: Instagram, color: "social-instagram", href: "https://github.com/NishantRana07/" },
-                    { Icon: Linkedin, color: "social-linkedin", href: "https://github.com/NishantRana07/" },
+                    { Icon: Facebook, color: "social-facebook", href: "#" },
+                    { Icon: Twitter, color: "social-twitter", href: "#" },
+                    { Icon: Instagram, color: "social-instagram", href: "#" },
+                    { Icon: Linkedin, color: "social-linkedin", href: "https://www.linkedin.com/in/nishantrana07/" },
                   ].map(({ Icon, color, href }, idx) => (
                     <a key={idx} href={href} className="footer-social-link">
                       <Icon className={`footer-social-icon ${color}`} />
