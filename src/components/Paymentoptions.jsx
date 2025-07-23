@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { CreditCard, CreditCardIcon, Wallet, ShieldCheck, QrCode, CheckCircle } from 'lucide-react';
+import Loading from './Loading';
 
 // Custom hook to fetch translations
 const useTranslation = (isHindi) => {
@@ -181,7 +182,7 @@ const PaymentOptions = ({ isHindi }) => {
   };
 
   if (!currentLanguage) {
-    return <div>Loading translations...</div>;
+    return <Loading />;
   }
 
   return (

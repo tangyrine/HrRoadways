@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { Heart, Bus, CreditCard, CheckCircle, Clock, Users } from 'lucide-react';
+import Loading from './Loading';
 
 const QRCode = 'https://i.postimg.cc/Y0Zv8SGc/HR-QR.png';
 
@@ -139,7 +140,7 @@ const DonatePage = ({ isHindi }) => {
 
   // Display a loading state until translations are fetched
   if (!t) {
-    return <div>Loading translations...</div>;
+    return <Loading />;
   }
 
   if (showThankYou) {

@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { Calendar, Clock, ThumbsUp, Share2, Bookmark, Search, MapPin, Bus } from 'lucide-react';
 import '../styles/Blog.css';
+import Loading from './Loading';
 
 const BlogPage = ({ isHindi }) => {
   // State to store fetched translations
@@ -41,7 +42,7 @@ const BlogPage = ({ isHindi }) => {
 
   // Display a loading state until translations are fetched
   if (!currentLanguage) {
-    return <div>Loading translations...</div>;
+    return <Loading />;
   }
 
   const handleChange = (e) => {
