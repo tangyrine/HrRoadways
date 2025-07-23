@@ -19,17 +19,26 @@ const BlogPage = ({ isHindi }) => {
   const translationsUrl = 'https://jsonblob.com/api/jsonBlob/1336703432563810304';
 
   // Fetch the translations when the component mounts
-  useEffect(() => {
-    fetch(translationsUrl)
-      .then(response => response.json())
-      .then(data => {
-        setTranslations(data);
-        // Set the current language and posts based on the isHindi prop
-        setCurrentLanguage(isHindi ? data.hi : data.en);
-        setPosts(isHindi ? data.hi.posts : data.en.posts);
-      })
-      .catch(error => console.error('Error fetching translations:', error));
-  }, [translationsUrl, isHindi]);
+useEffect(() => {
+  const fetchTranslations = async () => {
+    try {
+      const response = await fetch(translationsUrl);
+      if (!response.ok) throw new Error('Network response was not ok');
+      const data = await response.json();
+      
+      setTranslations(data);
+      setCurrentLanguage(isHindi ? data.hi : data.en);
+      setPosts(isHindi ? data.hi.posts : data.en.posts);
+    } catch (error) {
+      console.error('Error fetching translations:', error);
+      // Load fallback translations or show error message
+      setCurrentLanguage(getFallbackTranslations(isHindi));
+      setPosts(getFallbackPosts(isHindi));
+    }
+  };
+
+  fetchTranslations();
+}, [translationsUrl, isHindi]);
 
   // Update the current language and posts when the isHindi prop changes
   useEffect(() => {
