@@ -12,6 +12,7 @@ import {
   Zap
 } from 'lucide-react';
 import '../styles/AffiliateProgram.css'; // Import the CSS file
+import Loading from './Loading'
 
 // Custom hook to fetch translations
 const useTranslation = (isHindi) => {
@@ -149,7 +150,7 @@ const AffiliateProgram = ({ isHindi = false }) => {
   } : {};
 
   if (!t) {
-    return <div>Loading translations...</div>;
+    return <Loading />;
   }
 
   return (
