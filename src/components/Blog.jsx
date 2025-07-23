@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { Calendar, Clock, ThumbsUp, Share2, Bookmark, Search, MapPin, Bus } from 'lucide-react';
 import '../styles/Blog.css';
+import sampleData from './fallbackData';
 
 const BlogPage = ({ isHindi }) => {
   // State to store fetched translations
@@ -16,41 +17,29 @@ const BlogPage = ({ isHindi }) => {
   const [sortBy, setSortBy] = useState('latest');
 
   // Replace with your hosted JSON blob URL
-  const translationsUrl = 'https://jsonblob.com/api/jsonBlob/1336703432563810304';
+ // const translationsUrl = 'https://jsonblob.com/api/jsonBlob/1336703432563810304';
 
-  // Fetch the translations when the component mounts
-useEffect(() => {
-  const fetchTranslations = async () => {
-    try {
-      const response = await fetch(translationsUrl);
-      if (!response.ok) throw new Error('Network response was not ok');
-      const data = await response.json();
-      
-      setTranslations(data);
-      setCurrentLanguage(isHindi ? data.hi : data.en);
-      setPosts(isHindi ? data.hi.posts : data.en.posts);
-    } catch (error) {
-      console.error('Error fetching translations:', error);
-      // Load fallback translations or show error message
-      setCurrentLanguage(getFallbackTranslations(isHindi));
-      setPosts(getFallbackPosts(isHindi));
-    }
-  };
+  useEffect(() => {
+  setTranslations(sampleData);
+  setCurrentLanguage(isHindi ? sampleData.hi : sampleData.en);
+  setPosts(isHindi ? sampleData.hi?.posts || [] : sampleData.en.posts);
+}, [isHindi]);
 
-  fetchTranslations();
-}, [translationsUrl, isHindi]);
 
   // Update the current language and posts when the isHindi prop changes
   useEffect(() => {
-    if (translations) {
-      setCurrentLanguage(isHindi ? translations.hi : translations.en);
-      setPosts(isHindi ? translations.hi.posts : translations.en.posts);
-    }
-  }, [isHindi, translations]);
+  if (!translations) return;
+  const langData = isHindi ? translations.hi : translations.en;
+  if (langData) {
+    setCurrentLanguage(langData);
+    setPosts(langData.posts || []);
+  }
+}, [isHindi, translations]);
+
 
   // Display a loading state until translations are fetched
-  if (!currentLanguage) {
-    return (
+if (!currentLanguage||!posts) {
+  return (
     <div className="loading-container">
       <h2>
         <Bus size={32} />
@@ -62,9 +51,10 @@ useEffect(() => {
           : "Please wait while we fetch the latest updates..."
         }
       </p>
-      <div className="loading-spinner"></div>
-    </div>);
-  }
+      <div className="loading-spinner"></div> {/* Add CSS for spinner */}
+    </div>
+  );
+}
 
   const handleChange = (e) => {
     const { name, value } = e.target;
@@ -75,7 +65,7 @@ useEffect(() => {
     e.preventDefault();
     if (formData.title && formData.content) {
       const newPost = {
-        id: posts.length + 1,
+        id: Date.now(),
         ...formData,
         date: new Date().toISOString().split('T')[0],
         tags: formData.tags.split(',').map(tag => tag.trim()),
