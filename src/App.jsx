@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { BrowserRouter as Router, Routes, Route, useLocation } from 'react-router-dom';
+import { BrowserRouter as Router, Routes, Route, useLocation, Navigate } from 'react-router-dom';
 import Navigation from './components/nav';
 import Hero from './components/hero';
 import Available from './components/Available';
@@ -26,6 +26,7 @@ import WeeklyTimetable from './components/Timetable';
 import RulesAndGuidelines from './components/Rules';
 import TourGuidePage from './components/TourGuidePage';
 import { getStoredLanguage, setStoredLanguage } from '../libs/languageStorage';
+import NotFound from './components/NotFound';
 
 
 // Make sure you have a BookingPage component in your project.
@@ -82,7 +83,11 @@ function App() {
         <Route path="/policy" element={<InfoPage isHindi={isHindi} />} />
         <Route path="/rules" element={<RulesAndGuidelines isHindi={isHindi} />} />
         <Route path="/under-construction" element={<UnderConstruction isHindi={isHindi} />} />
-        <Route path="/contactUs" element={<ContactUs isHindi={isHindi} />} />
+      
+        {/* Redirect duplicate path to canonical contact route */}
+        <Route path="/contactUs" element={<Navigate to="/contact" replace />} />
+        <Route path="/contact" element={<ContactUs isHindi={isHindi} />} />
+
         <Route path="/blog" element={<Blog isHindi={isHindi} />} />
         <Route path="/payment" element={<PaymentOptions isHindi={isHindi} />} />
         <Route path="/track" element={<BusTracker isHindi={isHindi} />} />
@@ -94,10 +99,11 @@ function App() {
         <Route path="/schedule" element={<WeeklyTimetable isHindi={isHindi} />} />
         <Route path="/reviews" element={<Reviews isHindi={isHindi} />} />
         <Route path="/affiliate" element={<AffiliateProgram isHindi={isHindi} />} />
-        <Route path="/contact" element={<ContactUs isHindi={isHindi} />} />
+       
         <Route path="/card" element={<BusCard isHindi={isHindi} />} />
         <Route path="/guide" element={<Tutorial isHindi={isHindi} />} />
         <Route path="/tour-guide" element={<TourGuidePage />} /> {/* Add new route */}
+        <Route path="*" element={<NotFound />} />
 
         {/* New booking route to apply same navbar & footer */}
         <Route path="/booking" element={<BookingPageWrapper />} />

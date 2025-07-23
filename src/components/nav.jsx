@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useRef } from 'react';
 import { Link } from 'react-router-dom';
 import '../styles/nav.css';
 import { Menu, X, ChevronDown, Phone } from 'lucide-react';
@@ -7,10 +7,39 @@ import { getStoredLanguage, setStoredLanguage } from '../../libs/languageStorage
 const Logo = 'https://i.ibb.co/kg3RQQ1S/LogoHR.png';
 
 const Navigation = ({ isHindi, onToggleLanguage }) => {
+  // ─── State Hooks ───────────────────────────────────────
   const [isScrolled, setIsScrolled] = useState(false);
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
   const [isServicesOpen, setIsServicesOpen] = useState(false);
 
+  // ─── Ref for the dropdown timer ───────────────────────
+  const servicesTimer = useRef(null);
+
+  // ─── Scroll listener ──────────────────────────────────
+  useEffect(() => {
+    const handleScroll = () => setIsScrolled(window.scrollY > 50);
+    window.addEventListener('scroll', handleScroll);
+    return () => window.removeEventListener('scroll', handleScroll);
+  }, []);
+
+  // ─── Dropdown hover handlers ──────────────────────────
+  const handleMouseEnter = () => {
+    clearTimeout(servicesTimer.current);
+    setIsServicesOpen(true);
+  };
+
+  const handleMouseLeave = () => {
+    servicesTimer.current = setTimeout(() => {
+      setIsServicesOpen(false);
+    }, 200);
+  };
+
+  // ─── Language persistence ─────────────────────────────
+  useEffect(() => {
+    setStoredLanguage(isHindi ? 'hi' : 'en');
+  }, [isHindi]);
+
+  // ─── Translations & Links ─────────────────────────────
   const translations = {
     en: {
       home: "Home",
@@ -26,7 +55,7 @@ const Navigation = ({ isHindi, onToggleLanguage }) => {
       blog: "Blog",
       quickLinks: "Quick Links",
       travellocations: "Travel",
-      guide: "Guide and Rules"
+      guide: "Guide and Rules",
     },
     hi: {
       home: "मुख्य पृष्ठ",
@@ -42,24 +71,10 @@ const Navigation = ({ isHindi, onToggleLanguage }) => {
       blog: "ब्लॉग",
       quickLinks: "त्वरित लिंक",
       travellocations: "यात्रा",
-      guide: "मार्गदर्शिका और नियम"
+      guide: "मार्गदर्शिका और नियम",
     },
   };
-
   const currentLanguage = isHindi ? translations.hi : translations.en;
-
-  useEffect(() => {
-    setStoredLanguage(isHindi ? 'hi' : 'en');
-  }, [isHindi]);
-
-  useEffect(() => {
-    const handleScroll = () => {
-      setIsScrolled(window.scrollY > 50);
-    };
-
-    window.addEventListener('scroll', handleScroll);
-    return () => window.removeEventListener('scroll', handleScroll);
-  }, []);
 
   const servicesDropdown = [
     { title: currentLanguage.track, path: '/track' },
@@ -67,13 +82,13 @@ const Navigation = ({ isHindi, onToggleLanguage }) => {
     { title: currentLanguage.tourGuide, path: '/tour-guide' },
   ];
 
-  const toggleSidebar = () => {
-    setIsMobileMenuOpen(!isMobileMenuOpen);
-  };
+  const toggleSidebar = () => setIsMobileMenuOpen(x => !x);
 
   return (
     <>
-      <div className="bg-blue-900 text-white py-2 hidden md:block dark:bg-gray-900 dark:text-gray-100">
+
+      <div className="bg-blue-900 text-white py-2 hidden md:block">
+
         <div className="container mx-auto px-4 flex justify-between items-center text-sm">
           <div className="flex items-center space-x-4">
             <span className="flex items-center">
@@ -104,16 +119,18 @@ const Navigation = ({ isHindi, onToggleLanguage }) => {
           </div>
         </div>
       </div>
-
-      <nav className={`sticky top-0 z-50 w-full ${isScrolled ? 'shadow-lg bg-white dark:bg-gray-800 dark:shadow-xl' : 'bg-white/95 dark:bg-gray-800'} transition-all duration-300`}>
+     main
         <div className="container mx-auto px-4">
           <div className="flex justify-between items-center h-16">
             <Link to="/" className="flex items-center space-x-2">
               <img src={Logo} alt="Haryana Roadways Logo" className="w-8 h-8" />
+
               <span className="font-bold text-xl text-blue-900 dark:text-white">
+
                 Haryana Roadways
               </span>
             </Link>
+
 
             <div className="hidden md:flex items-center space-x-6">
               <Link to="/" className="text-gray-700 hover:text-blue-600 font-medium dark:text-gray-300 dark:hover:text-blue-400">
@@ -129,8 +146,9 @@ const Navigation = ({ isHindi, onToggleLanguage }) => {
                 </button>
                 <div className={`absolute top-full left-0 mt-2 w-48 bg-white rounded-md shadow-lg py-1 z-10 ${isServicesOpen ? 'block' : 'hidden'} dark:bg-gray-700 dark:shadow-xl`}>
                   {servicesDropdown.map((item, index) => (
+
                     <Link
-                      key={index}
+                      key={idx}
                       to={item.path}
                       className="block px-4 py-2 text-gray-700 hover:bg-blue-50 hover:text-blue-600 dark:text-gray-200 dark:hover:bg-gray-600"
                       onClick={() => setIsServicesOpen(false)}
@@ -140,6 +158,7 @@ const Navigation = ({ isHindi, onToggleLanguage }) => {
                   ))}
                 </div>
               </div>
+
 
               <Link to="/trip" className="text-gray-700 hover:text-blue-600 font-medium dark:text-gray-300 dark:hover:text-blue-400">
                 {currentLanguage.trip}
@@ -158,20 +177,24 @@ const Navigation = ({ isHindi, onToggleLanguage }) => {
               </Link>
 
               <Link to="/helpline" className="bg-blue-800 text-white px-4 py-2 rounded-lg hover:bg-blue-700 transition flex items-center text-base font-semibold ml-4 dark:bg-blue-600 dark:hover:bg-blue-500">
+
                 <Phone className="w-4 h-4 mr-1" />
                 {currentLanguage.helpline}
               </Link>
             </div>
+
 
             <button className="md:hidden text-blue-900 focus:outline-none dark:text-white"
               onClick={toggleSidebar}
               aria-label="Toggle menu"
             >
               {isMobileMenuOpen ? <X className="w-6 h-6 dark:text-white" /> : <Menu className="w-6 h-6 dark:text-white" />}
+
             </button>
           </div>
         </div>
       </nav>
+
 
       <div className={`fixed inset-y-0 right-0 w-64 bg-white shadow-lg transform ${isMobileMenuOpen ? 'translate-x-0' : 'translate-x-full'} transition-transform duration-300 ease-in-out z-50 md:hidden dark:bg-gray-800 dark:shadow-xl`}>
         <div className="p-4">
@@ -188,14 +211,17 @@ const Navigation = ({ isHindi, onToggleLanguage }) => {
               >
                 {currentLanguage.services}
                 <ChevronDown className={`w-4 h-4 transition-transform duration-200 ${isServicesOpen ? 'rotate-180' : ''} dark:text-gray-200`} />
+
               </button>
               {isServicesOpen && (
                 <ul className="ml-4 mt-1 space-y-2">
-                  {servicesDropdown.map((item, index) => (
-                    <li key={index}>
+                  {servicesDropdown.map((item, idx) => (
+                    <li key={idx}>
                       <Link
                         to={item.path}
+
                         className="block px-4 py-2 text-gray-700 hover:bg-blue-50 hover:text-blue-600 dark:text-gray-200 dark:hover:bg-gray-600"
+
                         onClick={toggleSidebar}
                       >
                         {item.title}
@@ -205,37 +231,54 @@ const Navigation = ({ isHindi, onToggleLanguage }) => {
                 </ul>
               )}
             </li>
+
             <li>
               <Link to="/trip" onClick={toggleSidebar} className="block py-2 hover:text-blue-600 dark:text-gray-200 dark:hover:text-blue-400">
+
                 {currentLanguage.trip}
               </Link>
             </li>
             <li>
+
               <Link to="/travellocations" onClick={toggleSidebar} className="block py-2 hover:text-blue-600 dark:text-gray-200 dark:hover:text-blue-400">
+
                 {currentLanguage.travellocations}
               </Link>
             </li>
             <li>
+
               <Link to="/about" onClick={toggleSidebar} className="block py-2 hover:text-blue-600 dark:text-gray-200 dark:hover:text-blue-400">
+
                 {currentLanguage.about}
               </Link>
             </li>
             <li>
               <Link to="/blog" onClick={toggleSidebar} className="block py-2 hover:text-blue-600 dark:text-gray-200 dark:hover:text-blue-400">
+
+              <Link
+                to="/blog"
+                onClick={toggleSidebar}
+                className="block py-2 hover:text-blue-600"
+              >
+
                 {currentLanguage.blog}
               </Link>
             </li>
             <li>
+
               <Link to="/donate" onClick={toggleSidebar} className="block py-2 hover:text-blue-600 dark:text-gray-200 dark:hover:text-blue-400">
+
                 {currentLanguage.donate}
               </Link>
             </li>
             <li>
+
               <Link to="/helpline" onClick={toggleSidebar} className="block py-2 hover:text-blue-600 dark:text-gray-200 dark:hover:text-blue-400">
                 {currentLanguage.helpline}
               </Link>
             </li>
             <li className="flex items-center justify-between py-2 dark:text-gray-200">
+
               <span>EN</span>
               <div className="checkbox-wrapper-5">
                 <div className="check">
