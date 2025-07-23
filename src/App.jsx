@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { BrowserRouter as Router, Routes, Route, useLocation } from 'react-router-dom';
+import './index.css';
 import Navigation from './components/nav';
 import Hero from './components/hero';
 import Available from './components/Available';
@@ -25,7 +26,9 @@ import Tutorial from './components/Tutorial';
 import WeeklyTimetable from './components/Timetable';
 import RulesAndGuidelines from './components/Rules';
 import TourGuidePage from './components/TourGuidePage';
+import LoadingDemo from './components/LoadingDemo';
 import { getStoredLanguage, setStoredLanguage } from '../libs/languageStorage';
+import { LoadingProvider } from './contexts/LoadingContext';
 
 
 // Make sure you have a BookingPage component in your project.
@@ -68,9 +71,10 @@ function App() {
   };
 
   return (
-    <Router>
-      {/* Navigation Bar (applies to all routes) */}
-      <Navigation isHindi={isHindi} onToggleLanguage={handleToggleLanguage} />
+    <LoadingProvider>
+      <Router>
+        {/* Navigation Bar (applies to all routes) */}
+        <Navigation isHindi={isHindi} onToggleLanguage={handleToggleLanguage} />
 
       {/* Main Routes */}
       <Routes>
@@ -98,6 +102,7 @@ function App() {
         <Route path="/card" element={<BusCard isHindi={isHindi} />} />
         <Route path="/guide" element={<Tutorial isHindi={isHindi} />} />
         <Route path="/tour-guide" element={<TourGuidePage />} /> {/* Add new route */}
+        <Route path="/loading-demo" element={<LoadingDemo />} />
 
         {/* New booking route to apply same navbar & footer */}
         <Route path="/booking" element={<BookingPageWrapper />} />
@@ -131,7 +136,8 @@ function App() {
           <i className="fa fa-arrow-up fa-lg"></i>
         </button>
       )}
-    </Router>
+      </Router>
+    </LoadingProvider>
   );
 }
 

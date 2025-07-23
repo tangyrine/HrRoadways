@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import { useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
 import '../styles/nav.css';
 import { Menu, X, ChevronDown, Phone } from 'lucide-react';
@@ -102,7 +102,7 @@ const Navigation = ({ isHindi, onToggleLanguage }) => {
       </div>
 
       {/* Navbar */}
-      <nav className={`sticky top-0 z-50 w-full ${isScrolled ? 'shadow-lg bg-white' : 'bg-white/95'} transition-all duration-300`}>
+      <nav className={`sticky top-0 z-50 w-full ${isScrolled ? 'shadow-lg bg-white' : 'bg-transparent'} transition-all duration-300`}>
         <div className="container mx-auto px-4">
           <div className="flex justify-between items-center h-16">
             <Link to="/" className="flex items-center space-x-2">

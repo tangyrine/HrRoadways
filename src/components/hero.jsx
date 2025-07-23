@@ -1,9 +1,11 @@
-import React, { useState, useEffect, useRef } from 'react';
-import { Calendar, Clock, MapPin, AlertCircle, Info, Repeat, Shield, Star, Phone, Users } from 'lucide-react';
+import  { useState, useEffect, useRef } from 'react';
+import { Calendar, Clock, MapPin, AlertCircle, Info, Repeat, Shield, Star, Phone, Users, Bus } from 'lucide-react';
 import TrafficUpdates from './TrafficUpdates';
 import PopularRoutes from './PopularRoutes';
 import BusDetailModal from './BusDetailModal';
 import WeatherUpdates from './WeatherUpdates';
+import InlineBusLoader from './InlineBusLoader';
+import { useComponentLoading } from '../contexts/LoadingContext';
 import '../styles/hero.css';
 import '../styles/modal.css';
 
@@ -24,6 +26,8 @@ const CustomCard = ({ children, className }) => (
 
 // Hero Component - Main Component
 const Hero = ({ isHindi }) => {
+  // Loading hook
+  const { showLoading, hideLoading, loading } = useComponentLoading('hero-search');
 
   // State management
   const [currentLanguage, setCurrentLanguage] = useState({});
@@ -101,20 +105,36 @@ const Hero = ({ isHindi }) => {
   };
 
   // Handle form submission
-  const handleSubmit = (event) => {
+  const handleSubmit = async (event) => {
     event.preventDefault();
-    fetch('https://jsonblob.com/api/jsonBlob/1333092652136194048')
-      .then(response => response.json())
-      .then(data => {
-        const filteredBuses = data.filter(bus => {
-          const isExactRoute = bus.from.toLowerCase() === formData.src.toLowerCase() && bus.to.toLowerCase() === formData.dest.toLowerCase();
-          const isReverseRoute = formData.roundTrip && bus.from.toLowerCase() === formData.dest.toLowerCase() && bus.to.toLowerCase() === formData.src.toLowerCase();
-          const isViaRoute = bus.from.toLowerCase() === formData.src.toLowerCase() && bus.via?.toLowerCase().includes(formData.dest.toLowerCase());
-          const isViaReverseRoute = formData.roundTrip && bus.from.toLowerCase() === formData.dest.toLowerCase() && bus.via?.toLowerCase().includes(formData.src.toLowerCase());
-          return isExactRoute || isReverseRoute || isViaRoute || isViaReverseRoute;
-        });
-        setBuses(filteredBuses);
+
+    if (!formData.src || !formData.dest) {
+      return;
+    }
+
+    showLoading('Searching for buses...');
+
+    try {
+      // Add a small delay to show the loading animation
+      await new Promise(resolve => setTimeout(resolve, 1000));
+
+      const response = await fetch('https://jsonblob.com/api/jsonBlob/1333092652136194048');
+      const data = await response.json();
+
+      const filteredBuses = data.filter(bus => {
+        const isExactRoute = bus.from.toLowerCase() === formData.src.toLowerCase() && bus.to.toLowerCase() === formData.dest.toLowerCase();
+        const isReverseRoute = formData.roundTrip && bus.from.toLowerCase() === formData.dest.toLowerCase() && bus.to.toLowerCase() === formData.src.toLowerCase();
+        const isViaRoute = bus.from.toLowerCase() === formData.src.toLowerCase() && bus.via?.toLowerCase().includes(formData.dest.toLowerCase());
+        const isViaReverseRoute = formData.roundTrip && bus.from.toLowerCase() === formData.dest.toLowerCase() && bus.via?.toLowerCase().includes(formData.src.toLowerCase());
+        return isExactRoute || isReverseRoute || isViaRoute || isViaReverseRoute;
       });
+
+      setBuses(filteredBuses);
+    } catch (error) {
+      console.error('Error fetching buses:', error);
+    } finally {
+      hideLoading();
+    }
   };
 
   // Handle bus card click to open modal
@@ -159,13 +179,126 @@ const Hero = ({ isHindi }) => {
       <div className="hero-content">
         <div className="content-grid">
           <CustomCard className="form-card">
+            <div className="form-header">
+              <h3 className="form-title">
+                <Bus className="form-title-icon" />
+                {currentLanguage.searchTitle || "Find Your Perfect Journey"}
+              </h3>
+              <p className="form-subtitle">
+                {currentLanguage.searchSubtitle || "Book your bus tickets with ease and comfort"}
+              </p>
+            </div>
+
             <form className="form" onSubmit={handleSubmit}>
-              <FormInput label={currentLanguage.departure} name="src" value={formData.src} onChange={handleChange} suggestions={srcSuggestions} showSuggestions={showSrcSuggestions} setShowSuggestions={setShowSrcSuggestions} activeSuggestionIndex={activeSrcSuggestionIndex} setActiveSuggestionIndex={setActiveSrcSuggestionIndex} />
-              <FormInput label={currentLanguage.arrival} name="dest" value={formData.dest} onChange={handleChange} suggestions={destSuggestions} showSuggestions={showDestSuggestions} setShowSuggestions={setShowDestSuggestions} activeSuggestionIndex={activeDestSuggestionIndex} setActiveSuggestionIndex={setActiveDestSuggestionIndex} disabled={!formData.src} />
-              <FormInput label="Date" name="date" type="date" value={formData.date} onChange={handleChange} />
-              <FormInput label={currentLanguage.passengers} name="passengers" type="number" value={formData.passengers} onChange={handleChange} min="1" />
-              <FormCheckbox label={currentLanguage.roundTrip} name="roundTrip" checked={formData.roundTrip} onChange={() => setFormData({ ...formData, roundTrip: !formData.roundTrip })} />
-              <button type="submit" className="search-button">{currentLanguage.button}</button>
+              <div className="form-row">
+                <div className="form-input-group">
+                  <FormInput
+                    label={currentLanguage.departure || "From"}
+                    name="src"
+                    value={formData.src}
+                    onChange={handleChange}
+                    suggestions={srcSuggestions}
+                    showSuggestions={showSrcSuggestions}
+                    setShowSuggestions={setShowSrcSuggestions}
+                    activeSuggestionIndex={activeSrcSuggestionIndex}
+                    setActiveSuggestionIndex={setActiveSrcSuggestionIndex}
+                    placeholder="Enter departure city"
+                  />
+                </div>
+
+                <div className="form-swap-button">
+                  <button
+                    type="button"
+                    className="swap-btn"
+                    onClick={() => {
+                      setFormData({
+                        ...formData,
+                        src: formData.dest,
+                        dest: formData.src
+                      });
+                    }}
+                    title="Swap cities"
+                  >
+                    <Repeat className="swap-icon" />
+                  </button>
+                </div>
+
+                <div className="form-input-group">
+                  <FormInput
+                    label={currentLanguage.arrival || "To"}
+                    name="dest"
+                    value={formData.dest}
+                    onChange={handleChange}
+                    suggestions={destSuggestions}
+                    showSuggestions={showDestSuggestions}
+                    setShowSuggestions={setShowDestSuggestions}
+                    activeSuggestionIndex={activeDestSuggestionIndex}
+                    setActiveSuggestionIndex={setActiveDestSuggestionIndex}
+                    disabled={!formData.src}
+                    placeholder="Enter destination city"
+                  />
+                </div>
+              </div>
+
+              <div className="form-row">
+                <div className="form-input-group">
+                  <FormInput
+                    label="Departure Date"
+                    name="date"
+                    type="date"
+                    value={formData.date}
+                    onChange={handleChange}
+                  />
+                </div>
+
+                <div className="form-input-group">
+                  <FormInput
+                    label={currentLanguage.passengers || "Passengers"}
+                    name="passengers"
+                    type="number"
+                    value={formData.passengers}
+                    onChange={handleChange}
+                    min="1"
+                    max="9"
+                  />
+                </div>
+              </div>
+
+              <div className="form-options">
+                <FormCheckbox
+                  label={currentLanguage.roundTrip || "Round Trip"}
+                  name="roundTrip"
+                  checked={formData.roundTrip}
+                  onChange={() => setFormData({ ...formData, roundTrip: !formData.roundTrip })}
+                />
+
+                <div className="form-quick-filters">
+                  <span className="quick-filter-label">Quick filters:</span>
+                  <div className="quick-filter-buttons">
+                    <button type="button" className="quick-filter-btn">AC</button>
+                    <button type="button" className="quick-filter-btn">Non-AC</button>
+                    <button type="button" className="quick-filter-btn">Sleeper</button>
+                  </div>
+                </div>
+              </div>
+
+              <button
+                type="submit"
+                className="search-button"
+                disabled={!formData.src || !formData.dest || loading}
+              >
+                {loading ? (
+                  <>
+                    <div className="search-button-spinner"></div>
+                    Searching...
+                  </>
+                ) : (
+                  <>
+                    <MapPin className="search-button-icon" />
+                    {currentLanguage.button || "Search Buses"}
+                  </>
+                )}
+              </button>
             </form>
           </CustomCard>
 
@@ -175,7 +308,19 @@ const Hero = ({ isHindi }) => {
           </div>
         </div>
 
-        {buses.length > 0 && (
+        {loading && (
+          <div className="bus-results">
+            <div style={{ display: 'flex', justifyContent: 'center', padding: '2rem' }}>
+              <InlineBusLoader
+                size="medium"
+                message="Searching for the best buses..."
+                color="#667eea"
+              />
+            </div>
+          </div>
+        )}
+
+        {!loading && buses.length > 0 && (
           <div className="bus-results">
             <h3 className="bus-results-heading">{currentLanguage.allBuses}</h3>
             <div className="bus-grid">
@@ -192,7 +337,7 @@ const Hero = ({ isHindi }) => {
 };
 
 // FormInput Component - Reusable input field with suggestions
-const FormInput = ({ label, name, value, onChange, suggestions = [], showSuggestions, setShowSuggestions, type = 'text', disabled = false, min, activeSuggestionIndex, setActiveSuggestionIndex }) => {
+const FormInput = ({ label, name, value, onChange, suggestions = [], showSuggestions, setShowSuggestions, type = 'text', disabled = false, min, max, placeholder, activeSuggestionIndex, setActiveSuggestionIndex }) => {
   const inputRef = useRef(null);
 
   useEffect(() => {
@@ -247,8 +392,10 @@ const FormInput = ({ label, name, value, onChange, suggestions = [], showSuggest
         autoComplete="off"
         disabled={disabled}
         min={min}
+        max={max}
         ref={inputRef}
         onKeyDown={handleKeyDown}
+        placeholder={placeholder || ""}
       />
       {showSuggestions && (
         <div className={`suggestions-dropdown ${suggestions.length ? 'show' : ''}`}>
@@ -269,18 +416,25 @@ const FormInput = ({ label, name, value, onChange, suggestions = [], showSuggest
 
 // FormCheckbox Component - Reusable checkbox input
 const FormCheckbox = ({ label, name, checked, onChange }) => (
-  <div className="form-group">
-    <label className="form-label">
-      <Repeat className="form-icon" />
-      {label}
+  <div className="checkbox-group">
+    <label className="checkbox-label">
+      <input
+        type="checkbox"
+        name={name}
+        checked={checked}
+        onChange={onChange}
+        className="checkbox-input"
+      />
+      <span className="checkbox-custom">
+        <svg className="checkbox-icon" viewBox="0 0 20 20" fill="currentColor">
+          <path fillRule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clipRule="evenodd" />
+        </svg>
+      </span>
+      <span className="checkbox-text">
+        <Repeat className="form-icon" />
+        {label}
+      </span>
     </label>
-    <input
-      type="checkbox"
-      name={name}
-      checked={checked}
-      onChange={onChange}
-      className="form-checkbox"
-    />
   </div>
 );
 
