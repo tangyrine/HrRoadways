@@ -50,7 +50,20 @@ useEffect(() => {
 
   // Display a loading state until translations are fetched
   if (!currentLanguage) {
-    return <div>Loading translations...</div>;
+    return (
+    <div className="loading-container">
+      <h2>
+        <Bus size={32} />
+        {isHindi ? "हरियाणा रोडवेज ब्लॉग लोड हो रहा है..." : "Loading Haryana Roadways Blog..."}
+      </h2>
+      <p>
+        {isHindi 
+          ? "कृपया प्रतीक्षा करें, हम नवीनतम जानकारी प्राप्त कर रहे हैं..." 
+          : "Please wait while we fetch the latest updates..."
+        }
+      </p>
+      <div className="loading-spinner"></div>
+    </div>);
   }
 
   const handleChange = (e) => {
