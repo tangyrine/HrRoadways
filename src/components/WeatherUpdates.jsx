@@ -1,12 +1,15 @@
 import React, { useState, useEffect } from 'react';
 import { CloudRain, Sun, Cloud, AlertTriangle } from 'lucide-react';
+import { useTranslation } from 'react-i18next';
+
 const WeatherUpdates = () => {
+  const { t } = useTranslation();
   const [updates, setUpdates] = useState([]);
   const [currentIndex, setCurrentIndex] = useState(0);
   const [isAnimating, setIsAnimating] = useState(true);
   const apiKey = import.meta.env.VITE_WEATHER_API_KEY;
   console.log(apiKey); // Use this safely
-  
+
   // Define the routes and the cities along each route
   const routes = [
     { name: 'Chandigarh to Delhi', cities: ['Chandigarh', 'Delhi'] },
@@ -114,7 +117,7 @@ const WeatherUpdates = () => {
         <div className="flex justify-between items-center mb-4">
           <h2 className="text-2xl font-bold text-blue-900 flex items-center gap-3">
             <Sun className="w-7 h-7 text-yellow-500 animate-pulse" />
-            Live Weather Updates
+            {t('liveWeatherUpdates')}
           </h2>
           <div className="text-sm text-blue-700/70 font-medium">
             {new Date().toLocaleTimeString()}
@@ -123,8 +126,8 @@ const WeatherUpdates = () => {
 
         <div className="space-y-4">
           {updates.slice(currentIndex, currentIndex + 3).map((update, index) => (
-            <div 
-              key={index} 
+            <div
+              key={index}
               className={`
                 transform transition-all duration-700 
                 ${isAnimating ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-10'}

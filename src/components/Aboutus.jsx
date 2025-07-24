@@ -1,55 +1,21 @@
 import React, { useState, useEffect } from 'react';
 import { FaGithub } from 'react-icons/fa';
+import { useTranslation } from 'react-i18next';
 
-// Update translations by removing currentTime and currentUser
-const translations = {
-  en: {
-    header: {
-      title: "HR Roadways Project Proposal",
-      subtitle: "Modernizing Government Bus Services"
-    },
-    maintainers: {
-      title: "Project Leadership",
-      maintainer: "Project Maintainer",
-      topContributor: "Top Contributor"
-    },
-    techStack: {
-      title: "Technology Stack",
-      sections: [
-        { name: "React", description: "Frontend Framework" },
-        { name: "Nodejs", description: "Backend Runtime" },
-        { name: "JavaScript", description: "Programming Language" },
-        { name: "CSS", description: "Styling" },
-        { name: "GitHub", description: "Version Control & Collaboration" },
-        { name: "Tailwind", description: "Utility-first CSS Framework" },
-        { name: "Vite", description: "Next Generation Frontend Tooling" },
-        { name: "Vercel", description: "Deployment Platform" },
-        { name: "Figma", description: "Design and Prototyping" }
-      ]
-    },
-    contributors: {
-      title: "AcWoC Contributors",
-      viewProfile: "View Profile",
-      pullRequests: "Pull Requests"
-    },
-    links: {
-      github: "View on GitHub",
-      acwoc: "AcWoC 25",
-      androidClub: "Android Club"
-    }
-  },
-  hi: {
-    // ... (Hindi translations remain the same, just remove currentTime and currentUser)
-  }
-};
-
-function AboutUs({ isHindi = false }) {
-  const [currentLanguage, setCurrentLanguage] = useState(translations.en);
+function AboutUs() {
+  const { t } = useTranslation();
   const [contributors, setContributors] = useState([]);
 
-  useEffect(() => {
-    setCurrentLanguage(isHindi ? translations.hi : translations.en);
-  }, [isHindi]);
+  // Tech stack data
+  const techStack = [
+    { name: "JavaScript", description: "Programming Language" },
+    { name: "CSS", description: "Styling" },
+    { name: "GitHub", description: "Version Control & Collaboration" },
+    { name: "Tailwind", description: "Utility-first CSS Framework" },
+    { name: "Vite", description: "Next Generation Frontend Tooling" },
+    { name: "Vercel", description: "Deployment Platform" },
+    { name: "Figma", description: "Design and Prototyping" }
+  ];
 
   useEffect(() => {
     fetch('https://api.github.com/repos/NishantRana07/HrRoadways/pulls?state=all&labels=AcWoC&per_page=100')
@@ -84,7 +50,7 @@ function AboutUs({ isHindi = false }) {
             closedPRs: contributor.pullRequests.filter(pr => !pr.merged && pr.state === 'closed').length,
             openPRs: contributor.pullRequests.filter(pr => pr.state === 'open').length
           }));
-        
+
         setContributors(contributorsArray);
       });
   }, []);
@@ -95,10 +61,10 @@ function AboutUs({ isHindi = false }) {
         {/* Header */}
         <div className="text-center space-y-8">
           <h1 className="text-5xl md:text-6xl font-bold tracking-tight bg-gradient-to-r from-blue-400 to-purple-500 bg-clip-text text-transparent">
-            {currentLanguage.header.title}
+            {t('about.title')}
           </h1>
           <p className="text-xl md:text-2xl text-gray-300 max-w-3xl mx-auto">
-            {currentLanguage.header.subtitle}
+            {t('about.subtitle')}
           </p>
         </div>
 
@@ -107,14 +73,14 @@ function AboutUs({ isHindi = false }) {
           {/* Project Maintainer */}
           <div className="group p-8 bg-gray-800/50 backdrop-blur-xl rounded-2xl border border-gray-700/50 hover:border-blue-500/50 transition-all duration-300 hover:-translate-y-2">
             <div className="flex flex-col items-center space-y-4">
-              <img 
+              <img
                 src="https://github.com/NishantRana07.png"
                 alt="Project Maintainer"
                 className="w-28 h-28 rounded-full ring-4 ring-blue-500/50 p-1"
               />
               <div className="text-center">
                 <h3 className="text-2xl font-semibold text-blue-400">Nishant Rana</h3>
-                <p className="text-gray-400 mt-1">{currentLanguage.maintainers.maintainer}</p>
+                <p className="text-gray-400 mt-1">{t('about.maintainer')}</p>
               </div>
             </div>
           </div>
@@ -123,17 +89,17 @@ function AboutUs({ isHindi = false }) {
           {contributors.length > 0 && (
             <div className="group p-8 bg-gray-800/50 backdrop-blur-xl rounded-2xl border border-gray-700/50 hover:border-purple-500/50 transition-all duration-300 hover:-translate-y-2">
               <div className="flex flex-col items-center space-y-4">
-                <img 
+                <img
                   src={contributors[0].avatar}
                   alt="Top Contributor"
                   className="w-28 h-28 rounded-full ring-4 ring-purple-500/50 p-1"
                 />
                 <div className="text-center">
                   <h3 className="text-2xl font-semibold text-purple-400">{contributors[0].name}</h3>
-                  <p className="text-gray-400 mt-1">{currentLanguage.maintainers.topContributor}</p>
+                  <p className="text-gray-400 mt-1">{t('about.topContributor')}</p>
                   <div className="mt-4 flex gap-2 flex-wrap justify-center">
                     <span className="px-3 py-1 bg-purple-500/20 rounded-full text-sm">
-                      {contributors[0].totalPRs} {currentLanguage.contributors.pullRequests}
+                      {contributors[0].totalPRs} {t('about.pullRequests')}
                     </span>
                   </div>
                 </div>
@@ -144,47 +110,47 @@ function AboutUs({ isHindi = false }) {
 
         {/* Project Links */}
         <div className="flex flex-wrap justify-center gap-6">
-          <a 
+          <a
             href="https://github.com/NishantRana07/HrRoadways"
             className="flex items-center gap-2 px-6 py-3 bg-gray-800 hover:bg-gray-700 rounded-xl transition-all duration-300 hover:-translate-y-1"
             target="_blank"
             rel="noopener noreferrer"
           >
             <FaGithub className="w-5 h-5" />
-            {currentLanguage.links.github}
+            {t('about.github')}
           </a>
-          <a 
+          <a
             href="#"
             className="flex items-center gap-2 px-6 py-3 bg-blue-600 hover:bg-blue-500 rounded-xl transition-all duration-300 hover:-translate-y-1"
             target="_blank"
             rel="noopener noreferrer"
           >
             <img src="../src/assets/androidclub.png" alt="Android Club Logo" className="w-5 h-5" />
-            {currentLanguage.links.acwoc}
+            {t('about.acwoc')}
           </a>
         </div>
 
         {/* Tech Stack */}
         <div className="space-y-12">
           <h2 className="text-3xl font-bold text-center text-blue-400">
-            {currentLanguage.techStack.title}
+            {t('about.techStack')}
           </h2>
           <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6">
-            {currentLanguage.techStack.sections.map((tech, index) => (
-              <div 
+            {techStack.map((tech, index) => (
+              <div
                 key={index}
                 className="group p-6 bg-gray-800/50 backdrop-blur-xl rounded-xl border border-gray-700/50 hover:border-blue-500/50 transition-all duration-300 hover:-translate-y-2"
               >
                 <div className="flex flex-col items-center space-y-4">
                   <div className="p-3 bg-gray-700/50 rounded-full">
-                    <img 
+                    <img
                       src={`/techstack/${tech.name.toLowerCase()}.png`}
                       alt={tech.name}
                       className="w-12 h-12 object-contain group-hover:scale-110 transition-transform duration-300"
                       loading="lazy"
                       onError={(e) => {
-                      e.target.onerror = null; 
-                      e.target.src = "/techstack/fallback.png"; 
+                        e.target.onerror = null;
+                        e.target.src = "/techstack/fallback.png";
                       }}
                     />
                   </div>
@@ -199,16 +165,16 @@ function AboutUs({ isHindi = false }) {
         {/* Contributors */}
         <div className="space-y-12">
           <h2 className="text-3xl font-bold text-center text-blue-400">
-            {currentLanguage.contributors.title}
+            {t('about.contributors')}
           </h2>
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
             {contributors.map((contributor, index) => (
-              <div 
+              <div
                 key={index}
                 className="p-6 bg-gray-800/50 backdrop-blur-xl rounded-xl border border-gray-700/50 hover:border-blue-500/50 transition-all duration-300 hover:-translate-y-2"
               >
                 <div className="flex flex-col items-center space-y-4">
-                  <img 
+                  <img
                     src={contributor.avatar}
                     alt={contributor.name}
                     className="w-20 h-20 rounded-full ring-2 ring-blue-500/50"
@@ -222,13 +188,13 @@ function AboutUs({ isHindi = false }) {
                       {contributor.openPRs} open
                     </span>
                   </div>
-                  <a 
+                  <a
                     href={contributor.profile}
                     className="px-4 py-2 bg-blue-600 hover:bg-blue-500 rounded-lg transition-colors duration-300"
                     target="_blank"
                     rel="noopener noreferrer"
                   >
-                    {currentLanguage.contributors.viewProfile}
+                    {t('about.viewProfile')}
                   </a>
                 </div>
               </div>
