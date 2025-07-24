@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from "react";
 import { FaStar, FaThumbsUp, FaThumbsDown } from "react-icons/fa";
 import { motion } from "framer-motion";
+import Loading from './Loading';
 
 // Custom hook to fetch translations
 const useTranslation = (isHindi) => {
@@ -145,7 +146,7 @@ const Reviews = ({ isHindi }) => {
   };
 
   if (!currentLanguage) {
-    return <div>Loading translations...</div>;
+    return <Loading />;
   }
 
   return (
