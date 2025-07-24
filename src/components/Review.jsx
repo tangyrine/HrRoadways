@@ -51,6 +51,56 @@ const Reviews = ({ isHindi }) => {
       ],
     },
     // Add more reviews here
+    {
+      name: "Priya Sharma",
+      date: "2025-02-12",
+      rating: 4,
+      comment:
+        "The bus was clean and well-maintained. Staff behavior was very polite and professional.",
+      likes: 8,
+      dislikes: 0,
+      topic: "Cleanliness",
+      photo: null,
+      replies: [
+        {
+          name: "Assistant",
+          date: "2025-02-13",
+          comment:
+            "Thank you for your kind words, Priya! We’ll keep working hard to maintain cleanliness standards.",
+        },
+      ],
+    },
+    {
+      name: "Rahul Verma",
+      date: "2025-03-03",
+      rating: 3,
+      comment:
+        "The ride was comfortable, but the bus was 20 minutes late. It could be more punctual.",
+      likes: 3,
+      dislikes: 2,
+      topic: "On Time",
+      photo: null,
+      replies: [
+        {
+          name: "Assistant",
+          date: "2025-03-04",
+          comment:
+            "We apologize for the delay, Rahul. Your feedback has been noted and will help us improve.",
+        },
+      ],
+    },
+    {
+      name: "Aditi Mehta",
+      date: "2025-03-15",
+      rating: 5,
+      comment:
+        "Great value for money! Affordable fares and a very smooth journey. Highly recommended.",
+      likes: 15,
+      dislikes: 1,
+      topic: "Pricing",
+      photo: null,
+      replies: [],
+    },
   ]);
   const [currentPage, setCurrentPage] = useState(1);
   const [sortTopic, setSortTopic] = useState("All");
