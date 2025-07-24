@@ -76,7 +76,7 @@ const Navigation = ({ isHindi, onToggleLanguage }) => {
     { title: currentLanguage.tourGuide, path: '/tour-guide' },
   ];
 
-  const toggleSidebar = () => setIsMobileMenuOpen(prev => !prev);
+  const toggleSidebar = () => setIsMobileMenuOpen(x => !x);
 
   return (
     <>
