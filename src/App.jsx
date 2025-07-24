@@ -103,30 +103,32 @@ function App() {
       <Footer isHindi={isHindi} />
 
       {/* Back to Top Button */}
-      {showBackToTop && (
-        <button
-          onClick={handleScrollToTop}
-          onMouseEnter={() => setHovered(true)}
-          onMouseLeave={() => setHovered(false)}
-          style={{
-            position: 'fixed',
-            bottom: '20px',
-            right: '20px',
-            backgroundColor: hovered ? '#1E90FF' : '#007BFF',
-            color: '#fff',
-            padding: '10px 15px',
-            borderRadius: '50px',
-            fontSize: '18px',
-            cursor: 'pointer',
-            zIndex: '1000',
-            border: 'none',
-            boxShadow: hovered ? '0px 4px 6px rgba(0, 0, 0, 0.2)' : 'none',
-            transition: 'background-color 0.3s ease, box-shadow 0.3s ease',
-          }}
-        >
-          <i className="fa fa-arrow-up fa-lg"></i>
-        </button>
-      )}
+  {showBackToTop && (
+  <button
+    onClick={handleScrollToTop}
+    onMouseEnter={() => setHovered(true)}
+    onMouseLeave={() => setHovered(false)}
+    className="back-to-top-btn" // ✅ Added class for hover styles
+    style={{
+      position: 'fixed',
+      bottom: '20px',
+      right: '20px',
+      backgroundColor: hovered ? '#1E90FF' : '#007BFF',
+      color: '#fff',
+      padding: '10px 15px',
+      borderRadius: '50px',
+      fontSize: '18px',
+      cursor: 'pointer',
+      zIndex: '1000',
+      border: 'none',
+      boxShadow: hovered ? '0px 4px 6px rgba(0, 0, 0, 0.2)' : 'none',
+      transition: 'background-color 0.3s ease, box-shadow 0.3s ease, transform 0.3s ease',
+    }}
+  >
+    <i className="fa fa-arrow-up fa-lg"></i>
+  </button>
+)}
+
     </Router>
   );
 }
