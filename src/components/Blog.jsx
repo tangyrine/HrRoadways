@@ -1,6 +1,7 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useCallback } from 'react';
 import { Calendar, Clock, ThumbsUp, Share2, Bookmark, Search, MapPin, Bus } from 'lucide-react';
 import '../styles/Blog.css';
+import Loading from './Loading';
 
 const BlogPage = ({ isHindi }) => {
   // State to store fetched translations
@@ -14,59 +15,105 @@ const BlogPage = ({ isHindi }) => {
   const [searchQuery, setSearchQuery] = useState('');
   const [savedPosts, setSavedPosts] = useState(new Set());
   const [sortBy, setSortBy] = useState('latest');
+  const [loading, setLoading] = useState(true);
+  const [error, setError] = useState(null);
 
   // Replace with your hosted JSON blob URL
   const translationsUrl = 'https://jsonblob.com/api/jsonBlob/1336703432563810304';
 
-  // Fetch the translations when the component mounts
-  useEffect(() => {
-    fetch(translationsUrl)
-      .then(response => response.json())
-      .then(data => {
-        setTranslations(data);
-        // Set the current language and posts based on the isHindi prop
-        setCurrentLanguage(isHindi ? data.hi : data.en);
-        setPosts(isHindi ? data.hi.posts : data.en.posts);
-      })
-      .catch(error => console.error('Error fetching translations:', error));
+  const fetchTranslations = useCallback(async () => {
+    try {
+      setLoading(true);
+      setError(null);
+      
+      const response = await fetch(translationsUrl);
+      
+      if (!response.ok) {
+        throw new Error(`HTTP error! status: ${response.status}`);
+      }
+      
+      const data = await response.json();
+      
+      // Validate data structure
+      if (!data || (!data.hi && !data.en)) {
+        throw new Error('Invalid data structure received');
+      }
+      
+      setTranslations(data);
+      
+      // Set the current language and posts based on the isHindi prop
+      const languageData = isHindi ? data.hi : data.en;
+      setCurrentLanguage(languageData);
+      setPosts(languageData?.posts || []);
+      
+    } catch (error) {
+      console.error('Error fetching translations:', error);
+      setError(error.message);
+      
+      // Fallback data in case of fetch failure
+      const fallbackData = {
+        title: isHindi ? 'बस ब्लॉग' : 'Bus Blog',
+        subtitle: isHindi ? 'यात्रा की जानकारी और अपडेट' : 'Travel Information and Updates',
+        posts: [],
+        categories: ['all'],
+        searchPlaceholder: isHindi ? 'खोजें...' : 'Search...',
+        subscribeButton: isHindi ? 'सब्सक्राइब करें' : 'Subscribe',
+        addNewPost: isHindi ? 'नई पोस्ट जोड़ें' : 'Add New Post',
+        titlePlaceholder: isHindi ? 'शीर्षक' : 'Title',
+        contentPlaceholder: isHindi ? 'सामग्री' : 'Content',
+        categoryPlaceholder: isHindi ? 'श्रेणी चुनें' : 'Select Category',
+        tagsPlaceholder: isHindi ? 'टैग (कॉमा से अलग करें)' : 'Tags (comma separated)',
+        routePlaceholder: isHindi ? 'रूट' : 'Route',
+        publishButton: isHindi ? 'प्रकाशित करें' : 'Publish',
+        popularRoutes: isHindi ? 'लोकप्रिय रूट' : 'Popular Routes',
+        share: isHindi ? 'साझा करें' : 'Share',
+        save: isHindi ? 'सेव करें' : 'Save',
+        saved: isHindi ? 'सेव किया गया' : 'Saved',
+        postBy: isHindi ? 'द्वारा:' : 'By:',
+        sortBy: {
+          latest: isHindi ? 'नवीनतम' : 'Latest',
+          popular: isHindi ? 'लोकप्रिय' : 'Popular'
+        }
+      };
+      
+      setCurrentLanguage(fallbackData);
+      setPosts([]);
+    } finally {
+      setLoading(false);
+    }
   }, [translationsUrl, isHindi]);
 
-  // Update the current language and posts when the isHindi prop changes
+  // Fetch the translations when the component mounts or isHindi changes
   useEffect(() => {
-    if (translations) {
-      setCurrentLanguage(isHindi ? translations.hi : translations.en);
-      setPosts(isHindi ? translations.hi.posts : translations.en.posts);
-    }
-  }, [isHindi, translations]);
+    fetchTranslations();
+  }, [fetchTranslations]);
 
-  // Display a loading state until translations are fetched
-  if (!currentLanguage) {
-    return <div>Loading translations...</div>;
-  }
-
-  const handleChange = (e) => {
+  // Handle form input changes
+  const handleChange = useCallback((e) => {
     const { name, value } = e.target;
-    setFormData({ ...formData, [name]: value });
-  };
+    setFormData(prev => ({ ...prev, [name]: value }));
+  }, []);
 
-  const handleSubmit = (e) => {
+  // Handle form submission
+  const handleSubmit = useCallback((e) => {
     e.preventDefault();
     if (formData.title && formData.content) {
       const newPost = {
-        id: posts.length + 1,
+        id: Date.now(), // Use timestamp for unique ID
         ...formData,
         date: new Date().toISOString().split('T')[0],
-        tags: formData.tags.split(',').map(tag => tag.trim()),
+        tags: formData.tags.split(',').map(tag => tag.trim()).filter(tag => tag),
         likes: 0,
         readTime: `${Math.max(1, Math.ceil(formData.content.length / 1000))} min`,
         author: 'Admin'
       };
-      setPosts([newPost, ...posts]);
+      setPosts(prev => [newPost, ...prev]);
       setFormData({ title: '', content: '', category: '', tags: '', route: '' });
     }
-  };
+  }, [formData]);
 
-  const toggleSave = (postId) => {
+  // Toggle save state for posts
+  const toggleSave = useCallback((postId) => {
     setSavedPosts(prev => {
       const newSet = new Set(prev);
       if (newSet.has(postId)) {
@@ -76,26 +123,58 @@ const BlogPage = ({ isHindi }) => {
       }
       return newSet;
     });
-  };
+  }, []);
 
-  const handleLike = (postId) => {
-    setPosts(posts.map(post =>
+  // Handle post likes
+  const handleLike = useCallback((postId) => {
+    setPosts(prev => prev.map(post =>
       post.id === postId ? { ...post, likes: post.likes + 1 } : post
     ));
-  };
+  }, []);
 
-  const filteredPosts = posts
-    .filter(post =>
-      (selectedCategory === 'all' || post.category === selectedCategory) &&
-      (post.title.toLowerCase().includes(searchQuery.toLowerCase()) ||
-       post.content.toLowerCase().includes(searchQuery.toLowerCase()) ||
-       post.tags.some(tag => tag.toLowerCase().includes(searchQuery.toLowerCase())))
-    )
-    .sort((a, b) => {
-      if (sortBy === 'latest') return new Date(b.date) - new Date(a.date);
-      if (sortBy === 'popular') return b.likes - a.likes;
-      return 0;
-    });
+  // Filter and sort posts
+  const filteredPosts = React.useMemo(() => {
+    if (!posts || posts.length === 0) return [];
+    
+    return posts
+      .filter(post => {
+        if (!post) return false;
+        
+        const matchesCategory = selectedCategory === 'all' || post.category === selectedCategory;
+        const searchLower = searchQuery.toLowerCase();
+        const matchesSearch = !searchQuery || 
+          (post.title && post.title.toLowerCase().includes(searchLower)) ||
+          (post.content && post.content.toLowerCase().includes(searchLower)) ||
+          (post.tags && post.tags.some(tag => tag && tag.toLowerCase().includes(searchLower)));
+        
+        return matchesCategory && matchesSearch;
+      })
+      .sort((a, b) => {
+        if (sortBy === 'latest') return new Date(b.date) - new Date(a.date);
+        if (sortBy === 'popular') return (b.likes || 0) - (a.likes || 0);
+        return 0;
+      });
+  }, [posts, selectedCategory, searchQuery, sortBy]);
+
+  // Error state
+  if (error && !currentLanguage) {
+    return (
+      <div className="blog-page-container">
+        <div className="error-message">
+          <h2>Error loading content</h2>
+          <p>{error}</p>
+          <button onClick={fetchTranslations} className="retry-button">
+            Retry
+          </button>
+        </div>
+      </div>
+    );
+  }
+
+  // Loading state
+  if (loading || !currentLanguage) {
+    return <Loading />;
+  }
 
   return (
     <div className="blog-page-container">
@@ -140,13 +219,13 @@ const BlogPage = ({ isHindi }) => {
                   value={sortBy}
                   onChange={(e) => setSortBy(e.target.value)}
                 >
-                  <option value="latest">{currentLanguage.sortBy.latest}</option>
-                  <option value="popular">{currentLanguage.sortBy.popular}</option>
+                  <option value="latest">{currentLanguage.sortBy?.latest || 'Latest'}</option>
+                  <option value="popular">{currentLanguage.sortBy?.popular || 'Popular'}</option>
                 </select>
               </div>
 
               <div className="category-filters">
-                {currentLanguage.categories.map(category => (
+                {currentLanguage.categories?.map(category => (
                   <button
                     key={category}
                     onClick={() => setSelectedCategory(category)}
@@ -162,63 +241,71 @@ const BlogPage = ({ isHindi }) => {
 
             {/* Blog Posts */}
             <div className="blog-posts">
-              {filteredPosts.map((post) => (
-                <article key={post.id} className="blog-post">
-                  <div className="post-content">
-                    <div className="post-meta">
-                      <span className="post-meta-item">
-                        <Calendar size={16} />
-                        {post.date}
-                      </span>
-                      <span className="post-meta-item">
-                        <Clock size={16} />
-                        {post.readTime}
-                      </span>
-                      {post.route && (
+              {filteredPosts.length === 0 ? (
+                <div className="no-posts">
+                  <p>{isHindi ? 'कोई पोस्ट नहीं मिली' : 'No posts found'}</p>
+                </div>
+              ) : (
+                filteredPosts.map((post) => (
+                  <article key={post.id} className="blog-post">
+                    <div className="post-content">
+                      <div className="post-meta">
                         <span className="post-meta-item">
-                          <MapPin size={16} />
-                          {post.route}
+                          <Calendar size={16} />
+                          {post.date}
                         </span>
-                      )}
-                    </div>
-
-                    <h2 className="post-title">{post.title}</h2>
-                    <p className="post-description">{post.content}</p>
-
-                    <div className="post-tags">
-                      {post.tags.map((tag, index) => (
-                        <span key={index} className="post-tag">
-                          {tag}
+                        <span className="post-meta-item">
+                          <Clock size={16} />
+                          {post.readTime}
                         </span>
-                      ))}
-                    </div>
-
-                    <div className="post-actions">
-                      <div className="post-actions-left">
-                        <button
-                          onClick={() => handleLike(post.id)}
-                          className="post-action-button"
-                        >
-                          <ThumbsUp size={18} />
-                          {post.likes}
-                        </button>
-                        <button className="post-action-button">
-                          <Share2 size={18} />
-                          {currentLanguage.share}
-                        </button>
-                        <button
-                          onClick={() => toggleSave(post.id)}
-                          className={`post-action-button ${savedPosts.has(post.id) ? 'saved' : ''}`}
-                        >
-                          <Bookmark size={18} />
-                          {savedPosts.has(post.id) ? currentLanguage.saved : currentLanguage.save}
-                        </button>
+                        {post.route && (
+                          <span className="post-meta-item">
+                            <MapPin size={16} />
+                            {post.route}
+                          </span>
+                        )}
                       </div>
-                      <span className="post-author">{currentLanguage.postBy} {post.author}</span>
+
+                      <h2 className="post-title">{post.title}</h2>
+                      <p className="post-description">{post.content}</p>
+
+                      {post.tags && post.tags.length > 0 && (
+                        <div className="post-tags">
+                          {post.tags.map((tag, index) => (
+                            <span key={index} className="post-tag">
+                              {tag}
+                            </span>
+                          ))}
+                        </div>
+                      )}
+
+                      <div className="post-actions">
+                        <div className="post-actions-left">
+                          <button
+                            onClick={() => handleLike(post.id)}
+                            className="post-action-button"
+                          >
+                            <ThumbsUp size={18} />
+                            {post.likes || 0}
+                          </button>
+                          <button className="post-action-button">
+                            <Share2 size={18} />
+                            {currentLanguage.share}
+                          </button>
+                          <button
+                            onClick={() => toggleSave(post.id)}
+                            className={`post-action-button ${savedPosts.has(post.id) ? 'saved' : ''}`}
+                          >
+                            <Bookmark size={18} />
+                            {savedPosts.has(post.id) ? currentLanguage.saved : currentLanguage.save}
+                          </button>
+                        </div>
+                        <span className="post-author">{currentLanguage.postBy} {post.author}</span>
+                      </div>
                     </div>
-                  </div>
-                </article>
-              ))}
+                  </article>
+                ))
+              )}
             </div>
           </div>
 
@@ -253,7 +340,7 @@ const BlogPage = ({ isHindi }) => {
                   required
                 >
                   <option value="">{currentLanguage.categoryPlaceholder}</option>
-                  {currentLanguage.categories.filter(cat => cat !== 'all').map(category => (
+                  {currentLanguage.categories?.filter(cat => cat !== 'all').map(category => (
                     <option key={category} value={category}>{category}</option>
                   ))}
                 </select>
