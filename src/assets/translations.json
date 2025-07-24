@@ -37,6 +37,27 @@
     "description": "Your support helps us serve better.",
     "donateButton": "Donate Now",
 
+    "trackerTitle": "Live Bus Tracker",
+    "trackerSubtitle": "Track your buses in real-time",
+    "trackerLoading": "Loading buses...",
+    "trackerActiveBuses": "Active Buses",
+    "trackerMinutes": "minutes",
+    "trackerKmh": "km/h",
+    "trackerRoutes": {
+      "Delhi-Chandigarh Express": "Delhi-Chandigarh Express",
+      "Gurgaon-Sonipat Express": "Gurgaon-Sonipat Express",
+      "Panipat": "Panipat",
+      "Rohini": "Rohini"
+    },
+    "busInfo": {
+      "speed": "Speed",
+      "nextStop": "Next Stop",
+      "eta": "ETA",
+      "passengers": "Passengers",
+      "driver": "Driver",
+      "contact": "Contact"
+    },
+
     "title": "Explore Haryana",
     "subtitle": "Discover the vibrant culture and scenic beauty of Haryana.",
     "searchPlaceholder": "Search by name or description...",
@@ -161,6 +182,26 @@
     ]
   },
   "hi": {
+    "trackerTitle": "लाइव बस ट्रैकर",
+    "trackerSubtitle": "अपनी बसों को रीयल टाइम में ट्रैक करें",
+    "trackerLoading": "बसें लोड हो रही हैं...",
+    "trackerActiveBuses": "सक्रिय बसें",
+    "trackerMinutes": "मिनट",
+    "trackerKmh": "कि.मी./घंटा",
+    "trackerRoutes": {
+      "Delhi-Chandigarh Express": "दिल्ली-चंडीगढ़ एक्सप्रेस",
+      "Gurgaon-Sonipat Express": "गुड़गांव-सोनीपत एक्सप्रेस",
+      "Panipat": "पानीपत",
+      "Rohini": "रोहिणी"
+    },
+    "busInfo": {
+      "speed": "गति",
+      "nextStop": "अगला पड़ाव",
+      "eta": "पहुंचने का समय",
+      "passengers": "यात्रियों की संख्या",
+      "driver": "चालक",
+      "contact": "संपर्क"
+    },
     "headerTitle": "हरियाणा रोडवेज का समर्थन करें",
     "headerSubtitle": "आपका योगदान सार्वजनिक परिवहन को बनाए रखने में मदद करता है।",
     "supportMission": "हमारे मिशन का समर्थन करें",
