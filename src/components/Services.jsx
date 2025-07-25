@@ -89,7 +89,7 @@ const ServiceCard = ({ icon: Icon, title, description, color }) => {
       className="service-card group"
     >
       <div className={`service-icon bg-${color}-100 text-${color}-600`}>
-        <Icon className="w-10 h-10" />
+        <Icon className="w-10 h-10 m-auto" />
       </div>
       <h3 className="service-title">{title}</h3>
       <p className="service-description">{description}</p>
