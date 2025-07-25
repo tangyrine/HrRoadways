@@ -77,7 +77,7 @@ function Footer({ isHindi }) {
           </div>
         </div>
 
-        <div className="footer-sections">
+        <div className="footer-sections color-white">
           {[
             {
               title: t.company,
@@ -118,7 +118,7 @@ function Footer({ isHindi }) {
             <div key={index} className="footer-section">
               <div className="footer-section-header">
                 <section.icon className="footer-section-icon" />
-                <h4 className="footer-section-title">{section.title}</h4>
+                <h4 className="footer-section-title text-white">{section.title}</h4>
               </div>
               {section.links.length > 0 ? (
                 <ul className="footer-links">
