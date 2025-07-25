@@ -32,7 +32,7 @@ Your new route must be an object with exactly these fields, added inside the top
   "Price": "₹XXX/-",
   "Bus_Type": "Operator Name",
   "Via": "Stop1, Stop2, Stop3",
-  "Contact": "Phone or dash (–) if none"
+  "Contact": "Phone number or use "" if not available"
 }
 ````
 
@@ -50,7 +50,7 @@ Your new route must be an object with exactly these fields, added inside the top
 | `Price`          |    Yes    | Ticket price (use `₹` and add `/-` or just `₹199`). |
 | `Bus_Type`       |    Yes    | Operator (e.g. “Haryana Roadways”, “Volvo”).        |
 | `Via`            |    Yes    | Comma‑separated list of major stops en route.       |
-| `Contact`        |     No    | Hotline or dash/empty for none.                     |
+| `Contact`        |     No    | `""` if not available.                   |
 
 ---
 
@@ -69,7 +69,7 @@ Below is how an entry looks in `HARYANA.json`. Make sure it’s comma‑separate
     "Price": "₹199",
     "Bus_Type": "Haryana Roadways",
     "Via": "Dabwali, Sirsa, Fatehabad, Agroha",
-    "Contact": "–"
+    "Contact": ""
   },
   {
     "from": "Agra",
@@ -82,25 +82,24 @@ Below is how an entry looks in `HARYANA.json`. Make sure it’s comma‑separate
     "Via": "Mathura, Kosi, Hodal, Palwal, Sohna, Gurugram, Jhajjar",
     "Contact": ""
   }
-  <!-- ← Add your new entry here, with a comma above if needed -->
 ]
 ```
+
+> 💡 **Tip:** Add your new entry after the last one, and remember to include a comma between entries if needed.
 
 ---
 
 ## ✅ Contribution Checklist
 
 * [ ] **Add** your new route object to the existing array in `public/Places/HARYANA.json`
-* [ ] **Validate** JSON syntax (commas, quotes) with a linter or VS Code
-* [ ] **Spell-check** city names, times, and operator names
-* [ ] **Preview** changes locally if you have a JSON‑viewer
+* [ ] **Validate** JSON syntax (commas, quotes) using a linter or in VS Code
+* [ ] **Spell-check** all city names, times, and operator fields
+* [ ] **Preview** changes locally using a JSON viewer
 * [ ] **PR Title:** `Add route: <START_CITY> → <END_CITY>`
 
 ---
 
 ### ❓ Need Help?
 
-If you run into trouble, please open an issue or drop a question in Discussions under the “Routes” topic. Happy contributing! 🚀
-
-```
-```
+If you run into trouble, please open an issue or ask in the Discussions tab under the “Routes” topic.
+Thanks for contributing! 🚀
