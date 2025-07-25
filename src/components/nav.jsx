@@ -1,15 +1,18 @@
 import React, { useState, useEffect, useRef } from 'react';
-import { NavLink } from 'react-router-dom'; // Changed from Link to NavLink
+import { NavLink } from 'react-router-dom';
+import { useTranslation } from 'react-i18next';
 import '../styles/nav.css';
 import { Menu, X, ChevronDown, Phone } from 'lucide-react';
-import { getStoredLanguage, setStoredLanguage } from '../../libs/languageStorage';
+import LanguageSelector from './LanguageSelector';
 
 const Logo = 'https://i.ibb.co/kg3RQQ1S/LogoHR.png';
 
-const Navigation = ({ isHindi, onToggleLanguage }) => {
+const Navigation = () => {
+  const { t, i18n } = useTranslation();
   const [isScrolled, setIsScrolled] = useState(false);
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
   const [isServicesOpen, setIsServicesOpen] = useState(false);
+  const [isHindi, setIsHindi] = useState(i18n.language === 'hi');
   const servicesTimer = useRef(null);
 
   useEffect(() => {
@@ -29,51 +32,16 @@ const Navigation = ({ isHindi, onToggleLanguage }) => {
     }, 200);
   };
 
-  useEffect(() => {
-    setStoredLanguage(isHindi ? 'hi' : 'en');
-  }, [isHindi]);
-
-  const translations = {
-    en: {
-      home: "Home",
-      contact: "Contact",
-      donate: "Donate",
-      about: "About Us",
-      trip: "Plan Journey",
-      services: "Services",
-      track: "Track Bus",
-      schedule: "Time Table",
-      tourGuide: "Tour Guide",
-      helpline: "24x7 Helpline",
-      blog: "Blog",
-      quickLinks: "Quick Links",
-      travellocations: "Travel",
-      guide: "Guide and Rules",
-    },
-    hi: {
-      home: "मुख्य पृष्ठ",
-      contact: "संपर्क करें",
-      donate: "दान करें",
-      about: "हमारे बारे में",
-      trip: "यात्रा योजना",
-      services: "सेवाएं",
-      track: "बस ट्रैक करें",
-      schedule: "समय सारणी",
-      tourGuide: "मार्गदर्शिका",
-      helpline: "24x7 हेल्पलाइन",
-      blog: "ब्लॉग",
-      quickLinks: "त्वरित लिंक",
-      travellocations: "यात्रा",
-      guide: "मार्गदर्शिका और नियम",
-    },
+  const onToggleLanguage = () => {
+    const newLang = isHindi ? 'en' : 'hi';
+    i18n.changeLanguage(newLang);
+    setIsHindi(!isHindi);
   };
 
-  const currentLanguage = isHindi ? translations.hi : translations.en;
-
   const servicesDropdown = [
-    { title: currentLanguage.track, path: '/track' },
-    { title: currentLanguage.schedule, path: '/schedule' },
-    { title: currentLanguage.tourGuide, path: '/tour-guide' },
+    { title: t('nav.track'), path: '/track' },
+    { title: t('nav.schedule'), path: '/schedule' },
+    { title: t('nav.tourGuide'), path: '/tour-guide' },
   ];
 
   const toggleSidebar = () => setIsMobileMenuOpen(x => !x);
@@ -89,26 +57,11 @@ const Navigation = ({ isHindi, onToggleLanguage }) => {
               1800-180-2345
             </span>
             <NavLink to="/rules" className="hover:underline">
-              {currentLanguage.guide}
+              {t('nav.guide')}
             </NavLink>
           </div>
           <div className="flex items-center space-x-4">
-            <div className="lang flex items-center">
-              EN
-              <div className="checkbox-wrapper-5 ml-2 mr-2">
-                <div className="check">
-                  <input
-                    id="check-5"
-                    type="checkbox"
-                    checked={isHindi}
-                    onChange={onToggleLanguage}
-                    className="sr-only"
-                  />
-                  <label htmlFor="check-5" className="toggle-label"></label>
-                </div>
-              </div>
-              HI
-            </div>
+            <LanguageSelector variant="navbar" />
           </div>
         </div>
       </div>
@@ -127,7 +80,7 @@ const Navigation = ({ isHindi, onToggleLanguage }) => {
             {/* Desktop Links */}
             <div className="hidden md:flex items-center space-x-6">
               <NavLink to="/" className="text-gray-700 hover:text-blue-600 font-medium dark:text-gray-300 dark:hover:text-blue-400">
-                {currentLanguage.home}
+                {t('nav.home')}
               </NavLink>
 
               <div
@@ -136,7 +89,7 @@ const Navigation = ({ isHindi, onToggleLanguage }) => {
                 onMouseLeave={handleMouseLeave}
               >
                 <button className="text-gray-700 hover:text-blue-600 font-medium flex items-center dark:text-gray-300 dark:hover:text-blue-400">
-                  {currentLanguage.services}
+                  {t('nav.services')}
                   <ChevronDown className={`w-4 h-4 ml-1 transition-transform duration-200 ${isServicesOpen ? 'rotate-180' : ''} dark:text-gray-300`} />
                 </button>
 
@@ -154,24 +107,14 @@ const Navigation = ({ isHindi, onToggleLanguage }) => {
                 </div>
               </div>
 
-              <NavLink to="/trip" className="text-gray-700 hover:text-blue-600 font-medium dark:text-gray-300 dark:hover:text-blue-400">
-                {currentLanguage.trip}
-              </NavLink>
-              <NavLink to="/travellocations" className="text-gray-700 hover:text-blue-600 font-medium dark:text-gray-300 dark:hover:text-blue-400">
-                {currentLanguage.travellocations}
-              </NavLink>
-              <NavLink to="/about" className="text-gray-700 hover:text-blue-600 font-medium dark:text-gray-300 dark:hover:text-blue-400">
-                {currentLanguage.about}
-              </NavLink>
-              <NavLink to="/blog" className="text-gray-700 hover:text-blue-600 font-medium dark:text-gray-300 dark:hover:text-blue-400">
-                {currentLanguage.blog}
-              </NavLink>
-              <NavLink to="/donate" className="text-gray-700 hover:text-blue-600 font-medium dark:text-gray-300 dark:hover:text-blue-400">
-                {currentLanguage.donate}
-              </NavLink>
+              <NavLink to="/trip" className="text-gray-700 hover:text-blue-600 font-medium dark:text-gray-300 dark:hover:text-blue-400">{t('nav.trip')}</NavLink>
+              <NavLink to="/travellocations" className="text-gray-700 hover:text-blue-600 font-medium dark:text-gray-300 dark:hover:text-blue-400">{t('nav.travellocations')}</NavLink>
+              <NavLink to="/about" className="text-gray-700 hover:text-blue-600 font-medium dark:text-gray-300 dark:hover:text-blue-400">{t('nav.about')}</NavLink>
+              <NavLink to="/blog" className="text-gray-700 hover:text-blue-600 font-medium dark:text-gray-300 dark:hover:text-blue-400">{t('nav.blog')}</NavLink>
+              <NavLink to="/donate" className="text-gray-700 hover:text-blue-600 font-medium dark:text-gray-300 dark:hover:text-blue-400">{t('nav.donate')}</NavLink>
               <NavLink to="/helpline" className="bg-blue-800 text-white px-4 py-2 rounded-lg hover:bg-blue-700 transition flex items-center text-base font-semibold ml-4 dark:bg-blue-600 dark:hover:bg-blue-500">
                 <Phone className="w-4 h-4 mr-1" />
-                {currentLanguage.helpline}
+                {t('nav.helpline')}
               </NavLink>
             </div>
 
@@ -187,14 +130,10 @@ const Navigation = ({ isHindi, onToggleLanguage }) => {
       <div className={`fixed inset-y-0 right-0 w-64 bg-white shadow-lg transform ${isMobileMenuOpen ? 'translate-x-0' : 'translate-x-full'} transition-transform duration-300 ease-in-out z-50 md:hidden dark:bg-gray-800 dark:shadow-xl`}>
         <div className="p-4">
           <ul className="space-y-4">
-            <li>
-              <NavLink to="/" onClick={toggleSidebar} className="block py-2 hover:text-blue-600 dark:text-gray-200 dark:hover:text-blue-400">
-                {currentLanguage.home}
-              </NavLink>
-            </li>
+            <li><NavLink to="/" onClick={toggleSidebar} className="block py-2 hover:text-blue-600 dark:text-gray-200 dark:hover:text-blue-400">{t('nav.home')}</NavLink></li>
             <li className="relative">
-              <button onClick={() => setIsServicesOpen(!isServicesOpen)} className="block py-2 hover:text-blue-600 flex items-center justify-between w-full dark:text-gray-200 dark:hover:text-blue-400">
-                {currentLanguage.services}
+              <button onClick={() => setIsServicesOpen(!isServicesOpen)} className="flex py-2 hover:text-blue-600 items-center justify-between w-full dark:text-gray-200 dark:hover:text-blue-400">
+                {t('nav.services')}
                 <ChevronDown className={`w-4 h-4 transition-transform duration-200 ${isServicesOpen ? 'rotate-180' : ''} dark:text-gray-200`} />
               </button>
               {isServicesOpen && (
@@ -213,12 +152,12 @@ const Navigation = ({ isHindi, onToggleLanguage }) => {
                 </ul>
               )}
             </li>
-            <li><NavLink to="/trip" onClick={toggleSidebar} className="block py-2 hover:text-blue-600 dark:text-gray-200 dark:hover:text-blue-400">{currentLanguage.trip}</NavLink></li>
-            <li><NavLink to="/travellocations" onClick={toggleSidebar} className="block py-2 hover:text-blue-600 dark:text-gray-200 dark:hover:text-blue-400">{currentLanguage.travellocations}</NavLink></li>
-            <li><NavLink to="/about" onClick={toggleSidebar} className="block py-2 hover:text-blue-600 dark:text-gray-200 dark:hover:text-blue-400">{currentLanguage.about}</NavLink></li>
-            <li><NavLink to="/blog" onClick={toggleSidebar} className="block py-2 hover:text-blue-600 dark:text-gray-200 dark:hover:text-blue-400">{currentLanguage.blog}</NavLink></li>
-            <li><NavLink to="/donate" onClick={toggleSidebar} className="block py-2 hover:text-blue-600 dark:text-gray-200 dark:hover:text-blue-400">{currentLanguage.donate}</NavLink></li>
-            <li><NavLink to="/helpline" onClick={toggleSidebar} className="block py-2 hover:text-blue-600 dark:text-gray-200 dark:hover:text-blue-400">{currentLanguage.helpline}</NavLink></li>
+            <li><NavLink to="/trip" onClick={toggleSidebar} className="block py-2 hover:text-blue-600 dark:text-gray-200 dark:hover:text-blue-400">{t('nav.trip')}</NavLink></li>
+            <li><NavLink to="/travellocations" onClick={toggleSidebar} className="block py-2 hover:text-blue-600 dark:text-gray-200 dark:hover:text-blue-400">{t('nav.travellocations')}</NavLink></li>
+            <li><NavLink to="/about" onClick={toggleSidebar} className="block py-2 hover:text-blue-600 dark:text-gray-200 dark:hover:text-blue-400">{t('nav.about')}</NavLink></li>
+            <li><NavLink to="/blog" onClick={toggleSidebar} className="block py-2 hover:text-blue-600 dark:text-gray-200 dark:hover:text-blue-400">{t('nav.blog')}</NavLink></li>
+            <li><NavLink to="/donate" onClick={toggleSidebar} className="block py-2 hover:text-blue-600 dark:text-gray-200 dark:hover:text-blue-400">{t('nav.donate')}</NavLink></li>
+            <li><NavLink to="/helpline" onClick={toggleSidebar} className="block py-2 hover:text-blue-600 dark:text-gray-200 dark:hover:text-blue-400">{t('nav.helpline')}</NavLink></li>
             <li className="flex items-center justify-between py-2 dark:text-gray-200">
               <span>EN</span>
               <div className="checkbox-wrapper-5">
