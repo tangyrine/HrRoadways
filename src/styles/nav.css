@@ -68,11 +68,45 @@ body {
   left: 75%;
 }
 
+
+.checkbox-wrapper-5 .check input[type="checkbox"]:checked + label::after {
+  height: calc(.16 * var(--size));
+  top: calc(.55 * var(--size));
+  left: calc(1.6 * var(--size));
+  font-size: calc(.6 * var (--size));
+  line-height: 0;
+}
+
+.dropdown {
+  display: none;
+  opacity: 0;
+  visibility: hidden;
+  transform: translateY(-10px);
+  transition: opacity 0.3s ease, transform 0.3s ease;
+}
+
+.group:hover .dropdown,
+.dropdown.show {
+  display: block;
+  opacity: 1;
+  visibility: visible;
+  transform: translateY(0);
+}
+
+.right .dropdown {
+  position: absolute;
+  top: 100%;
+  left: 0;
+  z-index: 2000;
+  min-width: 200px;
+}
+
+=======
 .checkbox-wrapper-5 .check input[type="checkbox"]:checked + label {
   background: linear-gradient(90deg, #358cd4, #295db7);
 }
 
-/* Sidebar styles for mobile */
+
 .sidebar {
   position: fixed;
   right: 0;
@@ -83,7 +117,6 @@ body {
   transform: translateX(100%);
   transition: transform 0.3s;
   z-index: 1001;
-  padding-top: 60px;
   color: white;
 }
 
@@ -118,7 +151,7 @@ body {
   font-weight: 500;
   padding: 1rem;
   display: block;
-  transition: all 0.3s ease;
+  transition: background-color 0.3s ease, padding-left 0.3s ease;
 }
 
 .sidebar ul li a:hover {
@@ -176,4 +209,11 @@ body {
 .nav-link:hover {
   color: #196bae;
   transform: scale(1.05);
+}
+/* Highlight the active nav link */
+.nav-link.active,
+.active {
+  color: #1976d2 !important;
+  border-bottom: 2px solid #1976d2;
+  font-weight: bold;
 }
