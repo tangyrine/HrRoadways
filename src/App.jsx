@@ -29,7 +29,6 @@ import TourGuidePage from './components/TourGuidePage';
 import NotFound from './components/NotFound';
 import BookingPage from './components/BookingPage';
 
-// Wrapper to handle passing state from react-router-dom's Link (if needed)
 function BookingPageWrapper() {
   const location = useLocation();
   const { selectedBus } = (location && location.state) || {};
@@ -58,10 +57,8 @@ function App() {
   return (
     <LanguageProvider>
       <Router>
-        {/* Navigation Bar (applies to all routes) */}
         <Navigation />
 
-        {/* Main Routes */}
         <Routes>
           <Route path="/" element={<Hero />} />
           <Route path="/Available" element={<Available />} />
@@ -71,11 +68,8 @@ function App() {
           <Route path="/policy" element={<InfoPage />} />
           <Route path="/rules" element={<RulesAndGuidelines />} />
           <Route path="/under-construction" element={<UnderConstruction />} />
-
-          {/* Redirect duplicate path to canonical contact route */}
           <Route path="/contactUs" element={<Navigate to="/contact" replace />} />
           <Route path="/contact" element={<ContactUs />} />
-
           <Route path="/blog" element={<Blog />} />
           <Route path="/payment" element={<PaymentOptions />} />
           <Route path="/track" element={<BusTracker />} />
@@ -87,25 +81,21 @@ function App() {
           <Route path="/schedule" element={<WeeklyTimetable />} />
           <Route path="/reviews" element={<Reviews />} />
           <Route path="/affiliate" element={<AffiliateProgram />} />
-
           <Route path="/card" element={<BusCard />} />
           <Route path="/guide" element={<Tutorial />} />
           <Route path="/tour-guide" element={<TourGuidePage />} />
-          <Route path="*" element={<NotFound />} />
-
-          {/* New booking route to apply same navbar & footer */}
           <Route path="/booking" element={<BookingPageWrapper />} />
+          <Route path="*" element={<NotFound />} />
         </Routes>
 
-        {/* Footer (applies to all routes) */}
         <Footer />
 
-        {/* Back to Top Button */}
         {showBackToTop && (
           <button
             onClick={handleScrollToTop}
             onMouseEnter={() => setHovered(true)}
             onMouseLeave={() => setHovered(false)}
+            className="back-to-top-btn"
             style={{
               position: 'fixed',
               bottom: '20px',
@@ -119,7 +109,7 @@ function App() {
               zIndex: '1000',
               border: 'none',
               boxShadow: hovered ? '0px 4px 6px rgba(0, 0, 0, 0.2)' : 'none',
-              transition: 'background-color 0.3s ease, box-shadow 0.3s ease',
+              transition: 'background-color 0.3s ease, box-shadow 0.3s ease, transform 0.3s ease',
             }}
           >
             <i className="fa fa-arrow-up fa-lg"></i>
