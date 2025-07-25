@@ -1,5 +1,6 @@
 import React, { useState, useEffect, useRef } from 'react';
 import { Calendar, Clock, MapPin, AlertCircle, Info, Repeat, Shield, Star, Phone, Users } from 'lucide-react';
+import { useTranslation } from 'react-i18next';
 import TrafficUpdates from './TrafficUpdates';
 import PopularRoutes from './PopularRoutes';
 import BusDetailModal from './BusDetailModal';
@@ -23,10 +24,10 @@ const CustomCard = ({ children, className }) => (
 );
 
 // Hero Component - Main Component
-const Hero = ({ isHindi }) => {
+const Hero = () => {
+  const { t } = useTranslation();
 
   // State management
-  const [currentLanguage, setCurrentLanguage] = useState({});
   const [formData, setFormData] = useState({
     src: '',
     dest: '',
@@ -48,13 +49,6 @@ const Hero = ({ isHindi }) => {
 
   const inputRefs = useRef([]);
   const containerRef = useRef(null);
-
-  // Fetch language data
-  useEffect(() => {
-    fetch('https://jsonblob.com/api/jsonBlob/1336693063321575424')
-      .then(response => response.json())
-      .then(data => setCurrentLanguage(isHindi ? data.hi : data.en));
-  }, [isHindi]);
 
   // Fetch alerts
   useEffect(() => {
@@ -134,38 +128,54 @@ const Hero = ({ isHindi }) => {
       <div className="hero-header">
         <div className="hero-header-overlay" />
         <div className="hero-header-content">
-          <h1 className="hero-heading">{currentLanguage.heading}</h1>
-          <p className="hero-subheading">{currentLanguage.subheading}</p>
+          <h1 className="hero-heading">{t('hero.heading')}</h1>
+          <p className="hero-subheading">{t('hero.subheading')}</p>
         </div>
       </div>
 
       <div className="hero-features">
         <div className="features-container">
-          {currentLanguage.features?.map((feature, index) => {
-            const IconComponent = feature.icon === "Shield" ? Shield : feature.icon === "Clock" ? Clock : feature.icon === "Star" ? Star : feature.icon === "Phone" ? Phone : null;
-            return (
-              <div key={index} className="feature-item">
-                {IconComponent && <IconComponent className="feature-icon" />}
-                <div>
-                  <div className="feature-title">{feature.title}</div>
-                  <div className="feature-desc">{feature.desc}</div>
-                </div>
-              </div>
-            );
-          })}
+          <div className="feature-item">
+            <Shield className="feature-icon" />
+            <div>
+              <div className="feature-title">{t('about.safety')}</div>
+              <div className="feature-desc">{t('about.safetyDesc')}</div>
+            </div>
+          </div>
+          <div className="feature-item">
+            <Clock className="feature-icon" />
+            <div>
+              <div className="feature-title">{t('about.reliability')}</div>
+              <div className="feature-desc">{t('about.reliabilityDesc')}</div>
+            </div>
+          </div>
+          <div className="feature-item">
+            <Star className="feature-icon" />
+            <div>
+              <div className="feature-title">{t('about.comfort')}</div>
+              <div className="feature-desc">{t('about.comfortDesc')}</div>
+            </div>
+          </div>
+          <div className="feature-item">
+            <Phone className="feature-icon" />
+            <div>
+              <div className="feature-title">{t('services.support')}</div>
+              <div className="feature-desc">{t('services.supportDesc')}</div>
+            </div>
+          </div>
         </div>
       </div>
 
       <div className="hero-content">
         <div className="content-grid">
           <CustomCard className="form-card">
-            <form className="form text-zinc-950" onSubmit={handleSubmit}>
-              <FormInput placeholder="Departure location" label={currentLanguage.departure} name="src" value={formData.src} onChange={handleChange} suggestions={srcSuggestions} showSuggestions={showSrcSuggestions} setShowSuggestions={setShowSrcSuggestions} activeSuggestionIndex={activeSrcSuggestionIndex} setActiveSuggestionIndex={setActiveSrcSuggestionIndex} />
-              <FormInput placeholder="Destination city or address" label={currentLanguage.arrival} name="dest" value={formData.dest} onChange={handleChange} suggestions={destSuggestions} showSuggestions={showDestSuggestions} setShowSuggestions={setShowDestSuggestions} activeSuggestionIndex={activeDestSuggestionIndex} setActiveSuggestionIndex={setActiveDestSuggestionIndex} disabled={!formData.src} />
-              <FormInput placeholder="Choose departure date" label="Date" name="date" type="date" value={formData.date} onChange={handleChange} />
-              <FormInput placeholder="Number of passengers" label={currentLanguage.passengers} name="passengers" type="number" value={formData.passengers} onChange={handleChange} min="1" />
-              <FormCheckbox label={currentLanguage.roundTrip} name="roundTrip" checked={formData.roundTrip} onChange={() => setFormData({ ...formData, roundTrip: !formData.roundTrip })} />
-              <button type="submit" className="search-button">{currentLanguage.button}</button>
+            <form className="form text-slate-950" onSubmit={handleSubmit}>
+              <FormInput placeholder="Departure location" label={t('hero.departure')} name="src" value={formData.src} onChange={handleChange} suggestions={srcSuggestions} showSuggestions={showSrcSuggestions} setShowSuggestions={setShowSrcSuggestions} activeSuggestionIndex={activeSrcSuggestionIndex} setActiveSuggestionIndex={setActiveSrcSuggestionIndex} />
+              <FormInput placeholder="Destination city or address" label={t('hero.arrival')} name="dest" value={formData.dest} onChange={handleChange} suggestions={destSuggestions} showSuggestions={showDestSuggestions} setShowSuggestions={setShowDestSuggestions} activeSuggestionIndex={activeDestSuggestionIndex} setActiveSuggestionIndex={setActiveDestSuggestionIndex} disabled={!formData.src} />
+              <FormInput label={t('schedule.departure')} name="date" type="date" value={formData.date} onChange={handleChange} />
+              <FormInput label={t('trip.passengers')} name="passengers" type="number" value={formData.passengers} onChange={handleChange} min="1" />
+              <FormCheckbox label={t('trip.roundTrip')} name="roundTrip" checked={formData.roundTrip} onChange={() => setFormData({ ...formData, roundTrip: !formData.roundTrip })} />
+              <button type="submit" className="search-button">{t('hero.button')}</button>
             </form>
           </CustomCard>
 
@@ -177,7 +187,7 @@ const Hero = ({ isHindi }) => {
 
         {buses.length > 0 && (
           <div className="bus-results">
-            <h3 className="bus-results-heading">{currentLanguage.allBuses}</h3>
+            <h3 className="bus-results-heading">{t('hero.allBuses')}</h3>
             <div className="bus-grid">
               {buses.map((bus, index) => (
                 <BusCard key={index} bus={bus} onClick={() => handleBusCardClick(bus)} />
@@ -192,7 +202,7 @@ const Hero = ({ isHindi }) => {
 };
 
 // FormInput Component - Reusable input field with suggestions
-const FormInput = ({placeholder, label, name, value, onChange, suggestions = [], showSuggestions, setShowSuggestions, type = 'text', disabled = false, min, activeSuggestionIndex, setActiveSuggestionIndex }) => {
+const FormInput = ({ placeholder , label, name, value, onChange, suggestions = [], showSuggestions, setShowSuggestions, type = 'text', disabled = false, min, activeSuggestionIndex, setActiveSuggestionIndex }) => {
   const inputRef = useRef(null);
 
   useEffect(() => {
@@ -238,8 +248,8 @@ const FormInput = ({placeholder, label, name, value, onChange, suggestions = [],
         {name === 'src' || name === 'dest' ? <MapPin className="form-icon" /> : null}
         {label}
       </label>
-      <input 
-        placeholder= {placeholder}
+      <input
+       placeholder= {placeholder}
         type={type}
         name={name}
         value={value}
