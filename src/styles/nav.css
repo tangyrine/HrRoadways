@@ -210,4 +210,10 @@ body {
   color: #196bae;
   transform: scale(1.05);
 }
-
+/* Highlight the active nav link */
+.nav-link.active,
+.active {
+  color: #1976d2 !important;
+  border-bottom: 2px solid #1976d2;
+  font-weight: bold;
+}
