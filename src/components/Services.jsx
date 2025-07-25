@@ -6,6 +6,7 @@ import {
   Clock, Smartphone, AlertTriangle 
 } from 'lucide-react';
 import '../styles/OurServices.css';
+import Loading from './Loading';
 
 // Custom hook to fetch translations
 const useTranslation = (isHindi) => {
@@ -81,7 +82,7 @@ const ServiceCategories = ({ isHindi }) => {
   const [activeCategory, setActiveCategory] = useState('passenger');
 
   if (!t) {
-    return <div>Loading translations...</div>;
+    return <Loading />;
   }
 
   const categories = [
@@ -147,7 +148,7 @@ const ServicesPage = ({ isHindi }) => {
   const isStatsVisible = useIntersectionObserver(statsRef, { threshold: 0.1 });
 
   if (!t) {
-    return <div>Loading translations...</div>;
+    return <Loading />;
   }
 
   return (
