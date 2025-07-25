@@ -50,7 +50,7 @@ Your new route must be an object with exactly these fields, added inside the top
 | `Price`          |    Yes    | Ticket price (use `₹` and add `/-` or just `₹199`). |
 | `Bus_Type`       |    Yes    | Operator (e.g. “Haryana Roadways”, “Volvo”).        |
 | `Via`            |    Yes    | Comma‑separated list of major stops en route.       |
-| `Contact`        |     No    | `""` if not available.                   |
+| `Contact`        |     No    | Contact number, use `""` if not available.                   |
 
 ---
 
