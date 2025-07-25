@@ -134,7 +134,7 @@ const Hero = ({ isHindi }) => {
       <div className="hero-header">
         <div className="hero-header-overlay" />
         <div className="hero-header-content">
-          <h1 className="hero-heading"> Haryana Roadways - Your Own Bus Service</h1>
+          <h1 className="hero-heading" id="typewriter"> Haryana Roadways - Your Own Bus Service</h1>
           <p className="hero-subheading">{currentLanguage.subheading}</p>
         </div>
       </div>

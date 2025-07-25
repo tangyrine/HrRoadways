@@ -379,7 +379,7 @@
     overflow: hidden;
     border-right: 2px solid grey;
     width: 0;
-    animation: typing 4s steps(40,end) forwards, blinkCursor 0.75s step-end infinite;
+    animation: typing 4s steps(41,end) forwards, blinkCursor 0.75s step-end infinite;
     margin: 20px auto;
     text-align: center;
 
@@ -395,4 +395,6 @@
   @keyframes blinkCursor {
     50% {border-right-color: transparent;}
   }
+
+
 }
