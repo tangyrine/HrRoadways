@@ -12,7 +12,7 @@ import Loading from './Loading';
 const useTranslation = (isHindi) => {
   const [currentLanguage, setCurrentLanguage] = useState(null);
   // Replace with your hosted JSON blob URL that contains the translation data
-  const translationsUrl = 'https://jsonblob.com/api/jsonBlob/1338186662206955520';
+  const translationsUrl = 'https://jsonblob.com/api/jsonBlob/1398339756236136448';
 
   useEffect(() => {
     fetch(translationsUrl)
