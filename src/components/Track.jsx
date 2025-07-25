@@ -1,9 +1,9 @@
 import React, {useState, useEffect} from "react";
 import {Bus, Clock, MapPin, Phone, Users} from "lucide-react";
 import {motion, AnimatePresence} from "framer-motion";
-import Loading from "./Loading";
 import translations from "../assets/translations.json";
 
+// Mock bus data
 const mockBusData = [
   {
     id: "HR-01-1234",
@@ -49,6 +49,57 @@ const mockBusData = [
   },
 ];
 
+// Highlight function for city names
+const highlightText = (text) => {
+  const highlights = {
+    Delhi: "#1e40af",
+    Chandigarh: "#059669",
+    Gurgaon: "#f59e0b",
+    Sonipat: "#d97706",
+    Express: "#2563eb",
+  };
+
+  return text.split(" ").map((word, index) => {
+    const color = highlights[word];
+    return (
+      <span key={index} style={{color: color || "#1e3a8a", fontWeight: "bold"}}>
+        {word}&nbsp;
+      </span>
+    );
+  });
+};
+
+// Info card component
+const InfoCard = ({icon, label, value}) => {
+  const numberStyle = {color: "#1d4ed8", fontWeight: "bold"};
+  const coloredValue =
+    typeof value === "string"
+      ? value.split(/(\d+)/).map((part, i) =>
+          /^\d+$/.test(part) ? (
+            <span key={i} style={numberStyle}>
+              {part}
+            </span>
+          ) : (
+            part
+          )
+        )
+      : value;
+
+  return (
+    <motion.div
+      whileHover={{scale: 1.02}}
+      className="bg-gray-50 p-4 rounded-lg"
+    >
+      <div className="flex items-center gap-2 text-blue-600 mb-2">
+        {icon}
+        <span className="text-sm">{label}</span>
+      </div>
+      <div className="font-semibold text-lg">{coloredValue}</div>
+    </motion.div>
+  );
+};
+
+// Bus list item component
 const BusListItem = ({bus, onClick, isSelected, language}) => (
   <motion.div
     layout
@@ -72,7 +123,7 @@ const BusListItem = ({bus, onClick, isSelected, language}) => (
             <Bus color="#3b82f6" size={24} />
           </motion.div>
           <span className="font-bold text-lg">
-            {language.trackerRoutes[bus.routeNumber] || bus.routeNumber}
+            {highlightText(bus.routeNumber)}
           </span>
         </div>
         <div className="text-gray-600 mt-1">{bus.id}</div>
@@ -95,7 +146,7 @@ const BusListItem = ({bus, onClick, isSelected, language}) => (
         className="flex flex-col items-center p-2 bg-gray-50 rounded"
       >
         <MapPin size={16} color="#3b82f6" />
-        <span className="text-sm mt-1">
+        <span className="text-sm mt-1 font-semibold" style={{color: "#0f766e"}}>
           {language.trackerRoutes[bus.nextStop] || bus.nextStop}
         </span>
       </motion.div>
@@ -104,7 +155,7 @@ const BusListItem = ({bus, onClick, isSelected, language}) => (
         className="flex flex-col items-center p-2 bg-gray-50 rounded"
       >
         <Clock size={16} color="#3b82f6" />
-        <span className="text-sm mt-1">
+        <span className="text-sm mt-1 font-semibold" style={{color: "#1e40af"}}>
           {bus.eta} {language.trackerMinutes}
         </span>
       </motion.div>
@@ -114,13 +165,17 @@ const BusListItem = ({bus, onClick, isSelected, language}) => (
       >
         <Users size={16} color="#3b82f6" />
         <span className="text-sm mt-1">
-          {bus.passengers}/{bus.capacity}
+          <span style={{color: "#1e3a8a", fontWeight: "bold"}}>
+            {bus.passengers}
+          </span>
+          /<span style={{color: "#64748b"}}>{bus.capacity}</span>
         </span>
       </motion.div>
     </div>
   </motion.div>
 );
 
+// Bus details panel
 const BusDetails = ({bus, language, isHindi}) => (
   <motion.div
     initial={{opacity: 0, height: 0}}
@@ -134,7 +189,7 @@ const BusDetails = ({bus, language, isHindi}) => (
       transition={{delay: 0.2}}
     >
       <h3 className="text-2xl font-bold mb-6 text-blue-600">
-        {language.trackerRoutes[bus.routeNumber] || bus.routeNumber}
+        {highlightText(bus.routeNumber)}
       </h3>
       <div className="grid grid-cols-2 gap-6">
         <InfoCard
@@ -145,7 +200,11 @@ const BusDetails = ({bus, language, isHindi}) => (
         <InfoCard
           icon={<MapPin size={20} />}
           label={language.busInfo.nextStop}
-          value={language.trackerRoutes[bus.nextStop] || bus.nextStop}
+          value={
+            <span style={{color: "#0f766e", fontWeight: "bold"}}>
+              {language.trackerRoutes[bus.nextStop] || bus.nextStop}
+            </span>
+          }
         />
         <InfoCard
           icon={<Clock size={20} />}
@@ -167,7 +226,7 @@ const BusDetails = ({bus, language, isHindi}) => (
             <div className="text-sm text-gray-600">
               {language.busInfo.driver}
             </div>
-            <div className="font-semibold">
+            <div className="font-semibold" style={{color: "#1e40af"}}>
               {isHindi ? bus.driver.hi : bus.driver.en}
             </div>
           </div>
@@ -180,7 +239,9 @@ const BusDetails = ({bus, language, isHindi}) => (
             <div className="text-sm text-gray-600">
               {language.busInfo.contact}
             </div>
-            <div className="font-semibold">{bus.contact}</div>
+            <div className="font-semibold" style={{color: "#059669"}}>
+              {bus.contact}
+            </div>
           </div>
         </div>
       </div>
@@ -188,16 +249,7 @@ const BusDetails = ({bus, language, isHindi}) => (
   </motion.div>
 );
 
-const InfoCard = ({icon, label, value}) => (
-  <motion.div whileHover={{scale: 1.02}} className="bg-gray-50 p-4 rounded-lg">
-    <div className="flex items-center gap-2 text-blue-600 mb-2">
-      {icon}
-      <span className="text-sm">{label}</span>
-    </div>
-    <div className="font-semibold text-lg">{value}</div>
-  </motion.div>
-);
-
+// Spinner
 const LoadingSpinner = () => (
   <motion.div
     animate={{rotate: 360}}
@@ -206,6 +258,7 @@ const LoadingSpinner = () => (
   />
 );
 
+// Main component
 const BusTracker = ({isHindi = false}) => {
   const [activeBuses, setActiveBuses] = useState([]);
   const [selectedBus, setSelectedBus] = useState(null);
@@ -281,7 +334,6 @@ const BusTracker = ({isHindi = false}) => {
                 ))}
               </AnimatePresence>
             </div>
-
             <div className="lg:sticky lg:top-8">
               <AnimatePresence>
                 {selectedBus && (
