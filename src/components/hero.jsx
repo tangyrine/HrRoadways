@@ -169,9 +169,9 @@ const Hero = () => {
       <div className="hero-content">
         <div className="content-grid">
           <CustomCard className="form-card">
-            <form className="form" onSubmit={handleSubmit}>
-              <FormInput label={t('hero.departure')} name="src" value={formData.src} onChange={handleChange} suggestions={srcSuggestions} showSuggestions={showSrcSuggestions} setShowSuggestions={setShowSrcSuggestions} activeSuggestionIndex={activeSrcSuggestionIndex} setActiveSuggestionIndex={setActiveSrcSuggestionIndex} />
-              <FormInput label={t('hero.arrival')} name="dest" value={formData.dest} onChange={handleChange} suggestions={destSuggestions} showSuggestions={showDestSuggestions} setShowSuggestions={setShowDestSuggestions} activeSuggestionIndex={activeDestSuggestionIndex} setActiveSuggestionIndex={setActiveDestSuggestionIndex} disabled={!formData.src} />
+            <form className="form text-slate-950" onSubmit={handleSubmit}>
+              <FormInput placeholder="Departure location" label={t('hero.departure')} name="src" value={formData.src} onChange={handleChange} suggestions={srcSuggestions} showSuggestions={showSrcSuggestions} setShowSuggestions={setShowSrcSuggestions} activeSuggestionIndex={activeSrcSuggestionIndex} setActiveSuggestionIndex={setActiveSrcSuggestionIndex} />
+              <FormInput placeholder="Destination city or address" label={t('hero.arrival')} name="dest" value={formData.dest} onChange={handleChange} suggestions={destSuggestions} showSuggestions={showDestSuggestions} setShowSuggestions={setShowDestSuggestions} activeSuggestionIndex={activeDestSuggestionIndex} setActiveSuggestionIndex={setActiveDestSuggestionIndex} disabled={!formData.src} />
               <FormInput label={t('schedule.departure')} name="date" type="date" value={formData.date} onChange={handleChange} />
               <FormInput label={t('trip.passengers')} name="passengers" type="number" value={formData.passengers} onChange={handleChange} min="1" />
               <FormCheckbox label={t('trip.roundTrip')} name="roundTrip" checked={formData.roundTrip} onChange={() => setFormData({ ...formData, roundTrip: !formData.roundTrip })} />
@@ -202,7 +202,7 @@ const Hero = () => {
 };
 
 // FormInput Component - Reusable input field with suggestions
-const FormInput = ({ label, name, value, onChange, suggestions = [], showSuggestions, setShowSuggestions, type = 'text', disabled = false, min, activeSuggestionIndex, setActiveSuggestionIndex }) => {
+const FormInput = ({ placeholder , label, name, value, onChange, suggestions = [], showSuggestions, setShowSuggestions, type = 'text', disabled = false, min, activeSuggestionIndex, setActiveSuggestionIndex }) => {
   const inputRef = useRef(null);
 
   useEffect(() => {
@@ -249,6 +249,7 @@ const FormInput = ({ label, name, value, onChange, suggestions = [], showSuggest
         {label}
       </label>
       <input
+       placeholder= {placeholder}
         type={type}
         name={name}
         value={value}
