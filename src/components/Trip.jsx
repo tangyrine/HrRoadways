@@ -69,37 +69,73 @@ const hotels = [
 const HotelCard = ({ hotel, currentLanguage }) => (
   <div className="bg-white rounded-lg overflow-hidden transform transition-all duration-300 hover:-translate-y-1 hover:shadow-xl border-2 border-blue-100 flex flex-col">
     <div className="relative">
-      <img src={hotel.image} alt={hotel.name} className="w-full h-48 object-cover" />
+      <img
+        src={hotel.image}
+        alt={`Image of ${hotel.name}`}
+        className="w-full h-48 object-cover"
+      />
       <div className="absolute top-3 right-3 bg-white px-3 py-1 rounded-full flex items-center gap-1 border-2 border-blue-500">
         <Star className="w-4 h-4 text-blue-500 fill-blue-500" />
-        <span className="text-sm font-bold">{hotel.rating}</span>
+        <span
+          className="text-sm font-bold"
+          aria-label={`Rating: ${hotel.rating} stars`}
+          title={`${hotel.rating} stars`}
+        >
+          {hotel.rating}
+        </span>
       </div>
     </div>
+
     <div className="p-4 flex flex-col flex-grow">
       <h3 className="text-lg font-bold text-gray-900 mb-2">{hotel.name}</h3>
+
       <div className="flex items-center gap-2 text-gray-600 mb-2">
         <MapPin className="w-4 h-4 text-blue-500" />
         <span className="text-sm">{hotel.location}</span>
       </div>
+
       <div className="flex items-center justify-between mb-2">
-        <span className="text-sm px-2 py-1 rounded-full bg-blue-100 text-blue-700 font-medium">{hotel.type}</span>
+        <span
+          className="text-sm px-2 py-1 rounded-full bg-blue-100 text-blue-700 font-medium"
+          title={`Hotel type: ${hotel.type}`}
+        >
+          {hotel.type}
+        </span>
+
         <div className="flex items-center gap-1">
           <Moon className="w-4 h-4 text-blue-500" />
           <span className="text-sm text-gray-600">{currentLanguage.perNight}</span>
         </div>
       </div>
-      <div className="text-blue-600 font-bold text-lg">
-        {currentLanguage.priceLabel(hotel.priceRange[0])} - {currentLanguage.priceLabel(hotel.priceRange[1])}
+
+      <div
+        className="text-blue-600 font-bold text-lg"
+        aria-label={`Price range: ₹${hotel.priceRange[0]} to ₹${hotel.priceRange[1]}`}
+      >
+        {currentLanguage.priceLabel(hotel.priceRange[0])} -{" "}
+        {currentLanguage.priceLabel(hotel.priceRange[1])}
       </div>
-      {hotel.bookingLink && (
+
+      {hotel.bookingLink && hotel.bookingLink.startsWith("https://") ? (
         <a
           href={hotel.bookingLink}
           target="_blank"
           rel="noopener noreferrer"
+          aria-label={`Book ${hotel.name} now`}
+          title={`Book ${hotel.name} now`}
           className="mt-4 inline-block text-center bg-blue-500 hover:bg-blue-600 text-white font-semibold py-2 px-4 rounded-lg transition"
         >
           Book Now
         </a>
+      ) : (
+        <button
+          className="mt-4 inline-block text-center bg-gray-400 text-white font-semibold py-2 px-4 rounded-lg cursor-not-allowed"
+          disabled
+          aria-label="Booking link not available"
+          title="Booking link not available"
+        >
+          Booking Unavailable
+        </button>
       )}
     </div>
   </div>
