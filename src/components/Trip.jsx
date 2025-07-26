@@ -1,5 +1,7 @@
 import React, { useState, useEffect } from "react";
+import { useNavigate } from "react-router-dom";
 import { MapPin, Star, Moon } from "lucide-react";
+import { hotels } from "../data/hotelsData.js";
 
 // Default translations (fallback) in English
 const defaultLanguage = {
@@ -11,73 +13,6 @@ const defaultLanguage = {
   noHotels: "No hotels found",
   priceLabel: (price) => `₹${price}`,
 };
-
-const hotels = [
-  {
-    id: 1,
-    name: "Heritage Haveli",
-    location: "Kurukshetra, Haryana",
-    pricePerNight: 3500,
-    rating: 4.5,
-    image: "https://i.ibb.co/LdPxbQLf/Hotel01.jpg",
-  },
-  {
-    id: 2,
-    name: "City Comfort Inn",
-    location: "Panipat, Haryana",
-    pricePerNight: 2200,
-    rating: 4.2,
-    image: "https://i.ibb.co/xKcssCVD/Hotel02.jpg",
-  },
-  {
-    id: 3,
-    name: "Luxury Stay",
-    location: "Gurugram, Haryana",
-    pricePerNight: 5000,
-    rating: 4.8,
-    image: "https://i.ibb.co/Xr99bS34/Hotel03.jpg",
-  },
-  {
-    id: 4,
-    name: "Desert Resort",
-    location: "Hisar, Haryana",
-    pricePerNight: 4000,
-    rating: 4.4,
-    image: "https://i.ibb.co/yFRPSmXn/Hotel04.jpg",
-  },
-  {
-    id: 5,
-    name: "Hilltop Paradise",
-    location: "Panchkula, Haryana",
-    pricePerNight: 4500,
-    rating: 4.7,
-    image: "https://i.ibb.co/LdPxbQLf/Hotel01.jpg",
-  },
-  {
-    id: 6,
-    name: "Urban Retreat",
-    location: "Faridabad, Haryana",
-    pricePerNight: 3000,
-    rating: 4.3,
-    image: "https://i.ibb.co/xKcssCVD/Hotel02.jpg",
-  },
-  {
-    id: 7,
-    name: "Green Valley Inn",
-    location: "Karnal, Haryana",
-    pricePerNight: 2500,
-    rating: 4.1,
-    image: "https://i.ibb.co/Xr99bS34/Hotel03.jpg",
-  },
-  {
-    id: 8,
-    name: "Lakeview Lodge",
-    location: "Rohtak, Haryana",
-    pricePerNight: 3800,
-    rating: 4.6,
-    image: "https://i.ibb.co/yFRPSmXn/Hotel04.jpg",
-  },
-];
 
 // Enhanced Range Slider Component for Price Range
 const RangeSlider = ({ min, max, values, onChange, step, formatValue }) => {
@@ -223,37 +158,59 @@ const SingleSlider = ({ min, max, value, onChange, step }) => {
   );
 };
 
-const HotelCard = ({ hotel, currentLanguage }) => (
-  <div className="bg-white rounded-lg overflow-hidden transform transition-all duration-300 hover:-translate-y-1 hover:shadow-xl border-2 border-blue-100">
-    <div className="relative">
-      <img
-        src={hotel.image}
-        alt={hotel.name}
-        className="w-full h-48 object-cover"
-      />
-      <div className="absolute top-3 right-3 bg-white px-3 py-1 rounded-full flex items-center gap-1 border-2 border-blue-500">
-        <Star className="w-4 h-4 text-blue-500 fill-blue-500" />
-        <span className="text-sm font-bold">{hotel.rating}</span>
+const HotelCard = ({ hotel, currentLanguage }) => {
+  const navigate = useNavigate();
+
+  const handleCardClick = () => {
+    navigate(`/hotel/${hotel.id}`);
+  };
+
+  return (
+    <div 
+      onClick={handleCardClick}
+      className="bg-white rounded-lg overflow-hidden transform transition-all duration-300 hover:-translate-y-1 hover:shadow-xl border-2 border-blue-100 cursor-pointer group"
+    >
+      <div className="relative">
+        <img
+          src={hotel.image}
+          alt={hotel.name}
+          className="w-full h-48 object-cover group-hover:scale-105 transition-transform duration-300"
+        />
+        <div className="absolute top-3 right-3 bg-white px-3 py-1 rounded-full flex items-center gap-1 border-2 border-blue-500">
+          <Star className="w-4 h-4 text-blue-500 fill-blue-500" />
+          <span className="text-sm font-bold">{hotel.rating}</span>
+        </div>
+        {/* Hover overlay */}
+        <div className="absolute inset-0 bg-black bg-opacity-40 opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex items-center justify-center">
+          <span className="text-white font-semibold text-lg px-4 py-2 bg-blue-600 rounded-lg">
+            View Details
+          </span>
+        </div>
+      </div>
+      <div className="p-4">
+        <h3 className="text-lg font-bold text-gray-900 mb-2 group-hover:text-blue-600 transition-colors duration-300">{hotel.name}</h3>
+        <div className="flex items-center gap-2 text-gray-600 mb-3">
+          <MapPin className="w-4 h-4 text-blue-500" />
+          <span className="text-sm">{hotel.location}</span>
+        </div>
+        <div className="flex items-center justify-between mt-4 border-t border-blue-100 pt-4">
+          <div className="flex items-center gap-1">
+            <Moon className="w-4 h-4 text-blue-500" />
+            <span className="text-sm text-gray-600">{currentLanguage.perNight}</span>
+          </div>
+          <div className="text-blue-600 font-bold text-lg group-hover:text-blue-700 transition-colors duration-300">
+            {currentLanguage.priceLabel(hotel.pricePerNight)}
+          </div>
+        </div>
+        <div className="mt-3 opacity-0 group-hover:opacity-100 transition-opacity duration-300">
+          <div className="text-center text-blue-600 text-sm font-medium">
+            Click to view details →
+          </div>
+        </div>
       </div>
     </div>
-    <div className="p-4">
-      <h3 className="text-lg font-bold text-gray-900 mb-2">{hotel.name}</h3>
-      <div className="flex items-center gap-2 text-gray-600 mb-3">
-        <MapPin className="w-4 h-4 text-blue-500" />
-        <span className="text-sm">{hotel.location}</span>
-      </div>
-      <div className="flex items-center justify-between mt-4 border-t border-blue-100 pt-4">
-        <div className="flex items-center gap-1">
-          <Moon className="w-4 h-4 text-blue-500" />
-          <span className="text-sm text-gray-600">{currentLanguage.perNight}</span>
-        </div>
-        <div className="text-blue-600 font-bold text-lg">
-          {currentLanguage.priceLabel(hotel.pricePerNight)}
-        </div>
-      </div>
-    </div>
-  </div>
-);
+  );
+};
 
 const SidebarFilter = ({ filters, onFilterChange, currentLanguage }) => (
   <div className="bg-white p-6 rounded-lg border-2 border-blue-100">
