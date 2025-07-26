@@ -128,8 +128,10 @@ const Hero = () => {
       <div className="hero-header">
         <div className="hero-header-overlay" />
         <div className="hero-header-content">
-          <h1 className="hero-heading">{t('hero.heading')}</h1>
-          <p className="hero-subheading">{t('hero.subheading')}</p>
+
+          <h1 className="hero-heading" id="typewriter"> Haryana Roadways - Your Own Bus Service</h1>
+          <p className="hero-subheading">{currentLanguage.subheading}</p>
+
         </div>
       </div>
 

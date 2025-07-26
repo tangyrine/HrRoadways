@@ -374,4 +374,31 @@
   .bus-grid {
     grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
   }
+
+  #typewriter {
+    font-size: 2rem;
+    font-weight: bold;
+    font-family:'Courier New', Courier, monospace;
+    white-space: nowrap;
+    overflow: hidden;
+    border-right: 2px solid grey;
+    width: 0;
+    animation: typing 4s steps(41,end) forwards, blinkCursor 0.75s step-end infinite;
+    margin: 20px auto;
+    text-align: center;
+
+
+  }
+
+  @keyframes typing {
+    from{ width: 0;}
+    to{ width: 43ch; }
+    
+  }
+
+  @keyframes blinkCursor {
+    50% {border-right-color: transparent;}
+  }
+
+
 }
