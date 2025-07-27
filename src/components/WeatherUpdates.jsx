@@ -79,38 +79,6 @@ const WeatherUpdates = () => {
         return { routeName: route.name, cityWeather: weather };
       });
 
-      console.log(routeUpdates)
-
-      // const updates = await Promise.all(
-      //   routes.map(async (route) => {
-      //     const citiesSet = new Set();
-
-      //     route.cities.map((c) => {
-      //       citiesSet.add(c);
-      //     });
-
-      //     console.log([...citiesSet]);
-
-      //     const cityWeather = await Promise.all(
-      //       [...citiesSet].map(async (city) => {
-      //         const response = await fetch(
-      //           `https://api.openweathermap.org/data/2.5/weather?q=${city}&appid=${apiKey}&units=metric`
-      //         );
-      //         if (!response.ok) {
-      //           throw new Error(`Failed to fetch weather data for ${city}`);
-      //         }
-      //         const data = await response.json();
-      //         return {
-      //           city: data.name,
-      //           temperature: data.main.temp,
-      //           weather: data.weather[0].description,
-      //           icon: data.weather[0].icon,
-      //         };
-      //       })
-      //     );
-      //     return { routeName: route.name, cityWeather };
-      //   })
-      // );
       setUpdates(routeUpdates);
     } catch (error) {
       console.error("Error fetching weather data:", error);
