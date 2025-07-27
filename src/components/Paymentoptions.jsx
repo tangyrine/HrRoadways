@@ -82,7 +82,7 @@ const PaymentOptions = ({ isHindi }) => {
       case 'credit':
       case 'debit':
         return (
-          <div className="payment-form bg-white p-6 rounded-lg shadow-md">
+          <div className="payment-form bg-white p-6 rounded-lg shadow-md  ">
             <h3 className="text-xl font-semibold mb-4 text-gray-800">
               {currentLanguage.cardDetails}
             </h3>
@@ -254,6 +254,6 @@ const PaymentOptions = ({ isHindi }) => {
       </div>
     </div>
   );
-};
+}
 
 export default PaymentOptions;
