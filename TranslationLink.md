@@ -12,4 +12,4 @@
 10. Review.jsx : https://jsonblob.com/1397956711553359872
 11. Contactus.jsx : https://jsonblob.com/1398992308015390720
 12. Track.jsx : http://jsonblob.com/1338199785118818304
-13. Payment.jsx : https://jsonblob.com/1338200675141738496
+13. Paymentoptions.jsx : https://jsonblob.com/1398993915750834176
