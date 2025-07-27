@@ -28,6 +28,7 @@ import RulesAndGuidelines from './components/Rules';
 import TourGuidePage from './components/TourGuidePage';
 import NotFound from './components/NotFound';
 import BookingPage from './components/BookingPage';
+import ScrollToTop from './components/ScrollToTop';
 
 function BookingPageWrapper() {
   const location = useLocation();
@@ -57,6 +58,7 @@ function App() {
   return (
     <LanguageProvider>
       <Router>
+        <ScrollToTop/>
         <Navigation />
 
         <Routes>
