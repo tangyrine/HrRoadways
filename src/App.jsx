@@ -33,7 +33,6 @@ import RulesAndGuidelines from './components/Rules';
 import TourGuidePage from './components/TourGuidePage';
 // import NotFound from './components/NotFound';
 import BookingPage from './components/BookingPage';
-import HotelDetail from './components/HotelDetail';
 
 function BookingPageWrapper() {
   const location = useLocation();
@@ -73,7 +72,6 @@ function App() {
           <Route path="/guide" element={<Tutorial />} />
           <Route path="/tour-guide" element={<TourGuidePage />} />
           <Route path="/booking" element={<BookingPageWrapper />} />
-          <Route path="/hotel/:id" element={<HotelDetail />} />
           <Route path="*" element={<NotFound />} />
         </Routes>
 
