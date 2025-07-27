@@ -5,7 +5,7 @@ import '../styles/nav.css';
 import { Menu, X, ChevronDown, Phone } from 'lucide-react';
 import LanguageSelector from './LanguageSelector';
 import Register from './Register';
-import { useAuthStore, useModalStore } from '../store/store'; // Assuming you have a zustand store for modal state
+import { useAuthStore, useModalStore } from '../store/store';
 import Login from './Login';
 import ForgotPassword from './ForgotPassword';
 
@@ -17,9 +17,14 @@ const Navigation = () => {
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
   const [isServicesOpen, setIsServicesOpen] = useState(false);
   const servicesTimer = useRef(null);
+
+
+  // Using zustand store for modal state
+  // Using zustand store for authentication state
+
   const { modalType,openModal  } = useModalStore();
-    const { user } = useAuthStore();
- // Using zustand store for modal state
+   const { user } = useAuthStore();
+ 
   useEffect(() => {
     const handleScroll = () => setIsScrolled(window.scrollY > 50);
     window.addEventListener('scroll', handleScroll);
@@ -129,6 +134,7 @@ const Navigation = () => {
         </>
       ) : (
         <>
+        {/*  Conditionally render Login/Register buttons if user is not logged in */}
           <button
             onClick={() => openModal("login")}
             className="bg-blue-500 hover:bg-blue-600 text-white font-semibold px-4 py-2 rounded-lg transition"

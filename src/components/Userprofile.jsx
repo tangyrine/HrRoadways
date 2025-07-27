@@ -24,6 +24,8 @@ const MyBookings = () => {
         <h1 className="text-2xl font-bold mb-4 text-neutral-800">My Bookings</h1>
         <p className="text-neutral-600 mb-6">Welcome, {user.name} 👋</p>
 
+        {/* Display your bookings below: */}
+
         {mockBookings.length > 0 ? (
           <ul className="space-y-3">
             {mockBookings.map((booking) => (

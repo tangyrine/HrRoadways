@@ -65,6 +65,7 @@ function Register() {
             required
           />
           <button
+          // add backend logic for registration here
             type="submit"
             className="w-full bg-blue-600 text-white py-2 rounded-xl hover:bg-blue-700 transition"
           >

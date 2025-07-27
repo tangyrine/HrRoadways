@@ -46,8 +46,8 @@
     "passwordPlaceholder": "Enter your password...",
     "button": "Login",
     "prompt": "Don't have an account?",
-    "registerLink": "Register",
-    "forgotPasswordLink": "Forgot Password?"
+    "registerLink": "Regist er",
+    "forgotPassword": "Forgot Password?"
   },
   "forgotPassword": {
     "title": "Forgot Password",
