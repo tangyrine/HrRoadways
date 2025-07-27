@@ -5,7 +5,7 @@ import '../styles/nav.css';
 import { Menu, X, ChevronDown, Phone } from 'lucide-react';
 import LanguageSelector from './LanguageSelector';
 import Register from './Register';
-import { useModalStore } from '../store/store'; // Assuming you have a zustand store for modal state
+import { useAuthStore, useModalStore } from '../store/store'; // Assuming you have a zustand store for modal state
 import Login from './Login';
 import ForgotPassword from './ForgotPassword';
 
@@ -17,7 +17,9 @@ const Navigation = () => {
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
   const [isServicesOpen, setIsServicesOpen] = useState(false);
   const servicesTimer = useRef(null);
-  const { modalType,openModal  } = useModalStore(); // Using zustand store for modal state
+  const { modalType,openModal  } = useModalStore();
+    const { user } = useAuthStore();
+ // Using zustand store for modal state
   useEffect(() => {
     const handleScroll = () => setIsScrolled(window.scrollY > 50);
     window.addEventListener('scroll', handleScroll);
@@ -113,20 +115,35 @@ const Navigation = () => {
                 <Phone className="w-4 h-4 mr-1" />
                 {t('nav.helpline')}
               </NavLink>
-  
-             <button
-              onClick={() => openModal('register')}
-              className="bg-blue-500 hover:bg-blue-600 px-4 py-2.5 rounded-lg text-white font-semibold transition"
-            >
-              Register
-            </button>
-
-            <button
-              onClick={() => openModal('login')}
-              className="bg-blue-500 hover:bg-blue-600 px-4 py-2.5 rounded-lg text-white font-semibold transition ml-4"
-            >
-              Login
-            </button>
+             {user ? (
+        <>
+          <button
+            className="bg-blue-500 hover:bg-blue-600 text-white font-semibold px-4 py-2 rounded-lg transition"
+            onClick={() => {
+              // Navigate to profile or bookings page
+              window.location.href = "/mybookings";
+            }}
+          >
+            My Profile
+          </button>
+        </>
+      ) : (
+        <>
+          <button
+            onClick={() => openModal("login")}
+            className="bg-blue-500 hover:bg-blue-600 text-white font-semibold px-4 py-2 rounded-lg transition"
+          >
+            Login
+          </button>
+          <button
+            onClick={() => openModal("register")}
+            className="bg-blue-500 hover:bg-blue-600 text-white font-semibold px-4 py-2 rounded-lg transition"
+          >
+            Register
+          </button>
+        </>
+      )}
+             
             </div>
 
             {/* Mobile Menu Button */}
