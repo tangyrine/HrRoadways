@@ -4,17 +4,27 @@ import { useTranslation } from 'react-i18next';
 import '../styles/nav.css';
 import { Menu, X, ChevronDown, Phone } from 'lucide-react';
 import LanguageSelector from './LanguageSelector';
+import Register from './Register';
+import { useAuthStore, useModalStore } from '../store/store';
+import Login from './Login';
+import ForgotPassword from './ForgotPassword';
 
 const Logo = 'https://i.ibb.co/kg3RQQ1S/LogoHR.png';
 
 const Navigation = () => {
-  const { t, i18n } = useTranslation();
+  const { t } = useTranslation();
   const [isScrolled, setIsScrolled] = useState(false);
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
   const [isServicesOpen, setIsServicesOpen] = useState(false);
-  const [isHindi, setIsHindi] = useState(i18n.language === 'hi');
   const servicesTimer = useRef(null);
 
+
+  // Using zustand store for modal state
+  // Using zustand store for authentication state
+
+  const { modalType,openModal  } = useModalStore();
+   const { user } = useAuthStore();
+ 
   useEffect(() => {
     const handleScroll = () => setIsScrolled(window.scrollY > 50);
     window.addEventListener('scroll', handleScroll);
@@ -32,12 +42,6 @@ const Navigation = () => {
     }, 200);
   };
 
-  const onToggleLanguage = () => {
-    const newLang = isHindi ? 'en' : 'hi';
-    i18n.changeLanguage(newLang);
-    setIsHindi(!isHindi);
-  };
-
   const servicesDropdown = [
     { title: t('nav.track'), path: '/track' },
     { title: t('nav.schedule'), path: '/schedule' },
@@ -45,7 +49,7 @@ const Navigation = () => {
   ];
 
   const toggleSidebar = () => setIsMobileMenuOpen(x => !x);
-
+ 
   return (
     <>
       {/* Top Bar */}
@@ -116,20 +120,70 @@ const Navigation = () => {
                 <Phone className="w-4 h-4 mr-1" />
                 {t('nav.helpline')}
               </NavLink>
+             {user ? (
+        <>
+          <button
+            className="bg-blue-500 hover:bg-blue-600 text-white font-semibold px-4 py-2 rounded-lg transition"
+            onClick={() => {
+              // Navigate to profile or bookings page
+              window.location.href = "/mybookings";
+            }}
+          >
+            My Profile
+          </button>
+        </>
+      ) : (
+        <>
+        {/*  Conditionally render Login/Register buttons if user is not logged in */}
+          <button
+            onClick={() => openModal("login")}
+            className="bg-blue-500 hover:bg-blue-600 text-white font-semibold px-4 py-2 rounded-lg transition"
+          >
+            Login
+          </button>
+          <button
+            onClick={() => openModal("register")}
+            className="bg-blue-500 hover:bg-blue-600 text-white font-semibold px-4 py-2 rounded-lg transition"
+          >
+            Register
+          </button>
+        </>
+      )}
+             
             </div>
 
             {/* Mobile Menu Button */}
-            <button className="md:hidden text-blue-900 focus:outline-none dark:text-white" onClick={toggleSidebar} aria-label="Toggle menu">
-              {isMobileMenuOpen ? <X className="w-6 h-6" /> : <Menu className="w-6 h-6" />}
-            </button>
+            <div className="md:hidden flex items-center">
+              <button className="text-blue-900 focus:outline-none dark:text-white" onClick={toggleSidebar} aria-label="Toggle menu">
+                {isMobileMenuOpen ? <X className="w-6 h-6" /> : <Menu className="w-6 h-6" />}
+              </button>
+            </div>
           </div>
         </div>
       </nav>
 
       {/* Mobile Sidebar */}
       <div className={`fixed inset-y-0 right-0 w-64 bg-white shadow-lg transform ${isMobileMenuOpen ? 'translate-x-0' : 'translate-x-full'} transition-transform duration-300 ease-in-out z-50 md:hidden dark:bg-gray-800 dark:shadow-xl`}>
-        <div className="p-4">
+        <div className="p-4 h-full overflow-y-auto">
+          {/* Close button */}
+          <div className="flex justify-end mb-4">
+            <button
+              onClick={toggleSidebar}
+              className="text-gray-500 hover:text-gray-700 dark:text-gray-400 dark:hover:text-gray-200"
+              aria-label="Close menu"
+            >
+              <X className="w-6 h-6" />
+            </button>
+          </div>
+
           <ul className="space-y-4">
+            {/* Language Selector at the top */}
+            <li className="py-2 border-b border-gray-200 dark:border-gray-600">
+              <div className="text-sm font-medium text-gray-600 dark:text-gray-400 mb-3">
+                {t('common.selectLanguage', 'Select Language')}
+              </div>
+              <LanguageSelector variant="mobile" />
+            </li>
             <li><NavLink to="/" onClick={toggleSidebar} className="block py-2 hover:text-blue-600 dark:text-gray-200 dark:hover:text-blue-400">{t('nav.home')}</NavLink></li>
             <li className="relative">
               <button onClick={() => setIsServicesOpen(!isServicesOpen)} className="flex py-2 hover:text-blue-600 items-center justify-between w-full dark:text-gray-200 dark:hover:text-blue-400">
@@ -158,25 +212,30 @@ const Navigation = () => {
             <li><NavLink to="/blog" onClick={toggleSidebar} className="block py-2 hover:text-blue-600 dark:text-gray-200 dark:hover:text-blue-400">{t('nav.blog')}</NavLink></li>
             <li><NavLink to="/donate" onClick={toggleSidebar} className="block py-2 hover:text-blue-600 dark:text-gray-200 dark:hover:text-blue-400">{t('nav.donate')}</NavLink></li>
             <li><NavLink to="/helpline" onClick={toggleSidebar} className="block py-2 hover:text-blue-600 dark:text-gray-200 dark:hover:text-blue-400">{t('nav.helpline')}</NavLink></li>
-            <li className="flex items-center justify-between py-2 dark:text-gray-200">
-              <span>EN</span>
-              <div className="checkbox-wrapper-5">
-                <div className="check">
-                  <input
-                    id="mobile-check-5"
-                    type="checkbox"
-                    checked={isHindi}
-                    onChange={onToggleLanguage}
-                    className="sr-only"
-                  />
-                  <label htmlFor="mobile-check-5" className="toggle-label"></label>
-                </div>
-              </div>
-              <span>HI</span>
+            <li>
+              <button
+              onClick={() => openModal('register')}
+              className="bg-blue-500 hover:bg-blue-600 px-4 py-2.5 rounded-lg text-white font-semibold transition ml-4 w-[80%]"
+            >
+              Register
+            </button>
+            </li>
+            <li>
+              <button
+              onClick={() => openModal('login')}
+              className="bg-blue-500 hover:bg-blue-600 px-4 py-2.5 rounded-lg text-white font-semibold transition ml-4 w-[80%]"
+            >
+              Login
+            </button>
             </li>
           </ul>
         </div>
+        
       </div>
+            {/* Conditionally Render Modals */}
+            {modalType === 'register' && <Register />}
+            {modalType === 'login' && <Login />}
+            {modalType === 'forgotPassword' && <ForgotPassword />}
     </>
   );
 };
