@@ -8,7 +8,6 @@ const root = createRoot(document.getElementById('root'))
 root.render(
     <App />
 
-  </React.StrictMode>
 )
 
 // Register Service Worker
