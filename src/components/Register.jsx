@@ -1,6 +1,6 @@
 import React, { useState } from "react";
-import { useModalStore,useAuthStore } from "../store/store";
-
+import { AiOutlineEye, AiOutlineEyeInvisible } from "react-icons/ai";
+import { useModalStore, useAuthStore } from "../store/store";
 import { useTranslation } from "react-i18next";
 
 function Register() {
@@ -10,20 +10,15 @@ function Register() {
 
   const [name, setName] = useState("");
   const [email, setEmail] = useState("");
-  const [password, setPassword] = useState(""); // not used here, but included for structure
+  const [password, setPassword] = useState("");
+  const [showPassword, setShowPassword] = useState(false); // <-- NEW
 
   if (modalType !== "register") return null;
 
   const handleRegister = (e) => {
     e.preventDefault();
-
-    // Simulate user creation and login
-    login({
-      name,
-      email,
-    });
-
-    closeModal(); // Close modal after "register"
+    login({ name, email }); // Simulated registration
+    closeModal();
   };
 
   return (
@@ -56,16 +51,26 @@ function Register() {
             onChange={(e) => setEmail(e.target.value)}
             required
           />
-          <input
-            type="password"
-            placeholder={t("register.passwordPlaceholder")}
-            className="w-full px-4 py-2 border rounded-xl text-neutral-600 focus:outline-none focus:ring-2 focus:ring-blue-400 placeholder:text-neutral-300 placeholder:font-medium text-lg"
-            value={password}
-            onChange={(e) => setPassword(e.target.value)}
-            required
-          />
+
+          {/* Password field with eye toggle */}
+          <div className="relative">
+            <input
+              type={showPassword ? "text" : "password"}
+              placeholder={t("register.passwordPlaceholder")}
+              className="w-full px-4 py-2 border rounded-xl text-neutral-600 focus:outline-none focus:ring-2 focus:ring-blue-400 placeholder:text-neutral-300 placeholder:font-medium text-lg"
+              value={password}
+              onChange={(e) => setPassword(e.target.value)}
+              required
+            />
+            <span
+              className="absolute inset-y-0 right-3 flex items-center cursor-pointer text-gray-500"
+              onClick={() => setShowPassword(!showPassword)}
+            >
+              {showPassword ? <AiOutlineEyeInvisible size={22}/> : <AiOutlineEye size={22}/>}
+            </span>
+          </div>
+
           <button
-          // add backend logic for registration here
             type="submit"
             className="w-full bg-blue-600 text-white py-2 rounded-xl hover:bg-blue-700 transition"
           >
