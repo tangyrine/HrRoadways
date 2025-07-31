@@ -9,7 +9,6 @@ root.render(
   <React.StrictMode>
     <App />
 
-  </React.StrictMode>
 )
 
 // Register Service Worker
