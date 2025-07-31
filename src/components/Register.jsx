@@ -5,13 +5,13 @@ import { useTranslation } from "react-i18next";
 
 function Register() {
   const { modalType, openModal, closeModal } = useModalStore();
-  const { login } = useAuthStore(); // Zustand auth store
+  const { login } = useAuthStore();
   const { t } = useTranslation();
 
   const [name, setName] = useState("");
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
-  const [showPassword, setShowPassword] = useState(false); // <-- NEW
+  const [showPassword, setShowPassword] = useState(false); // Password toggle state
 
   if (modalType !== "register") return null;
 
@@ -23,70 +23,107 @@ function Register() {
 
   return (
     <div className="fixed inset-0 flex items-center justify-center z-50 bg-black bg-opacity-50">
-      <div className="bg-white rounded-2xl shadow-lg w-full max-w-md p-6 relative">
-        <button
-          onClick={closeModal}
-          className="absolute top-3 right-4 text-gray-600 hover:text-gray-900 text-2xl font-bold"
-        >
-          &times;
-        </button>
-        <h2 className="text-xl font-semibold mb-4 text-neutral-900 text-center">
-          {t("register.title")}
-        </h2>
-
-        <form className="space-y-4" onSubmit={handleRegister}>
-          <input
-            type="text"
-            placeholder={t("register.namePlaceholder")}
-            className="w-full px-4 py-2 border rounded-xl text-neutral-600 focus:outline-none focus:ring-2 focus:ring-blue-400 placeholder:text-neutral-300 placeholder:font-medium text-lg"
-            value={name}
-            onChange={(e) => setName(e.target.value)}
-            required
+      <div className="bg-white rounded-2xl shadow-lg w-full max-w-2xl mx-auto flex overflow-hidden">
+        {/* Left Section: Refer & Earn Image */}
+        <div className="w-1/2 bg-red-50 relative flex items-center justify-center p-8 rounded-l-2xl">
+          <img
+            src="http://googleusercontent.com/file_content/0"
+            alt="Refer & Earn"
+            className="w-full h-auto object-contain"
           />
-          <input
-            type="email"
-            placeholder={t("register.emailPlaceholder")}
-            className="w-full px-4 py-2 border rounded-xl text-neutral-600 focus:outline-none focus:ring-2 focus:ring-blue-400 placeholder:text-neutral-300 placeholder:font-medium text-lg"
-            value={email}
-            onChange={(e) => setEmail(e.target.value)}
-            required
-          />
+        </div>
 
-          {/* Password field with eye toggle */}
-          <div className="relative">
+        {/* Right Section: Registration Form */}
+        <div className="w-1/2 p-8 relative">
+          <button
+            onClick={closeModal}
+            className="absolute top-4 right-4 text-gray-600 hover:text-gray-900 text-2xl font-bold"
+          >
+            &times;
+          </button>
+          <div className="flex justify-center mb-6">
+            {/* RedBus-like logo */}
+            <svg width="40" height="40" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+              <path d="M12 2L2 7L12 12L22 7L12 2Z" fill="#D32F2F"/>
+              <path d="M2 17L12 22L22 17L12 12L2 17Z" fill="#D32F2F"/>
+            </svg>
+          </div>
+          <h2 className="text-xl font-semibold mb-6 text-neutral-900 text-center uppercase tracking-wide">
+            {t("register.title") || "REGISTER"}
+          </h2>
+
+          <form className="space-y-4" onSubmit={handleRegister}>
             <input
-              type={showPassword ? "text" : "password"}
-              placeholder={t("register.passwordPlaceholder")}
-              className="w-full px-4 py-2 border rounded-xl text-neutral-600 focus:outline-none focus:ring-2 focus:ring-blue-400 placeholder:text-neutral-300 placeholder:font-medium text-lg"
-              value={password}
-              onChange={(e) => setPassword(e.target.value)}
+              type="text"
+              placeholder={t("register.namePlaceholder") || "Enter your name"}
+              className="w-full px-4 py-3 border border-gray-300 rounded-xl text-neutral-600 focus:outline-none focus:ring-2 focus:ring-red-400 placeholder:text-neutral-400 placeholder:font-normal text-base"
+              value={name}
+              onChange={(e) => setName(e.target.value)}
               required
             />
-            <span
-              className="absolute inset-y-0 right-3 flex items-center cursor-pointer text-gray-500"
-              onClick={() => setShowPassword(!showPassword)}
+            <input
+              type="email"
+              placeholder={t("register.emailPlaceholder") || "Enter your email"}
+              className="w-full px-4 py-3 border border-gray-300 rounded-xl text-neutral-600 focus:outline-none focus:ring-2 focus:ring-red-400 placeholder:text-neutral-400 placeholder:font-normal text-base"
+              value={email}
+              onChange={(e) => setEmail(e.target.value)}
+              required
+            />
+            {/* Password field with toggle (from toggle-password branch) */}
+            <div className="relative">
+              <input
+                type={showPassword ? "text" : "password"}
+                placeholder={t("register.passwordPlaceholder") || "Enter your password"}
+                className="w-full px-4 py-3 border border-gray-300 rounded-xl text-neutral-600 focus:outline-none focus:ring-2 focus:ring-red-400 placeholder:text-neutral-400 placeholder:font-normal text-base"
+                value={password}
+                onChange={(e) => setPassword(e.target.value)}
+                required
+              />
+              <span
+                className="absolute inset-y-0 right-3 flex items-center cursor-pointer text-gray-500"
+                onClick={() => setShowPassword(!showPassword)}
+              >
+                {showPassword ? <AiOutlineEyeInvisible size={22}/> : <AiOutlineEye size={22}/>}
+              </span>
+            </div>
+            <button
+              type="submit"
+              className="w-full bg-red-500 text-white py-3 rounded-xl hover:bg-red-600 transition duration-300 font-semibold text-lg"
             >
-              {showPassword ? <AiOutlineEyeInvisible size={22}/> : <AiOutlineEye size={22}/>}
-            </span>
+              {t("register.button") || "REGISTER"}
+            </button>
+          </form>
+
+          {/* Google Sign-in Button */}
+          <div className="mt-4">
+            <button className="w-full flex items-center justify-center border border-gray-300 bg-white text-gray-700 py-2.5 rounded-xl hover:bg-gray-50 transition duration-200">
+              <img
+                src="https://www.gstatic.com/images/icons/material/system/2x/btn_google_light_normal_ios_96dp.png"
+                alt="Google logo"
+                className="w-5 h-5 mr-2"
+              />
+              Sign up with Google
+            </button>
           </div>
 
-          <button
-            type="submit"
-            className="w-full bg-blue-600 text-white py-2 rounded-xl hover:bg-blue-700 transition"
-          >
-            {t("register.button")}
-          </button>
-        </form>
+          <p className="flex justify-center items-center text-neutral-900 gap-2 mt-4 text-sm">
+            {t("register.prompt") || "Already have an account?"}{" "}
+            <span
+              className="text-red-600 cursor-pointer hover:underline font-medium"
+              onClick={() => openModal("login")}
+            >
+              {t("register.loginLink") || "Login here"}
+            </span>
+          </p>
 
-        <p className="flex justify-center items-center text-neutral-900 gap-2 mt-2.5">
-          {t("register.prompt")}{" "}
-          <span
-            className="text-blue-600 cursor-pointer hover:underline"
-            onClick={() => openModal("login")}
-          >
-            {t("register.loginLink")}
-          </span>
-        </p>
+          <p className="text-center text-xs text-gray-500 mt-6">
+            By signing up, I agree to the{" "}
+            <a href="#" className="text-red-600 hover:underline">
+              Terms & Conditions
+            </a>
+            .
+          </p>
+        </div>
       </div>
     </div>
   );
