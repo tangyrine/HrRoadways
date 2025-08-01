@@ -225,7 +225,7 @@ const ServicesPage = ({ isHindi }) => {
 
       <ServiceCategories isHindi={isHindi} />
 
-      <section ref={statsRef} className="services-stats">
+      <section ref={statsRef} className="services-stats rounded-lg">
         <div className="stats-container">
           {Object.entries(stats).map(([key, value]) => (
             <motion.div
@@ -248,16 +248,16 @@ const ServicesPage = ({ isHindi }) => {
         </div>
       </section>
 
-      <section className="additional-services">
-        <h2 className="section-title">{t.additionalSupport}</h2>
+      <section className="additional-services rounded-lg mt-8">
+        <h2 className="section-title text-gray-800">{t.additionalSupport}</h2>
         <div className="support-grid">
           {t.additionalServices.map((service, index) => {
             const IconComponent = iconMap[service.icon]
             return (
             <div key={index} className="support-card">
               <IconComponent className="support-icon" />
-              <h3>{service.title}</h3>
-              <p>{service.description}</p>
+              <h3 className="text-gray-800">{service.title}</h3>
+              <p className="text-gray-600">{service.description}</p>
             </div>
           )})}
         </div>
