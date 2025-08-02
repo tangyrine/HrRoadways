@@ -18,9 +18,9 @@ if ('serviceWorker' in navigator) {
       .register('/service-worker.js')
       .then(registration => {
         console.log('Service Worker registered: ', registration);
-      })
+      })  // ✅ this closes .then()
       .catch(error => {
         console.log('Service Worker registration failed: ', error);
-      });
-  });
-}
+      }); // ✅ this closes .catch()
+  }); // ✅ this closes window.addEventListener
+} // ✅ this closes if condition
