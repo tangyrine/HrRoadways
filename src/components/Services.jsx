@@ -131,12 +131,12 @@ const ServiceCategories = ({ isHindi }) => {
 
   return (
     <div className="service-categories-container">
-      <div className="category-tabs">
+      <div className="category-tabs ">
         {categories.map((category) => (
           <button
             key={category.id}
             onClick={() => setActiveCategory(category.id)}
-            className={`category-tab ${
+            className={ `category-tab ${
               activeCategory === category.id ? "active" : ""
             }`}
           >
