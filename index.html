@@ -103,36 +103,7 @@
     </div>
   </div>
 
-  <script type="module">
-    const rootElement = document.getElementById('root');
-
-    function showError(message) {
-      rootElement.innerHTML = `
-        <div style="color: red; padding: 2rem; text-align: center;">
-          <h2>Application Error</h2>
-          <p>${message}</p>
-          <p>Please contact support if this persists.</p>
-        </div>
-      `;
-    }
-
-    async function loadApp() {
-      try {
-        // Try both possible paths
-        await Promise.any([
-          import('/src/main.jsx'),
-          import('./src/main.jsx')
-        ]);
-      } catch (error) {
-        showError('Failed to load application files. Check:<br>' +
-                  '1. main.jsx exists in /src/<br>' +
-                  '2. Server is running (npm run dev)');
-        console.error('Loading error:', error);
-      }
-    }
-
-    loadApp();
-  </script>
+  <script type="module" src="/src/main.jsx"></script>
 
   <script src="https://kit.fontawesome.com/f794a9dced.js" crossorigin="anonymous"></script>
 </body>
