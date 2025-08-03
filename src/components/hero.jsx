@@ -5,6 +5,7 @@ import TrafficUpdates from './TrafficUpdates';
 import PopularRoutes from './PopularRoutes';
 import BusDetailModal from './BusDetailModal';
 import WeatherUpdates from './WeatherUpdates';
+import { fallbackBusStands, fallbackBusData } from '../data/fallbackData';
 import '../styles/hero.css';
 import '../styles/modal.css';
 
@@ -46,6 +47,7 @@ const Hero = () => {
   const [selectedBus, setSelectedBus] = useState(null);
   const [activeSrcSuggestionIndex, setActiveSrcSuggestionIndex] = useState(-1);
   const [activeDestSuggestionIndex, setActiveDestSuggestionIndex] = useState(-1);
+  const [isLoading, setIsLoading] = useState(true);
 
   const inputRefs = useRef([]);
   const containerRef = useRef(null);
@@ -60,8 +62,14 @@ const Hero = () => {
 
   // Fetch bus stands
   useEffect(() => {
+    setIsLoading(true);
     fetch('https://jsonblob.com/api/jsonBlob/1333092652136194048')
-      .then(response => response.json())
+      .then(response => {
+        if (!response.ok) {
+          throw new Error(`HTTP error! status: ${response.status}`);
+        }
+        return response.json();
+      })
       .then(data => {
         const uniqueBusStands = new Set();
         data.forEach(route => {
@@ -69,6 +77,14 @@ const Hero = () => {
           uniqueBusStands.add(route.to);
         });
         setBusStands([...uniqueBusStands]);
+      })
+      .catch(error => {
+        console.error('Error fetching bus stands:', error);
+        // Set fallback bus stands if API fails
+        setBusStands(fallbackBusStands);
+      })
+      .finally(() => {
+        setIsLoading(false);
       });
   }, []);
 
@@ -98,13 +114,30 @@ const Hero = () => {
   const handleSubmit = (event) => {
     event.preventDefault();
     fetch('https://jsonblob.com/api/jsonBlob/1333092652136194048')
-      .then(response => response.json())
+      .then(response => {
+        if (!response.ok) {
+          throw new Error(`HTTP error! status: ${response.status}`);
+        }
+        return response.json();
+      })
       .then(data => {
         const filteredBuses = data.filter(bus => {
           const isExactRoute = bus.from.toLowerCase() === formData.src.toLowerCase() && bus.to.toLowerCase() === formData.dest.toLowerCase();
           const isReverseRoute = formData.roundTrip && bus.from.toLowerCase() === formData.dest.toLowerCase() && bus.to.toLowerCase() === formData.src.toLowerCase();
           const isViaRoute = bus.from.toLowerCase() === formData.src.toLowerCase() && bus.via?.toLowerCase().includes(formData.dest.toLowerCase());
           const isViaReverseRoute = formData.roundTrip && bus.from.toLowerCase() === formData.dest.toLowerCase() && bus.via?.toLowerCase().includes(formData.src.toLowerCase());
+          return isExactRoute || isReverseRoute || isViaRoute || isViaReverseRoute;
+        });
+        setBuses(filteredBuses);
+      })
+      .catch(error => {
+        console.error('Error fetching buses:', error);
+        // Use fallback data if API fails
+        const filteredBuses = fallbackBusData.filter(bus => {
+          const isExactRoute = bus.from.toLowerCase() === formData.src.toLowerCase() && bus.to.toLowerCase() === formData.dest.toLowerCase();
+          const isReverseRoute = formData.roundTrip && bus.from.toLowerCase() === formData.dest.toLowerCase() && bus.to.toLowerCase() === formData.src.toLowerCase();
+          const isViaRoute = bus.from.toLowerCase() === formData.src.toLowerCase() && bus.Via?.toLowerCase().includes(formData.dest.toLowerCase());
+          const isViaReverseRoute = formData.roundTrip && bus.from.toLowerCase() === formData.dest.toLowerCase() && bus.Via?.toLowerCase().includes(formData.src.toLowerCase());
           return isExactRoute || isReverseRoute || isViaRoute || isViaReverseRoute;
         });
         setBuses(filteredBuses);
@@ -122,6 +155,17 @@ const Hero = () => {
     setIsModalOpen(false);
     setSelectedBus(null);
   };
+
+  if (isLoading) {
+    return (
+      <div className="hero-container text-black" style={{ display: 'flex', justifyContent: 'center', alignItems: 'center', minHeight: '50vh' }}>
+        <div style={{ textAlign: 'center' }}>
+          <div style={{ fontSize: '18px', marginBottom: '10px' }}>Loading Haryana Roadways...</div>
+          <div style={{ fontSize: '14px', color: '#666' }}>Fetching bus routes and schedules</div>
+        </div>
+      </div>
+    );
+  }
 
   return (
     <div className="hero-container text-black" ref={containerRef}>

@@ -4,23 +4,55 @@ import App from './App';
 import './index.css';
 import './i18n';
 
+// Add error boundary for debugging
+class ErrorBoundary extends React.Component {
+  constructor(props) {
+    super(props);
+    this.state = { hasError: false, error: null };
+  }
+
+  static getDerivedStateFromError(error) {
+    return { hasError: true, error };
+  }
+
+  componentDidCatch(error, errorInfo) {
+    console.error('App Error:', error, errorInfo);
+  }
+
+  render() {
+    if (this.state.hasError) {
+      return (
+        <div style={{ padding: '20px', textAlign: 'center' }}>
+          <h2>Something went wrong.</h2>
+          <details style={{ whiteSpace: 'pre-wrap' }}>
+            {this.state.error && this.state.error.toString()}
+          </details>
+        </div>
+      );
+    }
+    return this.props.children;
+  }
+}
+
 const root = createRoot(document.getElementById('root'));
 root.render(
   <React.StrictMode>
-    <App />
+    <ErrorBoundary>
+      <App />
+    </ErrorBoundary>
   </React.StrictMode>
 );
 
-// Register Service Worker
-if ('serviceWorker' in navigator) {
-  window.addEventListener('load', () => {
-    navigator.serviceWorker
-      .register('/service-worker.js')
-      .then(registration => {
-        console.log('Service Worker registered: ', registration);
-      })  // ✅ this closes .then()
-      .catch(error => {
-        console.log('Service Worker registration failed: ', error);
-      }); // ✅ this closes .catch()
-  }); // ✅ this closes window.addEventListener
-} // ✅ this closes if condition
+// Register Service Worker (disabled for debugging)
+// if ('serviceWorker' in navigator) {
+//   window.addEventListener('load', () => {
+//     navigator.serviceWorker
+//       .register('/service-worker.js')
+//       .then(registration => {
+//         console.log('Service Worker registered: ', registration);
+//       })
+//       .catch(error => {
+//         console.log('Service Worker registration failed: ', error);
+//       });
+//   });
+// }
