@@ -38,6 +38,8 @@ import Login from './components/Login';
 import ForgotPassword from './components/ForgotPassword';
 import MyBookings from './components/Userprofile';
 
+import Header from './components/Header'; // Added Header import
+
 function BookingPageWrapper() {
   const location = useLocation();
   const { selectedBus } = (location && location.state) || {};
@@ -49,6 +51,7 @@ function App() {
     <LanguageProvider>
       <Router>
         <ScrollToTop/>
+        <Header />  {/* Added Header usage */}
         <Navigation />
 
         <Routes>
