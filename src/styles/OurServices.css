@@ -11,7 +11,7 @@
 }
 
 .services-subtitle {
-    @apply text-xl text-gray-600;
+    @apply text-xl text-gray-700;
 }
 
 .services-grid {
@@ -51,7 +51,7 @@
 }
 
 .category-tab {
-    @apply flex items-center gap-2 px-4 py-2 text-gray-900 transition-all duration-200 rounded-md hover:bg-blue-50;
+    @apply flex items-center gap-2 px-4 py-2 text-gray-800 transition-all duration-200 rounded-md bg-white hover:bg-blue-50;
 }
 
 .category-tab.active {
@@ -59,7 +59,7 @@
 }
 
 .category-content {
-    @apply p-8 bg-white rounded-lg shadow-md;
+    @apply p-8 bg-white rounded-lg shadow-md text-gray-600;
 }
 
 .category-service-item {
