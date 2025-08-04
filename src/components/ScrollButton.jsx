@@ -33,11 +33,16 @@ function ScrollButton() {
                 color: '#fff',
                 border: 'none',
                 borderRadius: '50%',
-                padding: '12px 15px',
+                width: '50px',
+                height: '50px',
+                display: 'flex',
+                alignItems: 'center',
+                justifyContent: 'center',
                 fontSize: '20px',
                 boxShadow: '0 4px 8px rgba(0, 0, 0, 2)',
                 cursor: 'pointer',
                 transition: 'opacity 0.3s ease',
+                zIndex: 9999,
             }}
 
             aria-label="Go to top"
