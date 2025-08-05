@@ -225,7 +225,7 @@ const Navigation = () => {
                 <li>
                   <button
                   onClick={() => openModal('signup')}
-                  className="bg-blue-500 hover:bg-green-600 px-4 py-2.5 rounded-lg text-white font-semibold transition ml-4 w-[80%]"
+                  className="bg-blue-500 hover:bg-blue-600 px-4 py-2.5 rounded-lg text-white font-semibold transition ml-4 w-[80%]"
                 >
                   Sign Up
                 </button>

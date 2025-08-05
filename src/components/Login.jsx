@@ -2,6 +2,7 @@ import React from "react";
 import { SignIn } from "@clerk/clerk-react";
 import { useModalStore } from "../store/store";
 import { useTranslation } from "react-i18next";
+import { toast } from 'react-toastify';
 
 function Login() {
   const { modalType, openModal, closeModal } = useModalStore();
@@ -20,7 +21,7 @@ function Login() {
         </button>
         <div className="flex items-center justify-center">
           <SignIn 
-            afterSignInUrl="/dashboard"
+            afterSignInUrl="/mybookings?login=success"
             routing="virtual"
             appearance={{
               elements: {
@@ -35,7 +36,11 @@ function Login() {
                 socialButtonsPlacement: 'top'
               }
             }}
-            onSignIn={() => closeModal()}
+            onSignIn={() => {
+              // Set flag for successful login
+              localStorage.setItem("login_success", "true");
+              closeModal();
+            }}
           />
         </div>
         

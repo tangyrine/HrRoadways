@@ -1,6 +1,8 @@
 // import ScrollButton from './ScrollButton';
 import NotFound from './components/NotFound';
 import ScrollButton from './components/ScrollButton';
+import { ToastContainer } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 
 import { BrowserRouter as Router, Routes, Route, useLocation, Navigate } from 'react-router-dom';
 import { LanguageProvider } from './contexts/LanguageContext';
@@ -35,6 +37,7 @@ import BookingPage from './components/BookingPage';
 import ScrollToTop from './components/ScrollToTop';
 import Login from './components/Login';
 import MyBookings from './components/Userprofile';
+import ToastTest from './components/ToastTest';
 
 import Header from './components/Header'; // Added Header import
 
@@ -81,10 +84,23 @@ function App() {
           <Route path="*" element={<NotFound />} />
           <Route path='/mybookings' element={<MyBookings/>} />
           <Route path='/yash' element={<h1>Yash&apos;s Page</h1>} />
+          <Route path='/toast-test' element={<ToastTest/>} />
         </Routes>
 
         <Footer />
          <ScrollButton />
+         <ToastContainer 
+           position="top-right"
+           autoClose={4000}
+           hideProgressBar={false}
+           newestOnTop={false}
+           closeOnClick
+           rtl={false}
+           pauseOnFocusLoss
+           draggable
+           pauseOnHover
+           theme="colored"
+         />
       </Router>
     </LanguageProvider>
   );

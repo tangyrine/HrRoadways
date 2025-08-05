@@ -2,6 +2,7 @@ import React from "react";
 import { SignUp } from "@clerk/clerk-react";
 import { useModalStore } from "../store/store";
 import { useTranslation } from "react-i18next";
+import { toast } from 'react-toastify';
 
 function SignUpModal() {
   const { modalType, openModal, closeModal } = useModalStore();
@@ -20,7 +21,7 @@ function SignUpModal() {
         </button>
         <div className="flex items-center justify-center">
           <SignUp 
-            afterSignUpUrl="/dashboard"
+            afterSignUpUrl="/mybookings?signup=success"
             routing="virtual"
             appearance={{
               elements: {
@@ -35,7 +36,11 @@ function SignUpModal() {
                 socialButtonsPlacement: 'top'
               }
             }}
-            onSignUp={() => closeModal()}
+            onSignUp={() => {
+              // Set flag for successful registration
+              localStorage.setItem("signup_success", "true");
+              closeModal();
+            }}
           />
         </div>
         
