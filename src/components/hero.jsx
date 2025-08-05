@@ -246,7 +246,21 @@ const Hero = () => {
 };
 
 // FormInput Component - Reusable input field with suggestions
-const FormInput = ({ placeholder , label, name, value, onChange, suggestions = [], showSuggestions, setShowSuggestions, type = 'text', disabled = false, min, activeSuggestionIndex, setActiveSuggestionIndex }) => {
+const FormInput = ({
+  placeholder,
+  label,
+  name,
+  value,
+  onChange,
+  suggestions = [],
+  showSuggestions,
+  setShowSuggestions,
+  type = 'text',
+  disabled = false,
+  min,
+  activeSuggestionIndex,
+  setActiveSuggestionIndex,
+}) => {
   const inputRef = useRef(null);
 
   useEffect(() => {
@@ -287,7 +301,11 @@ const FormInput = ({ placeholder , label, name, value, onChange, suggestions = [
   };
 
   return (
-    <div className="form-group" onFocus={() => setShowSuggestions(true)} onBlur={() => setTimeout(() => setShowSuggestions(false), 200)}>
+    <div
+      className="form-group"
+      onFocus={() => setShowSuggestions(true)}
+      onBlur={() => setTimeout(() => setShowSuggestions(false), 200)}
+    >
       <label className="form-label">
         {name === 'src' || name === 'dest' ? <MapPin className="form-icon" /> : null}
         {label}
@@ -372,7 +390,7 @@ const BusCard = ({ bus, onClick }) => {
           </div>
         </div>
         <div className="distance-bar-wrapper">
-          <div
+          <div 
             className="distance-bar-fill"
             style={{ width: `${fillPercentage}%` }}
           ></div>

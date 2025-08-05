@@ -46,7 +46,7 @@ const Login = lazy(() => import('./components/Login'))
 const ForgotPassword = lazy(() => import('./components/ForgotPassword'))
 const MyBookings = lazy(() => import('./components/Userprofile'))
 const NotFound = lazy(() => import('./components/NotFound'))
-
+import Header from './components/Header'; 
 function BookingPageWrapper() {
 	const location = useLocation()
 	const { selectedBus } = (location && location.state) || {}
@@ -57,6 +57,7 @@ function App() {
 	return (
 		<LanguageProvider>
 			<Router>
+        <Header />  {/* Added Header usage */}
 				<Navigation />
 				<Suspense
 					fallback={
