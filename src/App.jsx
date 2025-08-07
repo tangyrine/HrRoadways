@@ -112,8 +112,8 @@ function App() {
 							element={<BookingPageWrapper />}
 						/>
 						<Route path='*' element={<NotFound />} />
-						<Route path='/login' element={<Register />} />
-						<Route path='/register' element={<Login />} />
+						<Route path='/login' element={<Login />} />
+						<Route path='/register' element={<Register />} />
 						<Route
 							path='forgot-password'
 							element={<ForgotPassword />}
