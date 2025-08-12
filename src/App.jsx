@@ -1,4 +1,3 @@
-// import ScrollButton from './ScrollButton';
 import ScrollButton from './components/ScrollButton'
 import { lazy, Suspense } from 'react'
 import {
@@ -41,9 +40,9 @@ const DonatePage = lazy(() => import('./components/DonatePage')) // import BusTr
 const WeeklyTimetable = lazy(() => import('./components/Timetable'))
 const TourGuidePage = lazy(() => import('./components/TourGuidePage'))
 const ScrollToTop = lazy(() => import('./components/ScrollToTop'))
-const Register = lazy(() => import('./components/Register'))
+// const Register = lazy(() => import('./components/Register'))
 const Login = lazy(() => import('./components/Login'))
-const ForgotPassword = lazy(() => import('./components/ForgotPassword'))
+// const ForgotPassword = lazy(() => import('./components/ForgotPassword'))
 const MyBookings = lazy(() => import('./components/Userprofile'))
 const NotFound = lazy(() => import('./components/NotFound'))
 import Header from './components/Header'; 
@@ -112,12 +111,12 @@ function App() {
 							element={<BookingPageWrapper />}
 						/>
 						<Route path='*' element={<NotFound />} />
-						<Route path='/login' element={<Login />} />
-						<Route path='/register' element={<Register />} />
-						<Route
+						{/* <Route path='/login' element={<Login />} /> */}
+						{/*<Route path='/register' element={<Register />} />*/}
+						{/*<Route
 							path='forgot-password'
 							element={<ForgotPassword />}
-						/>
+						/>*/}
 						<Route path='/mybookings' element={<MyBookings />} />
 						<Route
 							path='/yash'
