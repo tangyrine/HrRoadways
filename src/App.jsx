@@ -1,109 +1,142 @@
-// import ScrollButton from './ScrollButton';
-import NotFound from './components/NotFound';
 import ScrollButton from './components/ScrollButton';
+import { lazy, Suspense } from 'react';
 import { ToastContainer } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
-
-import { BrowserRouter as Router, Routes, Route, useLocation, Navigate } from 'react-router-dom';
+import {
+	BrowserRouter as Router,
+	Routes,
+	Route,
+	useLocation,
+	Navigate,
+} from 'react-router-dom';
 import { LanguageProvider } from './contexts/LanguageContext';
 import Navigation from './components/nav';
-import Hero from './components/hero';
-import Available from './components/Available';
-import AboutUs from './components/Aboutus';
-import Trip from './components/Trip';
 import Footer from './components/footer';
-import Reviews from './components/Review';
-import Blog from './components/Blog';
-import DonatePage from './components/DonatePage';
-import TravelLocations from './components/TravelLocation';
-import HelplinePage from './components/HelpLinepage';
-// import BusTracker from './components/Track';
-import BusTracker from "./components/Track";
-import InfoPage from './components/InfoPage';
-import UnderConstruction from './components/UnderConstruction';
-import ContactUs from './components/ContactUs';
-import AffiliateProgram from './components/AffiliateProgram';
-import BusCard from './components/BusCard';
-import PaymentOptions from './components/Paymentoptions';
-import RoyalHaryanaTourism from './components/RoyalHaryanaTourism';
-import ServicesPage from './components/Services';
-import BestRides from './components/BestRides';
-import Tutorial from './components/Tutorial';
-import WeeklyTimetable from './components/Timetable';
-import RulesAndGuidelines from './components/Rules';
-import TourGuidePage from './components/TourGuidePage';
-// import NotFound from './components/NotFound';
-import BookingPage from './components/BookingPage';
-import ScrollToTop from './components/ScrollToTop';
-import Login from './components/Login';
-import MyBookings from './components/Userprofile';
-import ToastTest from './components/ToastTest';
+import Header from './components/Header';
 
-import Header from './components/Header'; // Added Header import
+import BookingPage from './components/BookingPage'; //do not lazy load this
+
+const Hero = lazy(() => import('./components/hero'));
+const Available = lazy(() => import('./components/Available'));
+const AboutUs = lazy(() => import('./components/Aboutus'));
+const Trip = lazy(() => import('./components/Trip'));
+const BestRides = lazy(() => import('./components/BestRides'));
+const InfoPage = lazy(() => import('./components/InfoPage'));
+const RulesAndGuidelines = lazy(() => import('./components/Rules'));
+const UnderConstruction = lazy(() => import('./components/UnderConstruction'));
+const ContactUs = lazy(() => import('./components/ContactUs'));
+const Blog = lazy(() => import('./components/Blog'));
+const PaymentOptions = lazy(() => import('./components/Paymentoptions'));
+const BusTracker = lazy(() => import('./components/Track'));
+const RoyalHaryanaTourism = lazy(() =>
+	import('./components/RoyalHaryanaTourism')
+);
+const ServicesPage = lazy(() => import('./components/Services'));
+const TravelLocations = lazy(() => import('./components/TravelLocation'));
+const HelplinePage = lazy(() => import('./components/HelpLinepage'));
+const Reviews = lazy(() => import('./components/Review'));
+const AffiliateProgram = lazy(() => import('./components/AffiliateProgram'));
+const BusCard = lazy(() => import('./components/BusCard'));
+const Tutorial = lazy(() => import('./components/Tutorial'));
+const DonatePage = lazy(() => import('./components/DonatePage'));
+const WeeklyTimetable = lazy(() => import('./components/Timetable'));
+const TourGuidePage = lazy(() => import('./components/TourGuidePage'));
+const ScrollToTop = lazy(() => import('./components/ScrollToTop'));
+const Login = lazy(() => import('./components/Login'));
+const MyBookings = lazy(() => import('./components/Userprofile'));
+const NotFound = lazy(() => import('./components/NotFound'));
+const ToastTest = lazy(() => import('./components/ToastTest'));
 
 function BookingPageWrapper() {
-  const location = useLocation();
-  const { selectedBus } = (location && location.state) || {};
-  return <BookingPage selectedBus={selectedBus} />;
+	const location = useLocation();
+	const { selectedBus } = (location && location.state) || {};
+	return <BookingPage selectedBus={selectedBus} />;
 }
 
 function App() {
-  return (
-    <LanguageProvider>
-      <Router>
-        <ScrollToTop/>
-        <Header />  {/* Added Header usage */}
-        <Navigation />
-
-        <Routes>
-          <Route path="/" element={<Hero />} />
-          <Route path="/Available" element={<Available />} />
-          <Route path="/about" element={<AboutUs />} />
-          <Route path="/trip" element={<Trip />} />
-          <Route path="/bestrides" element={<BestRides />} />
-          <Route path="/policy" element={<InfoPage />} />
-          <Route path="/rules" element={<RulesAndGuidelines />} />
-          <Route path="/under-construction" element={<UnderConstruction />} />
-          <Route path="/contactUs" element={<Navigate to="/contact" replace />} />
-          <Route path="/contact" element={<ContactUs />} />
-          <Route path="/blog" element={<Blog />} />
-          <Route path="/payment" element={<PaymentOptions />} />
-          <Route path="/track" element={<BusTracker />} />
-          <Route path="/luxury" element={<RoyalHaryanaTourism />} />
-          <Route path="/donate" element={<DonatePage />} />
-          <Route path="/services" element={<ServicesPage />} />
-          <Route path="/travellocations" element={<TravelLocations />} />
-          <Route path="/helpline" element={<HelplinePage />} />
-          <Route path="/schedule" element={<WeeklyTimetable />} />
-          <Route path="/reviews" element={<Reviews />} />
-          <Route path="/affiliate" element={<AffiliateProgram />} />
-          <Route path="/card" element={<BusCard />} />
-          <Route path="/guide" element={<Tutorial />} />
-          <Route path="/tour-guide" element={<TourGuidePage />} />
-          <Route path="/booking" element={<BookingPageWrapper />} />
-          <Route path="*" element={<NotFound />} />
-          <Route path='/mybookings' element={<MyBookings/>} />
-          <Route path='/yash' element={<h1>Yash&apos;s Page</h1>} />
-          <Route path='/toast-test' element={<ToastTest/>} />
-        </Routes>
-
-        <Footer />
-         <ScrollButton />
-         <ToastContainer 
-           position="top-right"
-           autoClose={4000}
-           hideProgressBar={false}
-           newestOnTop={false}
-           closeOnClick
-           rtl={false}
-           pauseOnFocusLoss
-           draggable
-           pauseOnHover
-           theme="colored"
-         />
-      </Router>
-    </LanguageProvider>
-  );
+	return (
+		<LanguageProvider>
+			<Router>
+				<Header />
+				<Navigation />
+				<Suspense
+					fallback={
+						<div style={{ padding: '2rem', textAlign: 'center' }}>
+							Loading...
+						</div>
+					}
+				>
+					<ScrollToTop />
+					<Routes>
+						<Route path='/' element={<Hero />} />
+						<Route path='/Available' element={<Available />} />
+						<Route path='/about' element={<AboutUs />} />
+						<Route path='/trip' element={<Trip />} />
+						<Route path='/bestrides' element={<BestRides />} />
+						<Route path='/policy' element={<InfoPage />} />
+						<Route path='/rules' element={<RulesAndGuidelines />} />
+						<Route
+							path='/under-construction'
+							element={<UnderConstruction />}
+						/>
+						<Route
+							path='/contactUs'
+							element={<Navigate to='/contact' replace />}
+						/>
+						<Route path='/contact' element={<ContactUs />} />
+						<Route path='/blog' element={<Blog />} />
+						<Route path='/payment' element={<PaymentOptions />} />
+						<Route path='/track' element={<BusTracker />} />
+						<Route
+							path='/luxury'
+							element={<RoyalHaryanaTourism />}
+						/>
+						<Route path='/donate' element={<DonatePage />} />
+						<Route path='/services' element={<ServicesPage />} />
+						<Route
+							path='/travellocations'
+							element={<TravelLocations />}
+						/>
+						<Route path='/helpline' element={<HelplinePage />} />
+						<Route path='/schedule' element={<WeeklyTimetable />} />
+						<Route path='/reviews' element={<Reviews />} />
+						<Route
+							path='/affiliate'
+							element={<AffiliateProgram />}
+						/>
+						<Route path='/card' element={<BusCard />} />
+						<Route path='/guide' element={<Tutorial />} />
+						<Route path='/tour-guide' element={<TourGuidePage />} />
+						<Route
+							path='/booking'
+							element={<BookingPageWrapper />}
+						/>
+						<Route path='*' element={<NotFound />} />
+						<Route path='/mybookings' element={<MyBookings />} />
+						<Route
+							path='/yash'
+							element={<h1>Yash&apos;s Page</h1>}
+						/>
+						<Route path='/toast-test' element={<ToastTest />} />
+					</Routes>
+				</Suspense>
+				<Footer />
+				<ScrollButton />
+				<ToastContainer 
+					position="top-right"
+					autoClose={4000}
+					hideProgressBar={false}
+					newestOnTop={false}
+					closeOnClick
+					rtl={false}
+					pauseOnFocusLoss
+					draggable
+					pauseOnHover
+					theme="colored"
+				/>
+			</Router>
+		</LanguageProvider>
+	);
 }
 
 export default App;
