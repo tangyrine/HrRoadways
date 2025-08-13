@@ -38,7 +38,8 @@ const MyBookings = () => {
           closeOnClick: true,
           pauseOnHover: true,
           draggable: true,
-          theme: "colored"
+          theme: "colored",
+          style: { background: "#2563eb", color: "#fff" }
         });
         localStorage.removeItem("login_success");
         sessionStorage.setItem('last_welcome', now.toString());
@@ -56,7 +57,8 @@ const MyBookings = () => {
           closeOnClick: true,
           pauseOnHover: true,
           draggable: true,
-          theme: "colored"
+          theme: "colored",
+          style: { background: "#2563eb", color: "#fff" }
         });
         localStorage.removeItem("signup_success");
         sessionStorage.setItem('last_welcome', now.toString());
