@@ -77,9 +77,10 @@ const MyBookings = () => {
             autoClose: 4000,
             hideProgressBar: false,
             closeOnClick: true,
-            pauseOnHover: true,
+            pauseOnHover: true, 
             draggable: true,
-            theme: "colored"
+            theme: "colored",
+            style: { background: "#2563eb", color: "#fff" }
           });
           sessionStorage.setItem('last_welcome', Date.now().toString());
         }, 1000);
