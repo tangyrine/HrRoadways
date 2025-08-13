@@ -32,13 +32,17 @@
 .animate-pulse-slow {
   animation: pulse-slow 3s ease-in-out infinite;
 }
-
-
-.animation-float {
-    animation: float 15s ease-in-out infinite;
+.three-d-text {
+  color: #ffffff;
+  transition: transform 0.3s ease, text-shadow 0.3s ease;
 }
-    @keyframes float {
-  0%   { transform: translateY(0); }
-  50%  { transform: translateY(-10px); }
-  100% { transform: translateY(0); }
-} 
+
+.three-d-text:hover {
+  transform: translateY(-2px);
+  text-shadow:
+    1px 1px 0 #aaa,
+    2px 2px 0 #999,
+    3px 3px 0 #888;
+}
+
+

@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import  { useState, useEffect } from 'react';
 import { Phone, Mail, Clock, MessageCircle, Search } from 'lucide-react';
 import '../styles/HelpLinepage.css'
 
@@ -260,11 +260,11 @@ const HelplinePage = ({ isHindi }) => {
 
       <footer className="bg-blue-900 text-white py-8 mt-12 shadow-2xl">
         <div className="max-w-4xl mx-auto px-4 text-center">
-          <p className="text-lg mb-4 animation-float" >
+          <p className="text-lg mb-4 three-d-text" >
             {currentLanguage.quickContact}
           </p>
           <p className="text-sm opacity-75 hover:opacity-100 transition-opacity duration-300">
-            {currentLanguage.copyright}
+            {currentLanguage.copyright} 
           </p>
         </div>
       </footer>

@@ -111,12 +111,12 @@ function App() {
 							element={<BookingPageWrapper />}
 						/>
 						<Route path='*' element={<NotFound />} />
-						{/* <Route path='/login' element={<Login />} /> */}
-						{/*<Route path='/register' element={<Register />} />*/}
+						{/* <Route path='/login' element={<Login />} /> */} {/*no login component found*/}
+						{/*<Route path='/register' element={<Register />} />*/} {/*no register component found*/}
 						{/*<Route
 							path='forgot-password'
 							element={<ForgotPassword />}
-						/>*/}
+						/>*/} {/*no ForgotPassword component found*/}
 						<Route path='/mybookings' element={<MyBookings />} />
 						<Route
 							path='/yash'
