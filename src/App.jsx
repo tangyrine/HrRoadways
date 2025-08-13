@@ -45,8 +45,7 @@ const ScrollToTop = lazy(() => import('./components/ScrollToTop'));
 const Login = lazy(() => import('./components/Login'));
 const MyBookings = lazy(() => import('./components/Userprofile'));
 const NotFound = lazy(() => import('./components/NotFound'));
-const ToastTest = lazy(() => import('./components/ToastTest'));
-
+const ToastTest = lazy(() => import('./components/ToastTest')); 
 function BookingPageWrapper() {
 	const location = useLocation();
 	const { selectedBus } = (location && location.state) || {};
