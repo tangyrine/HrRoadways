@@ -36,25 +36,7 @@ function SignUpModal() {
                 socialButtonsPlacement: 'top'
               }
             }}
-            onSignUp={() => {
-              // Set flag for successful registration
-              localStorage.setItem("signup_success", "true");
-              closeModal();
-            }}
           />
-        </div>
-        
-        {/* Custom Login Link */}
-        <div className="text-center mt-4 p-4 border-t border-gray-200">
-          <p className="text-gray-600 text-sm">
-            Already have an account?{' '}
-            <button
-              onClick={() => openModal('login')}
-              className="text-blue-600 hover:text-blue-700 font-medium hover:underline"
-            >
-              Login Here
-            </button>
-          </p>
         </div>
       </div>
     </div>

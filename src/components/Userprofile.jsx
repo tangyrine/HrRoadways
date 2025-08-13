@@ -31,7 +31,7 @@ const MyBookings = () => {
       const shouldShowWelcome = !lastWelcome || (now - parseInt(lastWelcome)) > 5000; // 5 seconds cooldown
       
       if ((loginSuccess === 'success' || localLogin) && shouldShowWelcome) {
-        toast.success("✅ Login successful! Welcome back!", {
+        toast.success(" Login successful! Welcome back!", {
           position: "top-right",
           autoClose: 4000,
           hideProgressBar: false,
