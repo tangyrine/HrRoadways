@@ -14,7 +14,7 @@ import Navigation from './components/nav';
 import Footer from './components/footer';
 import Header from './components/Header';
 
-import BookingPage from './components/BookingPage'; //do not lazy load this
+import BookingPage from './components/BookingPage'; // do not lazy load this
 
 const Hero = lazy(() => import('./components/hero'));
 const Available = lazy(() => import('./components/Available'));
@@ -43,9 +43,12 @@ const WeeklyTimetable = lazy(() => import('./components/Timetable'));
 const TourGuidePage = lazy(() => import('./components/TourGuidePage'));
 const ScrollToTop = lazy(() => import('./components/ScrollToTop'));
 const Login = lazy(() => import('./components/Login'));
+// const Register = lazy(() => import('./components/Register')) // no Register component found
+// const ForgotPassword = lazy(() => import('./components/ForgotPassword')) // no ForgotPassword component found
 const MyBookings = lazy(() => import('./components/Userprofile'));
 const NotFound = lazy(() => import('./components/NotFound'));
-const ToastTest = lazy(() => import('./components/ToastTest')); 
+const ToastTest = lazy(() => import('./components/ToastTest'));
+
 function BookingPageWrapper() {
 	const location = useLocation();
 	const { selectedBus } = (location && location.state) || {};
@@ -111,6 +114,9 @@ function App() {
 							element={<BookingPageWrapper />}
 						/>
 						<Route path='*' element={<NotFound />} />
+						<Route path='/login' element={<Login />} />
+						{/* <Route path='/register' element={<Register />} /> */} {/* no Register component found */}
+						{/* <Route path='/forgot-password' element={<ForgotPassword />} /> */} {/* no ForgotPassword component found */}
 						<Route path='/mybookings' element={<MyBookings />} />
 						<Route
 							path='/yash'
@@ -121,7 +127,7 @@ function App() {
 				</Suspense>
 				<Footer />
 				<ScrollButton />
-				<ToastContainer 
+				<ToastContainer
 					position="top-right"
 					autoClose={4000}
 					hideProgressBar={false}
