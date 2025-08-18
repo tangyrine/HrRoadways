@@ -291,7 +291,7 @@ const BookingPage = ({ selectedBus }) => {
                   <select
                     value={passenger.gender}
                     onChange={e => handlePassengerChange(passenger.seatId, 'gender', e.target.value)}
-                    className="px-4 py-3 border rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-400 transition duration-200"
+                    className="px-4 py-3 border rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-400 transition duration-200 text-gray-700"
                   >
                     <option value="male">Male</option>
                     <option value="female">Female</option>
