@@ -1,20 +1,34 @@
-import React, {useState, useEffect} from "react";
+import React, {useState, useEffect,useRef} from "react";
 import {Heart, Bus, CreditCard, CheckCircle, Clock, Users} from "lucide-react";
 import Loading from "./Loading";
 import useTranslation from "../hooks/useTranslation";
 
 const QRCode = "https://i.postimg.cc/Y0Zv8SGc/HR-QR.png"; // Replace with actual QR if needed
 
+const ErrorSection =()=>{
+  return (
+    <div className="bg-red-100 text-red-800 p-4 rounded-lg">
+      <p className="font-semibold">Invalild Mobile Number.</p>
+    </div>
+  );
+}
+
 const Donate = ({isHindi}) => {
   const {t, loading} = useTranslation(isHindi);
   const [donated, setDonated] = useState(false);
-
+  const [error, setError] = useState(false);
+  const mobileNumber = useRef(null)
   useEffect(() => {
     window.scrollTo(0, 0);
   }, []);
 
   const handleDonate = (e) => {
     e.preventDefault();
+    if (!mobileNumber.current.value || mobileNumber.current.value.trim().length < 10) {
+      setError(true);
+      return;
+    }
+    setError(false);
     setDonated(true);
     setTimeout(() => {
       setDonated(false);
@@ -93,6 +107,7 @@ const Donate = ({isHindi}) => {
               placeholder={t("phoneNumber")}
               className="w-full border border-gray-300 rounded-lg px-4 py-2 focus:outline-none focus:ring-2 focus:ring-blue-500"
               required
+              ref={mobileNumber}
             />
           </div>
 
@@ -140,7 +155,7 @@ const Donate = ({isHindi}) => {
             <CreditCard className="inline mr-2" size={18} />
             {t("donateButton")}
           </button>
-
+          {error && <ErrorSection />}
           {donated && (
             <div className="text-center text-green-600 font-medium">
               <p>{t("thankYou")}</p>
