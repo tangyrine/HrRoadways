@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from "react";
 import { Link } from "react-router-dom";
+<<<<<<< Updated upstream
 import {
   Bus,
   MapPin,
@@ -27,6 +28,12 @@ const XIcon = ({ className }) => (
   </svg>
 );
 
+=======
+import { Bus, MapPin, Clock, Globe, Share } from "lucide-react";
+import { useTranslation } from "react-i18next";
+import "../styles/footer.css";
+import { socialMediaLinks } from "../utils/translationKeyMap";
+>>>>>>> Stashed changes
 function Footer() {
   const { t } = useTranslation();
   const [currentTime, setCurrentTime] = useState(new Date());
@@ -115,6 +122,7 @@ function Footer() {
                 </ul>
               ) : (
                 <div className="footer-social-links">
+<<<<<<< Updated upstream
                   {[
                     {
                       Icon: Facebook,
@@ -141,6 +149,22 @@ function Footer() {
                       <Icon className={`footer-social-icon ${color}`} />
                     </a>
                   ))}
+=======
+                  {socialMediaLinks.map(
+                    ({ Icon, color, href, target, rel, label }, idx) => (
+                      <a
+                        key={idx}
+                        href={href}
+                        target={target}
+                        rel={rel}
+                        aria-label={label}
+                        className="footer-social-link"
+                      >
+                        <Icon className={`footer-social-icon ${color}`} />
+                      </a>
+                    )
+                  )}
+>>>>>>> Stashed changes
                 </div>
               )}
             </div>
