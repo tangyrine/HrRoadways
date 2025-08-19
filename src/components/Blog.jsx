@@ -16,6 +16,7 @@ const BlogPage = ({ isHindi }) => {
   const [selectedCategory, setSelectedCategory] = useState('all');
   const [searchQuery, setSearchQuery] = useState('');
   const [savedPosts, setSavedPosts] = useState(new Set());
+  const [likedPosts, setLikedPosts] = useState(new Set());
   const [sortBy, setSortBy] = useState('latest');
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
@@ -91,9 +92,15 @@ const BlogPage = ({ isHindi }) => {
   }, []);
 
   const handleLike = useCallback((postId) => {
-    setPosts(prev =>
-      prev.map(post => post.id === postId ? { ...post, likes: post.likes + 1 } : post)
-    );
+    setLikedPosts(prev => {
+      if (prev.has(postId)) return prev; // Already liked, do nothing
+      setPosts(posts =>
+        posts.map(post => post.id === postId ? { ...post, likes: post.likes + 1 } : post)
+      );
+      const newSet = new Set(prev);
+      newSet.add(postId);
+      return newSet;
+    });
   }, []);
 
   const filteredPosts = React.useMemo(() => {
@@ -221,7 +228,11 @@ const BlogPage = ({ isHindi }) => {
 
                       <div className="post-actions">
                         <div className="post-actions-left">
-                          <button onClick={() => handleLike(post.id)} className="post-action-button">
+                          <button
+                            onClick={() => handleLike(post.id)}
+                            className="post-action-button"
+                            disabled={likedPosts.has(post.id)}
+                          >
                             <ThumbsUp size={18} /> {post.likes}
                           </button>
                           <button className="post-action-button">
