@@ -1,39 +1,9 @@
 import React, { useState, useEffect } from "react";
 import { Link } from "react-router-dom";
-<<<<<<< Updated upstream
-import {
-  Bus,
-  MapPin,
-  Clock,
-  Globe,
-  Facebook,
-  Instagram,
-  Linkedin,
-  Share,
-} from "lucide-react";
-import { useTranslation } from "react-i18next";
-import "../styles/footer.css";
-
-const XIcon = ({ className }) => (
-  <svg
-    className={className}
-    xmlns="http://www.w3.org/2000/svg"
-    viewBox="0 0 1200 1227"
-    fill="currentColor"
-  >
-    <path
-      d="M713.7 545.7 1160.9 0H1052L677.9 483.4 382.7 0H0l465.2 758.2L0 1226.8h108.9l397.5-500.5 
-    309.7 500.5h382.7L713.7 545.7z"
-    />
-  </svg>
-);
-
-=======
 import { Bus, MapPin, Clock, Globe, Share } from "lucide-react";
 import { useTranslation } from "react-i18next";
 import "../styles/footer.css";
 import { socialMediaLinks } from "../utils/translationKeyMap";
->>>>>>> Stashed changes
 function Footer() {
   const { t } = useTranslation();
   const [currentTime, setCurrentTime] = useState(new Date());
@@ -122,34 +92,6 @@ function Footer() {
                 </ul>
               ) : (
                 <div className="footer-social-links">
-<<<<<<< Updated upstream
-                  {[
-                    {
-                      Icon: Facebook,
-                      color: "social-facebook",
-                      href: "https://facebook.com",
-                    },
-                    {
-                      Icon: XIcon,
-                      color: "social-twitter",
-                      href: "https://x.com/TechwNishant",
-                    },
-                    {
-                      Icon: Instagram,
-                      color: "social-instagram",
-                      href: "https://www.instagram.com/nishantelite/",
-                    },
-                    {
-                      Icon: Linkedin,
-                      color: "social-linkedin",
-                      href: "https://www.linkedin.com/in/nishantrana07/",
-                    },
-                  ].map(({ Icon, color, href }, idx) => (
-                    <a key={idx} href={href} className="footer-social-link">
-                      <Icon className={`footer-social-icon ${color}`} />
-                    </a>
-                  ))}
-=======
                   {socialMediaLinks.map(
                     ({ Icon, color, href, target, rel, label }, idx) => (
                       <a
@@ -164,7 +106,6 @@ function Footer() {
                       </a>
                     )
                   )}
->>>>>>> Stashed changes
                 </div>
               )}
             </div>
