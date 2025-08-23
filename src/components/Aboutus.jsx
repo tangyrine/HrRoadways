@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { FaGithub } from 'react-icons/fa';
 import { useTranslation } from 'react-i18next';
+import androidClubLogo from '../assets/androidclub.png';
 
 function AboutUs() {
   const { t } = useTranslation();
@@ -125,7 +126,7 @@ function AboutUs() {
             target="_blank"
             rel="noopener noreferrer"
           >
-            <img src="../src/assets/androidclub.png" alt="Android Club Logo" className="w-5 h-5" />
+          <img src={androidClubLogo} alt="Android Club Logo" className="w-10 h-10" />
             {t('about.acwoc')}
           </a>
         </div>
