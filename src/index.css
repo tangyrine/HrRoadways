@@ -3,6 +3,7 @@
 @tailwind utilities; */
 
 /* Custom Range Slider Styles */
+@import "leaflet/dist/leaflet.css";
 .range-slider {
   -webkit-appearance: none;
   appearance: none;
