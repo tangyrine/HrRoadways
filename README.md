@@ -30,6 +30,31 @@
 </div>
 
 
+## 📢 Weekly Shoutouts 🎉
+
+  <a href="https://github.com/Keshav1605">
+    <img src="https://github.com/Keshav1605.png" width="80" />
+    <strong>Keshav1605</strong>
+  </a>
+
+  <a href="https://github.com/Soumyosish">
+    <img src="https://github.com/Soumyosish.png" width="80" />
+    <strong>Soumyosish</strong>
+  </a>
+
+  <a href="https://github.com/anjaliitgit">
+    <img src="https://github.com/anjaliitgit.png" width="80"  />
+    <strong>anjaliitgit</strong>
+  </a>
+
+  <a href="https://github.com/Aripilli-Bhavana">
+    <img src="https://github.com/Aripilli-Bhavana.png" width="80"" />
+    <strong>Aripilli-Bhavana</strong>
+  </a>
+
+
+
+
 
 
 <h2 align="center">🌏 National Language Support</h2>
