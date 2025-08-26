@@ -29,6 +29,8 @@
 
 </div>
 
+## Our Events - 
+<a href="https://www.elitecoders.xyz/events/1756104358418"><img src="https://github.com/user-attachments/assets/2e87bdb6-aa0d-42e6-a40c-fd00125d64c2"/></a>
 
 ## 📢 Weekly Shoutouts 🎉
 
