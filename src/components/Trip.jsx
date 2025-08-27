@@ -108,7 +108,14 @@ const HotelCard = ({ hotel, currentLanguage }) => {
   };
 
   return (
-    <div className="bg-white  overflow-hidden border-b border-gray-200 mb-4">
+ <div
+  className="bg-white overflow-hidden border border-gray-200 mb-4 rounded-xl 
+  shadow-sm hover:shadow-xl hover:scale-[1.02] hover:border-blue-400 
+  transition-all duration-500 ease-in-out cursor-pointer
+  hover:-translate-y-1"
+>
+
+
       <div className="flex">
         <div className="relative w-64 h-56 flex-shrink-0">
           <img
