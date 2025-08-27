@@ -13,6 +13,7 @@ import { LanguageProvider } from './contexts/LanguageContext';
 import Navigation from './components/nav';
 import Footer from './components/footer';
 import Header from './components/Header';
+import EcoRoutes from "./components/EcoRoutes";
 
 import BookingPage from './components/BookingPage'; // do not lazy load this
 
@@ -145,3 +146,4 @@ function App() {
 }
 
 export default App;
+
