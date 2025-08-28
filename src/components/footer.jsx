@@ -69,11 +69,24 @@ function Footer() {
                 { label: t("nav.bestrides"), to: "/bestrides" },
               ],
             },
-            {
-              title: t("footer.followUs"),
-              icon: Share,
-              links: [],
-            },
+           <div className="footer-social">
+  <h3>{t("footer.followUs")}</h3>
+  <div className="footer-social-links">
+    {socialMediaLinks.map(({ Icon, color, href, target, rel, label }, idx) => (
+      <a
+        key={idx}
+        href={href}
+        target={target}
+        rel={rel}
+        aria-label={label}
+        className="footer-social-link"
+      >
+        <Icon className={`footer-social-icon ${color}`} />
+      </a>
+    ))}
+  </div>
+</div>
+
           ].map((section, index) => (
             <div key={index} className="footer-section">
               <div className="footer-section-header">
