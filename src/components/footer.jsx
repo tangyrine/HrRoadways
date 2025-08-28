@@ -114,9 +114,7 @@ function Footer() {
 
         <div className="footer-bottom">
           <div className="footer-bottom-content">
-            <Bus className="footer-bottom-icon" />
             <p className="footer-bottom-text">{t("footer.copyright")}</p>
-            <Bus className="footer-bottom-icon" />
           </div>
         </div>
       </div>
