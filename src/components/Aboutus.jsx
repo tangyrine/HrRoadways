@@ -9,6 +9,7 @@ function AboutUs() {
 
   // Tech stack data
   const techStack = [
+    { name: "HTML", description: "Markup Language" },
     { name: "JavaScript", description: "Programming Language" },
     { name: "CSS", description: "Styling" },
     { name: "GitHub", description: "Version Control & Collaboration" },
