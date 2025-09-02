@@ -16,7 +16,7 @@ function Footer() {
   }, []);
 
   return (
-    <footer className="footer">
+    <footer className="footer dark:bg-gray-950 dark:text-white">
       <div className="footer-bg-overlay" />
       <div className="footer-time">
         <div className="footer-time-content">
@@ -127,9 +127,7 @@ function Footer() {
 
         <div className="footer-bottom">
           <div className="footer-bottom-content">
-            <Bus className="footer-bottom-icon" />
             <p className="footer-bottom-text">{t("footer.copyright")}</p>
-            <Bus className="footer-bottom-icon" />
           </div>
         </div>
       </div>
