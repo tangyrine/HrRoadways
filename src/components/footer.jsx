@@ -17,6 +17,7 @@ function Footer() {
 
   return (
     <footer className="footer w-full">
+
       <div className="footer-bg-overlay" />
       <div className="footer-time">
         <div className="footer-time-content">
