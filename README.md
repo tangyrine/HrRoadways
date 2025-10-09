@@ -371,7 +371,7 @@ return (
 * **Always apply translation logic** for new content/pages.
 * **Use PNG/JPG** files and compress images before uploading.
 * **Keep your fork updated** before submitting PRs.
-
+* **Use descriptive commit messages** (e.g., fix: corrected Twitter icon in contact popup instead of update file).
 ---
 
 
